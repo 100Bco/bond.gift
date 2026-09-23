@@ -36,17 +36,16 @@ const serviceChapters = [
 export function HomePage() {
   return (
     <SiteShell>
-      {/* 1. Hero tràn màn hình + dải đếm ngược Tết */}
+      {/* 1. Hero tràn màn hình + đồng hồ đếm ngược Tết */}
       <HomeStage
         label="Quà tặng · Bao bì · Vật phẩm"
         title={<>Relationships, <span className="foil">compounded.</span></>}
         sub="Mối quan hệ, được nhân lên theo thời gian."
         actions={<><ButtonLink href="/bo-suu-tap">Xem bộ sưu tập</ButtonLink><ButtonLink href="/lien-he" variant="secondary">Trao đổi cùng BOND</ButtonLink></>}
-        media={<Media ratio="auto" tone="paper" motion="box" art="magenta" priority asset="Ảnh / video hero toàn màn hình: bộ quà BOND trên nền sáng, nhiều khoảng trống phía trên" alt="Minh họa hộp quà BOND" />}
       />
 
       {/* 2. Tuyên ngôn: một ý, nhiều khoảng trống */}
-      <Section tone="magenta" className="home-meaning">
+      <Section tone="magenta" className="home-meaning" id="home-meaning">
         <Reveal className="home-meaning-inner">
           <Label>Vì sao là BOND</Label>
           <h2 className="t-display-l">Một món quà không phải chi phí.</h2>
