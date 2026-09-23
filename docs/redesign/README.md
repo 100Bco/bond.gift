@@ -212,13 +212,15 @@ Sửa: `index.html`, `src/App.tsx` (chỉ còn router), `src/index.css` (chỉ c
 
 Xóa: `public/favicon.svg` (ô cam ngoài brand), `src/pages/not-found.tsx` (không được dùng).
 
-Không đổi: `public/sitemap.xml`, `robots.txt`, `llms.txt`, `src/components/ui/*`, `error-boundary.tsx`, `main.tsx`, `vite.config.ts`. Thư mục `dist/` là bản build cũ được commit sẵn, không build lại (build chính thức chạy qua pipeline Replit với `BASE_PATH`).
+Không đổi: `public/sitemap.xml`, `robots.txt`, `llms.txt`, `src/components/ui/*`, `error-boundary.tsx`, `main.tsx`.
+
+Deploy: `package.json` (thay manifest workspace Replit bằng manifest của app, giữ nguyên phiên bản dependency), `pnpm-lock.yaml` (tạo lại), `vite.config.ts` (không bắt buộc `PORT`/`BASE_PATH`, build ra `dist/`), `tsconfig.json` (bỏ reference tới `lib/*` không tồn tại), `pnpm-workspace.yaml` (bỏ danh sách package workspace, giữ `minimumReleaseAge`), `vercel.json` (framework Vite, SPA rewrite, cache font). Thư mục `dist/` cũ đã gỡ khỏi git.
 
 ---
 
 ## 7. Xác nhận kiểm tra
 
-Repo này không có `package.json` riêng cho app (là bản export từ workspace `artifacts/bond-website`), nên việc kiểm tra chạy qua một harness Vite/TypeScript tạm với cùng phiên bản dependency trong `pnpm-lock.yaml`.
+Repo đã được chuyển thành một app Vite độc lập (`package.json`, `pnpm-lock.yaml`, `vite.config.ts`, `vercel.json`), không còn phụ thuộc workspace Replit. Chạy local: `pnpm install`, `pnpm dev`, `pnpm build`, `pnpm typecheck`.
 
 - **Build**: `vite build` thành công. **Typecheck**: `tsc` với `tsconfig.base.json` + `noUnusedLocals`, 0 lỗi.
 - **Route**: 36 URL (toàn bộ sitemap, các slug chi tiết, slug không tồn tại, `/kit/*`, 404) đều render, mỗi trang đúng 1 `h1`, không rơi vào error boundary, 0 lỗi console, 0 ảnh thiếu `alt`, không nhảy cấp heading.
