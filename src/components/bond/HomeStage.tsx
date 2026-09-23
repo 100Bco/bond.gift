@@ -1,7 +1,4 @@
 import { type ReactNode, useEffect, useState } from 'react';
-import { Link } from 'wouter';
-import { tetSchedule } from './TetCountdown';
-import { Label } from './primitives';
 
 /*
  * Hero trang chủ tràn màn hình, nền trắng: tên thương hiệu và đồng hồ đếm ngược
@@ -18,29 +15,26 @@ function useNow() {
   return now;
 }
 
-export function HomeStage({ label, title, sub, actions }: { label: ReactNode; title: ReactNode; sub: ReactNode; actions: ReactNode }) {
+export function HomeStage({ title, sub }: { title: ReactNode; sub: ReactNode }) {
   const now = useNow();
   const left = TET_VN - now;
   return (
     <section className="home-stage" aria-labelledby="home-title">
       <div className="container home-stage-copy">
-        <Label className="hero-label">{label}</Label>
         <h1 id="home-title" className="t-brand home-stage-title">{title}</h1>
         <p className="home-stage-sub">{sub}</p>
-        <div className="hero-actions">{actions}</div>
       </div>
-      {left > 0 && <Countdown left={left} now={now} />}
+      {left > 0 && <Countdown left={left} />}
       <a href="#home-meaning" className="home-stage-cue">Cuộn để khám phá<span aria-hidden="true" /></a>
     </section>
   );
 }
 
-function Countdown({ left, now }: { left: number; now: number }) {
+function Countdown({ left }: { left: number }) {
   const days = Math.floor(left / 86_400_000);
   const hours = Math.floor(left / 3_600_000) % 24;
   const mins = Math.floor(left / 60_000) % 60;
   const secs = Math.floor(left / 1000) % 60;
-  const schedule = tetSchedule(now);
   const units: [number, string][] = [[days, 'Ngày'], [hours, 'Giờ'], [mins, 'Phút'], [secs, 'Giây']];
   return (
     <div className="container tet-clock-wrap">
@@ -56,11 +50,6 @@ function Countdown({ left, now }: { left: number; now: number }) {
           </div>
         ))}
       </div>
-      <p className="tet-clock-note">
-        Mùng 1 Tết: 6/2/2027
-        {schedule?.beforeDeadline && <> · Chốt hướng thiết kế trước giữa tháng 10, còn {schedule.weeksToDeadline} tuần</>}
-        {' · '}<Link href="/qua-tang/tet">Quà Tết doanh nghiệp 2027</Link>
-      </p>
     </div>
   );
 }

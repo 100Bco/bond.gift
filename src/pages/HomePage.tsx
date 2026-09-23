@@ -4,7 +4,7 @@ import { catalog, ecosystem, partners, projects } from '@/data/content';
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { Media } from '@/components/bond/Media';
 import { Reveal } from '@/components/bond/Reveal';
-import { ButtonLink, Label, LogoWall, SectionIntro, TextLink, TrustRow } from '@/components/bond/primitives';
+import { Label, LogoWall, SectionIntro, TextLink, TrustRow } from '@/components/bond/primitives';
 import { HomeStage } from '@/components/bond/HomeStage';
 import { UnboxingStory } from '@/components/bond/UnboxingStory';
 import { FinalCta, Section } from '@/components/bond/sections';
@@ -38,10 +38,8 @@ export function HomePage() {
     <SiteShell>
       {/* 1. Hero tràn màn hình + đồng hồ đếm ngược Tết */}
       <HomeStage
-        label="Quà tặng · Bao bì · Vật phẩm"
         title={<>Relationships, <span className="foil">compounded.</span></>}
         sub="Mối quan hệ, được nhân lên theo thời gian."
-        actions={<><ButtonLink href="/bo-suu-tap">Xem bộ sưu tập</ButtonLink><ButtonLink href="/lien-he" variant="secondary">Trao đổi cùng BOND</ButtonLink></>}
       />
 
       {/* 2. Tuyên ngôn: một ý, nhiều khoảng trống */}
@@ -103,8 +101,8 @@ export function HomePage() {
         <SectionIntro label="Bộ sưu tập" title="Chọn một hướng đi.">
           <p><TextLink href="/bo-suu-tap">Xem toàn bộ thư viện</TextLink></p>
         </SectionIntro>
-        <Carousel label="Bộ sưu tập nổi bật">
-          {catalog.slice(0, 6).map((product) => <CollectionCard key={product.slug} product={product} />)}
+        <Carousel label="Bộ sưu tập nổi bật" rows={2}>
+          {catalog.map((product) => <CollectionCard key={product.slug} product={product} />)}
         </Carousel>
       </Section>
 
