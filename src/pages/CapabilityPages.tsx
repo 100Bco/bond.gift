@@ -3,7 +3,7 @@ import { capabilityGroups, ecosystem, partners, projects } from '@/data/content'
 import { Breadcrumbs, SiteShell } from '@/components/layout/SiteChrome';
 import { Media } from '@/components/bond/Media';
 import { Reveal } from '@/components/bond/Reveal';
-import { ButtonLink, ChapterNumber, Label, LogoWall, SectionIntro, TextLink } from '@/components/bond/primitives';
+import { ButtonLink, ChapterNav, ChapterNumber, Label, LogoWall, NextChapter, SectionIntro, TextLink } from '@/components/bond/primitives';
 import { Chapter, EditorialHero, FinalCta, MetricBand, Section, Statement } from '@/components/bond/sections';
 import { ProjectCard } from '@/components/bond/cards';
 import { Link } from 'wouter';
@@ -30,9 +30,12 @@ export function CapabilitiesPage() {
       />
       <MetricBand tone="ink" items={scaleMetrics} />
 
+      <div className="chapter-group">
+      <ChapterNav label="Các năng lực" items={capabilityGroups.map((item) => ({ id: `nl-${item.slug}`, title: item.title }))} />
       {capabilityGroups.map((item, index) => (
         <Chapter
           key={item.slug}
+          id={`nl-${item.slug}`}
           number={index + 1}
           total={capabilityGroups.length}
           tone={(['canvas', 'paper', 'sage', 'canvas', 'deep', 'paper'] as const)[index]}
@@ -41,11 +44,15 @@ export function CapabilitiesPage() {
           spacing="tight"
           title={item.title}
           media={<Media ratio={index % 3 === 0 ? '3 / 2' : '4 / 5'} tone={index % 2 ? 'canvas' : 'deep'} asset={item.asset} alt={item.title} />}
-          footer={<TextLink href={`/nang-luc/${item.slug}`}>Xem năng lực {item.title.toLowerCase()}</TextLink>}
+          footer={<>
+            <TextLink href={`/nang-luc/${item.slug}`}>Xem năng lực {item.title.toLowerCase()}</TextLink>
+            {capabilityGroups[index + 1] && <NextChapter id={`nl-${capabilityGroups[index + 1].slug}`} title={capabilityGroups[index + 1].title} />}
+          </>}
         >
           <p className="t-body-l">{item.copy}</p>
         </Chapter>
       ))}
+      </div>
 
       <Section tone="canvas">
         <LogoWall title="Các thương hiệu đã đồng hành cùng hệ sinh thái 100B" items={partners} />

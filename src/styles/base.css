@@ -73,6 +73,11 @@ main:focus { outline: none; }
   font-weight: 600;
   text-wrap: balance;
 }
+/* Headline lớn dùng weight 500: dịu mắt nhưng vẫn tự tin; cấp nhỏ giữ 600 để đọc rõ */
+.t-display-xl,
+.t-display-l,
+.t-h1,
+.t-h2 { font-weight: 500; }
 .t-display-xl { font-size: var(--fs-display-xl); line-height: var(--lh-display); letter-spacing: var(--tracking-display); }
 .t-display-l { font-size: var(--fs-display-l); line-height: var(--lh-display); letter-spacing: var(--tracking-display); }
 .t-h1 { font-size: var(--fs-h1); line-height: 1.02; letter-spacing: -0.04em; }

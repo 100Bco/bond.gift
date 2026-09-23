@@ -404,3 +404,17 @@
   .logo-wall-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .section-intro-split { grid-template-columns: 1fr; }
 }
+
+/* ---------- Chapter nav & next chapter ---------- */
+.chapter-nav { position: sticky; top: var(--header-h); z-index: 10; background: rgba(252, 250, 246, 0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--color-border); }
+.chapter-nav-list { display: flex; gap: 8px; max-width: var(--container-max); margin: 0 auto; padding: 12px var(--gutter); overflow-x: auto; scrollbar-width: none; }
+.chapter-nav-list::-webkit-scrollbar { display: none; }
+.chapter-nav-link { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px; border-radius: var(--radius-pill); background: var(--bond-white); border: 1px solid var(--color-border); font-size: var(--fs-small); font-weight: 500; white-space: nowrap; transition: border-color var(--dur-fast) var(--ease-out); }
+.chapter-nav-link .t-numeral { color: var(--bond-magenta); font-size: 14px; }
+.chapter-nav-link:hover { border-color: var(--bond-ink); }
+.next-chapter { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: var(--fs-small); font-weight: 600; color: var(--color-text-subtle); }
+.next-chapter-label { font-size: var(--fs-label); letter-spacing: var(--tracking-label); color: var(--color-text-muted); }
+.next-chapter svg { color: var(--bond-magenta); transition: transform var(--dur-base) var(--ease-out); }
+.next-chapter:hover svg { transform: translateY(3px); }
+.tone-magenta .next-chapter svg, .tone-ink .next-chapter svg { color: currentColor; }
+.chapter { scroll-margin-top: calc(var(--header-h) + 68px); }

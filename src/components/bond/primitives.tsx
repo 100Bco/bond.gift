@@ -1,5 +1,5 @@
 import { type ReactNode, useId, useState } from 'react';
-import { ArrowRight, ArrowUpRight, Plus } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Plus } from 'lucide-react';
 import { Link } from 'wouter';
 
 /* ---------- Buttons & links ---------- */
@@ -169,5 +169,35 @@ export function LogoWall({ title, items }: { title: string; items: { name: strin
       </ul>
       {missing > 0 && <p className="logo-wall-note">Logo chính thức đang được bổ sung.</p>}
     </div>
+  );
+}
+
+/* ---------- Chapter nav: chip đánh số nhảy tới từng chapter trong trang ---------- */
+
+export function ChapterNav({ label, items }: { label: string; items: { id: string; title: string }[] }) {
+  return (
+    <nav className="chapter-nav" aria-label={label}>
+      <ol className="chapter-nav-list">
+        {items.map((item, index) => (
+          <li key={item.id}>
+            <a href={`#${item.id}`} className="chapter-nav-link">
+              <span className="t-numeral">{String(index + 1).padStart(2, '0')}</span>
+              <span>{item.title}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
+
+/** Link sang chapter kế tiếp, đặt ở cuối mỗi chapter. */
+export function NextChapter({ id, title }: { id: string; title: string }) {
+  return (
+    <a href={`#${id}`} className="next-chapter">
+      <span className="next-chapter-label">Tiếp theo</span>
+      <span>{title}</span>
+      <ArrowDown size={16} aria-hidden="true" />
+    </a>
   );
 }

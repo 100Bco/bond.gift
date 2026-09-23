@@ -3,7 +3,18 @@
 Tài liệu bàn giao cho đợt redesign UI toàn bộ bond.vn và kit.bond.vn.
 Phạm vi: chỉ giao diện. Sitemap, URL, navigation architecture và UX flow cốt lõi giữ nguyên.
 
-Ghi chú về tham khảo: trong môi trường làm việc, givingli.com bị chặn bởi network proxy nên không truy cập trực tiếp được. Các nguyên tắc học từ Givingli (visual sản phẩm lớn, section một ý chính, nền màu theo khối, numbered chapter cho từng nhóm sản phẩm, motion giải thích sản phẩm) được lấy từ brief. Không có layout, code, nội dung, hình ảnh hay animation nào được sao chép.
+Tham khảo Givingli: đã xem trực tiếp 7 trang (home, about, business-gifting-platform, features, solutions, gift-options, pricing) ở 1440px và 390px sau khi mở network access cho `givingli.com`. Không có layout, code, nội dung, hình ảnh hay animation nào được sao chép; ảnh chụp Givingli không được đưa vào repo.
+
+Nguyên tắc rút ra và cách BOND chuyển hóa:
+
+| Quan sát ở Givingli | Áp dụng cho BOND |
+|---|---|
+| Headline rất lớn nhưng weight thường, tracking chặt: dịu mà vẫn tự tin | Display, H1, H2 dùng Be Vietnam Pro 500; H3, H4 giữ 600 để đọc rõ ở cỡ nhỏ |
+| Mỗi dòng sản phẩm là một chapter full-bleed có số thứ tự nhỏ, tiêu đề lớn, một đoạn ngắn, một CTA nhỏ, một visual | Ba service chapter trên trang chủ, chapter trên trang chi tiết mẫu, năng lực, dịch vụ |
+| Nền đổi màu mạnh theo từng khối (đỏ, giấy, gần đen) tạo nhịp | Tone canvas / paper / deep / sage / ink / magenta, ink chỉ cho proof và năng lực |
+| Trang gift options có hàng chip đánh số nhảy tới từng lựa chọn và link "tiếp theo" cuối mỗi chapter | `ChapterNav` (sticky) + `NextChapter` trên trang chi tiết mẫu và trang năng lực |
+| Sản phẩm là nhân vật chính, chụp như vật thể thật có bóng đổ | Media frame lớn, Product Motion có bóng sàn; ảnh thật sẽ thay khi có asset |
+| Trang solutions dùng nhiều card nhỏ đồng kích thước | Không áp dụng (trái với brief); BOND dùng showcase card lớn |
 
 ---
 
@@ -87,7 +98,7 @@ Line-height: display 0.94, heading 1.02–1.12, body 1.6. Body bài viết 18px,
 
 ### 2.3 Quy tắc font
 
-- `Be Vietnam Pro`: mọi heading, body, navigation, label, UI. Headline tiếng Việt luôn dùng font này (weight 600, tracking âm).
+- `Be Vietnam Pro`: mọi heading, body, navigation, label, UI. Headline tiếng Việt luôn dùng font này (display, H1, H2 weight 500; H3, H4 weight 600; tracking âm).
 - `Gothic BOND` (`.t-brand`, `.t-numeral`): chỉ câu tiếng Anh ("Relationships, compounded.", tên mẫu Signature như "Red Archive") và chữ số (01/03, 100B, 6—10). Lý do: file font thiếu glyph tiếng Việt.
 - Nếu BOND có bản Gothic BOND đầy đủ tiếng Việt, chỉ cần thay `public/fonts/gothic-bond-latin.woff2` và có thể mở rộng role cho headline tiếng Việt.
 
@@ -115,6 +126,7 @@ Line-height: display 0.94, heading 1.02–1.12, body 1.6. Body bài viết 18px,
 | Filter chip | `FilterChips` | Giữ nguyên logic lọc, thêm `aria-pressed` |
 | Section intro | `SectionIntro` | split / stack / center |
 | Metric block | `Metric` | |
+| Chapter nav, next chapter | `ChapterNav`, `NextChapter` | Chip đánh số dính dưới header để nhảy tới chapter; link sang chapter kế tiếp |
 | Accordion | `Accordion` | Nút thật, `aria-expanded`, `aria-controls`, không border đậm |
 | Form field | `Field` | Input 52px, label luôn hiển thị, focus ring magenta-soft |
 | Quote / key takeaway | `Quote` | Nền magenta-soft + dấu graphic language |

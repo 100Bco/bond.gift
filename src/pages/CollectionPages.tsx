@@ -4,7 +4,7 @@ import { budgetFilters, catalog, type CatalogItem } from '@/data/content';
 import { Breadcrumbs, SiteShell } from '@/components/layout/SiteChrome';
 import { Media } from '@/components/bond/Media';
 import { Reveal } from '@/components/bond/Reveal';
-import { ButtonLink, ChapterNumber, FilterChips, Label, SectionIntro, Tag, TextLink } from '@/components/bond/primitives';
+import { ButtonLink, ChapterNav, ChapterNumber, FilterChips, Label, NextChapter, SectionIntro, Tag, TextLink } from '@/components/bond/primitives';
 import { Chapter, EditorialHero, FinalCta, Section } from '@/components/bond/sections';
 import { CollectionCard } from '@/components/bond/cards';
 
@@ -111,11 +111,20 @@ export function CatalogDetailPage() {
         </div>
       </Section>
 
+      <div className="chapter-group">
+      <ChapterNav label="Các phần của mẫu" items={[
+        { id: 'diem-noi-bat', title: 'Điểm làm nên mẫu này' },
+        { id: 'cau-truc', title: 'Cấu trúc và chất liệu' },
+        { id: 'phien-ban', title: 'Phiên bản riêng' },
+        { id: 'boi-canh', title: 'Bối cảnh sử dụng' },
+      ]} />
       {/* 4. Điểm làm nên mẫu này */}
       <Chapter
+        id="diem-noi-bat"
         number={1}
         total={4}
         tone="paper"
+        footer={<NextChapter id="cau-truc" title="Cấu trúc và chất liệu" />}
         title="Điểm làm nên mẫu này"
         media={<Media ratio="1 / 1" tone="canvas" motion={product.motion} art={product.art} alt="" />}
       >
@@ -125,9 +134,11 @@ export function CatalogDetailPage() {
 
       {/* 5. Cấu trúc, chất liệu, kỹ thuật */}
       <Chapter
+        id="cau-truc"
         number={2}
         total={4}
         tone="canvas"
+        footer={<NextChapter id="phien-ban" title="Phiên bản riêng" />}
         reverse
         mediaSize="half"
         label="Cấu trúc và chất liệu"
@@ -143,9 +154,11 @@ export function CatalogDetailPage() {
 
       {/* 6. Phiên bản và tùy biến */}
       <Chapter
+        id="phien-ban"
         number={3}
         total={4}
         tone="sage"
+        footer={<NextChapter id="boi-canh" title="Bối cảnh sử dụng" />}
         label="Phiên bản riêng"
         title="Mẫu sau khi hoàn thiện thuộc về riêng anh chị."
         media={<Media ratio="5 / 4" tone="canvas" motion="colorway" art={product.art} asset="Ảnh các phiên bản màu đặt cạnh nhau" alt="Minh họa các phiên bản màu" />}
@@ -158,6 +171,7 @@ export function CatalogDetailPage() {
 
       {/* 7. Bối cảnh sử dụng */}
       <Chapter
+        id="boi-canh"
         number={4}
         total={4}
         tone="canvas"
@@ -167,6 +181,8 @@ export function CatalogDetailPage() {
         media={<Media ratio="3 / 2" tone="paper" asset={`Ảnh ${product.name} trong bối cảnh tặng thực tế`} alt={`${product.name} trong bối cảnh tặng`} />}
         footer={occasion && <TextLink href={occasion[0]}>{occasion[1]}</TextLink>}
       />
+
+      </div>
 
       {/* 8. Sản phẩm liên quan */}
       <Section tone="deep">
