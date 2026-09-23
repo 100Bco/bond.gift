@@ -1,9 +1,13 @@
 import type { ReactNode } from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'wouter';
 import type { CatalogItem, Post, Project, ServiceItem, Tone } from '@/data/content';
 import { Media } from './Media';
 import { ChapterNumber, Tag } from './primitives';
+
+function CardMore({ children }: { children: ReactNode }) {
+  return <span className="card-more" aria-hidden="true">{children}<ArrowRight size={15} /></span>;
+}
 
 /* ---------- Collection card: ảnh chiếm phần lớn card, thông tin nằm dưới ảnh ---------- */
 
@@ -18,6 +22,7 @@ export function CollectionCard({ product, size = 'm', headingLevel = 3 }: { prod
           <Tag tone="accent">{product.budget}</Tag>
         </div>
         <p className="card-meta">{product.material} · {product.style} · {product.occasion}</p>
+        <CardMore>Xem mẫu</CardMore>
       </div>
     </Link>
   );
@@ -27,7 +32,7 @@ export function CollectionCard({ product, size = 'm', headingLevel = 3 }: { prod
 
 export function ProjectCard({ project, variant = 'square', index }: { project: Project; variant?: 'feature' | 'wide' | 'tall' | 'square'; index?: number }) {
   const ratio = { feature: '16 / 9', wide: '3 / 2', tall: '4 / 5', square: '1 / 1' }[variant];
-  const tone: Tone = index !== undefined && index % 2 ? 'sage' : 'deep';
+  const tone: Tone = 'paper';
   return (
     <Link className={`card card-project card-project-${variant}`} href={`/du-an/${project.slug}`}>
       <Media ratio={ratio} tone={tone} asset={project.asset} alt={project.title} />
@@ -37,8 +42,9 @@ export function ProjectCard({ project, variant = 'square', index }: { project: P
           <div><dt>Phạm vi</dt><dd>{project.scope}</dd></div>
           {project.year && <div><dt>Năm</dt><dd>{project.year}</dd></div>}
         </dl>
-        <h3 className={variant === 'feature' ? 't-h2' : 't-h3'}>{project.title}</h3>
+        <h3 className={variant === 'feature' ? 't-h2' : variant === 'square' ? 't-h4' : 't-h3'}>{project.title}</h3>
         {variant === 'feature' && project.summary && <p className="t-body-l card-summary">{project.summary}</p>}
+        <CardMore>Xem dự án</CardMore>
       </div>
     </Link>
   );
@@ -49,11 +55,12 @@ export function ProjectCard({ project, variant = 'square', index }: { project: P
 export function ArticleCard({ post, featured = false }: { post: Post; featured?: boolean }) {
   return (
     <Link className={`card card-article ${featured ? 'card-article-featured' : ''}`} href={`/goc-nhin/${post.slug}`}>
-      <Media ratio={featured ? '4 / 3' : '3 / 2'} tone={featured ? 'magenta' : 'deep'} motion={post.motion} art={featured ? 'silk' : 'magenta'} play={featured ? 'inview' : 'hover'} asset="Ảnh minh họa bài viết theo art direction BOND" alt="" />
+      <Media ratio={featured ? '4 / 3' : '3 / 2'} tone={featured ? 'magenta' : 'paper'} motion={post.motion} art={featured ? 'silk' : 'magenta'} play={featured ? 'inview' : 'hover'} asset="Ảnh minh họa bài viết theo art direction BOND" alt="" />
       <div className="card-body">
         <p className="card-meta">{post.category} · Đọc trong 5 phút</p>
         <h3 className={featured ? 't-h2' : 't-h4'}>{post.title}</h3>
         {featured && <p className="t-body-l card-summary">{post.excerpt}</p>}
+        <CardMore>Đọc bài</CardMore>
       </div>
     </Link>
   );
@@ -69,7 +76,7 @@ export function ShowcaseCard({ item, href, index, total, tone = 'paper', size = 
         <ChapterNumber n={index + 1} total={total} />
         <h3 className={size === 'l' ? 't-h2' : 't-h3'}>{item.title}</h3>
         <p className="card-copy">{item.copy}</p>
-        <span className="text-link" aria-hidden="true"><span>Xem giải pháp</span><ArrowUpRight size={16} /></span>
+        <CardMore>Xem giải pháp</CardMore>
       </div>
     </Link>
   );

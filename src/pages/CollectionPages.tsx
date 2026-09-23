@@ -22,7 +22,6 @@ const occasionToGift: Record<string, [string, string]> = {
 export function CollectionPage() {
   const [activeFilter, setActiveFilter] = useState('Tất cả');
   const visibleProducts = useMemo(() => activeFilter === 'Tất cả' ? catalog : catalog.filter((product) => product.budget === activeFilter), [activeFilter]);
-  const [featured, ...rest] = visibleProducts;
   return (
     <SiteShell>
       <Breadcrumbs items={[{ label: 'Bộ sưu tập' }]} />
@@ -47,16 +46,9 @@ export function CollectionPage() {
           <p className="t-small t-muted collection-explainer"><strong>Ngân sách này gồm những gì?</strong> Con số tính cho trọn bộ: hộp, bao bì, sản phẩm bên trong, thiệp và đóng gói hoàn thiện. Sản lượng ảnh hưởng đáng kể đến con số cuối.</p>
         </div>
         <p className="sr-only" aria-live="polite">{visibleProducts.length} mẫu</p>
-        {featured && (
-          <div className="collection-featured">
-            <CollectionCard product={featured} size="l" headingLevel={2} />
-          </div>
-        )}
-        {rest.length > 0 && (
-          <div className="collection-grid">
-            {rest.map((product) => <CollectionCard key={product.slug} product={product} headingLevel={2} />)}
-          </div>
-        )}
+        <div className="collection-grid">
+          {visibleProducts.map((product) => <CollectionCard key={product.slug} product={product} headingLevel={2} />)}
+        </div>
       </Section>
 
       <EngagementModels />
@@ -229,7 +221,7 @@ export function SignaturePage() {
       />
 
       {signatureItems.map((item, index) => (
-        <section key={item.name} className={`section signature-item section-space-default ${index % 2 ? 'signature-item-reverse' : ''}`}>
+        <section key={item.name} className="section signature-item section-space-default">
           <div className="container">
             <Media ratio="16 / 9" tone={item.tone} motion={item.motion} art={item.art} asset={`Ảnh art direction ${item.name}: still-life, ánh sáng có chủ đích`} alt={`Minh họa ${item.name}`} />
             <Reveal className="signature-item-copy">

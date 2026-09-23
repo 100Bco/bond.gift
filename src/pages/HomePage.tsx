@@ -1,11 +1,12 @@
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'wouter';
-import { catalog, ecosystem, giftOccasions, merchandiseGroups, packagingGroups, partners, processSteps, projects } from '@/data/content';
+import { catalog, ecosystem, giftOccasions, merchandiseGroups, packagingGroups, partners, projects } from '@/data/content';
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { Media } from '@/components/bond/Media';
 import { Reveal } from '@/components/bond/Reveal';
 import { ButtonLink, Label, LogoWall, SectionIntro, TextLink, TrustRow } from '@/components/bond/primitives';
 import { TetCountdown } from '@/components/bond/TetCountdown';
+import { StepCarousel } from '@/components/bond/StepCarousel';
 import { Chapter, EditorialHero, FinalCta, MetricBand, Section } from '@/components/bond/sections';
 import { CollectionCard, ProjectCard } from '@/components/bond/cards';
 import { ContactForm } from '@/components/bond/ContactForm';
@@ -17,6 +18,7 @@ const serviceChapters = [
     copy: 'Tết, tri ân đối tác, sự kiện, nội bộ. Thiết kế riêng, nguồn hàng tuyển chọn, giao đến từng điểm nhận.',
     groups: giftOccasions.slice(0, 4).map((item): [string, string] => [item.title, `/qua-tang/${item.slug}`]),
     media: <Media ratio="5 / 4" tone="magenta" motion="box" art="silk" asset="Video loop bộ quà Tết mở nắp, ánh sáng ấm" alt="Minh họa hộp quà mở nắp" />,
+    heroMedia: <Media ratio="4 / 5" tone="paper" motion="box" art="magenta" priority play="hover" asset="Ảnh bộ quà doanh nghiệp đã sản xuất" alt="Minh họa hộp quà BOND" />,
     tone: 'canvas' as const,
   },
   {
@@ -25,6 +27,7 @@ const serviceChapters = [
     copy: 'Hộp, túi, thiệp và ấn phẩm cho thời trang, trang sức, mỹ phẩm, FMCG.',
     groups: [...packagingGroups.slice(0, 3).map((item): [string, string] => [item.title, `/bao-bi/${item.slug}`]), ['Bao bì theo ngành', '/bao-bi'] as [string, string]],
     media: <Media ratio="5 / 4" tone="paper" motion="layers" art="tea" asset="Video các lớp bao bì tách ra rồi ghép lại" alt="Minh họa các lớp bao bì" />,
+    heroMedia: <Media ratio="4 / 5" tone="paper" motion="layers" art="magenta" priority play="hover" asset="Ảnh bao bì thương hiệu đã sản xuất" alt="Minh họa bao bì thương hiệu" />,
     tone: 'deep' as const,
   },
   {
@@ -33,6 +36,7 @@ const serviceChapters = [
     copy: 'Vật phẩm sự kiện, vật phẩm thương hiệu, POSM. Vận hành ở quy mô lớn nhiều năm.',
     groups: merchandiseGroups.map((item): [string, string] => [item.title, `/vat-pham/${item.slug}`]),
     media: <Media ratio="5 / 4" tone="canvas" motion="kit" art="slate" asset="Video bộ vật phẩm lần lượt xuất hiện trong kit" alt="Minh họa bộ vật phẩm" />,
+    heroMedia: <Media ratio="4 / 5" tone="paper" motion="kit" art="slate" priority play="hover" asset="Ảnh bộ vật phẩm quảng cáo đã sản xuất" alt="Minh họa bộ vật phẩm" />,
     tone: 'sage' as const,
   },
 ];
@@ -40,18 +44,28 @@ const serviceChapters = [
 export function HomePage() {
   return (
     <SiteShell>
-      {/* 1. Hero statement */}
+      {/* 1. Hero statement: căn giữa, ba dòng sản phẩm xếp đều bên dưới */}
       <EditorialHero
         className="home-hero"
-        layout="split"
         size="xl"
         brandTitle
         label="Quà tặng · Bao bì · Vật phẩm"
         title={<>Relationships,<br /><span className="accent">compounded.</span></>}
         lead={<><p className="home-hero-sub">Mối quan hệ, được nhân lên theo thời gian.</p><p>BOND thiết kế và sản xuất trọn gói quà tặng doanh nghiệp, bao bì và vật phẩm quảng cáo. Thành viên hệ sinh thái 100B.</p></>}
         actions={<><ButtonLink href="/bo-suu-tap">Xem bộ sưu tập</ButtonLink><ButtonLink href="/lien-he" variant="secondary">Trao đổi cùng BOND</ButtonLink></>}
-        aside={<p className="home-hero-aside"><span className="t-label">Design-led production since 2019</span><br />Một món quà đúng lúc có thể mở ra một mùa hợp tác mới.</p>}
-        media={<Media ratio="4 / 5" tone="deep" motion="box" art="magenta" priority asset="Ảnh hero: bộ quà BOND đã sản xuất, still-life trên nền giấy" alt="Minh họa hộp quà BOND mở nắp" />}
+        aside={<TrustRow className="home-hero-trust" />}
+        media={
+          <ul className="hero-trio">
+            {serviceChapters.map((chapter) => (
+              <li key={chapter.href}>
+                <Link href={chapter.href} className="hero-trio-item media-hover">
+                  <span className="hero-trio-label">{chapter.title}</span>
+                  {chapter.heroMedia}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        }
       />
 
       {/* 2. Brand proposition */}
@@ -129,35 +143,18 @@ export function HomePage() {
           <p>Hơn 40 thiết kế, ở mọi mức ngân sách, đều có thể phát triển thành phiên bản riêng của thương hiệu anh chị.</p>
           <p><TextLink href="/bo-suu-tap">Xem toàn bộ thư viện</TextLink></p>
         </SectionIntro>
-        <div className="home-collection-grid">
-          {catalog.slice(0, 4).map((product) => <CollectionCard key={product.slug} product={product} />)}
+        <div className="collection-grid">
+          {catalog.slice(0, 6).map((product) => <CollectionCard key={product.slug} product={product} />)}
         </div>
       </Section>
 
-      {/* 6. Quy trình */}
+      {/* 6. Quy trình: các bước dạng card đều nhau, điều khiển tay */}
       <Section tone="canvas" className="home-process">
-        <div className="home-process-grid">
-          <div className="home-process-copy">
-            <SectionIntro align="stack" label="05 — Quy trình" title={<>Rõ từng mốc.<br />Chắc từng bước.</>}>
-              Đơn thiết kế riêng thường mất 6—10 tuần từ brief đến giao hàng. Chúng tôi nói rõ ngay từ đầu.
-            </SectionIntro>
-            <ol className="step-list">
-              {processSteps.slice(0, 5).map((step) => (
-                <li key={step.number}>
-                  <span className="t-numeral step-list-no">{step.number}</span>
-                  <div>
-                    <h3 className="t-h4">{step.title}</h3>
-                    <p className="t-small t-muted">{step.duration} · {step.copy}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-            <ButtonLink href="/quy-trinh" variant="secondary">Xem quy trình đầy đủ</ButtonLink>
-          </div>
-          <div className="home-process-media">
-            <Media ratio="4 / 5" tone="sage" motion="journey-production" art="magenta" asset="Video hậu trường sản xuất và đóng gói (ảnh thật)" alt="Minh họa dây chuyền sản xuất và đóng gói" />
-          </div>
-        </div>
+        <SectionIntro label="05 — Quy trình" title={<>Rõ từng mốc.<br />Chắc từng bước.</>}>
+          Đơn thiết kế riêng thường mất 6—10 tuần từ brief đến giao hàng. Chúng tôi nói rõ ngay từ đầu.
+        </SectionIntro>
+        <StepCarousel />
+        <div className="section-cta"><ButtonLink href="/quy-trinh" variant="secondary">Xem quy trình đầy đủ</ButtonLink></div>
       </Section>
 
       {/* 7. Dự án tiêu biểu */}
@@ -166,10 +163,8 @@ export function HomePage() {
           <p>Một vài lát cắt từ những bài toán cần cả ý tưởng lẫn năng lực triển khai.</p>
           <p><TextLink href="/du-an">Xem tất cả dự án</TextLink></p>
         </SectionIntro>
-        <div className="home-projects-grid">
-          <ProjectCard project={projects[0]} variant="feature" index={0} />
-          <ProjectCard project={projects[1]} variant="tall" index={1} />
-          <ProjectCard project={projects[2]} variant="tall" index={2} />
+        <div className="grid-3">
+          {projects.slice(0, 3).map((project, index) => <ProjectCard key={project.slug} project={project} variant="square" index={index} />)}
         </div>
       </Section>
       <MetricBand

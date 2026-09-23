@@ -29,10 +29,14 @@ type HeroProps = {
   className?: string;
 };
 
-export function EditorialHero({ label, title, lead, actions, media, aside, layout = 'split', size = 'l', tone = 'canvas', brandTitle = false, className = '' }: HeroProps) {
+/*
+ * Hero luôn căn giữa, visual (nếu có) đặt bên dưới theo khung ngang cố định.
+ * Prop `layout` được giữ để tương thích; mọi giá trị đều hiển thị dạng căn giữa.
+ */
+export function EditorialHero({ label, title, lead, actions, media, aside, size = 'l', tone = 'canvas', brandTitle = false, className = '' }: HeroProps) {
   const titleClass = `${size === 'xl' ? 't-display-xl' : size === 'l' ? 't-display-l' : 't-h1'} ${brandTitle ? 't-brand' : ''}`;
   return (
-    <section className={`hero hero-${layout} tone-${tone} ${className}`.trim()}>
+    <section className={`hero hero-center ${media ? 'hero-has-media' : ''} tone-${tone} ${className}`.trim()}>
       <div className="container hero-grid">
         <div className="hero-copy">
           {label && <Label className="hero-label">{label}</Label>}

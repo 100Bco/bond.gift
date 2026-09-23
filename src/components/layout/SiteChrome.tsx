@@ -69,11 +69,11 @@ const footerColumns: { title: string; links: [string, string][] }[] = [
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <div className="site-footer-main">
-        <div className="container site-footer-grid">
+      <div className="container">
+        <div className="site-footer-top">
           <div className="site-footer-statement">
-            <p className="t-brand site-footer-claim">Relationships,<br /><span>compounded.</span></p>
-            <p className="t-body-l site-footer-sub">Mối quan hệ, được nhân lên theo thời gian.</p>
+            <p className="t-brand site-footer-claim">Relationships, <span>compounded.</span></p>
+            <p className="site-footer-sub">Mối quan hệ, được nhân lên theo thời gian.</p>
             <ButtonLink href="/lien-he">Trao đổi cùng BOND</ButtonLink>
           </div>
           <nav className="site-footer-nav" aria-label="Sơ đồ trang rút gọn">
@@ -87,11 +87,10 @@ export function SiteFooter() {
             ))}
           </nav>
         </div>
-      </div>
-      <div className="site-footer-base">
-        <div className="container site-footer-base-inner">
-          <Link href="/" aria-label="Về trang chủ BOND" className="site-footer-logo"><Logo /></Link>
-          <p className="site-footer-note">Quà tặng doanh nghiệp, bao bì và vật phẩm thương hiệu.<br />© BOND / Thành viên hệ sinh thái 100B</p>
+        {/* Logo chính thức cỡ lớn: nền sáng để giữ tương phản wordmark */}
+        <Link href="/" aria-label="Về trang chủ BOND" className="site-footer-mark"><Logo /></Link>
+        <div className="site-footer-base">
+          <p className="site-footer-note">© BOND / Thành viên hệ sinh thái 100B · Quà tặng doanh nghiệp, bao bì và vật phẩm thương hiệu.</p>
           <ul className="site-footer-legal">
             <li><Link href="/chinh-sach-bao-mat">Chính sách bảo mật</Link></li>
             <li><Link href="/dieu-khoan">Điều khoản</Link></li>

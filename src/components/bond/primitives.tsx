@@ -73,7 +73,7 @@ export function FilterChips({ label, options, value, onChange }: { label: string
 
 /* ---------- Section intro ---------- */
 
-export function SectionIntro({ label, title, children, align = 'split', level = 2, className = '' }: { label?: ReactNode; title: ReactNode; children?: ReactNode; align?: 'split' | 'stack' | 'center'; level?: 2 | 3; className?: string }) {
+export function SectionIntro({ label, title, children, align = 'center', level = 2, className = '' }: { label?: ReactNode; title: ReactNode; children?: ReactNode; align?: 'split' | 'stack' | 'center'; level?: 2 | 3; className?: string }) {
   const Heading = level === 2 ? 'h2' : 'h3';
   return (
     <header className={`section-intro section-intro-${align} ${className}`.trim()}>

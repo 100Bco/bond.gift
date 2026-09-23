@@ -11,7 +11,6 @@ import { ProjectCard } from '@/components/bond/cards';
 
 export function ProjectsPage() {
   const [featured, ...rest] = projects;
-  const variants = ['wide', 'tall', 'square'] as const;
   return (
     <SiteShell>
       <Breadcrumbs items={[{ label: 'Dự án' }]} />
@@ -31,12 +30,8 @@ export function ProjectsPage() {
         <div className="projects-featured">
           <ProjectCard project={featured} variant="feature" index={0} />
         </div>
-        <div className="projects-rhythm">
-          {rest.map((project, index) => (
-            <div key={project.slug} className={`projects-rhythm-item projects-rhythm-${variants[index % variants.length]}`}>
-              <ProjectCard project={project} variant={variants[index % variants.length]} index={index + 1} />
-            </div>
-          ))}
+        <div className="grid-3">
+          {rest.map((project, index) => <ProjectCard key={project.slug} project={project} variant="square" index={index + 1} />)}
         </div>
       </Section>
       <FinalCta
