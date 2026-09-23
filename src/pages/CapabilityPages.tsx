@@ -8,6 +8,7 @@ import { Chapter, EditorialHero, FinalCta, MetricBand, Section, Statement } from
 import { ProjectCard } from '@/components/bond/cards';
 import { Link } from 'wouter';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { Carousel } from '@/components/bond/Carousel';
 
 const scaleMetrics = [
   { value: '100B', label: 'quy mô đội ngũ từng vận hành mỗi năm' },
@@ -33,21 +34,19 @@ export function CapabilitiesPage() {
       {/* Năng lực: lưới card đều nhau, mỗi card một năng lực */}
       <Section tone="paper">
         <SectionIntro label="Sáu năng lực" title="Rõ vai trò. Rõ hồ sơ. Rõ trách nhiệm." />
-        <ul className="grid-3 capability-grid">
+        <Carousel label="Sáu năng lực" className="capability-grid">
           {capabilityGroups.map((item, index) => (
-            <li key={item.slug}>
-              <Link href={`/nang-luc/${item.slug}`} className="card card-capability">
-                <Media ratio="4 / 3" tone="paper" asset={item.asset} alt={item.title} />
-                <div className="card-body">
-                  <span className="card-index"><span className="t-numeral">{String(index + 1).padStart(2, '0')}</span> Năng lực</span>
-                  <h3 className="t-h4">{item.title}</h3>
-                  <p className="card-copy">{item.copy}</p>
-                  <span className="card-more" aria-hidden="true">Xem năng lực<ArrowRight size={15} /></span>
-                </div>
-              </Link>
-            </li>
+            <Link key={item.slug} href={`/nang-luc/${item.slug}`} className="card card-capability">
+              <Media ratio="4 / 3" tone="paper" asset={item.asset} alt={item.title} />
+              <div className="card-body">
+                <span className="card-index"><span className="t-numeral">{String(index + 1).padStart(2, '0')}</span> Năng lực</span>
+                <h3 className="t-h4">{item.title}</h3>
+                <p className="card-copy">{item.copy}</p>
+                <span className="card-more" aria-hidden="true">Xem năng lực<ArrowRight size={15} /></span>
+              </div>
+            </Link>
           ))}
-        </ul>
+        </Carousel>
       </Section>
 
       <Section tone="canvas">

@@ -10,6 +10,7 @@ import { StepCarousel } from '@/components/bond/StepCarousel';
 import { Chapter, EditorialHero, FinalCta, MetricBand, Section } from '@/components/bond/sections';
 import { CollectionCard, ProjectCard } from '@/components/bond/cards';
 import { ContactForm } from '@/components/bond/ContactForm';
+import { Carousel } from '@/components/bond/Carousel';
 
 const serviceChapters = [
   {
@@ -18,7 +19,7 @@ const serviceChapters = [
     copy: 'Tết, tri ân đối tác, sự kiện, nội bộ. Thiết kế riêng, nguồn hàng tuyển chọn, giao đến từng điểm nhận.',
     groups: giftOccasions.slice(0, 4).map((item): [string, string] => [item.title, `/qua-tang/${item.slug}`]),
     media: <Media ratio="5 / 4" tone="magenta" motion="box" art="silk" asset="Video loop bộ quà Tết mở nắp, ánh sáng ấm" alt="Minh họa hộp quà mở nắp" />,
-    heroMedia: <Media ratio="4 / 5" tone="paper" motion="box" art="magenta" priority play="hover" asset="Ảnh bộ quà doanh nghiệp đã sản xuất" alt="Minh họa hộp quà BOND" />,
+    heroMedia: <Media ratio="4 / 3" tone="paper" motion="box" art="magenta" priority play="hover" asset="Ảnh bộ quà doanh nghiệp đã sản xuất" alt="Minh họa hộp quà BOND" />,
     tone: 'canvas' as const,
   },
   {
@@ -27,7 +28,7 @@ const serviceChapters = [
     copy: 'Hộp, túi, thiệp và ấn phẩm cho thời trang, trang sức, mỹ phẩm, FMCG.',
     groups: [...packagingGroups.slice(0, 3).map((item): [string, string] => [item.title, `/bao-bi/${item.slug}`]), ['Bao bì theo ngành', '/bao-bi'] as [string, string]],
     media: <Media ratio="5 / 4" tone="paper" motion="layers" art="tea" asset="Video các lớp bao bì tách ra rồi ghép lại" alt="Minh họa các lớp bao bì" />,
-    heroMedia: <Media ratio="4 / 5" tone="paper" motion="layers" art="magenta" priority play="hover" asset="Ảnh bao bì thương hiệu đã sản xuất" alt="Minh họa bao bì thương hiệu" />,
+    heroMedia: <Media ratio="4 / 3" tone="paper" motion="layers" art="magenta" priority play="hover" asset="Ảnh bao bì thương hiệu đã sản xuất" alt="Minh họa bao bì thương hiệu" />,
     tone: 'deep' as const,
   },
   {
@@ -36,7 +37,7 @@ const serviceChapters = [
     copy: 'Vật phẩm sự kiện, vật phẩm thương hiệu, POSM. Vận hành ở quy mô lớn nhiều năm.',
     groups: merchandiseGroups.map((item): [string, string] => [item.title, `/vat-pham/${item.slug}`]),
     media: <Media ratio="5 / 4" tone="canvas" motion="kit" art="slate" asset="Video bộ vật phẩm lần lượt xuất hiện trong kit" alt="Minh họa bộ vật phẩm" />,
-    heroMedia: <Media ratio="4 / 5" tone="paper" motion="kit" art="slate" priority play="hover" asset="Ảnh bộ vật phẩm quảng cáo đã sản xuất" alt="Minh họa bộ vật phẩm" />,
+    heroMedia: <Media ratio="4 / 3" tone="paper" motion="kit" art="slate" priority play="hover" asset="Ảnh bộ vật phẩm quảng cáo đã sản xuất" alt="Minh họa bộ vật phẩm" />,
     tone: 'sage' as const,
   },
 ];
@@ -143,9 +144,9 @@ export function HomePage() {
           <p>Hơn 40 thiết kế, ở mọi mức ngân sách, đều có thể phát triển thành phiên bản riêng của thương hiệu anh chị.</p>
           <p><TextLink href="/bo-suu-tap">Xem toàn bộ thư viện</TextLink></p>
         </SectionIntro>
-        <div className="collection-grid">
+        <Carousel label="Bộ sưu tập nổi bật">
           {catalog.slice(0, 6).map((product) => <CollectionCard key={product.slug} product={product} />)}
-        </div>
+        </Carousel>
       </Section>
 
       {/* 6. Quy trình: các bước dạng card đều nhau, điều khiển tay */}
