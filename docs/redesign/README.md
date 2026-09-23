@@ -14,7 +14,31 @@ Nguyên tắc rút ra và cách BOND chuyển hóa:
 | Nền đổi màu mạnh theo từng khối (đỏ, giấy, gần đen) tạo nhịp | Tone canvas / paper / deep / sage / ink / magenta, ink chỉ cho proof và năng lực |
 | Trang gift options có hàng chip đánh số nhảy tới từng lựa chọn và link "tiếp theo" cuối mỗi chapter | `ChapterNav` (sticky) + `NextChapter` trên trang chi tiết mẫu và trang năng lực |
 | Sản phẩm là nhân vật chính, chụp như vật thể thật có bóng đổ | Media frame lớn, Product Motion có bóng sàn; ảnh thật sẽ thay khi có asset |
-| Trang solutions dùng nhiều card nhỏ đồng kích thước | Không áp dụng (trái với brief); BOND dùng showcase card lớn |
+| Trang solutions dùng nhiều card đồng kích thước | Áp dụng từ đợt 2: mọi gallery là lưới đều 3 cột (4 cột cho số liệu), card trắng có viền |
+
+---
+
+## 0. Đợt 2: formal, trắng + magenta, căn giữa, lưới đều
+
+Phản hồi sau bản đầu: homepage dạng split và gallery bất đối xứng trông giống agency sáng tạo. BOND là doanh nghiệp quà tặng doanh nghiệp, người xem chính là lãnh đạo và người lớn tuổi, nên giao diện cần formal và chỉn chu. Màu nhận diện là trắng và magenta, không có be.
+
+| Quyết định | Thực hiện |
+|---|---|
+| Bỏ toàn bộ tông be, kem, sage | Nền trắng, xám rất nhạt trung tính (`#F6F6F8`, `#EEEEF1`) và hồng magenta rất nhạt (`#FDF4F7`). Tên token cũ giữ nguyên để không phải sửa component, chỉ đổi giá trị |
+| Hero căn giữa mọi trang | `EditorialHero` luôn căn giữa: label, headline, lead, CTA, rồi visual ngang 21:9 bên dưới. Prop `layout` còn đó nhưng không còn tạo split |
+| Hero trang chủ | Headline "Relationships, compounded." căn giữa, dưới là 3 khung sản phẩm bằng nhau (quà tặng, bao bì, vật phẩm) và hàng điều kiện hợp tác |
+| Gallery thẳng đều | Bộ sưu tập, dự án, showcase dịch vụ, bao bì theo ngành, gallery con người, card năng lực: lưới 3 cột bằng nhau, cùng tỷ lệ ảnh. Bỏ `grid-offset`, bỏ featured card to nhỏ lẫn lộn trong listing |
+| Card dạng hộp | Card trắng, viền mảnh, bo 16px, ảnh sát mép trên, thân card có padding và link "Xem mẫu →" / "Xem dự án →" |
+| Tiêu đề section căn giữa | `SectionIntro` mặc định `center` |
+| Số liệu dạng ô | `MetricBand` là các ô bằng nhau: ô trắng trên nền sáng, ô magenta trên nền ink |
+| Quy trình dạng card cuộn ngang | `StepCarousel`: card đều nhau, số bước dạng pill, visual trên, thân tối dưới, nút trước/sau và bộ đếm "01 / 07". Không tự chạy |
+| CTA cuối trang căn giữa | `FinalCta` một cột, form bên dưới rộng tối đa 760px, nhãn field đánh số "(01) Tên người liên hệ" |
+| Footer sáng | Nền xám nhạt, statement + 3 cột link, logo chính thức cỡ lớn chạy ngang container, dòng legal. Logo luôn trên nền sáng |
+| Header | Từ 1280px: 3 cột logo / nav giữa / CTA |
+| Nhịp chữ cho người lớn tuổi | Body 18px (17px mobile), small 16px, chữ phụ đậm hơn (độ mờ .68 / .78) |
+| Hình khối điềm tĩnh | Radius nhỏ lại: 4 / 8 / 12 / 16 / 20. Container 1280px |
+
+Ảnh chụp trong `screenshots/` là bản đợt 2.
 
 ---
 
@@ -63,21 +87,22 @@ Nguồn duy nhất: `src/styles/tokens.css`.
 |---|---|---|
 | `--bond-magenta` | `#DB0D3E` | Nhận diện, hành động (primary button, số chapter, accent) |
 | `--bond-magenta-dark` | `#B50934` | Hover, label trên nền sáng |
-| `--bond-magenta-soft` | `#F0D7DE` | Tag ngân sách, quote/key takeaway, focus ring |
-| `--bond-ink` | `#1D1917` | Chữ chính, section năng lực/proof, footer |
+| `--bond-magenta-soft` | `#FBE8EE` | Tag ngân sách, quote/key takeaway, focus ring |
+| `--bond-magenta-tint` | `#FDF4F7` | Nền section nhấn nhẹ |
+| `--bond-ink` | `#16161A` | Chữ chính, section năng lực/proof |
 | `--bond-black` | `#000000` | Wordmark (chỉ trong file logo) |
-| `--bond-paper` | `#F5F0E7` | Nền chapter |
-| `--bond-canvas` | `#FCFAF6` | Nền chủ đạo, header |
-| `--bond-paper-deep` | `#EBE2D5` | Nền chapter tạo nhịp |
-| `--bond-sage` | `#DCE2D8` | Nền chapter tạo nhịp |
-| `--bond-stone` | `#CFC4B7` | Nền media (bao bì) |
-| `--bond-white` | `#FFFFFF` | Input, plate logo |
-| `--bond-border` | `rgba(29,25,23,.16)` | Đường kẻ |
-| `--bond-muted-text` | `rgba(29,25,23,.64)` | Chữ phụ (≥4.5:1 trên canvas) |
+| `--bond-canvas` | `#FFFFFF` | Nền chủ đạo, header |
+| `--bond-paper` | `#F6F6F8` | Nền section xen kẽ, footer |
+| `--bond-paper-deep` | `#EEEEF1` | Nền section tạo nhịp |
+| `--bond-sage` | `#FDF4F7` | Tên cũ, nay là hồng magenta rất nhạt |
+| `--bond-stone` | `#E4E4E9` | Nền media |
+| `--bond-white` | `#FFFFFF` | Card, input, ô số liệu |
+| `--bond-border` | `rgba(22,22,26,.14)` | Đường kẻ |
+| `--bond-muted-text` | `rgba(22,22,26,.68)` | Chữ phụ (≥4.5:1 trên trắng) |
 
 Token vai trò: `--color-text`, `--color-text-muted`, `--color-text-subtle`, `--color-bg`, `--color-border`, `--color-border-strong`, `--color-action`, `--color-action-hover`, `--color-focus`, `--color-on-ink*`, `--color-ink-raised`. Class `.tone-ink` và `.tone-magenta` tự đổi các token này nên component không cần biến thể riêng cho nền tối.
 
-Artwork palette (`--art-kraft`, `--art-wood`, `--art-silk`, `--art-tea`, `--art-slate`, `--art-clay`, `--art-gold`, `--art-shadow`): **chỉ dùng bên trong minh họa sản phẩm** (màu vật liệu, màu phiên bản). Không dùng cho nền section, card hay button.
+Artwork palette (`--art-*`, nay là bạc, than, ngọc trai, hồng nhạt, vàng trầm): **chỉ dùng bên trong minh họa sản phẩm** (màu vật liệu, màu phiên bản). Không dùng cho nền section, card hay button.
 
 ### 2.2 Typography
 
@@ -90,8 +115,8 @@ Artwork palette (`--art-kraft`, `--art-wood`, `--art-silk`, `--art-tea`, `--art-
 | `--fs-h3` | `clamp(26px, 2.5vw, 40px)` | `.t-h3` |
 | `--fs-h4` | `clamp(20px, 1.6vw, 24px)` | `.t-h4` |
 | `--fs-body-l` | `clamp(19px, 1.5vw, 22px)` | `.t-body-l` |
-| `--fs-body` | 17px (16px mobile) | `.t-body` |
-| `--fs-small` | 15px | `.t-small` |
+| `--fs-body` | 18px (17px mobile) | `.t-body` |
+| `--fs-small` | 16px | `.t-small` |
 | `--fs-label` | 13px | `.t-label` |
 
 Line-height: display 0.94, heading 1.02–1.12, body 1.6. Body bài viết 18px, rộng 720px.
@@ -104,10 +129,10 @@ Line-height: display 0.94, heading 1.02–1.12, body 1.6. Body bài viết 18px,
 
 ### 2.4 Layout, spacing, shape, motion
 
-- Grid: 12 cột desktop, 8 cột tablet (<1024px), 4 cột mobile (<768px). `--container-max: 1440px`, `--gutter: clamp(20px, 4.4vw, 72px)`, `--grid-gap: clamp(16px, 2vw, 32px)`.
+- Grid: 12 cột desktop, 8 cột tablet (<1024px), 4 cột mobile (<768px). `--container-max: 1280px`, `--gutter: clamp(20px, 4.4vw, 72px)`, `--grid-gap: clamp(16px, 2vw, 32px)`.
 - Section: `--space-section: clamp(72px, 10.5vw, 176px)`, `--space-section-tight: clamp(56px, 7vw, 112px)`.
 - Spacing scale: `--space-3xs` 4 → `--space-3xl` 96.
-- Radius: `--radius-xs` 6, `-s` 12, `-m` 20, `-l` 28 (media, card), `-xl` 40 (panel lớn), `-pill`.
+- Radius: `--radius-xs` 4, `-s` 8, `-m` 12, `-l` 16 (media, card), `-xl` 20 (panel lớn), `-pill`.
 - Control: `--control-h` 52px, `--control-h-s` 44px.
 - Motion: `--ease-out`, `--ease-in-out`, `--dur-fast` 180ms, `--dur-base` 320ms, `--dur-slow` 700ms, `--loop-base` 6s, `--loop-slow` 9s.
 
@@ -117,18 +142,22 @@ Line-height: display 0.94, heading 1.02–1.12, body 1.6. Body bài viết 18px,
 
 | Component | File | Ghi chú |
 |---|---|---|
-| Header | `components/layout/SiteChrome.tsx` | Fixed 76px (64px mobile), blur nhẹ, active dot magenta, menu toàn màn hình dưới 1280px, `aria-expanded`, Esc để đóng |
-| Footer | `SiteChrome.tsx` | Khối ink với brand statement lớn + sitemap rút gọn 3 cột; dải canvas chứa logo, © và legal links (logo luôn trên nền sáng) |
+| Header | `components/layout/SiteChrome.tsx` | Fixed 76px (64px mobile), 3 cột logo / nav giữa / CTA từ 1280px, active dot magenta, menu toàn màn hình dưới 1280px, `aria-expanded`, Esc để đóng |
+| Footer | `SiteChrome.tsx` | Nền sáng: brand statement + sitemap rút gọn 3 cột, logo chính thức cỡ lớn, © và legal links |
 | SiteShell, Breadcrumbs, Logo, ScrollToTop, skip link | `SiteChrome.tsx` | |
 | Primary / Secondary button | `components/bond/primitives.tsx` (`ButtonLink`, `Button`) | Pill, 52px, icon mũi tên dịch nhẹ khi hover |
 | Text link | `TextLink` | Gạch chân chạy từ trái, mũi tên dịch 3px |
 | Label, Tag, ChapterNumber | `primitives.tsx` | |
 | Filter chip | `FilterChips` | Giữ nguyên logic lọc, thêm `aria-pressed` |
-| Section intro | `SectionIntro` | split / stack / center |
+| Section intro | `SectionIntro` | Mặc định center; split / stack vẫn có |
+| Step carousel | `components/bond/StepCarousel.tsx` | Card bước quy trình cuộn ngang, nút trước/sau, bộ đếm, không tự chạy |
+| Engagement models | `components/bond/EngagementModels.tsx` | 3 cách hợp tác và thời gian tương ứng |
+| Tết countdown | `components/bond/TetCountdown.tsx` | Trục thời gian tới Tết 2027, mốc chốt thiết kế 15/10/2026, tự ẩn sau Tết |
+| Trust row | `TrustRow` | Hợp đồng, VAT, đặt cọc tối đa 50%, thanh toán sau nghiệm thu |
 | Metric block | `Metric` | |
 | Chapter nav, next chapter | `ChapterNav`, `NextChapter` | Chip đánh số dính dưới header để nhảy tới chapter; link sang chapter kế tiếp |
 | Accordion | `Accordion` | Nút thật, `aria-expanded`, `aria-controls`, không border đậm |
-| Form field | `Field` | Input 52px, label luôn hiển thị, focus ring magenta-soft |
+| Form field | `Field` | Input 52px, label luôn hiển thị và đánh số (01), (02) bằng CSS counter, focus ring magenta-soft |
 | Quote / key takeaway | `Quote` | Nền magenta-soft + dấu graphic language |
 | Logo wall | `LogoWall` | Chỉ render logo thật; thiếu asset → ô chờ |
 | Media frame | `components/bond/Media.tsx` | Ưu tiên video → ảnh → minh họa motion → placeholder ảnh thật; lazy-load, poster cho video, tự pause ngoài viewport và khi reduced motion |
@@ -142,7 +171,7 @@ Line-height: display 0.94, heading 1.02–1.12, body 1.6. Body bài viết 18px,
 | Document card | `DocumentCard` | Tài liệu, Sale Kit |
 | Contact form | `components/bond/ContactForm.tsx` | light / dark, giữ hành vi cũ |
 
-Section library (`components/bond/sections.tsx`): `Section`, `EditorialHero` (split / stacked / center / text), `Chapter` (Numbered Chapter / Split Feature, wide / half, đảo trái phải), `Statement` (khoảng nghỉ typography), `MetricBand`, `MediaStage` (full-width), `FinalCta`. Các layout lặp lại khác nằm trong CSS: `item-list`, `spec-list`, `check-list`, `grid-2/3`, `grid-offset`, `h-scroll` (Horizontal Showcase kéo tay), `sticky-layout` (sticky index), `journey` (diagram quy trình).
+Section library (`components/bond/sections.tsx`): `Section`, `EditorialHero` (luôn căn giữa, visual bên dưới), `Chapter` (Numbered Chapter / Split Feature, wide / half, đảo trái phải), `Statement` (khoảng nghỉ typography), `MetricBand`, `MediaStage` (full-width), `FinalCta`. Các layout lặp lại khác nằm trong CSS: `item-list`, `spec-list`, `check-list`, `grid-2/3`, `grid-offset`, `h-scroll` (Horizontal Showcase kéo tay), `sticky-layout` (sticky index), `journey` (diagram quy trình).
 
 ---
 
@@ -150,15 +179,15 @@ Section library (`components/bond/sections.tsx`): `Section`, `EditorialHero` (sp
 
 | Route | Template | Section chính |
 |---|---|---|
-| `/` | Home | Hero statement (Gothic) + product motion · Brand proposition (magenta) · 3 service chapter (01–03, đảo trái phải, nền canvas/deep/sage) · Ecosystem proof (ink, logo plate, logo wall) · Collection lớn 7/5 · Quy trình (step list + motion) · Dự án (feature + tall) · Metric band · CTA + form (magenta) |
+| `/` | Home | Hero căn giữa (Gothic) + 3 khung sản phẩm bằng nhau + trust row · Brand proposition (magenta) · 3 service chapter (01–03) · Ecosystem proof (ink, logo plate, logo wall) · Collection lưới đều 3 cột · Quy trình (step carousel) · Dự án lưới 3 cột · Metric tiles · Lịch ngược Tết · CTA căn giữa + form (magenta) |
 | `/ve-bond` | About / Story | Hero stacked + ảnh hậu trường 21:9 · Ý nghĩa tên (symbol B) · Manifesto đối lập · BOND làm gì · Nguyên tắc (magenta, numbered) · Hệ sinh thái (role card) · Gallery con người · Statement · CTA |
-| `/bo-suu-tap` | Collection listing | Hero text · Notice · Filter chip (logic giữ nguyên) · Featured card rộng · Grid 3 cột card lớn · Teaser Signature · CTA |
+| `/bo-suu-tap` | Collection listing | Hero text · Notice · Filter chip (logic giữ nguyên) · Grid 3 cột đều · Cách hợp tác · Teaser Signature · CTA |
 | `/bo-suu-tap/{slug}` | Collection detail | Product hero split · Gallery 3 ảnh · Chapter 01 Điểm làm nên mẫu · 02 Cấu trúc và chất liệu · 03 Phiên bản riêng · 04 Bối cảnh sử dụng · Related · CTA |
 | `/bo-suu-tap/signature` | Signature | Hero center XL · 3 mẫu, mỗi mẫu một media 16:9 + tên Gothic · Quyền độc quyền (magenta) |
 | `/quy-trinh` | Process story | Hero text · Journey diagram brief → giao hàng · Sticky index + 7 step chapter (mỗi bước một visual đầu ra) · Callout gấp / chuẩn bị · Điều khoản thanh toán · FAQ · CTA |
 | `/qua-tang`, `/bao-bi`, `/vat-pham` | Service hub (category world) | Category hero + motion · Statement 3 cách hợp tác · Showcase lớn (quà tặng: feature + grid; bao bì: theo loại + carousel theo ngành; vật phẩm: grid 3) · Media stage 21:9 · Dự án liên quan · Năng lực liên quan · Quy trình rút gọn · CTA. Art direction: quà tặng nền ấm magenta-soft, bao bì paper-deep/stone, vật phẩm sage |
 | `/qua-tang/{slug}` (5), `/bao-bi/{slug}` (9), `/vat-pham/{slug}` (3) | Service detail | Hero · Nhu cầu / Giải pháp BOND · Nhóm sản phẩm (card bộ sưu tập, lọc theo dịp với quà tặng) · Product showcase · Khả năng tùy biến · Production proof (metric) · Dự án liên quan · Liên kết cùng nhóm · CTA |
-| `/du-an` | Project listing | Hero · Filter (giữ nguyên hành vi) · Featured 16:9 · Nhịp wide / tall / square · CTA |
+| `/du-an` | Project listing | Hero · Filter (giữ nguyên hành vi) · Featured 16:9 · Grid 3 cột đều · CTA |
 | `/du-an/{slug}` | Case study | Hero + facts · Bối cảnh · Phạm vi · Concept · Cách giải · Chi tiết sản phẩm · Sản xuất và giao nhận (ink) · Kết quả (magenta) · Gallery full-bleed · Dự án khác · CTA |
 | `/nang-luc` | Capability hub | Hero XL · Metric band · 6 capability chapter (số, ảnh thật, link) · Logo wall · CTA |
 | `/nang-luc/{slug}` | Capability detail | Hero · Giá trị · Hệ thống vận hành (100B: role card) · Cam kết nguồn hàng (chỉ chuỗi cung ứng, magenta, 3 cam kết) · Ảnh thật · Proof · Dự án · Cam kết hợp đồng · Năng lực khác · CTA |

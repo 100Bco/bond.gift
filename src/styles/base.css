@@ -146,7 +146,7 @@ p.t-body-l, .t-body-l p { text-wrap: pretty; }
   --color-text-muted: var(--color-on-ink-muted);
   --color-text-subtle: var(--color-on-ink-muted);
   --color-border: var(--color-on-ink-border);
-  --color-border-strong: rgba(245, 240, 231, 0.4);
+  --color-border-strong: rgba(255, 255, 255, 0.4);
   background: var(--bond-ink);
   color: var(--color-on-ink);
 }

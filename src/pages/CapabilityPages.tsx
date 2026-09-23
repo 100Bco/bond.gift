@@ -3,11 +3,11 @@ import { capabilityGroups, ecosystem, partners, projects } from '@/data/content'
 import { Breadcrumbs, SiteShell } from '@/components/layout/SiteChrome';
 import { Media } from '@/components/bond/Media';
 import { Reveal } from '@/components/bond/Reveal';
-import { ButtonLink, ChapterNav, ChapterNumber, Label, LogoWall, NextChapter, SectionIntro, TextLink } from '@/components/bond/primitives';
+import { ButtonLink, ChapterNumber, Label, LogoWall, SectionIntro, TextLink } from '@/components/bond/primitives';
 import { Chapter, EditorialHero, FinalCta, MetricBand, Section, Statement } from '@/components/bond/sections';
 import { ProjectCard } from '@/components/bond/cards';
 import { Link } from 'wouter';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
 const scaleMetrics = [
   { value: '100B', label: 'quy mô đội ngũ từng vận hành mỗi năm' },
@@ -30,29 +30,25 @@ export function CapabilitiesPage() {
       />
       <MetricBand tone="ink" items={scaleMetrics} />
 
-      <div className="chapter-group">
-      <ChapterNav label="Các năng lực" items={capabilityGroups.map((item) => ({ id: `nl-${item.slug}`, title: item.title }))} />
-      {capabilityGroups.map((item, index) => (
-        <Chapter
-          key={item.slug}
-          id={`nl-${item.slug}`}
-          number={index + 1}
-          total={capabilityGroups.length}
-          tone={(['canvas', 'paper', 'sage', 'canvas', 'deep', 'paper'] as const)[index]}
-          reverse={index % 2 === 1}
-          mediaSize={index % 3 === 0 ? 'wide' : 'half'}
-          spacing="tight"
-          title={item.title}
-          media={<Media ratio={index % 3 === 0 ? '3 / 2' : '4 / 5'} tone={index % 2 ? 'canvas' : 'deep'} asset={item.asset} alt={item.title} />}
-          footer={<>
-            <TextLink href={`/nang-luc/${item.slug}`}>Xem năng lực {item.title.toLowerCase()}</TextLink>
-            {capabilityGroups[index + 1] && <NextChapter id={`nl-${capabilityGroups[index + 1].slug}`} title={capabilityGroups[index + 1].title} />}
-          </>}
-        >
-          <p className="t-body-l">{item.copy}</p>
-        </Chapter>
-      ))}
-      </div>
+      {/* Năng lực: lưới card đều nhau, mỗi card một năng lực */}
+      <Section tone="paper">
+        <SectionIntro label="Sáu năng lực" title="Rõ vai trò. Rõ hồ sơ. Rõ trách nhiệm." />
+        <ul className="grid-3 capability-grid">
+          {capabilityGroups.map((item, index) => (
+            <li key={item.slug}>
+              <Link href={`/nang-luc/${item.slug}`} className="card card-capability">
+                <Media ratio="4 / 3" tone="paper" asset={item.asset} alt={item.title} />
+                <div className="card-body">
+                  <span className="card-index"><span className="t-numeral">{String(index + 1).padStart(2, '0')}</span> Năng lực</span>
+                  <h3 className="t-h4">{item.title}</h3>
+                  <p className="card-copy">{item.copy}</p>
+                  <span className="card-more" aria-hidden="true">Xem năng lực<ArrowRight size={15} /></span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Section>
 
       <Section tone="canvas">
         <LogoWall title="Các thương hiệu đã đồng hành cùng hệ sinh thái 100B" items={partners} />

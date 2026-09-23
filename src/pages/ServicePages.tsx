@@ -1,6 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
 import { Link, useLocation } from 'wouter';
-import { capabilityGroups, catalog, giftOccasions, merchandiseGroups, packagingGroups, processSteps, projects, type ServiceItem } from '@/data/content';
+import { capabilityGroups, catalog, giftOccasions, merchandiseGroups, packagingGroups, projects, type ServiceItem } from '@/data/content';
 import { Breadcrumbs, SiteShell } from '@/components/layout/SiteChrome';
 import { Media } from '@/components/bond/Media';
 import { Reveal } from '@/components/bond/Reveal';
@@ -9,6 +9,7 @@ import { Chapter, EditorialHero, FinalCta, MediaStage, MetricBand, Section } fro
 import { CollectionCard, ProjectCard, ShowcaseCard } from '@/components/bond/cards';
 import { EngagementModels } from '@/components/bond/EngagementModels';
 import { TetCountdown } from '@/components/bond/TetCountdown';
+import { StepCarousel } from '@/components/bond/StepCarousel';
 
 export type ServiceKind = 'gift' | 'packaging' | 'merchandise';
 
@@ -78,15 +79,7 @@ function ProcessStrip() {
         <p>Đơn thiết kế riêng thường mất 6—10 tuần từ brief đến giao hàng. Chúng tôi nói rõ ngay từ đầu.</p>
         <p><TextLink href="/quy-trinh">Xem quy trình đầy đủ</TextLink></p>
       </SectionIntro>
-      <ol className="process-strip-list">
-        {processSteps.map((step) => (
-          <li key={step.number}>
-            <span className="t-numeral">{step.number}</span>
-            <h3 className="t-h4">{step.title}</h3>
-            <p className="t-small t-muted">{step.duration}</p>
-          </li>
-        ))}
-      </ol>
+      <StepCarousel />
     </Section>
   );
 }
@@ -119,7 +112,7 @@ export function ServiceHubPage({ type }: { type: ServiceKind }) {
         <Section tone="canvas">
           <SectionIntro label="Nhóm giải pháp" title="Vật phẩm sự kiện, vật phẩm thương hiệu, POSM." />
           <div className="grid-3 showcase-grid">
-            {items.map((item, index) => <ShowcaseCard key={item.slug} item={item} href={`${config.base}/${item.slug}`} index={index} total={items.length} tone={index === 1 ? 'sage' : 'paper'} />)}
+            {items.map((item, index) => <ShowcaseCard key={item.slug} item={item} href={`${config.base}/${item.slug}`} index={index} total={items.length} tone="paper" />)}
           </div>
         </Section>
       )}
@@ -163,15 +156,11 @@ export function ServiceHubPage({ type }: { type: ServiceKind }) {
 }
 
 function GiftShowcase({ items, base }: { items: ServiceItem[]; base: string }) {
-  const [lead, ...rest] = items;
   return (
     <Section tone="canvas">
       <SectionIntro label="Theo dịp tặng" title="Tết, tri ân đối tác, sự kiện, nội bộ." />
-      <div className="showcase-feature">
-        <ShowcaseCard item={lead} href={`${base}/${lead.slug}`} index={0} total={items.length} tone="magenta" size="l" />
-      </div>
-      <div className="grid-2 showcase-grid">
-        {rest.map((item, index) => <ShowcaseCard key={item.slug} item={item} href={`${base}/${item.slug}`} index={index + 1} total={items.length} tone={index % 3 === 0 ? 'sage' : 'paper'} />)}
+      <div className="grid-3 showcase-grid">
+        {items.map((item, index) => <ShowcaseCard key={item.slug} item={item} href={`${base}/${item.slug}`} index={index} total={items.length} tone="paper" />)}
       </div>
     </Section>
   );
@@ -185,13 +174,13 @@ function PackagingShowcase({ items, base }: { items: ServiceItem[]; base: string
       <Section tone="canvas">
         <SectionIntro label="Theo loại bao bì" title="Hộp, túi, thiệp và ấn phẩm." />
         <div className="grid-3 showcase-grid">
-          {byType.map((item, index) => <ShowcaseCard key={item.slug} item={item} href={`${base}/${item.slug}`} index={index} total={byType.length} tone={index === 1 ? 'stone' : 'paper'} />)}
+          {byType.map((item, index) => <ShowcaseCard key={item.slug} item={item} href={`${base}/${item.slug}`} index={index} total={byType.length} tone="paper" />)}
         </div>
       </Section>
       <Section tone="paper">
         <SectionIntro label="Theo ngành" title="Cho thời trang, trang sức, mỹ phẩm, FMCG." />
-        <div className="h-scroll" tabIndex={0} aria-label="Bao bì theo ngành">
-          {byIndustry.map((item, index) => <ShowcaseCard key={item.slug} item={item} href={`${base}/${item.slug}`} index={index} total={byIndustry.length} tone={index % 2 ? 'canvas' : 'deep'} />)}
+        <div className="grid-3 showcase-grid">
+          {byIndustry.map((item, index) => <ShowcaseCard key={item.slug} item={item} href={`${base}/${item.slug}`} index={index} total={byIndustry.length} tone="canvas" />)}
         </div>
       </Section>
     </>
