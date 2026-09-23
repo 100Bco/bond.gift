@@ -25,6 +25,16 @@ const months = [
 
 const pos = (time: number) => `${Math.min(100, Math.max(0, ((time - START) / (END - START)) * 100)).toFixed(2)}%`;
 
+/** Số tuần còn lại, dùng chung cho dải đếm ngược ở hero. Trả về null sau Tết. */
+export function tetSchedule(now = Date.now()) {
+  if (now >= TET) return null;
+  return {
+    weeksToTet: Math.ceil((TET - now) / (7 * DAY)),
+    weeksToDeadline: Math.max(0, Math.ceil((DEADLINE - now) / (7 * DAY))),
+    beforeDeadline: now < DEADLINE,
+  };
+}
+
 export function TetCountdown({ tone = 'deep', now = Date.now() }: { tone?: 'deep' | 'paper' | 'canvas'; now?: number }) {
   if (now >= TET) return null;
   const weeksToTet = Math.ceil((TET - now) / (7 * DAY));

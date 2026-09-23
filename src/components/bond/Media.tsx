@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Camera } from 'lucide-react';
 import { useInView, usePrefersReducedMotion } from '@/hooks/use-in-view';
 import { ProductMotion, type ArtKey, type MotionKind } from './ProductMotion';
@@ -34,6 +34,9 @@ export function Media({ src, alt = '', video, ratio = '4 / 5', tone = 'paper', m
   const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.35 });
   const reduced = usePrefersReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
+  // Hiện dần một lần khi vào khung nhìn lần đầu (ảnh hero hiện ngay)
+  const [revealed, setRevealed] = useState(priority);
+  useEffect(() => { if (inView) setRevealed(true); }, [inView]);
 
   useEffect(() => {
     const node = videoRef.current;
@@ -50,6 +53,7 @@ export function Media({ src, alt = '', video, ratio = '4 / 5', tone = 'paper', m
     play === 'hover' ? 'media-hover' : '',
     play === 'inview' && inView ? 'is-playing' : '',
     isPlaceholder ? 'media-placeholder' : '',
+    revealed ? 'is-revealed' : '',
     className,
   ].filter(Boolean).join(' ');
 
