@@ -10,6 +10,7 @@ import { CollectionCard, ProjectCard, ShowcaseCard } from '@/components/bond/car
 import { EngagementModels } from '@/components/bond/EngagementModels';
 import { TetCountdown } from '@/components/bond/TetCountdown';
 import { StepCarousel } from '@/components/bond/StepCarousel';
+import { Carousel } from '@/components/bond/Carousel';
 
 export type ServiceKind = 'gift' | 'packaging' | 'merchandise';
 
@@ -159,9 +160,9 @@ function GiftShowcase({ items, base }: { items: ServiceItem[]; base: string }) {
   return (
     <Section tone="canvas">
       <SectionIntro label="Theo dịp tặng" title="Tết, tri ân đối tác, sự kiện, nội bộ." />
-      <div className="grid-3 showcase-grid">
+      <Carousel label="Quà tặng theo dịp">
         {items.map((item, index) => <ShowcaseCard key={item.slug} item={item} href={`${base}/${item.slug}`} index={index} total={items.length} tone="paper" />)}
-      </div>
+      </Carousel>
     </Section>
   );
 }
@@ -179,9 +180,9 @@ function PackagingShowcase({ items, base }: { items: ServiceItem[]; base: string
       </Section>
       <Section tone="paper">
         <SectionIntro label="Theo ngành" title="Cho thời trang, trang sức, mỹ phẩm, FMCG." />
-        <div className="grid-3 showcase-grid">
+        <Carousel label="Bao bì theo ngành">
           {byIndustry.map((item, index) => <ShowcaseCard key={item.slug} item={item} href={`${base}/${item.slug}`} index={index} total={byIndustry.length} tone="canvas" />)}
-        </div>
+        </Carousel>
       </Section>
     </>
   );

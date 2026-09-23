@@ -15,7 +15,7 @@ export function CollectionCard({ product, size = 'm', headingLevel = 3 }: { prod
   const Heading = headingLevel === 2 ? 'h2' : 'h3';
   return (
     <Link className={`card card-collection card-collection-${size}`} href={`/bo-suu-tap/${product.slug}`}>
-      <Media ratio={size === 'l' ? '16 / 10' : '4 / 5'} tone="paper" motion={product.motion} art={product.art} play="hover" asset={`Ảnh ${product.name}, still-life trên nền giấy`} alt={`Minh họa ${product.name}`} />
+      <Media ratio={size === 'l' ? '16 / 10' : '4 / 3'} tone="paper" motion={product.motion} art={product.art} play="hover" asset={`Ảnh ${product.name}, still-life trên nền giấy`} alt={`Minh họa ${product.name}`} />
       <div className="card-body">
         <div className="card-title-row">
           <Heading className={size === 'l' ? 't-h3' : 't-h4'}>{product.name}</Heading>
@@ -31,7 +31,7 @@ export function CollectionCard({ product, size = 'm', headingLevel = 3 }: { prod
 /* ---------- Project card: luôn dùng ảnh dự án thật; thiếu ảnh thì placeholder có ghi chú ---------- */
 
 export function ProjectCard({ project, variant = 'square', index }: { project: Project; variant?: 'feature' | 'wide' | 'tall' | 'square'; index?: number }) {
-  const ratio = { feature: '16 / 9', wide: '3 / 2', tall: '4 / 5', square: '1 / 1' }[variant];
+  const ratio = { feature: '16 / 9', wide: '3 / 2', tall: '4 / 5', square: '4 / 3' }[variant];
   const tone: Tone = 'paper';
   return (
     <Link className={`card card-project card-project-${variant}`} href={`/du-an/${project.slug}`}>
@@ -71,7 +71,7 @@ export function ArticleCard({ post, featured = false }: { post: Post; featured?:
 export function ShowcaseCard({ item, href, index, total, tone = 'paper', size = 'm' }: { item: ServiceItem; href: string; index: number; total: number; tone?: Tone; size?: 'm' | 'l' }) {
   return (
     <Link className={`card card-showcase card-showcase-${size}`} href={href}>
-      <Media ratio={size === 'l' ? '16 / 10' : '5 / 4'} tone={tone} motion={item.motion} art="magenta" play="hover" asset={item.asset} alt="" />
+      <Media ratio={size === 'l' ? '16 / 10' : '4 / 3'} tone={tone} motion={item.motion} art="magenta" play="hover" asset={item.asset} alt="" />
       <div className="card-body">
         <ChapterNumber n={index + 1} total={total} />
         <h3 className={size === 'l' ? 't-h2' : 't-h3'}>{item.title}</h3>

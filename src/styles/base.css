@@ -70,20 +70,20 @@ main:focus { outline: none; }
 .t-h3,
 .t-h4 {
   font-family: var(--font-sans);
-  font-weight: 600;
+  font-weight: 500;
   text-wrap: balance;
 }
-/* Headline lớn dùng weight 500: dịu mắt nhưng vẫn tự tin; cấp nhỏ giữ 600 để đọc rõ */
+/* Headline weight 400: mảnh, thanh lịch; cấp nhỏ 500 để vẫn đọc rõ */
 .t-display-xl,
 .t-display-l,
 .t-h1,
-.t-h2 { font-weight: 500; }
+.t-h2 { font-weight: 400; }
 .t-display-xl { font-size: var(--fs-display-xl); line-height: var(--lh-display); letter-spacing: var(--tracking-display); }
 .t-display-l { font-size: var(--fs-display-l); line-height: var(--lh-display); letter-spacing: var(--tracking-display); }
-.t-h1 { font-size: var(--fs-h1); line-height: 1.02; letter-spacing: -0.04em; }
-.t-h2 { font-size: var(--fs-h2); line-height: var(--lh-heading); letter-spacing: -0.035em; }
-.t-h3 { font-size: var(--fs-h3); line-height: 1.12; letter-spacing: var(--tracking-heading); }
-.t-h4 { font-size: var(--fs-h4); line-height: var(--lh-snug); letter-spacing: -0.015em; }
+.t-h1 { font-size: var(--fs-h1); line-height: 1.12; letter-spacing: -0.022em; }
+.t-h2 { font-size: var(--fs-h2); line-height: var(--lh-heading); letter-spacing: -0.02em; }
+.t-h3 { font-size: var(--fs-h3); line-height: 1.25; letter-spacing: var(--tracking-heading); }
+.t-h4 { font-size: var(--fs-h4); line-height: var(--lh-snug); letter-spacing: -0.005em; }
 .t-body-l { font-size: var(--fs-body-l); line-height: 1.55; }
 .t-body { font-size: var(--fs-body); line-height: var(--lh-body); }
 .t-small { font-size: var(--fs-small); line-height: 1.55; }
@@ -91,7 +91,8 @@ main:focus { outline: none; }
   display: inline-block;
   font-size: var(--fs-label);
   line-height: 1.3;
-  font-weight: 600;
+  font-weight: 500;
+  text-transform: uppercase;
   letter-spacing: var(--tracking-label);
   color: var(--color-text-muted);
 }
@@ -102,8 +103,8 @@ p.t-body-l, .t-body-l p { text-wrap: pretty; }
 .t-brand {
   font-family: var(--font-brand);
   font-weight: 700;
-  letter-spacing: -0.05em;
-  line-height: 0.9;
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 .t-numeral {
   font-family: var(--font-brand);

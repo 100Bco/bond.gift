@@ -145,25 +145,25 @@
   --font-sans: 'Be Vietnam Pro', 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
   --font-brand: 'Gothic BOND', 'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif;
 
-  --fs-display-xl: clamp(64px, 9vw, 144px);
-  --fs-display-l: clamp(52px, 7vw, 112px);
-  --fs-h1: clamp(44px, 5.5vw, 84px);
-  --fs-h2: clamp(36px, 4vw, 64px);
-  --fs-h3: clamp(26px, 2.5vw, 40px);
-  --fs-h4: clamp(20px, 1.6vw, 24px);
-  --fs-body-l: clamp(19px, 1.5vw, 23px);
-  --fs-body: 18px;
-  --fs-small: 16px;
-  --fs-label: 13px;
+  --fs-display-xl: clamp(40px, 4.8vw, 72px);
+  --fs-display-l: clamp(36px, 4.2vw, 62px);
+  --fs-h1: clamp(32px, 3.6vw, 54px);
+  --fs-h2: clamp(28px, 2.8vw, 42px);
+  --fs-h3: clamp(21px, 1.7vw, 26px);
+  --fs-h4: clamp(18px, 1.3vw, 20px);
+  --fs-body-l: clamp(17px, 1.25vw, 19px);
+  --fs-body: 17px;
+  --fs-small: 15px;
+  --fs-label: 12px;
 
-  --lh-display: 0.94;
-  --lh-heading: 1.06;
+  --lh-display: 1.08;
+  --lh-heading: 1.16;
   --lh-snug: 1.3;
-  --lh-body: 1.6;
+  --lh-body: 1.65;
 
-  --tracking-display: -0.045em;
-  --tracking-heading: -0.03em;
-  --tracking-label: 0.02em;
+  --tracking-display: -0.025em;
+  --tracking-heading: -0.015em;
+  --tracking-label: 0.08em;
 
   /* ---------- Layout ---------- */
   /* Container hẹp để nội dung gom về giữa, hai bên nhiều khoảng trắng */
@@ -181,8 +181,8 @@
   --space-xl: 48px;
   --space-2xl: 64px;
   --space-3xl: 96px;
-  --space-section: clamp(72px, 10.5vw, 176px);
-  --space-section-tight: clamp(56px, 7vw, 112px);
+  --space-section: clamp(48px, 5.2vw, 80px);
+  --space-section-tight: clamp(44px, 5vw, 80px);
 
   --header-h: 76px;
 
@@ -199,8 +199,8 @@
   --shadow-soft: 0 1px 2px rgba(22, 22, 26, 0.04), 0 12px 32px -16px rgba(22, 22, 26, 0.16);
 
   /* ---------- Controls ---------- */
-  --control-h: 52px;
-  --control-h-s: 44px;
+  --control-h: 48px;
+  --control-h-s: 42px;
 
   /* ---------- Motion ---------- */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -237,8 +237,8 @@
 @media (max-width: 767px) {
   :root {
     --header-h: 64px;
-    --fs-body: 17px;
-    --fs-small: 15px;
-    --control-h: 52px;
+    --fs-body: 16px;
+    --fs-small: 14px;
+    --control-h: 48px;
   }
 }
