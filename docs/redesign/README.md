@@ -42,6 +42,19 @@ Phản hồi sau bản đầu: homepage dạng split và gallery bất đối x�
 
 ---
 
+## 0b. Đợt 3: thanh lịch, thoáng, một khoảnh khắc đặc trưng
+
+| Quyết định | Thực hiện |
+|---|---|
+| Chữ nhẹ và nhỏ hơn | Display/H1/H2 weight 400, H3/H4 500; thang chữ giảm khoảng 35%; nhãn in hoa, giãn chữ |
+| Mỗi màn một ý | Trang chủ còn 8 section: hero, tuyên ngôn, mở hộp, ba dịch vụ, hệ sinh thái, bộ sưu tập, dự án, liên hệ. Lịch ngược Tết đầy đủ ở `/qua-tang/tet`, quy trình ở `/quy-trinh`, số liệu ở `/nang-luc` |
+| Hero tràn màn hình | `HomeStage`: chữ ở trên, visual tràn hai mép, dải đếm ngược Tết cỡ lớn (tuần đến Tết, tuần đến mốc chốt thiết kế) đặt trên visual. Tự ẩn sau Tết. Visual hero thật cần nền sáng để logo trên header vẫn nằm trên nền sáng |
+| Khoảnh khắc mở hộp | `UnboxingStory`: section dính, hộp mở dần theo thao tác cuộn qua 4 lớp (bao bì, thiệp, quà, giao nhiều điểm). Minh họa CSS tạm, chờ chuỗi ảnh/video mở hộp thật. Reduced motion: hiện trạng thái đã mở, không dính |
+| Chi tiết chất liệu | Nhãn căn giữa có hai đường kẻ mảnh; ánh kim lướt một lần trên chữ "compounded."; card viền magenta mảnh khi hover. Không thêm hiệu ứng lên logo |
+| Chuyển động chậm | Ảnh hiện dần và thu nhẹ từ 105% khi vào khung nhìn; số đếm ngược đếm lên chậm; `Carousel` dùng chung cho hàng nhiều hơn 3 card |
+
+---
+
 ## 1. Tóm tắt audit UI trước redesign
 
 Cấu trúc code: toàn bộ 30+ route nằm trong một file `src/App.tsx` (418 dòng) và một `src/index.css` (800 dòng). Không có component tái sử dụng ngoài `PageIntro`, `SectionHeading`, `ProductCard`.

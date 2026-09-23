@@ -5,30 +5,14 @@
 
 /* ---------- Home ---------- */
 /* "compounded." ≈ 6.4em: cỡ chữ luôn nằm trong container căn giữa */
-.home-hero .hero-title { font-size: clamp(38px, 5vw, 72px); max-width: none; }
-.home-hero .hero-copy { gap: 20px; }
-.home-hero-sub { font-size: var(--fs-h4); font-weight: 500; color: var(--color-text); letter-spacing: -0.015em; }
-.home-hero-trust { justify-content: center; }
-.hero-trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--grid-gap); }
-.hero-trio-item { position: relative; display: block; }
-.hero-trio-label { position: absolute; z-index: 3; left: 18px; top: 16px; font-size: 15px; font-weight: 500; letter-spacing: -0.015em; }
-.hero-trio-item .media { transition: transform var(--dur-slow) var(--ease-out); }
-.hero-trio-item:hover .media { transform: scale(0.99); }
 
-.home-meaning-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); row-gap: var(--space-xl); }
-.home-meaning-head { grid-column: 1 / span 6; display: grid; gap: 24px; align-content: start; }
-.home-meaning-body { grid-column: 8 / -1; display: grid; gap: 20px; align-content: start; padding-top: 12px; }
-.home-meaning-body .t-body-l { color: var(--color-text-muted); }
-.home-meaning-sign { padding-top: 16px; border-top: 1px solid var(--color-border); }
 
 .eco-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); row-gap: var(--space-xl); }
 .eco-head { grid-column: 1 / span 5; display: grid; gap: 24px; align-content: start; }
 .eco-muted { color: var(--color-text-muted); }
-.eco-intro { color: var(--color-text-muted); max-width: 32ch; }
 .eco-stack { grid-column: 7 / -1; display: grid; border-top: 1px solid var(--color-border); }
 .eco-row { display: grid; grid-template-columns: 148px minmax(0, 1fr); gap: 28px; align-items: center; padding: 28px 0; border-bottom: 1px solid var(--color-border); }
 .eco-row p { margin-top: 6px; color: var(--color-text-muted); }
-.eco-close { padding-top: 28px; }
 .eco-partners { margin-top: clamp(64px, 8vw, 128px); }
 .tone-ink .logo-slot-missing { border-color: var(--color-on-ink-border); }
 
@@ -48,10 +32,6 @@
 .eco-plate-zad img { position: absolute; left: 50%; top: 50%; max-height: none; max-width: none; height: 220%; transform: translate(-50%, -50%); }
 
 
-.home-process-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); row-gap: var(--space-xl); align-items: center; }
-.home-process-copy { grid-column: 1 / span 6; display: grid; gap: 32px; justify-items: start; }
-.home-process-copy .section-intro { margin-bottom: 0; }
-.home-process-media { grid-column: 8 / -1; }
 .step-list { width: 100%; border-top: 1px solid var(--color-border); }
 .step-list li { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--color-border); }
 .step-list-no { color: var(--bond-magenta); font-size: 20px; line-height: 1.4; }
@@ -309,7 +289,7 @@
  * Responsive
  * ========================================================= */
 @media (max-width: 1023px) {
-  .home-meaning-head, .home-meaning-body, .eco-head, .eco-stack, .home-process-copy, .home-process-media,
+  .eco-head, .eco-stack,
   .about-name-copy, .manifesto-before, .manifesto-after, .need, .solution, .contact-intro, .contact-panel,
   .contact-prep > div, .contact-prep .check-list, .contact-terms, .documents-copy, .documents-visual, .kit-doc-copy, .kit-doc-cover,
   .faq-layout .section-intro, .faq-layout .accordion, .case-split > .media, .case-split-copy,
@@ -430,13 +410,9 @@
 
 @media (max-width: 1023px) {
   .people-gallery, .product-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .hero-trio { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-  .hero-trio-label { font-size: 16px; left: 14px; top: 12px; }
 }
 @media (max-width: 767px) {
   .people-gallery, .product-gallery-grid { grid-template-columns: 1fr; }
-  .hero-trio { grid-template-columns: 1fr; }
-  .hero-trio-item .media { aspect-ratio: 16 / 10 !important; }
 }
 
 /* ---------- Carousel: card đều nhau, cuộn ngang có điều khiển ---------- */
@@ -498,9 +474,6 @@
 .case-gallery-pair .media { max-height: 36vh; }
 .tet-head { margin-bottom: clamp(28px, 3vw, 44px); }
 .tet-track { padding: 60px 0 32px; }
-@media (min-width: 1024px) {
-  .hero-trio-item .media { max-height: 34vh; }
-}
 .carousel .card .media { aspect-ratio: 3 / 2 !important; }
 .carousel-controls { margin-top: 20px; }
 .section-cta { margin-top: 28px; }
