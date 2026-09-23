@@ -5,8 +5,10 @@ import { Breadcrumbs, SiteShell } from '@/components/layout/SiteChrome';
 import { Media } from '@/components/bond/Media';
 import { Reveal } from '@/components/bond/Reveal';
 import { ButtonLink, Label, SectionIntro, TextLink } from '@/components/bond/primitives';
-import { Chapter, EditorialHero, FinalCta, MediaStage, MetricBand, Section, Statement } from '@/components/bond/sections';
+import { Chapter, EditorialHero, FinalCta, MediaStage, MetricBand, Section } from '@/components/bond/sections';
 import { CollectionCard, ProjectCard, ShowcaseCard } from '@/components/bond/cards';
+import { EngagementModels } from '@/components/bond/EngagementModels';
+import { TetCountdown } from '@/components/bond/TetCountdown';
 
 export type ServiceKind = 'gift' | 'packaging' | 'merchandise';
 
@@ -108,9 +110,7 @@ export function ServiceHubPage({ type }: { type: ServiceKind }) {
         media={<Media ratio="4 / 5" priority tone={config.heroMedia.tone} motion={config.heroMedia.motion} art={config.heroMedia.art} asset={config.heroMedia.asset} alt={`Minh họa ${config.title.toLowerCase()}`} />}
       />
 
-      <Statement tone="paper" label="Ba cách hợp tác">
-        Chọn từ bộ sưu tập, thiết kế riêng trọn gói, hoặc độc quyền theo sản lượng.
-      </Statement>
+      <EngagementModels />
 
       {/* 3. Nhóm giải pháp: large showcase */}
       {type === 'gift' && <GiftShowcase items={items} base={config.base} />}
@@ -226,6 +226,8 @@ export function ServiceDetailPage({ kind }: { kind: ServiceKind }) {
         actions={<ButtonLink href="/lien-he">Trao đổi bài toán này</ButtonLink>}
         media={<Media ratio="4 / 5" priority tone={config.heroMedia.tone} motion={item.motion} art={config.heroMedia.art} asset={item.asset} alt={`Minh họa ${item.title.toLowerCase()}`} />}
       />
+
+      {item.slug === 'tet' && <TetCountdown tone="deep" />}
 
       {/* 2–3. Nhu cầu và giải pháp BOND */}
       <Section tone="paper">

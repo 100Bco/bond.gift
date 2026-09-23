@@ -4,7 +4,8 @@ import { catalog, ecosystem, giftOccasions, merchandiseGroups, packagingGroups, 
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { Media } from '@/components/bond/Media';
 import { Reveal } from '@/components/bond/Reveal';
-import { ButtonLink, Label, LogoWall, SectionIntro, TextLink } from '@/components/bond/primitives';
+import { ButtonLink, Label, LogoWall, SectionIntro, TextLink, TrustRow } from '@/components/bond/primitives';
+import { TetCountdown } from '@/components/bond/TetCountdown';
 import { Chapter, EditorialHero, FinalCta, MetricBand, Section } from '@/components/bond/sections';
 import { CollectionCard, ProjectCard } from '@/components/bond/cards';
 import { ContactForm } from '@/components/bond/ContactForm';
@@ -180,11 +181,14 @@ export function HomePage() {
         ]}
       />
 
+      <TetCountdown tone="paper" />
+
       {/* 8. CTA liên hệ */}
       <FinalCta
         label="07 — Bắt đầu từ đây"
         title={<>Mùa Tết 2027 bắt đầu <em>từ bây giờ.</em></>}
-        copy="Tết 2027 rơi vào ngày 6 tháng 2. Để kịp thiết kế riêng và sản xuất, thời điểm an toàn để bắt đầu là trước giữa tháng 10."
+        copy="Anh chị cho chúng tôi biết dịp, số lượng dự kiến, ngân sách mỗi phần và thời điểm cần hàng."
+        actions={<TrustRow />}
         aside={<div className="final-cta-form"><ContactForm surface="dark" /></div>}
       />
     </SiteShell>

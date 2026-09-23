@@ -201,3 +201,16 @@ export function NextChapter({ id, title }: { id: string; title: string }) {
     </a>
   );
 }
+
+/* ---------- Trust row: điều kiện hợp tác đặt ngay cạnh CTA ---------- */
+
+export function TrustRow({ className = '' }: { className?: string }) {
+  return (
+    <ul className={`trust-row ${className}`.trim()} aria-label="Điều kiện hợp tác">
+      <li>Hợp đồng mua bán</li>
+      <li>Hóa đơn VAT đầy đủ</li>
+      <li>Đặt cọc tối đa 50%</li>
+      <li>Thanh toán phần còn lại sau nghiệm thu</li>
+    </ul>
+  );
+}

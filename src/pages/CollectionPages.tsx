@@ -7,6 +7,7 @@ import { Reveal } from '@/components/bond/Reveal';
 import { ButtonLink, ChapterNav, ChapterNumber, FilterChips, Label, NextChapter, SectionIntro, Tag, TextLink } from '@/components/bond/primitives';
 import { Chapter, EditorialHero, FinalCta, Section } from '@/components/bond/sections';
 import { CollectionCard } from '@/components/bond/cards';
+import { EngagementModels } from '@/components/bond/EngagementModels';
 
 const occasionToGift: Record<string, [string, string]> = {
   'Tết': ['/qua-tang/tet', 'Quà Tết doanh nghiệp'],
@@ -57,6 +58,8 @@ export function CollectionPage() {
           </div>
         )}
       </Section>
+
+      <EngagementModels />
 
       <Section tone="ink" spacing="tight" className="signature-teaser">
         <div className="signature-teaser-grid">

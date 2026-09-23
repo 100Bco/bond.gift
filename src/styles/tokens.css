@@ -104,8 +104,9 @@
 
   /* ---------- Derived UI roles ---------- */
   --color-text: var(--bond-ink);
-  --color-text-muted: var(--bond-muted-text);
-  --color-text-subtle: rgba(29, 25, 23, 0.72);
+  /* Chữ phụ đậm hơn token gốc (.64 → .70) để người đọc trung niên đọc thoải mái hơn */
+  --color-text-muted: rgba(29, 25, 23, 0.7);
+  --color-text-subtle: rgba(29, 25, 23, 0.78);
   --color-bg: var(--bond-canvas);
   --color-surface: var(--bond-paper);
   --color-border: var(--bond-border);
@@ -143,9 +144,9 @@
   --fs-h2: clamp(36px, 4vw, 64px);
   --fs-h3: clamp(26px, 2.5vw, 40px);
   --fs-h4: clamp(20px, 1.6vw, 24px);
-  --fs-body-l: clamp(19px, 1.5vw, 22px);
-  --fs-body: 17px;
-  --fs-small: 15px;
+  --fs-body-l: clamp(19px, 1.5vw, 23px);
+  --fs-body: 18px;
+  --fs-small: 16px;
   --fs-label: 13px;
 
   --lh-display: 0.94;
@@ -227,7 +228,8 @@
 @media (max-width: 767px) {
   :root {
     --header-h: 64px;
-    --fs-body: 16px;
+    --fs-body: 17px;
+    --fs-small: 15px;
     --control-h: 52px;
   }
 }

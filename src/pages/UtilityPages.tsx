@@ -3,7 +3,7 @@ import { Breadcrumbs, SiteShell } from '@/components/layout/SiteChrome';
 import { Media } from '@/components/bond/Media';
 import { BondGlyph } from '@/components/bond/BondGlyph';
 import { ContactForm } from '@/components/bond/ContactForm';
-import { Accordion, Button, ButtonLink, ChapterNumber, Field, Label, SectionIntro, TextLink } from '@/components/bond/primitives';
+import { Accordion, Button, ButtonLink, ChapterNumber, Field, Label, SectionIntro, TextLink, TrustRow } from '@/components/bond/primitives';
 import { EditorialHero, FinalCta, Section } from '@/components/bond/sections';
 
 /* ---------- /lien-he ---------- */
@@ -22,6 +22,7 @@ export function ContactPage() {
           </div>
           <div className="contact-panel">
             <ContactForm />
+            <TrustRow />
           </div>
         </div>
       </section>
