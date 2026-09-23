@@ -1,0 +1,603 @@
+/*
+ * Product Motion system.
+ * Minh họa sản phẩm dựng bằng CSS, kích thước theo container (cqmin).
+ * Quy tắc: chỉ transform/opacity; animation tạm dừng cho đến khi media vào viewport
+ * (.is-playing) hoặc được hover (.media-hover:hover); reduced motion hiển thị một tư thế tĩnh
+ * vẫn giải thích được cấu trúc sản phẩm.
+ */
+
+.pm {
+  position: absolute;
+  inset: 0;
+  container-type: size;
+  pointer-events: none;
+}
+.pm.pm *,
+.pm.pm *::before,
+.pm.pm *::after {
+  animation-play-state: paused;
+  animation-timing-function: var(--ease-in-out);
+  animation-iteration-count: infinite;
+}
+.is-playing .pm.pm *,
+.is-playing .pm.pm *::before,
+.is-playing .pm.pm *::after,
+.media-hover:hover .pm.pm *,
+.media-hover:hover .pm.pm *::before,
+.media-hover:hover .pm.pm *::after,
+.media-hover:focus-within .pm.pm * {
+  animation-play-state: running;
+}
+
+.pm-obj {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 72cqmin;
+  height: 72cqmin;
+  transform: translate(-50%, -50%);
+}
+.pm-floor {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 56cqmin;
+  height: 7cqmin;
+  margin-top: 24cqmin;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: var(--art-shadow);
+  filter: blur(1.4cqmin);
+}
+
+/* Graphic language: hình vuông + nửa hình tròn, có khoảng hở ở giữa */
+.pm-mark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 26%;
+  aspect-ratio: 2.2 / 1;
+  transform: translate(-50%, -50%);
+}
+.pm-mark::before,
+.pm-mark::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 45%;
+  background: var(--art-b);
+}
+.pm-mark::before { left: 0; }
+.pm-mark::after { right: 0; border-radius: 0 999px 999px 0; }
+
+/* ---------- Box: nắp mở và đóng ---------- */
+.pm-box-base,
+.pm-box-lid,
+.pm-box-insert { position: absolute; }
+.pm-box-base {
+  left: 18%;
+  width: 64%;
+  top: 50%;
+  height: 34%;
+  z-index: 2;
+  border-radius: 1.2cqmin;
+  background: var(--art-a);
+}
+.pm-box-lid {
+  left: 15%;
+  width: 70%;
+  top: 41%;
+  height: 11%;
+  z-index: 3;
+  border-radius: 1.2cqmin;
+  background: linear-gradient(rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)), var(--art-a);
+  box-shadow: 0 1.4cqmin 2.4cqmin -1cqmin var(--art-shadow);
+  transform-origin: 20% 100%;
+  animation: pm-lid var(--loop-base);
+}
+.pm-ribbon {
+  position: absolute;
+  left: 44%;
+  width: 12%;
+  top: 0;
+  bottom: 0;
+  background: var(--art-c);
+}
+.pm-box-insert {
+  left: 27%;
+  width: 46%;
+  top: 44%;
+  height: 32%;
+  z-index: 1;
+  border-radius: 0.8cqmin;
+  background: var(--bond-canvas);
+  animation: pm-insert var(--loop-base);
+}
+.pm-box-insert span {
+  position: absolute;
+  top: 18%;
+  height: 34%;
+  width: 22%;
+  background: var(--bond-magenta);
+}
+.pm-box-insert span:first-child { left: 26%; }
+.pm-box-insert span:last-child { left: 52%; border-radius: 0 999px 999px 0; }
+@keyframes pm-lid {
+  0%, 16% { transform: translate(0, 0) rotate(0); }
+  38%, 68% { transform: translate(6%, -210%) rotate(-9deg); }
+  90%, 100% { transform: translate(0, 0) rotate(0); }
+}
+@keyframes pm-insert {
+  0%, 24% { transform: translateY(0); }
+  44%, 64% { transform: translateY(-40%); }
+  84%, 100% { transform: translateY(0); }
+}
+
+/* ---------- Sleeve: khay trượt ra ---------- */
+.pm-sleeve .pm-obj,
+.pm-sleeve-outer,
+.pm-sleeve-tray { position: absolute; }
+.pm-sleeve-outer {
+  left: 6%;
+  width: 58%;
+  top: 36%;
+  height: 32%;
+  z-index: 2;
+  border-radius: 1cqmin;
+  background: var(--art-a);
+  box-shadow: 1.6cqmin 0 2cqmin -1.4cqmin var(--art-shadow);
+}
+.pm-sleeve-outer .pm-mark { width: 30%; }
+.pm-sleeve-tray {
+  left: 8%;
+  width: 54%;
+  top: 39%;
+  height: 26%;
+  z-index: 1;
+  border-radius: 0.8cqmin;
+  background: var(--art-b);
+  animation: pm-tray var(--loop-base);
+}
+.pm-sleeve-tray span {
+  position: absolute;
+  top: 22%;
+  width: 18%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--art-c);
+}
+.pm-sleeve-tray span:nth-child(1) { left: 16%; }
+.pm-sleeve-tray span:nth-child(2) { left: 41%; }
+.pm-sleeve-tray span:nth-child(3) { left: 66%; }
+@keyframes pm-tray {
+  0%, 18% { transform: translateX(0); }
+  44%, 70% { transform: translateX(62%); }
+  92%, 100% { transform: translateX(0); }
+}
+
+/* ---------- Envelope: thiệp rút khỏi phong bì ---------- */
+.pm-env-back,
+.pm-env-card,
+.pm-env-front,
+.pm-env-seal { position: absolute; }
+.pm-env-back {
+  left: 14%;
+  width: 72%;
+  top: 40%;
+  height: 42%;
+  border-radius: 1cqmin;
+  background: linear-gradient(var(--art-shadow), var(--art-shadow)), var(--art-a);
+}
+.pm-env-card {
+  left: 21%;
+  width: 58%;
+  top: 34%;
+  height: 44%;
+  border-radius: 0.6cqmin;
+  background: var(--bond-canvas);
+  box-shadow: 0 0 0 0.3cqmin var(--art-shadow);
+  animation: pm-card var(--loop-base);
+}
+.pm-env-card span {
+  position: absolute;
+  left: 14%;
+  height: 5%;
+  border-radius: 999px;
+  background: var(--color-border-strong);
+}
+.pm-env-card span:nth-child(1) { top: 16%; width: 40%; background: var(--bond-magenta); }
+.pm-env-card span:nth-child(2) { top: 32%; width: 66%; }
+.pm-env-card span:nth-child(3) { top: 44%; width: 52%; }
+.pm-env-front {
+  left: 14%;
+  width: 72%;
+  top: 40%;
+  height: 42%;
+  border-radius: 1cqmin;
+  background: var(--art-a);
+  clip-path: polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%);
+}
+.pm-env-seal {
+  left: 50%;
+  top: 60%;
+  width: 9%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--art-c);
+}
+@keyframes pm-card {
+  0%, 14% { transform: translateY(0); }
+  40%, 70% { transform: translateY(-46%); }
+  92%, 100% { transform: translateY(0); }
+}
+
+/* ---------- Bag: túi xoay nhẹ ---------- */
+.pm-bag {
+  position: absolute;
+  left: 27%;
+  width: 46%;
+  top: 22%;
+  height: 62%;
+  transform-origin: 50% 4%;
+  animation: pm-sway var(--loop-slow);
+}
+.pm-bag-handle {
+  position: absolute;
+  left: 28%;
+  width: 44%;
+  top: 0;
+  height: 30%;
+  border: 1.1cqmin solid var(--art-c);
+  border-bottom: 0;
+  border-radius: 999px 999px 0 0;
+}
+.pm-bag-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 22%;
+  bottom: 0;
+  border-radius: 0.8cqmin 0.8cqmin 1.6cqmin 1.6cqmin;
+  background: var(--art-a);
+  box-shadow: inset -5cqmin 0 0 -2cqmin var(--art-shadow);
+}
+.pm-bag-body .pm-mark { width: 38%; top: 46%; }
+@keyframes pm-sway {
+  0%, 100% { transform: rotate(-3.5deg); }
+  50% { transform: rotate(3.5deg); }
+}
+
+/* ---------- Layers: các lớp bao bì tách ra rồi ghép lại ---------- */
+.pm-iso {
+  position: absolute;
+  left: 22%;
+  top: 30%;
+  width: 56%;
+  height: 56%;
+  transform: rotateX(58deg) rotateZ(-42deg);
+  transform-style: preserve-3d;
+}
+.pm-layer {
+  position: absolute;
+  inset: 0;
+  border-radius: 1.4cqmin;
+  transform: translateZ(0);
+}
+.pm-layer-base {
+  background: linear-gradient(var(--art-shadow), var(--art-shadow)), var(--art-a);
+  box-shadow: 0 0 0 0.3cqmin var(--art-shadow);
+}
+.pm-layer-insert {
+  inset: 6%;
+  background: var(--art-b);
+  animation: pm-layer-1 var(--loop-slow);
+}
+.pm-layer-insert span {
+  position: absolute;
+  width: 30%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--art-shadow);
+}
+.pm-layer-insert span:nth-child(1) { left: 12%; top: 12%; }
+.pm-layer-insert span:nth-child(2) { right: 12%; top: 12%; }
+.pm-layer-insert span:nth-child(3) { left: 12%; bottom: 12%; }
+.pm-layer-insert span:nth-child(4) { right: 12%; bottom: 12%; }
+.pm-layer-card {
+  inset: 16%;
+  background: var(--bond-canvas);
+  box-shadow: 0 0 0 0.3cqmin var(--art-shadow);
+  animation: pm-layer-2 var(--loop-slow);
+}
+.pm-layer-lid {
+  inset: -3%;
+  background: linear-gradient(rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.14)), var(--art-a);
+  box-shadow: 0 0 0 0.3cqmin var(--art-shadow);
+  animation: pm-layer-3 var(--loop-slow);
+}
+.pm-layer-lid .pm-mark { width: 40%; }
+@keyframes pm-layer-1 {
+  0%, 12% { transform: translateZ(0.5cqmin); }
+  40%, 66% { transform: translateZ(12cqmin); }
+  90%, 100% { transform: translateZ(0.5cqmin); }
+}
+@keyframes pm-layer-2 {
+  0%, 12% { transform: translateZ(1cqmin); }
+  40%, 66% { transform: translateZ(24cqmin); }
+  90%, 100% { transform: translateZ(1cqmin); }
+}
+@keyframes pm-layer-3 {
+  0%, 12% { transform: translateZ(1.5cqmin); }
+  40%, 66% { transform: translateZ(38cqmin); }
+  90%, 100% { transform: translateZ(1.5cqmin); }
+}
+
+/* ---------- Kit: vật phẩm lần lượt xuất hiện trong khay ---------- */
+.pm-kit-tray {
+  position: absolute;
+  left: 12%;
+  width: 76%;
+  top: 20%;
+  height: 60%;
+  padding: 6%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 6%;
+  border-radius: 2cqmin;
+  background: var(--art-a);
+  box-shadow: inset 0 0 0 1.2cqmin var(--art-shadow);
+}
+.pm-kit-item {
+  display: block;
+  place-self: center;
+}
+.pm-kit-1 { width: 70%; aspect-ratio: 1; border-radius: 50%; background: var(--art-b); animation: pm-kit-1 var(--loop-slow); }
+.pm-kit-2 { width: 56%; height: 90%; border-radius: 0.6cqmin; background: var(--bond-canvas); animation: pm-kit-2 var(--loop-slow); }
+.pm-kit-3 { width: 72%; aspect-ratio: 1; border-radius: 0.8cqmin; background: var(--art-c); animation: pm-kit-3 var(--loop-slow); }
+.pm-kit-4 { width: 86%; height: 18%; border-radius: 999px; background: var(--bond-ink); animation: pm-kit-4 var(--loop-slow); }
+/* Khung 0% là trạng thái đầy đủ để khi tạm dừng vẫn thấy kit hoàn chỉnh */
+@keyframes pm-kit-1 { 0%, 50% { opacity: 1; transform: scale(1); } 58%, 62% { opacity: 0; transform: scale(0.72); } 70%, 100% { opacity: 1; transform: scale(1); } }
+@keyframes pm-kit-2 { 0%, 50% { opacity: 1; transform: scale(1); } 58%, 70% { opacity: 0; transform: scale(0.72); } 78%, 100% { opacity: 1; transform: scale(1); } }
+@keyframes pm-kit-3 { 0%, 50% { opacity: 1; transform: scale(1); } 58%, 78% { opacity: 0; transform: scale(0.72); } 86%, 100% { opacity: 1; transform: scale(1); } }
+@keyframes pm-kit-4 { 0%, 50% { opacity: 1; transform: scale(1); } 58%, 86% { opacity: 0; transform: scale(0.72); } 94%, 100% { opacity: 1; transform: scale(1); } }
+
+/* ---------- Colorway: bộ quà chuyển giữa các phiên bản màu ---------- */
+.pm-cw {
+  position: absolute;
+  left: 20%;
+  width: 60%;
+  top: 26%;
+  height: 46%;
+}
+.pm-cw-box {
+  position: absolute;
+  inset: 0;
+  border-radius: 1.2cqmin;
+  opacity: 0;
+}
+.pm-cw-box::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 26%;
+  height: 0.5cqmin;
+  background: var(--art-shadow);
+}
+.pm-cw-1 { background: var(--art-a); animation: pm-cw-1 var(--loop-slow); }
+.pm-cw-2 { background: var(--art-c); animation: pm-cw-2 var(--loop-slow); }
+.pm-cw-3 { background: var(--bond-ink); animation: pm-cw-3 var(--loop-slow); }
+.pm-cw-3 .pm-mark::before,
+.pm-cw-3 .pm-mark::after { background: var(--bond-paper); }
+.pm-cw-dots {
+  position: absolute;
+  left: 50%;
+  top: 82%;
+  display: flex;
+  gap: 2.4cqmin;
+  transform: translateX(-50%);
+}
+.pm-cw-dots span {
+  width: 2.6cqmin;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--color-border-strong);
+}
+.pm-cw-dots span:nth-child(1) { animation: pm-dot-1 var(--loop-slow); }
+.pm-cw-dots span:nth-child(2) { animation: pm-dot-2 var(--loop-slow); }
+.pm-cw-dots span:nth-child(3) { animation: pm-dot-3 var(--loop-slow); }
+@keyframes pm-cw-1 { 0%, 30% { opacity: 1; } 36%, 94% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes pm-cw-2 { 0%, 30% { opacity: 0; } 36%, 63% { opacity: 1; } 69%, 100% { opacity: 0; } }
+@keyframes pm-cw-3 { 0%, 63% { opacity: 0; } 69%, 94% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes pm-dot-1 { 0%, 30% { opacity: 1; } 36%, 94% { opacity: 0.35; } 100% { opacity: 1; } }
+@keyframes pm-dot-2 { 0%, 30% { opacity: 0.35; } 36%, 63% { opacity: 1; } 69%, 100% { opacity: 0.35; } }
+@keyframes pm-dot-3 { 0%, 63% { opacity: 0.35; } 69%, 94% { opacity: 1; } 100% { opacity: 0.35; } }
+
+/* ---------- Journey: brief ---------- */
+.pm-sheet {
+  position: absolute;
+  left: 25%;
+  width: 50%;
+  top: 14%;
+  height: 70%;
+  border-radius: 1cqmin;
+  background: var(--bond-canvas);
+  box-shadow: 0 2cqmin 4cqmin -2cqmin var(--art-shadow), 0 0 0 0.3cqmin var(--art-shadow);
+}
+.pm-sheet-title,
+.pm-line {
+  position: absolute;
+  left: 14%;
+  height: 3.4%;
+  border-radius: 999px;
+  transform-origin: left center;
+}
+.pm-sheet-title { top: 14%; width: 46%; height: 6%; background: var(--bond-magenta); }
+.pm-line { background: var(--color-border-strong); }
+.pm-line-1 { top: 32%; width: 72%; animation: pm-line-1 var(--loop-base); }
+.pm-line-2 { top: 42%; width: 64%; animation: pm-line-2 var(--loop-base); }
+.pm-line-3 { top: 52%; width: 70%; animation: pm-line-3 var(--loop-base); }
+.pm-line-4 { top: 62%; width: 40%; animation: pm-line-4 var(--loop-base); }
+.pm-sheet-mark {
+  position: absolute;
+  right: 12%;
+  bottom: 10%;
+  width: 16%;
+  aspect-ratio: 1;
+  border-radius: 0 999px 999px 0;
+  background: var(--art-a);
+}
+@keyframes pm-line-1 { 0%, 50% { transform: scaleX(1); } 56%, 60% { transform: scaleX(0); } 70%, 100% { transform: scaleX(1); } }
+@keyframes pm-line-2 { 0%, 50% { transform: scaleX(1); } 56%, 68% { transform: scaleX(0); } 78%, 100% { transform: scaleX(1); } }
+@keyframes pm-line-3 { 0%, 50% { transform: scaleX(1); } 56%, 76% { transform: scaleX(0); } 86%, 100% { transform: scaleX(1); } }
+@keyframes pm-line-4 { 0%, 50% { transform: scaleX(1); } 56%, 84% { transform: scaleX(0); } 94%, 100% { transform: scaleX(1); } }
+
+/* ---------- Journey: concept, các hướng đề xuất xòe ra ---------- */
+.pm-fan {
+  position: absolute;
+  left: 32%;
+  width: 36%;
+  top: 18%;
+  height: 58%;
+}
+.pm-fan-card {
+  position: absolute;
+  inset: 0;
+  border-radius: 1cqmin;
+  transform-origin: 50% 110%;
+  box-shadow: 0 0 0 0.3cqmin var(--art-shadow);
+}
+.pm-fan-card i {
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  top: 16%;
+  aspect-ratio: 1;
+  border-radius: 0.6cqmin;
+  background: rgba(255, 255, 255, 0.4);
+}
+.pm-fan-1 { background: var(--art-a); animation: pm-fan-1 var(--loop-base); }
+.pm-fan-2 { background: var(--bond-canvas); animation: pm-fan-2 var(--loop-base); }
+.pm-fan-2 i { background: var(--bond-magenta-soft); }
+.pm-fan-3 { background: var(--art-c); animation: pm-fan-3 var(--loop-base); }
+@keyframes pm-fan-1 { 0%, 12% { transform: rotate(0); } 40%, 74% { transform: rotate(-18deg) translateX(-8%); } 94%, 100% { transform: rotate(0); } }
+@keyframes pm-fan-2 { 0%, 12% { transform: rotate(0); } 40%, 74% { transform: rotate(0) translateY(-6%); } 94%, 100% { transform: rotate(0); } }
+@keyframes pm-fan-3 { 0%, 12% { transform: rotate(0); } 40%, 74% { transform: rotate(18deg) translateX(8%); } 94%, 100% { transform: rotate(0); } }
+
+/* ---------- Journey: production, băng chuyền ---------- */
+.pm-belt {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 34%;
+  height: 34%;
+  overflow: hidden;
+}
+.pm-belt-track {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 18%;
+  width: 200%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items: end;
+  animation: pm-belt 10s linear infinite;
+}
+.pm.pm .pm-belt-track { animation-timing-function: linear; }
+.pm-belt-track span {
+  justify-self: center;
+  width: 44%;
+  height: 72%;
+  border-radius: 0.8cqmin;
+  background: var(--art-a);
+}
+.pm-belt-track span:nth-child(3n + 2) { background: var(--art-c); height: 58%; }
+.pm-belt-track span:nth-child(3n) { background: var(--art-b); height: 84%; box-shadow: 0 0 0 0.3cqmin var(--art-shadow); }
+.pm-belt-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8%;
+  height: 4%;
+  border-radius: 999px;
+  background: var(--bond-ink);
+}
+@keyframes pm-belt { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ---------- Journey: delivery, giao nhiều điểm ---------- */
+.pm-route {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 30%;
+  height: 40%;
+}
+.pm-route-path {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.pm-route-path path {
+  stroke: var(--bond-ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 6;
+  vector-effect: non-scaling-stroke;
+}
+.pm-pin {
+  position: absolute;
+  width: 5cqmin;
+  aspect-ratio: 1;
+  border-radius: 50% 50% 50% 0;
+  background: var(--bond-magenta);
+  transform: translate(-50%, -110%) rotate(-45deg);
+}
+.pm-pin-1 { left: 3.3%; top: 75%; }
+.pm-pin-2 { left: 50%; top: 25%; }
+.pm-pin-3 { left: 96.7%; top: 50%; }
+.pm-parcel-x,
+.pm-parcel-y { position: absolute; inset: 0; }
+.pm-parcel-x { animation: pm-px var(--loop-slow); }
+.pm-parcel-y { animation: pm-py var(--loop-slow); }
+.pm-parcel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 7cqmin;
+  aspect-ratio: 1.2;
+  border-radius: 0.6cqmin;
+  background: var(--art-a);
+  box-shadow: 0 0 0 0.3cqmin var(--art-shadow);
+  transform: translate(-50%, -50%);
+}
+@keyframes pm-px { 0%, 8% { transform: translateX(3.3%); } 42%, 54% { transform: translateX(50%); } 88%, 100% { transform: translateX(96.7%); } }
+@keyframes pm-py { 0%, 8% { transform: translateY(75%); } 25% { transform: translateY(32%); } 42%, 54% { transform: translateY(25%); } 72% { transform: translateY(62%); } 88%, 100% { transform: translateY(50%); } }
+
+/* ---------- Reduced motion: tư thế tĩnh vẫn cho thấy cấu trúc ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .pm.pm *,
+  .pm.pm *::before,
+  .pm.pm *::after { animation: none !important; }
+  .pm-box-lid { transform: translate(6%, -150%) rotate(-7deg); }
+  .pm-box-insert { transform: translateY(-26%); }
+  .pm-sleeve-tray { transform: translateX(44%); }
+  .pm-env-card { transform: translateY(-34%); }
+  .pm-bag { transform: rotate(-2deg); }
+  .pm-layer-insert { transform: translateZ(8cqmin); }
+  .pm-layer-card { transform: translateZ(16cqmin); }
+  .pm-layer-lid { transform: translateZ(26cqmin); }
+  .pm-kit-item { opacity: 1; transform: none; }
+  .pm-cw-1 { opacity: 1; }
+  .pm-cw-dots span:first-child { opacity: 1; }
+  .pm-cw-dots span:not(:first-child) { opacity: 0.35; }
+  .pm-line { transform: none; }
+  .pm-fan-1 { transform: rotate(-18deg) translateX(-8%); }
+  .pm-fan-3 { transform: rotate(18deg) translateX(8%); }
+  .pm-parcel-x { transform: translateX(50%); }
+  .pm-parcel-y { transform: translateY(25%); }
+}
