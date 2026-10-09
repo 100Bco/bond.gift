@@ -75,15 +75,10 @@ export function SiteFooter() {
             <p className="lx-foot-tag">Quà tặng doanh nghiệp, giải pháp bao bì và trải nghiệm thương hiệu. Thành viên hệ sinh thái 100B.</p>
           </div>
           <div>
-            <p className="lx-foot-h">Danh mục</p>
+            <p className="lx-foot-h">Khám phá</p>
             <div className="lx-foot-l">
               <Link href="/#set-san">Set sẵn</Link>
               <Link href="/#set-doc-ban">Set độc bản</Link>
-            </div>
-          </div>
-          <div>
-            <p className="lx-foot-h">Về BOND</p>
-            <div className="lx-foot-l">
               <Link href="/ve-bond">Về BOND</Link>
               <Link href="/#quy-trinh">Quy trình</Link>
               <Link href="/cau-hoi-thuong-gap">Câu hỏi thường gặp</Link>
@@ -92,7 +87,7 @@ export function SiteFooter() {
           <div>
             <p className="lx-foot-h">Liên hệ</p>
             <div className="lx-foot-l">
-              <ZaloLink>Zalo doanh nghiệp</ZaloLink>
+              <ZaloLink>Nhắn tin qua Zalo</ZaloLink>
               {officeLines.map((line) => <span key={line}>{line}</span>)}
             </div>
           </div>
@@ -100,7 +95,7 @@ export function SiteFooter() {
         <div className="lx-foot-bot">
           <span>© 2026 BOND. Tất cả quyền được bảo lưu.</span>
           <span className="lx-foot-legal"><Link href="/chinh-sach-bao-mat">Chính sách bảo mật</Link><Link href="/dieu-khoan">Điều khoản</Link></span>
-          <span className="lx-foot-eco">ZAD <i /> BOND <i /> Hệ sinh thái 100B</span>
+          <span className="lx-foot-eco">ZAD <i /> BOND <i /> <a href="https://100b.co" target="_blank" rel="noopener noreferrer">Hệ sinh thái 100B</a></span>
         </div>
       </div>
     </footer>
