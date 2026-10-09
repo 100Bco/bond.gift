@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'wouter';
 import { bespokeBudgets, clientLogos, giftModels, giftProcesses, readySets } from '@/data/content';
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { Reveal } from '@/components/bond/Reveal';
@@ -349,8 +350,8 @@ function ReadySets() {
         </Reveal>
         <div className="lx-cards">
           {readySets.map((set, i) => (
-            <Reveal key={set.name} delay={(i % 2) as 0 | 1}>
-              <ZaloLink className="lx-card">
+            <Reveal key={set.slug} delay={(i % 4) as 0 | 1 | 2 | 3}>
+              <Link href={`/set-san/${set.slug}`} className="lx-card">
                 <div className="lx-card-img">
                   <span className="lx-card-tag">{set.tier}</span>
                   <SetArt look={set.look} />
@@ -358,8 +359,8 @@ function ReadySets() {
                 <h3 className="lx-card-name">{set.name}</h3>
                 <p className="lx-card-price">{set.price}</p>
                 <p className="lx-card-in">{set.contents}</p>
-                <span className="lx-card-more">Chi tiết cấu phần <span aria-hidden="true">→</span></span>
-              </ZaloLink>
+                <span className="lx-card-more">Xem chi tiết <span aria-hidden="true">→</span></span>
+              </Link>
             </Reveal>
           ))}
         </div>

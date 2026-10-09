@@ -8,6 +8,7 @@ import { HomePage } from '@/pages/HomePage';
 import { AboutPage } from '@/pages/AboutPage';
 import { CatalogDetailPage, CollectionPage, SignaturePage } from '@/pages/CollectionPages';
 import { ServiceDetailPage, ServiceHubPage } from '@/pages/ServicePages';
+import { ReadySetPage } from '@/pages/ReadySetPage';
 import { ProjectDetailPage, ProjectsPage } from '@/pages/ProjectPages';
 import { CapabilitiesPage, CapabilityDetailPage } from '@/pages/CapabilityPages';
 import { InsightDetailPage, InsightsPage } from '@/pages/InsightPages';
@@ -37,6 +38,7 @@ function Router() {
         <Route path="/bo-suu-tap/signature" component={SignaturePage} />
         <Route path="/bo-suu-tap/:slug" component={CatalogDetailPage} />
         <Route path="/quy-trinh" component={ProcessRedirect} />
+        <Route path="/set-san/:slug" component={ReadySetPage} />
         <Route path="/qua-tang" component={() => <ServiceHubPage type="gift" />} />
         <Route path="/qua-tang/:slug" component={() => <ServiceDetailPage kind="gift" />} />
         <Route path="/bao-bi" component={() => <ServiceHubPage type="packaging" />} />
