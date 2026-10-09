@@ -229,7 +229,6 @@ function ModelSteps({ kind }: { kind: 'ready' | 'bespoke' }) {
     <div className="lx-cmp-proc" data-open={open}>
       <button type="button" className="lx-cmp-toggle" aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)}>
         <span className="lx-cmp-toggle-t">Quy trình {proc.steps.length} bước</span>
-        <span className="lx-cmp-toggle-m">· {proc.duration}</span>
         <span className="lx-acc-ico" aria-hidden="true" />
       </button>
       <div className="lx-cmp-proc-body" id={id} role="region" aria-label={`Quy trình ${proc.steps.length} bước`}>
@@ -254,16 +253,16 @@ function Models() {
     <section className="lx-sec lx-cmp" id="quy-trinh" aria-labelledby="lx-cmp-title">
       <div className="lx-wrap">
         <Reveal className="lx-cmp-head">
-          <p className="lx-eyebrow">Hai phương thức tiếp cận</p>
+          <p className="lx-eyebrow">Hai cách đặt quà</p>
           <h2 id="lx-cmp-title">Hai cách để BOND làm quà<br />cho thương hiệu của bạn</h2>
-          <p className="lx-lead">Cùng một đội ngũ giám tuyển, cùng chuẩn mực gia công cao nhất. Khác biệt nằm ở mức độ khắc họa bản sắc thương hiệu riêng biệt.</p>
+          <p className="lx-lead">Cùng một đội ngũ, cùng một chuẩn hoàn thiện. Khác nhau ở mức độ bạn muốn món quà mang dấu ấn riêng đến đâu.</p>
         </Reveal>
         <Reveal className="lx-cmp-grid">
+          <span className="lx-cross lx-cmp-cross" aria-hidden="true" />
           {(['ready', 'bespoke'] as const).map((kind, i) => {
             const m = giftModels[kind];
             return (
               <div key={kind} className={`lx-cmp-col lx-cmp-col-${kind}`}>
-                {kind === 'bespoke' && <span className="lx-cross lx-cmp-cross" aria-hidden="true" />}
                 <span className="lx-cmp-badge">Mô hình {pad(i + 1)}</span>
                 <h3 className="lx-cmp-name">{m.name}</h3>
                 <p className="lx-cmp-say">{m.say}</p>
@@ -282,7 +281,7 @@ function Models() {
                 </dl>
                 <ModelSteps kind={kind} />
                 <a href={kind === 'ready' ? '#set-san' : '#set-doc-ban'} className={`lx-btn ${kind === 'ready' ? 'lx-btn-line' : 'lx-btn-red'}`}>
-                  {kind === 'ready' ? 'Xem catalogue Set Sẵn' : 'Khám phá giải pháp Độc Bản'}
+                  {kind === 'ready' ? 'Xem Set Sẵn' : 'Xem Set Độc Bản'}
                 </a>
               </div>
             );
