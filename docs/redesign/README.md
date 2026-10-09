@@ -50,7 +50,8 @@ Phản hồi sau bản đầu: homepage dạng split và gallery bất đối x�
 | Font | Tiêu đề Plus Jakarta Sans 600, chữ nhấn Playfair Display nghiêng, nội dung Be Vietnam Pro. Tự host trong `public/fonts` (OFL), có subset tiếng Việt |
 | Logo | Logo chính thức thay cho logo vẽ lại trong file. Ở footer nền mực, logo đặt trên tấm nền ngà |
 | Menu | Theo file: Set sẵn, Set độc bản, Quy trình (neo về trang chủ) và nút Tư vấn qua Zalo. Các trang khác vẫn truy cập được qua footer, URL không đổi |
-| Trang chủ | Hero cuộn 2 pha: hai tay vest may đo (sơ mi trắng, khuy măng-sét đỏ BOND) đi vào theo quỹ đạo cong, tay phải trước một nhịp, đặt sau hộp để mặt hộp hiện trọn; hộp giữa nảy nhẹ khi được đỡ, có bóng tiếp xúc; bốn hộp phụ dạt sang hai bên và mờ đi; mobile giữ đôi tay ở dạng tĩnh ("Brands, in hand.") với đồng hồ Tháng/Ngày/Giờ/Phút đến Tết Đinh Mùi · Dải logo khách hàng thật (15 logo trong `public/assets/clients`, bản gốc ở `public/Logo Client`) · Hai mô hình · Set sẵn · Set độc bản theo ngân sách · Khoảnh khắc Tết · Quy trình accordion · CTA đỏ |
+| Trang chủ | Hero cuộn 2 pha: hai tay vest may đo (sơ mi trắng, khuy măng-sét đỏ BOND) đi vào theo quỹ đạo cong, tay phải trước một nhịp, đặt sau hộp để mặt hộp hiện trọn; hộp giữa nảy nhẹ khi được đỡ, có bóng tiếp xúc; bốn hộp phụ dạt sang hai bên và mờ đi; mobile giữ đôi tay ở dạng tĩnh ("Brands, in hand.") với đồng hồ Tháng/Ngày/Giờ/Phút đến Tết Đinh Mùi · Dải logo khách hàng thật (15 logo trong `public/assets/clients`, bản gốc ở `public/Logo Client`) · Hai mô hình kèm quy trình (`#quy-trinh`) · Set sẵn · Set độc bản theo ngân sách · Khoảnh khắc Tết · CTA đỏ |
+| Quy trình | Gộp vào khối "Hai cách để BOND làm quà": mỗi cột có ảnh thật (`public/assets/models`), bảng thông số và danh sách bước chỉ hiện tên; nút "Xem chi tiết các bước" mở mô tả, hai cột mở độc lập. Set Sẵn 5 bước (brief, chốt ruột theo menu sẵn có, duyệt mẫu in logo, sản xuất, giao hàng). Set Độc Bản đủ 7 bước. Dữ liệu ở `giftProcesses` trong `src/data/content.ts`. Trang `/quy-trinh` đã xóa, URL cũ chuyển về `/#quy-trinh`; các trang dịch vụ dùng 7 bước Set Độc Bản kèm link so sánh |
 | Số liệu | Tên set, giá, cấu phần, MOQ, thời gian, địa chỉ văn phòng lấy theo file, đã được BOND xác nhận. Nằm trong `src/data/content.ts` để sửa nhanh |
 | Zalo | `zaloUrl` trong `src/data/content.ts` đang để trống, mọi nút Zalo tạm dẫn về `/lien-he`. Điền link Zalo OA là xong |
 | Ảnh hero | Ảnh bộ quà BOND do BOND cung cấp (đã tách nền): `collection-rest` (bộ quà trừ hộp phải) và `collection-box` (hộp phải). Đôi tay tạo bằng Higgsfield (GPT Image 2.5) từ ảnh hộp thật và ảnh tay tham chiếu, ánh sáng dịu khớp nền ngà: `hands-held` (tay đang ôm hộp, ngón cái đè mép hộp, có bóng thật), `hands-empty-left/right` (cùng đôi tay, không hộp). Khi cuộn: các món khác mờ dần, hộp phải trượt vào giữa và xoay khớp góc hộp trong ảnh tay ôm, tay không đưa lên lệch nhịp, rồi hòa sang ảnh tay đang ôm hộp. Hộp trong `hands-held` là bản AI dựng lại từ hộp thật; logo đã soát khớp |
@@ -64,7 +65,7 @@ Phản hồi sau bản đầu: homepage dạng split và gallery bất đối x�
 | Quyết định | Thực hiện |
 |---|---|
 | Chữ nhẹ và nhỏ hơn | Display/H1/H2 weight 400, H3/H4 500; thang chữ giảm khoảng 35%; nhãn in hoa, giãn chữ |
-| Mỗi màn một ý | Trang chủ còn 8 section: hero, tuyên ngôn, mở hộp, ba dịch vụ, hệ sinh thái, bộ sưu tập, dự án, liên hệ. Lịch ngược Tết đầy đủ ở `/qua-tang/tet`, quy trình ở `/quy-trinh`, số liệu ở `/nang-luc` |
+| Mỗi màn một ý | Trang chủ còn 8 section: hero, tuyên ngôn, mở hộp, ba dịch vụ, hệ sinh thái, bộ sưu tập, dự án, liên hệ. Lịch ngược Tết đầy đủ ở `/qua-tang/tet`, quy trình ở `/#quy-trinh`, số liệu ở `/nang-luc` |
 | Hero tràn màn hình | `HomeStage`: nền trắng, chỉ có tên thương hiệu, câu phụ và đồng hồ đếm ngược Ngày : Giờ : Phút : Giây đến 0h mùng 1 Tết (6/2/2027, giờ Việt Nam). Đồng hồ tự ẩn sau Tết. Bộ sưu tập trang chủ: `Carousel rows={2}`, mỗi trang 3 cột × 2 hàng |
 | Khoảnh khắc mở hộp | `UnboxingStory`: section dính, hộp mở dần theo thao tác cuộn qua 4 lớp (bao bì, thiệp, quà, giao nhiều điểm). Minh họa CSS tạm, chờ chuỗi ảnh/video mở hộp thật. Reduced motion: hiện trạng thái đã mở, không dính |
 | Chi tiết chất liệu | Nhãn căn giữa có hai đường kẻ mảnh; ánh kim lướt một lần trên chữ "compounded."; card viền magenta mảnh khi hover. Không thêm hiệu ứng lên logo |
@@ -261,7 +262,7 @@ Mới:
 - `src/hooks/use-in-view.ts`
 - `src/components/layout/SiteChrome.tsx`
 - `src/components/bond/primitives.tsx`, `cards.tsx`, `sections.tsx`, `Media.tsx`, `ProductMotion.tsx`, `Reveal.tsx`, `BondGlyph.tsx`, `ContactForm.tsx`
-- `src/pages/HomePage.tsx`, `AboutPage.tsx`, `CollectionPages.tsx`, `ProcessPage.tsx`, `ServicePages.tsx`, `ProjectPages.tsx`, `CapabilityPages.tsx`, `InsightPages.tsx`, `UtilityPages.tsx`, `KitPages.tsx`
+- `src/pages/HomePage.tsx`, `AboutPage.tsx`, `CollectionPages.tsx`, `ServicePages.tsx`, `ProjectPages.tsx`, `CapabilityPages.tsx`, `InsightPages.tsx`, `UtilityPages.tsx`, `KitPages.tsx`
 - `public/fonts/*` (Be Vietnam Pro woff2 + OFL license, `gothic-bond-latin.woff2` subset từ `gothicb.ttf`)
 - `public/favicon.png`, `public/apple-touch-icon.png` (crop từ `bond-logo.png`)
 - `docs/redesign/README.md`, `docs/redesign/screenshots/*`

@@ -24,7 +24,7 @@ const models = [
     unit: 'tuần',
     timingNote: 'từ brief đến giao hàng',
     points: ['Thiết kế do ZAD thực hiện riêng cho thương hiệu', 'Hai vòng chỉnh sửa, cầm mẫu thật trước khi sản xuất', 'Mẫu hoàn thiện thuộc về riêng anh chị'],
-    cta: ['/quy-trinh', 'Xem quy trình'],
+    cta: ['/#quy-trinh', 'Xem quy trình'],
     featured: true,
   },
   {

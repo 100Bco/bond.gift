@@ -37,13 +37,13 @@ export type ProcessStep = { number: string; title: string; duration: string; cop
 
 /* Tách "thời lượng · mô tả" từ copy gốc để hiển thị thời lượng thành thông tin phụ. */
 export const processSteps: ProcessStep[] = [
-  { number: '01', title: 'Trao đổi ban đầu', duration: 'Một buổi', copy: 'Dịp, số lượng, ngân sách và thời điểm cần hàng.', output: 'Brief', motion: 'journey-brief' },
-  { number: '02', title: 'Đề xuất phương án', duration: '3—5 ngày', copy: '2 đến 3 hướng gồm bao bì, ruột set và mức ngân sách.', output: 'Concept', motion: 'journey-concept' },
-  { number: '03', title: 'Xem mẫu vật lý và nếm thử', duration: 'Theo lịch', copy: 'Mang hộp mẫu và sản phẩm đến văn phòng anh chị.', output: 'Mẫu vật lý', motion: 'kit' },
-  { number: '04', title: 'Thiết kế và duyệt mẫu', duration: '1—3 tuần', copy: 'Hai vòng chỉnh sửa tiêu chuẩn, cầm mẫu thật trước khi sản xuất.', output: 'Mẫu duyệt', motion: 'colorway' },
-  { number: '05', title: 'Duyệt mẫu sản xuất', duration: '5—7 ngày', copy: 'In thử, làm mẫu thật và ký duyệt trước sản xuất hàng loạt.', output: 'Mẫu sản xuất', motion: 'layers' },
-  { number: '06', title: 'Sản xuất và đóng gói', duration: '2—4 tuần', copy: 'Sản xuất, tập kết, đóng gói và kiểm đếm.', output: 'Lô hàng', motion: 'journey-production' },
-  { number: '07', title: 'Giao hàng', duration: 'Theo lịch thỏa thuận', copy: 'Giao một điểm hoặc nhiều điểm, có biên bản bàn giao.', output: 'Biên bản bàn giao', motion: 'journey-delivery' },
+  { number: '01', title: 'Tiếp nhận brief', duration: 'Một buổi', copy: 'Dịp tặng, số lượng, ngân sách mỗi phần, chân dung người nhận và thời điểm cần hàng.', output: 'Brief', motion: 'journey-brief' },
+  { number: '02', title: 'Đề xuất phương án', duration: '3—5 ngày', copy: '2 đến 3 hướng thiết kế cùng cấu phần quà tương ứng.', output: 'Concept', motion: 'journey-concept' },
+  { number: '03', title: 'Duyệt mẫu vật lý & nếm thử', duration: 'Theo lịch', copy: 'Gửi hộp mẫu tận nơi, nếm thử các thức quà trước khi chốt.', output: 'Mẫu vật lý', motion: 'kit' },
+  { number: '04', title: 'Thiết kế hoàn thiện', duration: '1—3 tuần', copy: 'Đội ngũ ZAD hoàn thiện đồ họa độc quyền, in thử màu và làm mockup.', output: 'Mẫu duyệt', motion: 'colorway' },
+  { number: '05', title: 'Duyệt mẫu sản xuất', duration: '5—7 ngày', copy: 'Mẫu đầu chuyền được khách ký duyệt trước khi sản xuất hàng loạt.', output: 'Mẫu sản xuất', motion: 'layers' },
+  { number: '06', title: 'Sản xuất & đóng gói', duration: '2—4 tuần', copy: 'Sản xuất hàng loạt, gia công thủ công chi tiết phức tạp, kiểm tra và niêm phong từng hộp.', output: 'Lô hàng', motion: 'journey-production' },
+  { number: '07', title: 'Giao hàng', duration: 'Theo lịch thỏa thuận', copy: 'Giao một điểm hoặc nhiều điểm theo danh sách người nhận, đúng mốc đã cam kết.', output: 'Biên bản bàn giao', motion: 'journey-delivery' },
 ];
 
 export const navItems: [string, string][] = [
@@ -195,31 +195,31 @@ export const giftModels = {
   },
 };
 
-export const giftProcesses = [
-  {
-    id: 'quy-trinh-set-san',
-    title: 'Quy trình Set Sẵn',
-    meta: 'Thời gian hoàn thiện: ~ 2 tuần',
+/** Quy trình theo từng mô hình, hiển thị ngay trong khối "Hai cách để BOND làm quà" trên trang chủ. */
+export const giftProcesses: Record<'ready' | 'bespoke', { meta: string; note?: string; steps: [string, string][] }> = {
+  ready: {
+    meta: 'Khoảng 2 tuần · 5 bước',
+    note: 'Tinh gọn: bỏ khâu duyệt mẫu vật lý, nếm thử và thiết kế riêng.',
     steps: [
-      ['Chọn mẫu & Ngân sách', 'Khách hàng chọn mẫu có sẵn phù hợp với định mức chi phí.'],
-      ['Duyệt Maket Thương Hiệu', 'Lên mô phỏng 3D vị trí logo trên bao bì, tem nhãn và thiệp chúc.'],
-      ['Gia công & Đóng gói', 'In ấn logo, ép kim, kiểm tra chất lượng vệ sinh ATTP từng hộp quà.'],
-      ['Bàn giao Đa Điểm', 'Vận chuyển phân tán theo danh sách địa chỉ đối tác hoặc văn phòng chính.'],
-    ] as [string, string][],
+      ['Tiếp nhận brief', 'Dịp tặng, số lượng, ngân sách mỗi phần và thời điểm cần hàng.'],
+      ['Chốt ruột quà', 'Chốt thành phần trong set; vẫn có thể đổi món dựa trên menu sẵn có.'],
+      ['Duyệt mẫu sản xuất', 'In logo của khách lên set sẵn để khách duyệt; khách đồng ý mới sản xuất.'],
+      ['Sản xuất & đóng gói', 'In hoặc ép kim logo, đóng gói và kiểm tra chất lượng từng hộp.'],
+      ['Giao hàng', 'Giao một điểm hoặc nhiều điểm theo danh sách người nhận.'],
+    ],
   },
-  {
-    id: 'quy-trinh-set-doc-ban',
-    title: 'Quy trình Set Độc Bản',
-    meta: 'Thời gian hoàn thiện: ~ 8 tuần',
+  bespoke: {
+    meta: 'Khoảng 8 tuần · 7 bước',
     steps: [
-      ['Tiếp nhận Brief & Định hướng', 'Phân tích văn hóa doanh nghiệp, thông điệp năm mới và định lượng ngân sách.'],
-      ['Trình bày Ý niệm Sáng tạo', 'Đề xuất 2-3 phương án chủ đề thiết kế cùng cấu phần quà tặng tương ứng.'],
-      ['Trải nghiệm Mẫu Thực tế', 'Gửi hộp mẫu vật lý tận nơi và tổ chức nếm thử (food tasting) các thức quà.'],
-      ['Thiết kế & Tạo mẫu (Proofing)', 'Đội ngũ ZAD hoàn thiện đồ họa độc quyền, in test màu và làm mockup chuẩn xác.'],
-      ['Sản xuất Hàng loạt', 'Triển khai dây chuyền in ấn, gia công thủ công các chi tiết phức tạp.'],
-      ['Kiểm định & Bàn giao', 'Nghiệm thu đóng gói, niêm phong và điều phối logistics đúng hạn định cam kết.'],
-    ] as [string, string][],
+      ['Tiếp nhận brief', 'Dịp tặng, số lượng, ngân sách mỗi phần, chân dung người nhận và thời điểm cần hàng.'],
+      ['Đề xuất phương án', '2 đến 3 hướng thiết kế cùng cấu phần quà tương ứng.'],
+      ['Duyệt mẫu vật lý & nếm thử', 'Gửi hộp mẫu tận nơi, nếm thử các thức quà trước khi chốt.'],
+      ['Thiết kế hoàn thiện', 'Đội ngũ ZAD hoàn thiện đồ họa độc quyền, in thử màu và làm mockup.'],
+      ['Duyệt mẫu sản xuất', 'Mẫu đầu chuyền được khách ký duyệt trước khi sản xuất hàng loạt.'],
+      ['Sản xuất & đóng gói', 'Sản xuất hàng loạt, gia công thủ công chi tiết phức tạp, kiểm tra và niêm phong từng hộp.'],
+      ['Giao hàng', 'Giao một điểm hoặc nhiều điểm theo danh sách người nhận, đúng mốc đã cam kết.'],
+    ],
   },
-];
+};
 
 export const officeLines = ['Hà Nội: Tòa nhà 100B, Q. Hoàn Kiếm', 'TP.HCM: Chi nhánh Quận 1'];
