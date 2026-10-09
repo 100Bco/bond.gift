@@ -4,7 +4,7 @@ import { SiteShell } from '@/components/layout/SiteChrome';
 import { Reveal } from '@/components/bond/Reveal';
 import { ZaloLink } from '@/components/bond/ZaloLink';
 import { MomentArt, SetArt } from '@/components/bond/GiftArt';
-import { useInView, usePrefersReducedMotion } from '@/hooks/use-in-view';
+import { usePrefersReducedMotion, useReplayInView } from '@/hooks/use-in-view';
 
 /* Trang chủ editorial: hero hai pha, hai mô hình quà, set sẵn, set độc bản, khoảnh khắc Tết, quy trình. */
 
@@ -249,11 +249,11 @@ function ModelSteps({ kind }: { kind: 'ready' | 'bespoke' }) {
 }
 
 function ModelCol({ kind, index }: { kind: 'ready' | 'bespoke'; index: number }) {
-  const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.12, once: true, rootMargin: '0px 0px -10% 0px' });
+  const [ref, inView] = useReplayInView<HTMLDivElement>();
   const [done, setDone] = useState(false);
   useEffect(() => {
-    if (!inView) return;
-    const t = window.setTimeout(() => setDone(true), 2200);
+    if (!inView) { setDone(false); return; }
+    const t = window.setTimeout(() => setDone(true), 3400);
     return () => window.clearTimeout(t);
   }, [inView]);
   const m = giftModels[kind];
@@ -288,7 +288,7 @@ function ModelCol({ kind, index }: { kind: 'ready' | 'bespoke'; index: number })
 function Models() {
   const reduced = usePrefersReducedMotion();
   const animate = !reduced;
-  const [gridRef, inView] = useInView<HTMLDivElement>({ threshold: 0.18, once: true, rootMargin: '0px 0px -10% 0px' });
+  const [gridRef, inView] = useReplayInView<HTMLDivElement>({ threshold: 0.18 });
 
   // Ảnh trôi chậm hơn trang một chút khi cuộn qua (lệch tối đa khoảng 4% khung ảnh).
   useEffect(() => {
