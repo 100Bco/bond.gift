@@ -222,12 +222,11 @@ export const bespokeTiers: BespokeTier[] = [
   },
   { slug: '799', money: '799.000đ', meta: '4 bộ sưu tập · 4 phối màu mỗi bộ', unit: 'Bộ sưu tập', collections: pending(4) },
   {
-    slug: '1299', money: '1.299.000đ', thumb: '/assets/bespoke/1299/bidv-hop-hoa.webp', meta: '3 mẫu thiết kế riêng', unit: 'Mẫu',
+    slug: '1299', money: '1.299.000đ', meta: '3 mẫu thiết kế riêng', unit: 'Mẫu',
     collections: [
       {
         name: bidv,
         items: [
-          { w: 1264, h: 848, src: '/assets/bespoke/1299/bidv-hop-hoa.webp', name: 'Hộp hoa năm cánh', alt: 'Hộp quà thiết kế riêng cho BIDV hình hoa năm cánh màu xanh ngọc, đai giữa in logo BIDV' },
           { w: 1264, h: 848, src: '/assets/bespoke/1299/bidv-hop-hai-canh.webp', name: 'Hộp hai cánh mở', alt: 'Hộp quà hai cánh màu xanh ngọc có huy hiệu vàng ở giữa và logo BIDV' },
         ],
       },
@@ -235,7 +234,7 @@ export const bespokeTiers: BespokeTier[] = [
     ],
   },
   {
-    slug: '2399', money: '2.399.000đ', thumb: '/assets/bespoke/2399/bidv-hop-da.webp', meta: '2 mẫu thiết kế riêng', unit: 'Mẫu',
+    slug: '2399', money: '2.399.000đ', meta: '2 mẫu thiết kế riêng', unit: 'Mẫu',
     collections: [
       {
         name: bidv,
