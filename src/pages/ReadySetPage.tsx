@@ -1,12 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { Link, useRoute } from 'wouter';
-import { giftModels, giftProcesses, pendingSpec, readySets, type ReadySet } from '@/data/content';
+import { giftModels, giftProcesses, pendingSpec, readySets } from '@/data/content';
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { usePrefersReducedMotion } from '@/hooks/use-in-view';
 import { clamp01, useScrollFx } from '@/hooks/use-scroll-fx';
 import { ZaloLink } from '@/components/bond/ZaloLink';
 import { SetArt } from '@/components/bond/GiftArt';
 import { NotFoundPage } from '@/pages/UtilityPages';
+import { Lightbox } from '@/components/bond/Lightbox';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -23,35 +24,6 @@ function SpecList({ rows }: { rows: [string, string][] }) {
         </div>
       ))}
     </dl>
-  );
-}
-
-/** Popup phóng to ảnh: Esc hoặc bấm nền để đóng, phím trái phải để chuyển ảnh. */
-function Lightbox({ set, index, onClose, onMove }: { set: ReadySet; index: number; onClose: () => void; onMove: (step: number) => void }) {
-  const closeRef = useRef<HTMLButtonElement>(null);
-  useEffect(() => {
-    const prev = document.activeElement as HTMLElement | null;
-    closeRef.current?.focus();
-    const { overflow } = document.body.style;
-    document.body.style.overflow = 'hidden';
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowRight') onMove(1);
-      if (e.key === 'ArrowLeft') onMove(-1);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = overflow; prev?.focus(); };
-  }, [onClose, onMove]);
-  return (
-    <div className="lx-lb" role="dialog" aria-modal="true" aria-label={`Ảnh ${set.name}`} onClick={onClose}>
-      <figure className="lx-lb-fig" onClick={(e) => e.stopPropagation()}>
-        <div className="lx-lb-img"><SetArt look={set.look} /></div>
-        <figcaption>{pad(index + 1)} / {pad(galleryShots.length)} · {galleryShots[index]} · ảnh {pendingSpec.toLowerCase()}</figcaption>
-      </figure>
-      <button ref={closeRef} type="button" className="lx-lb-btn lx-lb-close" onClick={onClose} aria-label="Đóng">×</button>
-      <button type="button" className="lx-lb-btn lx-lb-prev" onClick={(e) => { e.stopPropagation(); onMove(-1); }} aria-label="Ảnh trước">←</button>
-      <button type="button" className="lx-lb-btn lx-lb-next" onClick={(e) => { e.stopPropagation(); onMove(1); }} aria-label="Ảnh sau">→</button>
-    </div>
   );
 }
 
@@ -229,7 +201,14 @@ export function ReadySetPage() {
           </div>
         </section>
 
-        {shot !== null && <Lightbox set={set} index={shot} onClose={close} onMove={move} />}
+        {shot !== null && (
+          <Lightbox
+            slides={galleryShots.map((label) => ({ caption: `${label} · ảnh ${pendingSpec.toLowerCase()}`, label: `Ảnh ${set.name}`, content: <SetArt look={set.look} /> }))}
+            index={shot}
+            onClose={close}
+            onMove={move}
+          />
+        )}
       </div>
     </SiteShell>
   );
