@@ -539,6 +539,10 @@
 .lx-bp-cover { padding-bottom: 28px; }
 .lx-bp-cover .lx-bp-shot { flex: 1; min-height: 0; }
 .lx-bp-cover .lx-bp-shot img { position: absolute; inset: 0; }
+/* Mẫu thiết kế riêng (1 đến 3 ảnh ngang): giữ đúng tỷ lệ ảnh, không cắt */
+.lx-bp-pair .lx-bp-items { grid-template-columns: repeat(2, 1fr); }
+.lx-bp-pair-1 .lx-bp-items { grid-template-columns: 1fr; max-width: 66%; }
+.lx-bp-pair .lx-bp-item .lx-bp-shot { aspect-ratio: 1264 / 848; }
 .lx-bp-scene { margin-top: clamp(16px, 1.6vw, 24px); }
 .lx-bp-scene .lx-bp-shot { aspect-ratio: 21 / 8; }
 .lx-bp-shot img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--lx-ease); }
@@ -599,6 +603,7 @@
   .lx-bp-cover { padding-bottom: 0; }
   .lx-bp-cover .lx-bp-shot { flex: none; aspect-ratio: 1; }
   .lx-bp-row .lx-bp-items { grid-template-columns: 1fr 1fr; }
+  .lx-bp-pair .lx-bp-items, .lx-bp-pair-1 .lx-bp-items { grid-template-columns: 1fr; max-width: none; }
   .lx-bp-scene .lx-bp-shot { aspect-ratio: 3 / 2; }
   .lx-sd-shot:first-child { grid-column: 1 / -1; }
   .lx-lb { padding: 72px 16px; }
