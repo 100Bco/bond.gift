@@ -127,6 +127,8 @@ function Hero() {
           <span className="lx-frame-rule" />
           <span className="lx-frame-col"><i className="lx-cross lx-frame-cross lx-frame-cross-l" /><i className="lx-cross lx-frame-cross lx-frame-cross-r" /></span>
         </div>
+        {/* Mũi tên cuộn: nét 1px ở khoảng trống góc dưới bên trái, nổi trên ảnh */}
+        <span className="lx-scroll-cue" aria-hidden="true"><i /></span>
         <div className="lx-hero-in">
           <div className="lx-hero-p1" style={{ pointerEvents: phase2 ? 'none' : undefined }}>
             <p className="lx-eyebrow">Quà Tết Doanh Nghiệp · Đinh Mùi 2027</p>
@@ -162,7 +164,6 @@ function Hero() {
             <a href="#set-san" className="lx-btn lx-btn-red" tabIndex={phase2 ? undefined : -1}><span>Khám phá bộ sưu tập</span><ArrowDown /></a>
           </div>
 
-          <div className="lx-hero-hint" aria-hidden="true">Cuộn để khám phá</div>
         </div>
       </div>
     </section>
