@@ -62,48 +62,45 @@ export function SiteHeader() {
   );
 }
 
-const footerSitemap: [string, string][] = [
-  ['Về BOND', '/ve-bond'], ['Bộ sưu tập', '/bo-suu-tap'], ['Quà tặng doanh nghiệp', '/qua-tang'], ['Bao bì thương hiệu', '/bao-bi'],
-  ['Vật phẩm quảng cáo', '/vat-pham'], ['Dự án', '/du-an'], ['Năng lực', '/nang-luc'], ['Góc nhìn', '/goc-nhin'],
-  ['Câu hỏi thường gặp', '/cau-hoi-thuong-gap'], ['Tài liệu', '/tai-lieu'], ['Tuyển dụng', '/tuyen-dung'], ['Liên hệ', '/lien-he'],
-];
-
 export function SiteFooter() {
   return (
     <footer className="lx-foot">
       <div className="lx-wrap">
         <div className="lx-foot-grid">
           <div>
-            {/* Logo chính thức đặt trên tấm nền ngà để giữ tương phản trên nền mực */}
-            <Link href="/" className="lx-foot-plate" aria-label="Về trang chủ BOND"><Logo /></Link>
+            <Link href="/" className="lx-foot-brand" aria-label="Về trang chủ BOND">
+              {/* Bản đảo màu của logo chính thức: khối B giữ đỏ BOND, chữ BOND trắng, nền trong suốt */}
+              <img className="logo" src="/assets/bond-logo-knockout.png" alt="BOND" width={5956} height={1524} />
+            </Link>
             <p className="lx-foot-tag">Quà tặng doanh nghiệp, giải pháp bao bì và trải nghiệm thương hiệu. Thành viên hệ sinh thái 100B.</p>
           </div>
           <div>
-            <p className="lx-foot-h">Danh mục quà Tết</p>
+            <p className="lx-foot-h">Danh mục</p>
             <div className="lx-foot-l">
-              <a href="/#set-san">Set quà sẵn</a>
-              <a href="/#set-doc-ban">Set quà độc bản</a>
-              <a href="/#quy-trinh">Quy trình triển khai</a>
+              <Link href="/#set-san">Set sẵn</Link>
+              <Link href="/#set-doc-ban">Set độc bản</Link>
             </div>
           </div>
           <div>
-            <p className="lx-foot-h">BOND</p>
-            <div className="lx-foot-l lx-foot-l-cols">
-              {footerSitemap.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
+            <p className="lx-foot-h">Về BOND</p>
+            <div className="lx-foot-l">
+              <Link href="/ve-bond">Về BOND</Link>
+              <Link href="/#quy-trinh">Quy trình</Link>
+              <Link href="/cau-hoi-thuong-gap">Câu hỏi thường gặp</Link>
             </div>
           </div>
           <div>
-            <p className="lx-foot-h">Văn phòng tư vấn</p>
+            <p className="lx-foot-h">Liên hệ</p>
             <div className="lx-foot-l">
-              <ZaloLink>Trò chuyện qua Zalo doanh nghiệp</ZaloLink>
+              <ZaloLink>Zalo doanh nghiệp</ZaloLink>
               {officeLines.map((line) => <span key={line}>{line}</span>)}
             </div>
           </div>
         </div>
         <div className="lx-foot-bot">
-          <span>© 2026-2027 BOND. Tất cả quyền được bảo lưu.</span>
+          <span>© 2026 BOND. Tất cả quyền được bảo lưu.</span>
           <span className="lx-foot-legal"><Link href="/chinh-sach-bao-mat">Chính sách bảo mật</Link><Link href="/dieu-khoan">Điều khoản</Link></span>
-          <span className="lx-foot-eco">ZAD <i /> BOND <i /> 100B ECOSYSTEM</span>
+          <span className="lx-foot-eco">ZAD <i /> BOND <i /> Hệ sinh thái 100B</span>
         </div>
       </div>
     </footer>

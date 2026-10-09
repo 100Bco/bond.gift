@@ -178,10 +178,13 @@ export const readySets: ReadySet[] = [
 ];
 
 /** Một ảnh trong trang Set độc bản. pos là object-position khi ảnh được cắt vào khung vuông. */
-export type BespokeImage = { src: string; name: string; alt: string; pos?: string };
-/** Một bộ sưu tập (hoặc một mẫu riêng ở mức cao). Chưa có ảnh thì để trống cover và items. */
-export type BespokeCollection = { name?: string; cover?: BespokeImage; items: BespokeImage[] };
-export type BespokeTier = { slug: string; money: string; meta: string; unit: string; collections: BespokeCollection[] };
+export type BespokeImage = { src: string; name: string; alt: string; pos?: string; w?: number; h?: number };
+/**
+ * Một bộ sưu tập (hoặc một mẫu riêng ở mức cao). Chưa có ảnh thì để trống cover và items.
+ * cover luôn là ảnh thiết kế hộp; ảnh đời sống (bày trên bàn tiệc...) đặt ở scene, hiện thành dải nhỏ phía dưới.
+ */
+export type BespokeCollection = { name?: string; cover?: BespokeImage; items: BespokeImage[]; scene?: BespokeImage };
+export type BespokeTier = { slug: string; money: string; meta: string; unit: string; thumb?: string; collections: BespokeCollection[] };
 
 const b499 = '/assets/bespoke/499';
 const tuQuy = 'Tứ Quý Cát Tường';
@@ -191,17 +194,17 @@ const pending = (n: number): BespokeCollection[] => Array.from({ length: n }, ()
 /** Bốn mức ngân sách Set độc bản; mỗi mức có một trang con /set-doc-ban/:slug. */
 export const bespokeTiers: BespokeTier[] = [
   {
-    slug: '499', money: '499.000đ', meta: '5 bộ sưu tập · 20 mẫu', unit: 'Bộ sưu tập',
+    slug: '499', money: '499.000đ', thumb: `${b499}/tu-quy-xuan-tung.webp`, meta: '5 bộ sưu tập · 4 phối màu mỗi bộ', unit: 'Bộ sưu tập',
     collections: [
       {
         name: tuQuy,
-        cover: { src: `${b499}/tu-quy-cover.webp`, name: tuQuy, alt: `Bộ sưu tập ${tuQuy}: hộp quà đỏ họa tiết tùng bày trên bàn tiệc Tết`, pos: '78% 50%' },
         items: [
-          { src: `${b499}/tu-quy-xuan-tung.webp`, name: 'Xuân Tùng', alt: `Mẫu Xuân Tùng, bộ sưu tập ${tuQuy}: hộp đỏ họa tiết tùng vàng` },
-          { src: `${b499}/tu-quy-ha-truc.webp`, name: 'Hạ Trúc', alt: `Mẫu Hạ Trúc, bộ sưu tập ${tuQuy}: hộp xanh navy họa tiết trúc vàng` },
-          { src: `${b499}/tu-quy-thu-cuc.webp`, name: 'Thu Cúc', alt: `Mẫu Thu Cúc, bộ sưu tập ${tuQuy}: hộp xanh lục họa tiết cúc vàng` },
-          { src: `${b499}/tu-quy-dong-mai.webp`, name: 'Đông Mai', alt: `Mẫu Đông Mai, bộ sưu tập ${tuQuy}: hộp màu kem họa tiết mai` },
+          { w: 1024, h: 911, src: `${b499}/tu-quy-xuan-tung.webp`, name: 'Xuân Tùng', alt: `Mẫu Xuân Tùng, bộ sưu tập ${tuQuy}: hộp đỏ họa tiết tùng vàng` },
+          { w: 1024, h: 911, src: `${b499}/tu-quy-ha-truc.webp`, name: 'Hạ Trúc', alt: `Mẫu Hạ Trúc, bộ sưu tập ${tuQuy}: hộp xanh navy họa tiết trúc vàng` },
+          { w: 1024, h: 911, src: `${b499}/tu-quy-thu-cuc.webp`, name: 'Thu Cúc', alt: `Mẫu Thu Cúc, bộ sưu tập ${tuQuy}: hộp xanh lục họa tiết cúc vàng` },
+          { w: 1024, h: 911, src: `${b499}/tu-quy-dong-mai.webp`, name: 'Đông Mai', alt: `Mẫu Đông Mai, bộ sưu tập ${tuQuy}: hộp màu kem họa tiết mai` },
         ],
+        scene: { w: 1264, h: 848, src: `${b499}/tu-quy-cover.webp`, name: 'Khi bày trên bàn tiệc', alt: `Hộp ${tuQuy} màu đỏ bày cùng mứt và hạt trên bàn tiệc Tết`, pos: '50% 55%' },
       },
       {
         name: sonDuong,
@@ -216,9 +219,9 @@ export const bespokeTiers: BespokeTier[] = [
       ...pending(3),
     ],
   },
-  { slug: '799', money: '799.000đ', meta: '4 bộ sưu tập · 16 mẫu', unit: 'Bộ sưu tập', collections: pending(4) },
-  { slug: '1299', money: '1.299.000đ', meta: '3 mẫu thiết kế hoàn chỉnh', unit: 'Mẫu', collections: pending(3) },
-  { slug: '2399', money: '2.399.000đ', meta: '2 lựa chọn cao cấp nhất', unit: 'Lựa chọn', collections: pending(2) },
+  { slug: '799', money: '799.000đ', meta: '4 bộ sưu tập · 4 phối màu mỗi bộ', unit: 'Bộ sưu tập', collections: pending(4) },
+  { slug: '1299', money: '1.299.000đ', meta: '3 mẫu thiết kế riêng', unit: 'Mẫu', collections: pending(3) },
+  { slug: '2399', money: '2.399.000đ', meta: '2 mẫu thiết kế riêng', unit: 'Mẫu', collections: pending(2) },
 ];
 
 export const giftModels = {

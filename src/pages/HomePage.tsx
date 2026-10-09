@@ -435,15 +435,16 @@ function Bespoke() {
             <h2 id="lx-custom-title">Set độc bản</h2>
             <div className="lx-disc">
               <span className="lx-cross" aria-hidden="true" />
-              <p>Mỗi đề xuất dưới đây là một điểm xuất phát ý niệm sáng tạo. BOND cùng đội ngũ ZAD sẽ phát triển cấu trúc bao bì và trải nghiệm unboxing độc quyền cho riêng thương hiệu của bạn.</p>
+              <p>Mỗi mẫu dưới đây là một hướng thiết kế để bắt đầu. BOND và ZAD sẽ phát triển kết cấu hộp và trải nghiệm mở hộp riêng cho thương hiệu của anh chị, không dùng lại cho bất kỳ khách nào khác.</p>
             </div>
           </div>
-          <p className="lx-lead">Lựa chọn khung ngân sách mục tiêu để tiếp cận bộ sưu tập ý niệm tương ứng.</p>
+          <p className="lx-lead">Chọn mức ngân sách của anh chị để xem các hướng thiết kế tương ứng.</p>
         </Reveal>
         <Reveal className="lx-bud">
           {bespokeTiers.map((b, i) => (
             <Link key={b.slug} href={`/set-doc-ban/${b.slug}`} className="lx-bud-row">
               <span className="lx-bud-no">{pad(i + 1)}</span>
+              <span className="lx-bud-thumb" aria-hidden="true">{b.thumb && <img src={b.thumb} alt="" width={120} height={150} loading="lazy" decoding="async" />}</span>
               <span className="lx-bud-money">{b.money} <small>ngân sách / set</small></span>
               <span className="lx-bud-meta">{b.meta}</span>
               <span className="lx-bud-go">Xem mẫu <span aria-hidden="true">→</span></span>
