@@ -42,6 +42,21 @@ Phản hồi sau bản đầu: homepage dạng split và gallery bất đối x�
 
 ---
 
+## 0c. Đợt 4: trang chủ editorial luxury (bản thiết kế BOND chốt)
+
+| Quyết định | Thực hiện |
+|---|---|
+| Màu | Nền giấy ngà `#FAF8F5`, giấy phụ `#F2EFEB`, mực đen nhám `#0B0B0C`, chữ phụ `#6B6661`. Đỏ giữ magenta BOND `#DB0D3E` (không dùng `#D81239` của file). Áp dụng toàn site qua token |
+| Font | Tiêu đề Plus Jakarta Sans 600, chữ nhấn Playfair Display nghiêng, nội dung Be Vietnam Pro. Tự host trong `public/fonts` (OFL), có subset tiếng Việt |
+| Logo | Logo chính thức thay cho logo vẽ lại trong file. Ở footer nền mực, logo đặt trên tấm nền ngà |
+| Menu | Theo file: Set sẵn, Set độc bản, Quy trình (neo về trang chủ) và nút Tư vấn qua Zalo. Các trang khác vẫn truy cập được qua footer, URL không đổi |
+| Trang chủ | Hero cuộn 2 pha (hộp quà + đôi tay, "Brands, in hand.") với đồng hồ Tháng/Ngày/Giờ/Phút đến Tết Đinh Mùi · Dải logo khách hàng thật (15 logo trong `public/assets/clients`, bản gốc ở `public/Logo Client`) · Hai mô hình · Set sẵn · Set độc bản theo ngân sách · Khoảnh khắc Tết · Quy trình accordion · CTA đỏ |
+| Số liệu | Tên set, giá, cấu phần, MOQ, thời gian, địa chỉ văn phòng lấy theo file, đã được BOND xác nhận. Nằm trong `src/data/content.ts` để sửa nhanh |
+| Zalo | `zaloUrl` trong `src/data/content.ts` đang để trống, mọi nút Zalo tạm dẫn về `/lien-he`. Điền link Zalo OA là xong |
+| Chất liệu | Lớp hạt giấy rất mịn phủ toàn trang (`.lx-grain`). Mã trang chủ dùng tiền tố `lx-` trong `src/styles/luxe.css` |
+
+---
+
 ## 0b. Đợt 3: thanh lịch, thoáng, một khoảnh khắc đặc trưng
 
 | Quyết định | Thực hiện |

@@ -291,132 +291,7 @@
 .breadcrumbs [aria-current='page'] span { color: var(--color-text); }
 .breadcrumbs + .hero { padding-top: clamp(32px, 4vw, 56px); }
 
-/* =========================================================
- * Header
- * ========================================================= */
-.site-header {
-  position: fixed;
-  z-index: 50;
-  inset: 0 0 auto;
-  height: var(--header-h);
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: saturate(1.2) blur(16px);
-  -webkit-backdrop-filter: saturate(1.2) blur(16px);
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--dur-base) var(--ease-out), background-color var(--dur-base) var(--ease-out);
-}
-.site-header.is-scrolled { border-bottom-color: var(--color-border); }
-.site-header-inner {
-  height: 100%;
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding-inline: var(--gutter);
-  display: flex;
-  align-items: center;
-  gap: 32px;
-}
-.site-header-brand { flex: none; display: flex; align-items: center; padding: 6px 0; }
-.logo { width: 128px; height: auto; }
-.site-nav { display: flex; align-items: center; gap: 28px; margin-left: auto; }
-.site-nav-list { display: flex; align-items: center; gap: clamp(14px, 1.6vw, 26px); }
-.site-nav-link {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--color-text-subtle);
-  transition: color var(--dur-fast) var(--ease-out);
-}
-.site-nav-link::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: 6px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--bond-magenta);
-  transform: translateX(-50%) scale(0);
-  transition: transform var(--dur-base) var(--ease-out);
-}
-.site-nav-link:hover { color: var(--bond-ink); }
-.site-nav-link.is-active { color: var(--bond-ink); }
-.site-nav-link.is-active::after { transform: translateX(-50%) scale(1); }
-.menu-toggle {
-  display: none;
-  margin-left: auto;
-  width: 44px;
-  height: 44px;
-  place-items: center;
-  border: 1px solid var(--color-border);
-  border-radius: 50%;
-  background: transparent;
-}
-
-@media (max-width: 1279px) {
-  .site-header { background: rgba(255, 255, 255, 0.96); }
-  .menu-toggle { display: grid; }
-  .site-nav {
-    position: fixed;
-    inset: var(--header-h) 0 0;
-    display: none;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: space-between;
-    gap: 32px;
-    margin: 0;
-    padding: 24px var(--gutter) calc(32px + env(safe-area-inset-bottom));
-    background: var(--bond-canvas);
-    overflow-y: auto;
-  }
-  .is-menu-open .site-nav { display: flex; }
-  .site-nav-list { flex-direction: column; align-items: stretch; gap: 0; }
-  .site-nav-link {
-    width: 100%;
-    min-height: 56px;
-    font-size: clamp(22px, 5vw, 30px);
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    color: var(--bond-ink);
-    border-bottom: 1px solid var(--color-border);
-  }
-  .site-nav-link::after { left: auto; right: 4px; bottom: 50%; transform: translateY(50%) scale(0); width: 8px; height: 8px; }
-  .site-nav-link.is-active::after { transform: translateY(50%) scale(1); }
-  .site-nav-cta { width: 100%; }
-}
 @media (max-width: 767px) {
-  .logo { width: 104px; }
-}
-
-/* =========================================================
- * Footer: nền sáng, sitemap rút gọn, logo chính thức cỡ lớn
- * ========================================================= */
-.site-footer { background: var(--bond-paper); border-top: 1px solid var(--color-border); padding-top: clamp(64px, 8vw, 112px); }
-.site-footer-top { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-2xl) var(--grid-gap); }
-.site-footer-statement { display: grid; gap: 16px; align-content: start; justify-items: start; }
-.site-footer-claim { font-size: clamp(24px, 2.2vw, 32px); line-height: 1.05; }
-.site-footer-claim span { color: var(--bond-magenta); }
-.site-footer-sub { color: var(--color-text-muted); margin-bottom: 8px; }
-.site-footer-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-l) var(--grid-gap); align-content: start; }
-.site-footer-col-title { margin-bottom: 12px; font-size: var(--fs-label); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-muted); }
-.site-footer-col a { display: inline-flex; align-items: center; min-height: 40px; font-size: 16px; color: var(--bond-ink); transition: color var(--dur-fast) var(--ease-out); }
-.site-footer-col a:hover { color: var(--bond-magenta-dark); }
-.site-footer-mark { display: block; width: min(100%, 440px); margin: clamp(40px, 5vw, 72px) auto 0; }
-.site-footer-mark .logo { width: 100%; height: auto; }
-.site-footer-base { display: flex; align-items: center; justify-content: space-between; gap: 16px 40px; flex-wrap: wrap; margin-top: clamp(32px, 4vw, 48px); padding-block: 24px 32px; border-top: 1px solid var(--color-border); }
-.site-footer-note { font-size: 14px; color: var(--color-text-muted); }
-.site-footer-legal { display: flex; gap: 24px; font-size: 14px; }
-.site-footer-legal a { display: inline-flex; min-height: 44px; align-items: center; color: var(--color-text-subtle); }
-.site-footer-legal a:hover { color: var(--bond-magenta-dark); }
-
-@media (max-width: 1023px) {
-  .site-footer-top { grid-template-columns: 1fr; }
-}
-@media (max-width: 767px) {
-  .site-footer-nav { grid-template-columns: 1fr 1fr; }
-  .site-footer-col:last-child { grid-column: 1 / -1; }
   .form-row { grid-template-columns: 1fr; }
   .logo-wall-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .section-intro-split { grid-template-columns: 1fr; }
@@ -439,14 +314,6 @@
 .next-chapter:hover svg { transform: translateY(3px); }
 .tone-magenta .next-chapter svg, .tone-ink .next-chapter svg { color: currentColor; }
 .chapter { scroll-margin-top: calc(var(--header-h) + 68px); }
-
-/* Header desktop: logo | menu căn giữa | CTA, cân đối cho cảm giác formal */
-@media (min-width: 1280px) {
-  .site-header-inner { display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; }
-  .site-nav { display: contents; }
-  .site-nav-list { grid-column: 2; }
-  .site-nav-cta { grid-column: 3; justify-self: end; }
-}
 
 /* Form: đánh số trường (01), (02)... giúp người điền biết mình đang ở đâu */
 .form { counter-reset: field; }

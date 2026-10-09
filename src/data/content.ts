@@ -150,3 +150,72 @@ export const kitDocuments = [
   { href: '/kit/mau-hop-dong', title: 'Mẫu hợp đồng', kind: 'Tài liệu', group: 'Pháp lý', motion: 'envelope' as MotionKind },
   { href: '/kit/tai-lieu-ban-hang', title: 'Tài liệu bán hàng', kind: 'Tài liệu', group: 'Bán hàng', motion: 'box' as MotionKind },
 ];
+
+/* ---------- Trang chủ editorial: số liệu đã được BOND chốt (có thể đổi sau) ---------- */
+
+/** Link Zalo OA chính thức. Để trống thì mọi nút Zalo dẫn về trang liên hệ. */
+export const zaloUrl = '';
+
+/** Logo khách hàng đã đồng hành cùng hệ sinh thái 100B (file gốc trong /public/Logo Client). */
+export const clientLogos: { name: string; logo: string }[] = [
+  ['Viettel Academy', 'viettel-academy'], ['Google', 'google'], ['VAECO', 'vaeco'], ['Cốc Cốc', 'coc-coc'], ['SIG', 'sig'],
+  ['Hagoo', 'hagoo'], ['Atera Central', 'atera-central'], ['Eva de Eva', 'eva-de-eva'], ['Tracy Couture', 'tracy-couture'], ['Haviet', 'haviet'],
+  ['Calista', 'calista'], ['Rubies', 'rubies'], ['Magonn', 'magonn'], ['Sypik Australia', 'sypik-australia'], ['Nuclean', 'nuclean'],
+].map(([name, slug]) => ({ name, logo: `/assets/clients/${slug}.webp` }));
+
+export type ReadySet = { name: string; tier: string; price: string; contents: string; look: 'ivory' | 'ink' | 'red' | 'black' };
+export const readySets: ReadySet[] = [
+  { name: 'An Lộc', tier: 'Căn bản', price: '499.000₫ / set', contents: '1 Vang hảo hạng + 3 Hũ hạt dinh dưỡng tuyển lựa + Hộp mứt truyền thống', look: 'ivory' },
+  { name: 'Cát Tường', tier: 'Phổ thông', price: '799.000₫ / set', contents: '1 Vang nhập khẩu + Hạt thượng hạng + Trái cây sấy dẻo + Thịt khô thảo mộc', look: 'ink' },
+  { name: 'Phú Quý', tier: 'Cao cấp', price: '1.299.000₫ / set', contents: '1 Rượu mạnh trứ danh + Hạt Macca & Hạnh nhân organic + Trà Shan Tuyết cổ thụ', look: 'red' },
+  { name: 'Tâm Giao', tier: 'Thượng hạng', price: '2.399.000₫ / set', contents: 'Rượu Single Malt thượng hạng + Yến sào nguyên tổ + Trà Ô Long thượng phẩm + Hộp sơn mài', look: 'black' },
+];
+
+export const bespokeBudgets = [
+  { money: '499.000₫', meta: '5 bộ sưu tập mẫu · 20 biến thể cấu trúc' },
+  { money: '799.000₫', meta: '4 bộ sưu tập mẫu · 16 phương án chất liệu' },
+  { money: '1.299.000₫', meta: 'Cấu trúc mở đa tầng · Tùy biến hộp cứng cao cấp' },
+  { money: '2.399.000₫', meta: 'Chất liệu sơn mài, gỗ tự nhiên & khảm kim' },
+];
+
+export const giftModels = {
+  ready: {
+    name: 'Set Sẵn',
+    say: 'Tuyển chọn từ những giải pháp hoàn thiện nhất, gắn ấn tượng logo thương hiệu.',
+    specs: [['Thời gian sản xuất', 'Khoảng 2 tuần'], ['Số lượng tối thiểu (MOQ)', 'Từ 10 set'], ['Mức độ tùy biến', 'Gắn logo lên hộp & thiệp cao cấp']] as [string, string][],
+  },
+  bespoke: {
+    name: 'Set Độc Bản',
+    say: 'Thiết kế đo ni đóng giày 100%, độc quyền theo ngôn ngữ thương hiệu của bạn.',
+    specs: [['Thời gian thiết kế & mẫu', 'Khoảng 8 tuần'], ['Số lượng tối thiểu (MOQ)', 'Theo thỏa thuận dự án'], ['Mức độ tùy biến', 'Khuôn mẫu, chất liệu & ruột quà 100% độc quyền']] as [string, string][],
+  },
+};
+
+export const giftProcesses = [
+  {
+    id: 'quy-trinh-set-san',
+    title: 'Quy trình Set Sẵn',
+    meta: 'Thời gian hoàn thiện: ~ 2 tuần',
+    steps: [
+      ['Chọn mẫu & Ngân sách', 'Khách hàng chọn mẫu có sẵn phù hợp với định mức chi phí.'],
+      ['Duyệt Maket Thương Hiệu', 'Lên mô phỏng 3D vị trí logo trên bao bì, tem nhãn và thiệp chúc.'],
+      ['Gia công & Đóng gói', 'In ấn logo, ép kim, kiểm tra chất lượng vệ sinh ATTP từng hộp quà.'],
+      ['Bàn giao Đa Điểm', 'Vận chuyển phân tán theo danh sách địa chỉ đối tác hoặc văn phòng chính.'],
+    ] as [string, string][],
+  },
+  {
+    id: 'quy-trinh-set-doc-ban',
+    title: 'Quy trình Set Độc Bản',
+    meta: 'Thời gian hoàn thiện: ~ 8 tuần',
+    steps: [
+      ['Tiếp nhận Brief & Định hướng', 'Phân tích văn hóa doanh nghiệp, thông điệp năm mới và định lượng ngân sách.'],
+      ['Trình bày Ý niệm Sáng tạo', 'Đề xuất 2-3 phương án chủ đề thiết kế cùng cấu phần quà tặng tương ứng.'],
+      ['Trải nghiệm Mẫu Thực tế', 'Gửi hộp mẫu vật lý tận nơi và tổ chức nếm thử (food tasting) các thức quà.'],
+      ['Thiết kế & Tạo mẫu (Proofing)', 'Đội ngũ ZAD hoàn thiện đồ họa độc quyền, in test màu và làm mockup chuẩn xác.'],
+      ['Sản xuất Hàng loạt', 'Triển khai dây chuyền in ấn, gia công thủ công các chi tiết phức tạp.'],
+      ['Kiểm định & Bàn giao', 'Nghiệm thu đóng gói, niêm phong và điều phối logistics đúng hạn định cam kết.'],
+    ] as [string, string][],
+  },
+];
+
+export const officeLines = ['Hà Nội: Tòa nhà 100B, Q. Hoàn Kiếm', 'TP.HCM: Chi nhánh Quận 1'];

@@ -69,20 +69,15 @@ main:focus { outline: none; }
 .t-h2,
 .t-h3,
 .t-h4 {
-  font-family: var(--font-sans);
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-weight: 600;
   text-wrap: balance;
 }
-/* Headline weight 400: mảnh, thanh lịch; cấp nhỏ 500 để vẫn đọc rõ */
-.t-display-xl,
-.t-display-l,
-.t-h1,
-.t-h2 { font-weight: 400; }
 .t-display-xl { font-size: var(--fs-display-xl); line-height: var(--lh-display); letter-spacing: var(--tracking-display); }
 .t-display-l { font-size: var(--fs-display-l); line-height: var(--lh-display); letter-spacing: var(--tracking-display); }
-.t-h1 { font-size: var(--fs-h1); line-height: 1.12; letter-spacing: -0.022em; }
-.t-h2 { font-size: var(--fs-h2); line-height: var(--lh-heading); letter-spacing: -0.02em; }
-.t-h3 { font-size: var(--fs-h3); line-height: 1.25; letter-spacing: var(--tracking-heading); }
+.t-h1 { font-size: var(--fs-h1); line-height: 1.08; letter-spacing: -0.035em; }
+.t-h2 { font-size: var(--fs-h2); line-height: 1.1; letter-spacing: -0.03em; }
+.t-h3 { font-size: var(--fs-h3); line-height: 1.2; letter-spacing: -0.02em; }
 .t-h4 { font-size: var(--fs-h4); line-height: var(--lh-snug); letter-spacing: -0.005em; }
 .t-body-l { font-size: var(--fs-body-l); line-height: 1.55; }
 .t-body { font-size: var(--fs-body); line-height: var(--lh-body); }
