@@ -165,9 +165,12 @@
 .lx-hero-line2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(38px, 6vw, 84px); line-height: 1.05; letter-spacing: -0.035em; }
 .lx-hero-line2sub { margin-top: 14px; font-size: clamp(16px, 1.4vw, 20px); color: var(--lx-muted); }
 .lx-hero-p2 .lx-btn { margin-top: 36px; }
-.lx-hero-hint { position: absolute; left: 50%; bottom: 20px; z-index: 7; display: flex; flex-direction: column; align-items: center; gap: 6px; transform: translateX(-50%); font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--lx-muted); opacity: var(--hintOp, 1); }
-.lx-hero-hint::after { content: ''; width: 1px; height: 16px; background: var(--lx-muted); animation: lx-hint 2s ease-in-out infinite; }
-@keyframes lx-hint { 0%, 100% { transform: scaleY(0.4); opacity: 0.3; } 50% { transform: scaleY(1); opacity: 1; } }
+/* Mũi tên cuộn: nét dọc 1px chảy xuống chậm, đầu mũi tên 1px; mờ đi khi bắt đầu cuộn */
+.lx-scroll-cue { position: absolute; z-index: 8; left: calc(50% - min(680px, 50% - var(--lx-pad-x)) + 32px); bottom: 40px; width: 9px; height: 44px; opacity: var(--hintOp, 1); pointer-events: none; }
+.lx-scroll-cue::before { content: ''; position: absolute; left: 4px; top: 0; bottom: 1px; width: 1px; background: rgba(107, 102, 97, 0.25); }
+.lx-scroll-cue i { position: absolute; left: 4px; top: 0; width: 1px; height: 100%; background: var(--lx-muted); transform-origin: top; animation: lx-cue 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+.lx-scroll-cue::after { content: ''; position: absolute; left: 1px; bottom: 1px; width: 6px; height: 6px; border-right: 1px solid var(--lx-muted); border-bottom: 1px solid var(--lx-muted); transform: rotate(45deg); }
+@keyframes lx-cue { 0% { transform: scaleY(0); opacity: 1; } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
 
 /* Dải logo khách hàng */
 .lx-logos { padding: 34px 0; overflow: hidden; background: var(--lx-paper); border-block: 1px solid var(--lx-line); }
@@ -318,10 +321,10 @@
   .lx-stage { --stage-w: 106vw; width: var(--stage-w); flex: none; margin-top: 40px; margin-bottom: 0; }
   .lx-stage { --zoom-max: 1.55; transform-origin: 50% 60%; }
   .lx-hero-p2 { top: 22%; }
+  .lx-scroll-cue { left: 18px; bottom: 24px; }
   /* Tay xuất phát thấp hơn để không lấp ló dưới bộ quà khi chưa cuộn */
   .lx-hands-l { transform: translateY(calc(var(--handLY, 100) * 1.6%)) rotate(calc(var(--handLRot, -8) * 1deg)); }
   .lx-hands-r { transform: translateY(calc(var(--handRY, 100) * 1.6%)) rotate(calc(var(--handRRot, 8) * 1deg)); }
-  .lx-hero-hint { display: none; }
   .lx-cd { gap: 12px; padding: 10px 16px; }
   .lx-cd-group { gap: 12px; }
   .lx-cd-sep { height: 30px; }
@@ -340,8 +343,8 @@
   .lx-hero { height: auto; }
   .lx-hero-sticky { position: static; height: auto; }
   .lx-hero-in { padding-bottom: 48px; }
-  .lx-hero-hint { display: none; }
   .lx-hero-p2 { position: static; margin-top: 48px; opacity: 1; transform: none; pointer-events: auto; }
-  .lx-logos-row, .lx-hero-hint::after { animation: none; }
+  .lx-logos-row, .lx-scroll-cue i { animation: none; }
+  .lx-scroll-cue i { transform: none; }
   .lx .reveal { transform: none; }
 }
