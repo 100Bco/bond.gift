@@ -527,15 +527,18 @@
 .lx-bp-col { padding: clamp(44px, 5.5vw, 80px) 0; border-top: 1px solid var(--lx-line); }
 .lx-bp-col-head { margin-bottom: clamp(24px, 3vw, 40px); }
 .lx-bp-col-head h2 { margin-top: 12px; }
-.lx-bp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px, 1.2vw, 18px); align-items: start; }
+.lx-bp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px, 1.2vw, 18px); align-items: stretch; }
 .lx-bp-items { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 1.6vw, 24px) clamp(10px, 1.2vw, 18px); }
 .lx-bp-row .lx-bp-items { grid-template-columns: repeat(4, 1fr); }
 .lx-bp-fig { display: flex; flex-direction: column; gap: 10px; }
-.lx-bp-fig figcaption { font-size: 12px; color: var(--lx-muted); }
+.lx-bp-fig figcaption { font-size: 12px; line-height: 18px; color: var(--lx-muted); }
 .lx-bp-shot { display: block; position: relative; width: 100%; overflow: hidden; background: var(--lx-soft); cursor: zoom-in; }
 .lx-bp-item .lx-bp-shot { aspect-ratio: var(--ar, 1); }
 .lx-bp-row .lx-bp-item .lx-bp-shot { aspect-ratio: 1024 / 911; }
-.lx-bp-cover .lx-bp-shot { aspect-ratio: 1; }
+/* Ảnh bìa cao bằng cột 4 mẫu, đáy thẳng hàng với đáy ảnh mẫu (chừa chỗ cho dòng chú thích) */
+.lx-bp-cover { padding-bottom: 28px; }
+.lx-bp-cover .lx-bp-shot { flex: 1; min-height: 0; }
+.lx-bp-cover .lx-bp-shot img { position: absolute; inset: 0; }
 .lx-bp-scene { margin-top: clamp(16px, 1.6vw, 24px); }
 .lx-bp-scene .lx-bp-shot { aspect-ratio: 21 / 8; }
 .lx-bp-shot img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--lx-ease); }
@@ -593,6 +596,8 @@
   .lx-cards { grid-template-columns: repeat(2, 1fr); gap: 28px 14px; }
   .lx-sd-shots { grid-template-columns: 1fr 1fr; }
   .lx-bp-grid { grid-template-columns: 1fr; }
+  .lx-bp-cover { padding-bottom: 0; }
+  .lx-bp-cover .lx-bp-shot { flex: none; aspect-ratio: 1; }
   .lx-bp-row .lx-bp-items { grid-template-columns: 1fr 1fr; }
   .lx-bp-scene .lx-bp-shot { aspect-ratio: 3 / 2; }
   .lx-sd-shot:first-child { grid-column: 1 / -1; }
