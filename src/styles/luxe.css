@@ -135,7 +135,7 @@
 /* Phương án A: bộ quà hiện trọn, đáy bộ quà chạm đúng mép dưới màn hình.
    14% dưới của khung là vùng trống dành cho đôi tay, nên đẩy khung xuống đúng phần đó (14% chiều cao = 6.62% chiều rộng). */
 .lx-stage { --stage-w: min(1360px, 100%, calc((100vh - var(--stage-top, 490px) - 16px) * 2.46)); position: relative; z-index: 2; width: var(--stage-w); aspect-ratio: 2000 / 946; margin-top: auto; margin-bottom: calc(var(--stage-w) * -0.0662 + 6px); }
-.lx-stage { --zoom-max: 1.28; transform-origin: 50% 100%; transform: scale(calc(1 + (var(--zoom-max) - 1) * var(--zoom, 0))); will-change: transform; }
+.lx-stage { --zoom-max: 1.28; transform-origin: 50% 100%; transform: scale(calc(1 + (var(--zoom-fit, var(--zoom-max)) - 1) * var(--zoom, 0))); will-change: transform; }
 .lx-stage-layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; will-change: transform, opacity; }
 .lx-stage-rest { transform-origin: 50% 80%; opacity: var(--restOp, 1); transform: scale(var(--restScale, 1)); }
 /* Hộp tách riêng: tâm hộp ở (85.6%, 56.9%) của khung */
@@ -158,9 +158,11 @@
 .lx-frame-cross-l { left: -7px; }
 .lx-frame-cross-r { right: -7px; }
 @media (min-width: 1024px) { .lx-frame { display: block; } }
+/* Khung cuối: đáy cảnh tan vào nền (chỉ hiện khi tay đã ôm hộp, nên màn đầu bộ quà vẫn hiện trọn) */
+.lx-hero-fade { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; height: 160px; background: linear-gradient(to bottom, rgba(250, 248, 245, 0), var(--lx-paper) 92%); opacity: var(--heldOp, 0); pointer-events: none; }
 /* Khung hero cắt các phần trồi ra ngoài (tay đi lên từ dưới) */
 .lx-hero-sticky { overflow: hidden; }
-.lx-hero-p2 { position: absolute; left: 50%; top: min(36%, calc(50% - 150px)); z-index: 6; width: 100%; padding: 0 var(--lx-pad-x); opacity: var(--p2op, 0); transform: translate(-50%, calc(-50% + var(--p2y, 30px))); pointer-events: none; }
+.lx-hero-p2 { position: absolute; left: 50%; top: var(--p2-top, 30%); z-index: 6; width: 100%; padding: 0 var(--lx-pad-x); opacity: var(--p2op, 0); transform: translate(-50%, var(--p2y, 24px)); pointer-events: none; }
 .lx-hero-p2.is-live { pointer-events: auto; }
 .lx-hero-line2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(38px, 6vw, 84px); line-height: 1.05; letter-spacing: -0.035em; }
 .lx-hero-line2sub { margin-top: 14px; font-size: clamp(16px, 1.4vw, 20px); color: var(--lx-muted); }
@@ -173,16 +175,24 @@
 @keyframes lx-cue { 0% { transform: scaleY(0); opacity: 1; } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
 
 /* Dải logo khách hàng */
-.lx-logos { padding: 34px 0; overflow: hidden; background: var(--lx-paper); border-block: 1px solid var(--lx-line); }
+.lx-logos { position: relative; padding: 34px 0; overflow: hidden; background: #FFFFFF; border-block: 1px solid var(--lx-line); }
+/* Hai đường dọc của khung lưới hero chạy tiếp qua dải logo, dấu chữ thập ở bốn điểm giao */
+.lx-logos-frame { position: absolute; inset: 0; left: 50%; width: min(1360px, calc(100% - 2 * var(--lx-pad-x))); transform: translateX(-50%); border-inline: 1px solid var(--lx-line); pointer-events: none; display: none; }
+.lx-logos-frame .lx-cross { position: absolute; }
+.lx-logos-frame .lx-cross:nth-child(1) { left: -7px; top: -7px; }
+.lx-logos-frame .lx-cross:nth-child(2) { right: -7px; top: -7px; }
+.lx-logos-frame .lx-cross:nth-child(3) { left: -7px; bottom: -7px; }
+.lx-logos-frame .lx-cross:nth-child(4) { right: -7px; bottom: -7px; }
+@media (min-width: 1024px) { .lx-logos-frame { display: block; } }
 .lx-logos-in { display: flex; align-items: center; gap: 48px; max-width: 1400px; margin: 0 auto; padding: 0 var(--lx-pad-x); }
-.lx-logos-lab { flex: none; max-width: 170px; font-size: 12px; font-weight: 500; line-height: 1.5; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lx-muted); }
+.lx-logos-lab { flex: none; font-size: 11px; font-weight: 500; line-height: 1.4; letter-spacing: 0.18em; text-transform: uppercase; white-space: nowrap; color: var(--lx-muted); }
 .lx-logos-track { flex: 1; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
 .lx-logos-row { display: flex; align-items: center; gap: clamp(48px, 6vw, 90px); width: max-content; animation: lx-marquee 80s linear infinite; }
 .lx-logos-row.is-static { width: auto; flex-wrap: wrap; animation: none; }
 .lx-logos:hover .lx-logos-row { animation-play-state: paused; }
 @keyframes lx-marquee { to { transform: translateX(-50%); } }
 /* Logo gốc nền trắng: hòa vào nền ngà bằng multiply, ngả xám, hiện màu thật khi rê chuột */
-.lx-logos-row img { height: 36px; width: auto; mix-blend-mode: multiply; filter: grayscale(1); opacity: 0.6; transition: filter 0.3s, opacity 0.3s; }
+.lx-logos-row img { width: auto; mix-blend-mode: multiply; filter: grayscale(1) contrast(0.85); opacity: 0.4; transition: filter 0.6s var(--lx-ease), opacity 0.6s var(--lx-ease); }
 .lx-logos-row li:hover img { filter: none; opacity: 1; }
 .lx-logos-note { max-width: 1400px; margin: 18px auto 0; padding: 0 var(--lx-pad-x); font-size: 13px; color: var(--lx-muted); }
 
@@ -320,7 +330,6 @@
   .lx-hero-in { justify-content: center; }
   .lx-stage { --stage-w: 106vw; width: var(--stage-w); flex: none; margin-top: 40px; margin-bottom: 0; }
   .lx-stage { --zoom-max: 1.55; transform-origin: 50% 60%; }
-  .lx-hero-p2 { top: 22%; }
   .lx-scroll-cue { left: 18px; bottom: 24px; }
   /* Tay xuất phát thấp hơn để không lấp ló dưới bộ quà khi chưa cuộn */
   .lx-hands-l { transform: translateY(calc(var(--handLY, 100) * 1.6%)) rotate(calc(var(--handLRot, -8) * 1deg)); }
