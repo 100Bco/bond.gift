@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type PointerEvent as RPointerEvent } from 'react';
 import { Link } from 'wouter';
-import { bespokeBudgets, clientLogos, giftModels, giftProcesses, readySets } from '@/data/content';
+import { bespokeTiers, clientLogos, giftModels, giftProcesses, readySets } from '@/data/content';
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { Reveal } from '@/components/bond/Reveal';
 import { ZaloLink } from '@/components/bond/ZaloLink';
@@ -441,13 +441,13 @@ function Bespoke() {
           <p className="lx-lead">Lựa chọn khung ngân sách mục tiêu để tiếp cận bộ sưu tập ý niệm tương ứng.</p>
         </Reveal>
         <Reveal className="lx-bud">
-          {bespokeBudgets.map((b, i) => (
-            <ZaloLink key={b.money} className="lx-bud-row">
+          {bespokeTiers.map((b, i) => (
+            <Link key={b.slug} href={`/set-doc-ban/${b.slug}`} className="lx-bud-row">
               <span className="lx-bud-no">{pad(i + 1)}</span>
               <span className="lx-bud-money">{b.money} <small>ngân sách / set</small></span>
               <span className="lx-bud-meta">{b.meta}</span>
-              <span className="lx-bud-go">Xem concept <span aria-hidden="true">→</span></span>
-            </ZaloLink>
+              <span className="lx-bud-go">Xem mẫu <span aria-hidden="true">→</span></span>
+            </Link>
           ))}
         </Reveal>
       </div>
