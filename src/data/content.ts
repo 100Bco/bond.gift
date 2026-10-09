@@ -198,13 +198,13 @@ export const bespokeTiers: BespokeTier[] = [
     collections: [
       {
         name: tuQuy,
+        cover: { w: 1264, h: 848, src: `${b499}/tu-quy-cover.webp`, name: tuQuy, alt: `Bộ sưu tập ${tuQuy}: hộp quà đỏ họa tiết tùng bày trên bàn tiệc Tết`, pos: '78% 50%' },
         items: [
           { w: 1024, h: 911, src: `${b499}/tu-quy-xuan-tung.webp`, name: 'Xuân Tùng', alt: `Mẫu Xuân Tùng, bộ sưu tập ${tuQuy}: hộp đỏ họa tiết tùng vàng` },
           { w: 1024, h: 911, src: `${b499}/tu-quy-ha-truc.webp`, name: 'Hạ Trúc', alt: `Mẫu Hạ Trúc, bộ sưu tập ${tuQuy}: hộp xanh navy họa tiết trúc vàng` },
           { w: 1024, h: 911, src: `${b499}/tu-quy-thu-cuc.webp`, name: 'Thu Cúc', alt: `Mẫu Thu Cúc, bộ sưu tập ${tuQuy}: hộp xanh lục họa tiết cúc vàng` },
           { w: 1024, h: 911, src: `${b499}/tu-quy-dong-mai.webp`, name: 'Đông Mai', alt: `Mẫu Đông Mai, bộ sưu tập ${tuQuy}: hộp màu kem họa tiết mai` },
         ],
-        scene: { w: 1264, h: 848, src: `${b499}/tu-quy-cover.webp`, name: 'Khi bày trên bàn tiệc', alt: `Hộp ${tuQuy} màu đỏ bày cùng mứt và hạt trên bàn tiệc Tết`, pos: '50% 55%' },
       },
       {
         name: sonDuong,
