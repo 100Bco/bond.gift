@@ -130,24 +130,20 @@
 .lx-cd-lab { margin-top: 8px; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lx-muted); }
 .lx-cd-sep { width: 1px; height: 38px; background: var(--lx-line-strong); }
 
-.lx-hero-boxes { position: relative; z-index: 2; display: flex; align-items: flex-end; justify-content: center; gap: clamp(12px, 2.2vw, 42px); width: 100%; max-width: 1220px; margin-top: auto; }
-.lx-gbox { flex: 1 1 0; max-width: 210px; transform-origin: 50% 100%; filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.08)); will-change: transform, opacity, filter; }
-.lx-gbox img { display: block; width: 100%; height: auto; }
-/* Bốn hộp phụ dạt ra hai cánh, hộp ngoài dạt xa hơn */
-.lx-gbox-side { --k: 0; opacity: var(--sideOp, 1); transform: translate(calc(var(--sideSpread, 0px) * var(--k)), var(--sideDrop, 0px)) scale(var(--sideScale, 1)); filter: blur(var(--sideBlur, 0px)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.06)); }
-.lx-gbox-n1 { --k: -1.4; }
-.lx-gbox-n2 { --k: -0.8; margin-bottom: 14px; }
-.lx-gbox-n4 { --k: 0.8; margin-bottom: 14px; }
-.lx-gbox-n5 { --k: 1.4; }
-.lx-gbox-mid { position: relative; z-index: 4; max-width: 265px; margin-bottom: 24px; transform: translateY(var(--midLift, 0px)) scale(var(--midScale, 1)); filter: drop-shadow(0 35px 55px rgba(0, 0, 0, 0.22)); }
-/* Bóng tiếp xúc giữa bàn tay và đáy hộp */
-.lx-gbox-mid::after { content: ''; position: absolute; left: 10%; right: 10%; bottom: -8px; height: 16px; background: radial-gradient(ellipse at center, rgba(11, 11, 12, 0.45) 0%, transparent 75%); opacity: var(--contactOp, 0); transform: scale(var(--contactScale, 0.8)); pointer-events: none; }
-/* Hai tay: đi vào từ hai góc dưới theo quỹ đạo cong, vừa tịnh tiến vừa xoay cổ tay */
-.lx-hero-arms { position: absolute; left: 50%; bottom: -88px; z-index: 1; width: min(800px, 92vw, 92vh); height: 55vh; transform: translateX(-50%); pointer-events: none; }
-.lx-arm { position: absolute; bottom: 0; width: 49%; will-change: transform; }
-.lx-arm img { display: block; width: 100%; height: auto; filter: drop-shadow(0 22px 30px rgba(0, 0, 0, 0.16)); }
-.lx-arm-l { left: 2%; transform-origin: 20% 90%; transform: translate(calc(var(--armLX, -35) * 1%), calc(var(--armLY, 115) * 1%)) rotate(calc(var(--armLRot, -14) * 1deg)); }
-.lx-arm-r { right: 2%; transform-origin: 80% 90%; transform: translate(calc(var(--armRX, 35) * 1%), calc(var(--armRY, 115) * 1%)) rotate(calc(var(--armRRot, 14) * 1deg)); }
+/* Sân khấu ảnh: mọi lớp cùng khổ 2000×946 (ảnh gốc 2000×1116 cắt bớt phần trên) nên chồng khít lên nhau */
+.lx-stage { position: relative; z-index: 2; width: min(1180px, 100%, calc((100vh - 400px) * 2.114)); aspect-ratio: 2000 / 946; margin-top: auto; margin-bottom: clamp(8px, 2vh, 24px); }
+.lx-stage-layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; will-change: transform, opacity; }
+.lx-stage-rest { transform-origin: 50% 80%; opacity: var(--restOp, 1); transform: scale(var(--restScale, 1)); filter: blur(var(--restBlur, 0px)); }
+/* Hộp tách riêng: tâm hộp ở (85.6%, 56.9%) của khung */
+.lx-stage-box { z-index: 3; transform-origin: 85.6% 56.9%; transform: translate(calc(var(--boxX, 0) * 1%), calc((var(--boxY, 0) + var(--boxLift, 0)) * 1%)) rotate(calc(var(--boxRot, 0) * 1deg)) scale(var(--boxScale, 1)); filter: drop-shadow(0 30px 40px rgba(11, 11, 12, 0.18)); }
+/* Hai tay: trồi lên từ mép dưới, xoay cổ tay nhẹ về thẳng; tay phải đi trước một nhịp */
+.lx-stage-hand { z-index: 2; }
+.lx-stage-hand-l { transform-origin: 37% 100%; transform: translateY(calc(var(--handLY, 100) * 1%)) rotate(calc(var(--handLRot, -10) * 1deg)); }
+.lx-stage-hand-r { transform-origin: 63% 100%; transform: translateY(calc(var(--handRY, 100) * 1%)) rotate(calc(var(--handRRot, 10) * 1deg)); }
+/* Bóng tiếp xúc dưới đáy hộp khi tay đỡ */
+.lx-stage-contact { position: absolute; z-index: 2; left: 38%; width: 24%; top: 62%; height: 6%; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(11, 11, 12, 0.35), transparent 70%); opacity: var(--contactOp, 0); pointer-events: none; }
+/* Khung hero cắt các phần trồi ra ngoài (tay đi lên từ dưới) */
+.lx-hero-sticky { overflow: hidden; }
 .lx-hero-p2 { position: absolute; left: 50%; top: min(36%, calc(50% - 150px)); z-index: 6; width: 100%; padding: 0 var(--lx-pad-x); opacity: var(--p2op, 0); transform: translate(-50%, calc(-50% + var(--p2y, 30px))); pointer-events: none; }
 .lx-hero-p2.is-live { pointer-events: auto; }
 .lx-hero-line2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(38px, 6vw, 84px); line-height: 1.05; letter-spacing: -0.035em; }
@@ -298,24 +294,15 @@
   .lx-nav-links, .lx-nav-cta { display: none; }
   .lx-burger { display: flex; }
   .lx-brand .logo { width: 108px; }
-  .lx-hero { height: auto; }
-  .lx-hero-sticky { position: static; height: auto; }
-  .lx-hero-in { padding: calc(var(--lx-nav-h) + 24px) var(--lx-pad-x) 48px; }
-  .lx-hero-p1 { opacity: 1 !important; transform: none !important; }
-  .lx-hero-boxes { margin-top: 36px; transform: none !important; }
-  .lx-gbox-side { display: none; }
-  .lx-gbox-mid { max-width: min(58vw, 260px); }
-  .lx-gbox-side { opacity: 0.4 !important; filter: none !important; transform: none !important; }
-  .lx-gbox-mid { margin-bottom: 0; transform: none !important; }
-  .lx-gbox-mid::after { opacity: 1; transform: none; }
-  /* Mobile: giữ đôi tay, đặt tĩnh ngay dưới hộp giữa như đang nâng đỡ */
-  .lx-hero-arms { position: relative; left: auto; bottom: auto; z-index: 1; display: flex; justify-content: center; width: 100%; height: auto; margin-top: -34%; transform: none; }
-  .lx-arm-l { margin-right: -6%; }
-  .lx-arm-r { margin-left: -6%; }
-  .lx-arm { position: relative; width: 48%; transform: none !important; }
-  .lx-arm-l, .lx-arm-r { left: auto; right: auto; }
+  /* Mobile vẫn chạy chuyển động cuộn; khung ảnh rộng hơn màn hình để bộ quà đủ lớn */
+  .lx-hero { height: 220vh; }
+  .lx-hero-in { padding: calc(var(--lx-nav-h) + 20px) var(--lx-pad-x) 0; }
+  .lx-stage { width: 132vw; flex: none; margin-bottom: 10vh; }
+  .lx-hero-p2 { top: 22%; }
+  /* Tay xuất phát thấp hơn để không lấp ló dưới bộ quà khi chưa cuộn */
+  .lx-stage-hand-l { transform: translateY(calc(var(--handLY, 100) * 1.6%)) rotate(calc(var(--handLRot, -10) * 1deg)); }
+  .lx-stage-hand-r { transform: translateY(calc(var(--handRY, 100) * 1.6%)) rotate(calc(var(--handRRot, 10) * 1deg)); }
   .lx-hero-hint { display: none; }
-  .lx-hero-p2 { position: static; margin-top: 48px; padding: 0; opacity: 1 !important; transform: none !important; pointer-events: auto; }
   .lx-cd { gap: 12px; padding: 10px 16px; }
   .lx-cd-group { gap: 12px; }
   .lx-cd-sep { display: none; }
@@ -334,18 +321,8 @@
   .lx-hero { height: auto; }
   .lx-hero-sticky { position: static; height: auto; }
   .lx-hero-in { padding-bottom: 48px; }
-  .lx-hero-boxes { margin-top: 48px; }
-  .lx-hero-arms { position: relative; left: auto; bottom: auto; display: flex; justify-content: center; width: min(560px, 100%); height: auto; margin: -8% auto 0; transform: none; }
-  .lx-arm { position: relative; width: 48%; transform: none !important; }
-  .lx-arm-l, .lx-arm-r { left: auto; right: auto; }
-  .lx-gbox-mid::after { opacity: 1; transform: none; }
   .lx-hero-hint { display: none; }
   .lx-hero-p2 { position: static; margin-top: 48px; opacity: 1; transform: none; pointer-events: auto; }
   .lx-logos-row, .lx-hero-hint::after { animation: none; }
   .lx .reveal { transform: none; }
-}
-@media (max-width: 480px) {
-  .lx-gbox-mid { max-width: 46vw; }
-  .lx-hero-arms { margin-top: -26%; }
-  .lx-arm { width: 52%; }
 }
