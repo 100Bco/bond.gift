@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type PointerEvent as RPointerEvent } from 'react';
 import { Link } from 'wouter';
 import { bespokeBudgets, clientLogos, giftModels, giftProcesses, readySets } from '@/data/content';
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { Reveal } from '@/components/bond/Reveal';
 import { ZaloLink } from '@/components/bond/ZaloLink';
-import { ReplayReveal, d } from '@/components/bond/ReplayReveal';
 import { MomentArt, SetArt } from '@/components/bond/GiftArt';
 import { usePrefersReducedMotion, useReplayInView } from '@/hooks/use-in-view';
 
@@ -339,33 +338,87 @@ function Models() {
 }
 
 function ReadySets() {
+  const reduced = usePrefersReducedMotion();
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  // Bậc thang giá trị: bốn thẻ đứng so le (set rẻ nhất thấp nhất) rồi về thẳng hàng khi khối tới giữa màn hình.
+  // Bám theo thanh cuộn, có quán tính nhẹ cho mượt; cuộn ngược thì so le trở lại.
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid || reduced) return;
+    const cards = [...grid.querySelectorAll<HTMLElement>('.lx-card')];
+    let target = 0;
+    let cur = 0;
+    let raf = 0;
+    let last = 0;
+    const measure = () => {
+      const r = grid.getBoundingClientRect();
+      const vh = window.innerHeight;
+      target = Math.max(0, Math.min(1, (vh - r.top) / (vh / 2 + Math.min(r.height, vh) / 2)));
+    };
+    const apply = () => {
+      const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
+      const step = Math.min(56, window.innerWidth * 0.035);
+      const e = 0.5 - Math.cos(Math.PI * cur) / 2;
+      cards.forEach((c, i) => {
+        c.style.setProperty('--lift', `${((cols - 1 - (i % cols)) * step * (1 - e)).toFixed(1)}px`);
+        c.style.setProperty('--sc', (1 + 0.06 * (1 - e)).toFixed(4));
+      });
+    };
+    const tick = (t: number) => {
+      const dt = last ? Math.min(64, t - last) : 16;
+      last = t;
+      cur += (target - cur) * (1 - Math.exp(-dt / 160));
+      if (Math.abs(target - cur) < 0.0005) cur = target;
+      apply();
+      raf = cur === target ? 0 : requestAnimationFrame(tick);
+      if (!raf) last = 0;
+    };
+    const kick = () => { measure(); if (!raf) raf = requestAnimationFrame(tick); };
+    measure();
+    cur = target;
+    apply();
+    window.addEventListener('scroll', kick, { passive: true });
+    window.addEventListener('resize', kick);
+    return () => { window.removeEventListener('scroll', kick); window.removeEventListener('resize', kick); if (raf) cancelAnimationFrame(raf); };
+  }, [reduced]);
+
+  // Rê chuột: hộp quà nghiêng nhẹ theo con trỏ, tối đa khoảng 4 độ.
+  const tilt = (e: RPointerEvent<HTMLAnchorElement>) => {
+    if (reduced || e.pointerType !== 'mouse') return;
+    const r = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    e.currentTarget.style.setProperty('--ry', `${(x * 8).toFixed(2)}deg`);
+    e.currentTarget.style.setProperty('--rx', `${(-y * 8).toFixed(2)}deg`);
+  };
+  const untilt = (e: RPointerEvent<HTMLAnchorElement>) => {
+    e.currentTarget.style.setProperty('--ry', '0deg');
+    e.currentTarget.style.setProperty('--rx', '0deg');
+  };
+
   return (
     <section className="lx-sec lx-ready" id="set-san" aria-labelledby="lx-ready-title">
       <div className="lx-wrap lx-wrap-wide">
-        <ReplayReveal className="lx-sec-head">
+        <Reveal className="lx-sec-head">
           <div>
-            <p className="lx-eyebrow lx-rv-up" style={d(0)}>Mô hình 01</p>
-            <h2 id="lx-ready-title" className="lx-rv-up" style={d(0.1)}>Set sẵn</h2>
+            <p className="lx-eyebrow">Mô hình 01</p>
+            <h2 id="lx-ready-title">Set sẵn</h2>
           </div>
-          <p className="lx-lead lx-rv-up" style={d(0.2)}>Giao trong hai tuần. Logo thương hiệu của anh chị được ép kim lên hộp và thiệp. Không cần thiết kế lại từ đầu.</p>
-        </ReplayReveal>
-        <div className="lx-cards">
-          {readySets.map((set, i) => {
-            const o = (i % 4) * 0.12;
-            return (
-              <ReplayReveal key={set.slug}>
-                <Link href={`/set-san/${set.slug}`} className="lx-card lx-rv-line" style={d(o + 0.5)}>
-                  <div className="lx-card-img lx-rv-img" style={d(o + 0.1)}>
-                    <SetArt look={set.look} />
-                  </div>
-                  <h3 className="lx-card-name lx-rv-up" style={d(o + 0.6)}>{set.name}</h3>
-                  <p className="lx-card-price lx-rv-up" style={d(o + 0.7)}>{set.price}</p>
-                  <p className="lx-card-in lx-rv-up" style={d(o + 0.8)}>{set.contents}</p>
-                  <span className="lx-card-more lx-rv-up" style={d(o + 0.9)}>Xem chi tiết <span aria-hidden="true">→</span></span>
-                </Link>
-              </ReplayReveal>
-            );
-          })}
+          <p className="lx-lead">Giao trong hai tuần. Logo thương hiệu của anh chị được ép kim lên hộp và thiệp. Không cần thiết kế lại từ đầu.</p>
+        </Reveal>
+        <div ref={gridRef} className="lx-cards lx-stair">
+          {readySets.map((set) => (
+            <Link key={set.slug} href={`/set-san/${set.slug}`} className="lx-card" onPointerMove={tilt} onPointerLeave={untilt}>
+              <div className="lx-card-img">
+                <span className="lx-card-box"><SetArt look={set.look} /></span>
+              </div>
+              <h3 className="lx-card-name">{set.name}</h3>
+              <p className="lx-card-price">{set.price}</p>
+              <p className="lx-card-in">{set.contents}</p>
+              <span className="lx-card-more">Xem chi tiết <span aria-hidden="true">→</span></span>
+            </Link>
+          ))}
         </div>
       </div>
     </section>

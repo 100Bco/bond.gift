@@ -332,8 +332,6 @@
 .lx-card { flex: 1; display: flex; flex-direction: column; padding-bottom: 24px; border-bottom: 1px solid var(--lx-line); transition: transform 0.6s var(--lx-ease); }
 .lx-card:hover { transform: translateY(-4px); }
 .lx-card-img { position: relative; display: flex; align-items: center; justify-content: center; aspect-ratio: 3 / 4; margin-bottom: 22px; overflow: hidden; background: var(--lx-paper); }
-.lx-card-img svg { width: 68%; height: auto; transition: transform 1.1s var(--lx-ease); }
-.lx-card:hover .lx-card-img svg { transform: scale(1.06); }
 .lx-card-name { font-size: clamp(20px, 1.7vw, 26px); }
 .lx-card-price { margin-top: 6px; font-size: 15px; font-weight: 500; color: var(--lx-muted); font-variant-numeric: tabular-nums; }
 .lx-card-in { margin-top: 12px; font-size: 14.5px; color: var(--lx-muted); }
@@ -395,7 +393,6 @@
 .lx-sd-crumb [aria-current] { color: var(--lx-ink); }
 .lx-sd-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 6vw, 96px); align-items: start; }
 .lx-sd-media { position: relative; display: flex; align-items: center; justify-content: center; aspect-ratio: 3 / 4; overflow: hidden; background: var(--lx-soft); }
-.lx-sd-media svg { width: 62%; height: auto; }
 .lx-sd-intro h1 { margin-top: 16px; font-family: var(--font-display); font-size: clamp(40px, 5.4vw, 76px); font-weight: 600; line-height: 0.98; letter-spacing: -0.04em; }
 .lx-sd-price { margin-top: 14px; font-size: clamp(18px, 1.5vw, 22px); font-weight: 500; font-variant-numeric: tabular-nums; }
 .lx-sd-intro .lx-lead { margin-top: 18px; max-width: 520px; }
@@ -414,8 +411,6 @@
 .lx-sd-shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 1.6vw, 24px); }
 .lx-sd-shot { display: flex; flex-direction: column; gap: 12px; text-align: left; cursor: zoom-in; }
 .lx-sd-shot-img { display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3; overflow: hidden; background: var(--lx-soft); }
-.lx-sd-shot-img svg { width: 34%; height: auto; transition: transform 1.2s var(--lx-ease); }
-.lx-sd-shot:hover .lx-sd-shot-img svg { transform: scale(1.06); }
 .lx-sd-shot-cap { font-size: 13px; color: var(--lx-muted); }
 .lx-sd-shot:focus-visible { outline: 2px solid var(--lx-red); outline-offset: 4px; }
 /* Popup phóng to ảnh */
@@ -454,21 +449,70 @@
 .lx-sd-more { padding: clamp(56px, 7vw, 96px) 0; }
 .lx-wrap-wide { max-width: 1480px; }
 
-/* ---------- Chuyển động khi cuộn tới (ReplayReveal), chạy lại khi quay lại ---------- */
-.lx-rv-on .lx-rv-up { opacity: 0; transform: translateY(14px); transition: opacity 0.9s var(--lx-ease) var(--d, 0s), transform 0.9s var(--lx-ease) var(--d, 0s), color 0.35s var(--lx-ease); }
-.lx-rv-on.is-in .lx-rv-up { opacity: 1; transform: none; }
-.lx-rv-on .lx-rv-img { clip-path: inset(100% 0 0 0); transition: clip-path 1.2s var(--lx-ease) var(--d, 0s); }
-.lx-rv-on .lx-rv-img > * { transform: scale(1.08); transition: transform 1.4s var(--lx-ease) var(--d, 0s); }
-.lx-rv-on.is-in .lx-rv-img { clip-path: inset(0); }
-.lx-rv-on.is-in .lx-rv-img > * { transform: none; }
-.lx-rv-on .lx-rv-line { position: relative; border-bottom-color: transparent; }
-.lx-rv-on .lx-rv-line::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--lx-line); transform: scaleX(0); transform-origin: 0 50%; transition: transform 0.9s var(--lx-ease) var(--d, 0s); }
-.lx-rv-on.is-in .lx-rv-line::after { transform: none; }
-/* Lúc ẩn thì về trạng thái đầu ngay, không chạy ngược; chạy xong thì bỏ độ trễ để rê chuột phản hồi ngay */
-.lx-rv-on:not(.is-in) :is(.lx-rv-up, .lx-rv-img, .lx-rv-img > *), .lx-rv-on:not(.is-in) .lx-rv-line::after { transition: none !important; }
-.lx-rv-on.is-done :is(.lx-rv-up, .lx-rv-img, .lx-rv-img > *), .lx-rv-on.is-done .lx-rv-line::after { transition-delay: 0s !important; }
-.lx-rv-on.is-done .lx-card:hover .lx-card-img svg { transform: scale(1.06); }
-.lx-rv-on.is-done .lx-sd-shot:hover .lx-sd-shot-img svg { transform: scale(1.06); }
+/* ---------- Chuyển động bám theo thanh cuộn: lưới Set sẵn và trang chi tiết ---------- */
+/* Bậc thang giá trị: JS đặt --lift (độ so le) và --sc (độ phóng ảnh) theo tiến độ cuộn */
+.lx-stair .lx-card { transform: translate3d(0, var(--lift, 0px), 0); transition: opacity 0.6s var(--lx-ease); }
+.lx-stair .lx-card:hover { transform: translate3d(0, var(--lift, 0px), 0); }
+.lx-stair .lx-card-img { perspective: 900px; }
+.lx-card-box { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; transform: scale(var(--sc, 1)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 0.9s var(--lx-ease); }
+.lx-card-box svg { width: 68%; height: auto; }
+@media (hover: hover) {
+  .lx-stair:has(.lx-card:hover) .lx-card:not(:hover) { opacity: 0.55; }
+}
+/* Mở trang chi tiết: ảnh thu từ 110% về 100%, chữ cột phải trượt vào từ bên trái. Chỉ chạy một lần. */
+@keyframes lx-sd-zoom { from { transform: scale(1.1); } }
+@keyframes lx-sd-slide { from { opacity: 0; transform: translateX(-28px); } }
+.lx-sd-media-main { animation: lx-sd-zoom 1.6s var(--lx-ease) both; }
+.lx-sd-intro > * { animation: lx-sd-slide 1s var(--lx-ease) both; }
+.lx-sd-intro > :nth-child(1) { animation-delay: 0.15s; }
+.lx-sd-intro > :nth-child(2) { animation-delay: 0.25s; }
+.lx-sd-intro > :nth-child(3) { animation-delay: 0.35s; }
+.lx-sd-intro > :nth-child(4) { animation-delay: 0.45s; }
+.lx-sd-intro > :nth-child(5) { animation-delay: 0.55s; }
+.lx-sd-intro > :nth-child(6) { animation-delay: 0.65s; }
+.lx-sd-intro > :nth-child(7) { animation-delay: 0.75s; }
+/* Ảnh lớn: hai lớp chồng nhau, đọc tới khối logo thì chuyển mờ sang lớp cận logo */
+.lx-sd-media-main, .lx-sd-media-alt { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; transition: opacity 0.9s var(--lx-ease), transform 1.2s var(--lx-ease); }
+.lx-sd-media-main svg { width: 62%; height: auto; }
+.lx-sd-media-alt { opacity: 0; transform: scale(1.04); }
+.lx-sd-media-alt svg { width: 200%; height: auto; }
+.lx-sd-media-cap { position: absolute; left: 20px; bottom: 18px; font-size: 12.5px; color: var(--lx-muted); opacity: 0; transition: opacity 0.9s var(--lx-ease); }
+.lx-sd-media.is-alt .lx-sd-media-main { opacity: 0; }
+.lx-sd-media.is-alt .lx-sd-media-alt { opacity: 1; transform: none; }
+.lx-sd-media.is-alt .lx-sd-media-cap { opacity: 1; }
+@media (min-width: 1025px) {
+  /* Ảnh thấp hơn cột chữ để còn quãng đứng yên khi cột phải cuộn qua bảng thông số và khối logo */
+  .lx-sd-media { position: sticky; top: calc(var(--lx-nav-h) + 24px); aspect-ratio: auto; height: min(560px, calc(100vh - var(--lx-nav-h) - 48px)); }
+}
+/* Bộ 3 ảnh: lớp ảnh rộng hơn khung để trôi ngang mà không lộ mép */
+.lx-sd-shot-img { position: relative; }
+.lx-sd-shot-layer { position: absolute; inset: 0 -6%; display: flex; align-items: center; justify-content: center; will-change: transform; }
+.lx-sd-shot-layer svg { width: 30%; height: auto; transition: transform 1.2s var(--lx-ease); }
+.lx-sd-shot:hover .lx-sd-shot-layer svg { transform: scale(1.06); }
+/* Trong hộp có gì: món gần giữa màn hình nổi lên, các món khác nhạt đi */
+.lx-sd-items .lx-sd-item { transition: opacity 0.6s var(--lx-ease); }
+.lx-sd-items .lx-cmp-step-n, .lx-sd-items .lx-sd-item-t { transition: color 0.6s var(--lx-ease), font-weight 0.6s; }
+.lx-sd-items.is-active .lx-sd-item { opacity: 0.38; }
+.lx-sd-items.is-active .lx-sd-item.is-focus { opacity: 1; }
+.lx-sd-items.is-active .is-focus .lx-sd-item-t { font-weight: 600; }
+/* Quy trình: đường dọc đổ đỏ theo --p, bước nào được chạm thì số sáng đỏ */
+.lx-sd-steps { position: relative; padding-left: 30px; border-top: 0; }
+.lx-sd-steps::before, .lx-sd-steps::after { content: ''; position: absolute; left: 3px; top: 0; bottom: 0; width: 1px; }
+.lx-sd-steps::before { background: var(--lx-line-strong); }
+.lx-sd-steps::after { background: var(--lx-red); transform: scaleY(var(--p, 1)); transform-origin: 50% 0; }
+.lx-sd-steps .lx-sd-item { position: relative; }
+.lx-sd-steps .lx-sd-item::before { content: ''; position: absolute; left: -31px; top: 26px; width: 7px; height: 7px; border-radius: 50%; background: var(--lx-paper); border: 1px solid var(--lx-line-strong); transition: background-color 0.5s var(--lx-ease), border-color 0.5s var(--lx-ease); }
+.lx-sd-steps .lx-cmp-step-n { color: var(--lx-muted); transition: color 0.5s var(--lx-ease); }
+.lx-sd-steps .lx-sd-item.is-lit::before { background: var(--lx-red); border-color: var(--lx-red); }
+.lx-sd-steps .lx-sd-item.is-lit .lx-cmp-step-n { color: var(--lx-red); }
+/* Các set khác: rê chuột thì ảnh nhỏ phóng to */
+.lx-sd-other-img { overflow: hidden; }
+.lx-sd-other-img svg { transition: transform 0.9s var(--lx-ease); }
+.lx-sd-other:hover .lx-sd-other-img svg { transform: scale(1.12); }
+@media (prefers-reduced-motion: reduce) {
+  .lx-sd-media-main, .lx-sd-intro > * { animation: none; }
+  .lx-sd-steps .lx-cmp-step-n { color: var(--lx-red); }
+}
 
 
 /* ---------- Responsive ---------- */
