@@ -35,3 +35,25 @@ export function usePrefersReducedMotion() {
   }, []);
   return reduced;
 }
+
+/**
+ * Như useInView nhưng chạy lại được: bật khi phần tử vào đủ sâu trong màn hình,
+ * chỉ tắt khi đã ra hẳn khỏi màn hình để lần cuộn quay lại chuyển động chạy lại từ đầu.
+ */
+export function useReplayInView<T extends Element>({ threshold = 0.12, rootMargin = '0px 0px -10% 0px' } = {}) {
+  const ref = useRef<T | null>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const node = ref.current;
+    if (!node || typeof IntersectionObserver === 'undefined') {
+      setInView(true);
+      return;
+    }
+    const enter = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setInView(true); }, { threshold, rootMargin });
+    const exit = new IntersectionObserver(([entry]) => { if (!entry.isIntersecting) setInView(false); }, { threshold: 0 });
+    enter.observe(node);
+    exit.observe(node);
+    return () => { enter.disconnect(); exit.disconnect(); };
+  }, [threshold, rootMargin]);
+  return [ref, inView] as const;
+}
