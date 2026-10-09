@@ -171,27 +171,27 @@ export type ReadySet = { slug: string; name: string; tier: string; price: string
 /** Thông số chưa có số liệu thật thì hiển thị dòng này, không tự đặt số. */
 export const pendingSpec = 'Đang cập nhật';
 export const readySets: ReadySet[] = [
-  { slug: 'an-loc', name: 'An Lộc', tier: 'Căn bản', price: '499.000₫ / set', contents: '1 Vang hảo hạng + 3 Hũ hạt dinh dưỡng tuyển lựa + Hộp mứt truyền thống', look: 'ivory' },
-  { slug: 'cat-tuong', name: 'Cát Tường', tier: 'Phổ thông', price: '799.000₫ / set', contents: '1 Vang nhập khẩu + Hạt thượng hạng + Trái cây sấy dẻo + Thịt khô thảo mộc', look: 'ink' },
-  { slug: 'phu-quy', name: 'Phú Quý', tier: 'Cao cấp', price: '1.299.000₫ / set', contents: '1 Rượu mạnh trứ danh + Hạt Macca & Hạnh nhân organic + Trà Shan Tuyết cổ thụ', look: 'red' },
-  { slug: 'tam-giao', name: 'Tâm Giao', tier: 'Thượng hạng', price: '2.399.000₫ / set', contents: 'Rượu Single Malt thượng hạng + Yến sào nguyên tổ + Trà Ô Long thượng phẩm + Hộp sơn mài', look: 'black' },
+  { slug: 'an-loc', name: 'An Lộc', tier: 'Căn bản', price: '499.000đ / set', contents: '1 vang + 3 hũ hạt dinh dưỡng + hộp mứt truyền thống', look: 'ivory' },
+  { slug: 'cat-tuong', name: 'Cát Tường', tier: 'Phổ thông', price: '799.000đ / set', contents: '1 vang nhập khẩu + hạt tuyển chọn + trái cây sấy + thịt khô thảo mộc', look: 'ink' },
+  { slug: 'phu-quy', name: 'Phú Quý', tier: 'Cao cấp', price: '1.299.000đ / set', contents: '1 rượu mạnh + macca và hạnh nhân + trà Shan Tuyết + trái cây sấy', look: 'red' },
+  { slug: 'tam-giao', name: 'Tâm Giao', tier: 'Thượng hạng', price: '2.399.000đ / set', contents: '1 whisky single malt + yến sào nguyên tổ + trà Ô Long + hộp sơn mài', look: 'black' },
 ];
 
 export const bespokeBudgets = [
-  { money: '499.000₫', meta: '5 bộ sưu tập mẫu · 20 biến thể cấu trúc' },
-  { money: '799.000₫', meta: '4 bộ sưu tập mẫu · 16 phương án chất liệu' },
-  { money: '1.299.000₫', meta: 'Cấu trúc mở đa tầng · Tùy biến hộp cứng cao cấp' },
-  { money: '2.399.000₫', meta: 'Chất liệu sơn mài, gỗ tự nhiên & khảm kim' },
+  { money: '499.000đ', meta: '5 bộ sưu tập mẫu · 20 biến thể cấu trúc' },
+  { money: '799.000đ', meta: '4 bộ sưu tập mẫu · 16 phương án chất liệu' },
+  { money: '1.299.000đ', meta: 'Cấu trúc mở đa tầng · Tùy biến hộp cứng cao cấp' },
+  { money: '2.399.000đ', meta: 'Chất liệu sơn mài, gỗ tự nhiên & khảm kim' },
 ];
 
 export const giftModels = {
   ready: {
-    name: 'Set Sẵn',
+    name: 'Set sẵn',
     say: 'Chọn mẫu có sẵn, thêm dấu ấn thương hiệu.',
     specs: [['Thời gian hoàn thành', 'Khoảng 2 tuần'], ['Số lượng tối thiểu', 'Từ 10 set'], ['Mức độ tùy biến', 'Gắn logo lên hộp và thiệp']] as [string, string][],
   },
   bespoke: {
-    name: 'Set Độc Bản',
+    name: 'Set độc bản',
     say: 'Thiết kế riêng 100% theo thương hiệu của bạn.',
     specs: [['Thời gian hoàn thành', 'Khoảng 8 tuần'], ['Số lượng tối thiểu', 'Theo thỏa thuận'], ['Mức độ tùy biến', 'Thiết kế toàn bộ, độc quyền']] as [string, string][],
   },
