@@ -64,23 +64,25 @@ function Hero() {
       set('--restOp', (1 - pRest).toFixed(3));
       set('--restScale', lerp(1, 0.96, pRest).toFixed(4));
       set('--restBlur', `${lerp(0, 6, pRest).toFixed(2)}px`);
-      // 3. Hộp bên phải trượt vào giữa theo đường cong, xoay dần về thẳng
-      const pMove = easeInOut(norm(progress, 0.28, 0.66));
-      const arc = Math.sin(pMove * Math.PI) * -6;
-      set('--boxX', lerp(0, -35.6, pMove).toFixed(3));
-      set('--boxY', (lerp(0, -24, pMove) + arc).toFixed(3));
-      set('--boxRot', lerp(0, 24, pMove).toFixed(2));
-      // 4. Hai tay đưa lên lệch nhịp; khi chạm đáy hộp thì hộp nảy nhẹ
-      const pHandR = easeOut4(norm(progress, 0.4, 0.72));
-      const pHandL = easeOut4(norm(progress, 0.44, 0.76));
+      // 3. Hộp bên phải trượt vào giữa theo đường cong, xoay khớp góc hộp trong ảnh tay cầm
+      const pMove = easeInOut(norm(progress, 0.28, 0.64));
+      const arc = Math.sin(pMove * Math.PI) * -8;
+      set('--boxX', lerp(0, -36, pMove).toFixed(3));
+      set('--boxY', (lerp(0, -14, pMove) + arc).toFixed(3));
+      set('--boxRot', lerp(0, 6, pMove).toFixed(2));
+      set('--boxScale', lerp(1, 1.15, pMove).toFixed(4));
+      // 4. Tay không đưa lên lệch nhịp, xoay cổ tay nhẹ về thẳng
+      const pHandR = easeOut4(norm(progress, 0.36, 0.64));
+      const pHandL = easeOut4(norm(progress, 0.4, 0.66));
       set('--handRY', lerp(100, 0, pHandR).toFixed(2));
       set('--handLY', lerp(100, 0, pHandL).toFixed(2));
-      set('--handRRot', lerp(10, 0, pHandR).toFixed(2));
-      set('--handLRot', lerp(-10, 0, pHandL).toFixed(2));
-      const pLift = easeOutBack(norm(progress, 0.7, 0.86));
-      set('--boxLift', lerp(0, -3, pLift).toFixed(3));
-      set('--boxScale', (lerp(1, 1.2, pMove) * lerp(1, 1.04, pLift)).toFixed(4));
-      set('--contactOp', norm(progress, 0.66, 0.76).toFixed(3));
+      set('--handRRot', lerp(8, 0, pHandR).toFixed(2));
+      set('--handLRot', lerp(-8, 0, pHandL).toFixed(2));
+      // Khi hộp chạm tay: hòa sang ảnh tay đang ôm hộp, hộp lún nhẹ vào lòng bàn tay
+      // ảnh tay ôm hộp hiện đè lên trước, sau đó hộp riêng và tay không mới tắt
+      set('--heldOp', norm(progress, 0.625, 0.655).toFixed(3));
+      set('--emptyOp', (1 - norm(progress, 0.65, 0.68)).toFixed(3));
+      set('--heldY', lerp(-1.2, 0, easeOutBack(norm(progress, 0.63, 0.8))).toFixed(3));
       // 5. Chữ pha 2 xuất hiện
       const pIn = easeOut4(norm(progress, 0.78, 0.96));
       set('--p2op', pIn.toFixed(3));
@@ -118,9 +120,12 @@ function Hero() {
           {/* Bộ quà BOND (ảnh tách nền): các món khác mờ dần, hộp bên phải trượt vào giữa, hai tay đưa lên đỡ */}
           <div className="lx-stage" role="img" aria-label="Bộ quà Tết BOND: hộp, hũ hạt, rượu vang và tượng dê; một hộp quà được đôi tay nâng lên">
             <img className="lx-stage-layer lx-stage-rest" src="/assets/hero/collection-rest.webp" alt="" width={1600} height={757} fetchPriority="high" decoding="async" />
-            <img className="lx-stage-layer lx-stage-hand lx-stage-hand-l" src="/assets/hero/hand-left.webp" alt="" width={1600} height={757} decoding="async" />
-            <img className="lx-stage-layer lx-stage-hand lx-stage-hand-r" src="/assets/hero/hand-right.webp" alt="" width={1600} height={757} decoding="async" />
-            <span className="lx-stage-contact" aria-hidden="true" />
+            {/* Đôi tay (ảnh tạo bằng Higgsfield từ hộp thật): tay không đưa lên đón, rồi hòa sang ảnh tay đang ôm hộp */}
+            <div className="lx-stage-hands">
+              <img className="lx-hands-layer lx-hands-l" src="/assets/hero/hands-empty-left.webp" alt="" width={1400} height={1045} decoding="async" />
+              <img className="lx-hands-layer lx-hands-r" src="/assets/hero/hands-empty-right.webp" alt="" width={1400} height={1045} decoding="async" />
+              <img className="lx-hands-layer lx-hands-held" src="/assets/hero/hands-held.webp" alt="" width={1400} height={1045} decoding="async" />
+            </div>
             <img className="lx-stage-layer lx-stage-box" src="/assets/hero/collection-box.webp" alt="" width={1600} height={757} fetchPriority="high" decoding="async" />
           </div>
 

@@ -136,12 +136,16 @@
 .lx-stage-rest { transform-origin: 50% 80%; opacity: var(--restOp, 1); transform: scale(var(--restScale, 1)); filter: blur(var(--restBlur, 0px)); }
 /* Hộp tách riêng: tâm hộp ở (85.6%, 56.9%) của khung */
 .lx-stage-box { z-index: 3; transform-origin: 85.6% 56.9%; transform: translate(calc(var(--boxX, 0) * 1%), calc((var(--boxY, 0) + var(--boxLift, 0)) * 1%)) rotate(calc(var(--boxRot, 0) * 1deg)) scale(var(--boxScale, 1)); filter: drop-shadow(0 30px 40px rgba(11, 11, 12, 0.18)); }
-/* Hai tay: trồi lên từ mép dưới, xoay cổ tay nhẹ về thẳng; tay phải đi trước một nhịp */
-.lx-stage-hand { z-index: 2; }
-.lx-stage-hand-l { transform-origin: 37% 100%; transform: translateY(calc(var(--handLY, 100) * 1%)) rotate(calc(var(--handLRot, -10) * 1deg)); }
-.lx-stage-hand-r { transform-origin: 63% 100%; transform: translateY(calc(var(--handRY, 100) * 1%)) rotate(calc(var(--handRRot, 10) * 1deg)); }
-/* Bóng tiếp xúc dưới đáy hộp khi tay đỡ */
-.lx-stage-contact { position: absolute; z-index: 2; left: 38%; width: 24%; top: 62%; height: 6%; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(11, 11, 12, 0.35), transparent 70%); opacity: var(--contactOp, 0); pointer-events: none; }
+/* Đôi tay: khối 62% bề ngang sân khấu, đặt giữa, sát đáy; ba lớp cùng khổ */
+.lx-stage-hands { position: absolute; left: 19%; bottom: -4%; width: 62%; aspect-ratio: 1400 / 1045; pointer-events: none; }
+/* Cẳng tay mờ dần ở mép dưới, không lộ đường cắt ảnh */
+.lx-hands-layer { -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 98%); mask-image: linear-gradient(to bottom, #000 78%, transparent 98%); }
+.lx-hands-layer { position: absolute; z-index: 2; inset: 0; width: 100%; height: 100%; will-change: transform, opacity; }
+.lx-hands-l { opacity: var(--emptyOp, 1); transform-origin: 30% 100%; transform: translateY(calc(var(--handLY, 100) * 1%)) rotate(calc(var(--handLRot, -8) * 1deg)); }
+.lx-hands-r { opacity: var(--emptyOp, 1); transform-origin: 70% 100%; transform: translateY(calc(var(--handRY, 100) * 1%)) rotate(calc(var(--handRRot, 8) * 1deg)); }
+.lx-hands-held { z-index: 5; opacity: var(--heldOp, 0); transform: translateY(calc(var(--heldY, 0) * 1%)); }
+/* Hộp tách riêng mờ đi đúng lúc ảnh tay ôm hộp hiện lên */
+.lx-stage-box { opacity: var(--emptyOp, 1); }
 /* Khung hero cắt các phần trồi ra ngoài (tay đi lên từ dưới) */
 .lx-hero-sticky { overflow: hidden; }
 .lx-hero-p2 { position: absolute; left: 50%; top: min(36%, calc(50% - 150px)); z-index: 6; width: 100%; padding: 0 var(--lx-pad-x); opacity: var(--p2op, 0); transform: translate(-50%, calc(-50% + var(--p2y, 30px))); pointer-events: none; }
@@ -297,11 +301,11 @@
   /* Mobile vẫn chạy chuyển động cuộn; khung ảnh rộng hơn màn hình để bộ quà đủ lớn */
   .lx-hero { height: 220vh; }
   .lx-hero-in { padding: calc(var(--lx-nav-h) + 20px) var(--lx-pad-x) 0; }
-  .lx-stage { width: 132vw; flex: none; margin-bottom: 10vh; }
+  .lx-stage { width: 132vw; flex: none; margin-bottom: 0; }
   .lx-hero-p2 { top: 22%; }
   /* Tay xuất phát thấp hơn để không lấp ló dưới bộ quà khi chưa cuộn */
-  .lx-stage-hand-l { transform: translateY(calc(var(--handLY, 100) * 1.6%)) rotate(calc(var(--handLRot, -10) * 1deg)); }
-  .lx-stage-hand-r { transform: translateY(calc(var(--handRY, 100) * 1.6%)) rotate(calc(var(--handRRot, 10) * 1deg)); }
+  .lx-hands-l { transform: translateY(calc(var(--handLY, 100) * 1.6%)) rotate(calc(var(--handLRot, -8) * 1deg)); }
+  .lx-hands-r { transform: translateY(calc(var(--handRY, 100) * 1.6%)) rotate(calc(var(--handRRot, 8) * 1deg)); }
   .lx-hero-hint { display: none; }
   .lx-cd { gap: 12px; padding: 10px 16px; }
   .lx-cd-group { gap: 12px; }
