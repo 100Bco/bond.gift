@@ -132,7 +132,7 @@
 
 .lx-hero-boxes { position: relative; z-index: 2; display: flex; align-items: flex-end; justify-content: center; gap: clamp(12px, 2.2vw, 42px); width: 100%; max-width: 1220px; margin-top: auto; }
 .lx-gbox { flex: 1 1 0; max-width: 210px; transform-origin: 50% 100%; filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.08)); will-change: transform, opacity, filter; }
-.lx-gbox svg { width: 100%; height: auto; }
+.lx-gbox img { display: block; width: 100%; height: auto; }
 /* Bốn hộp phụ dạt ra hai cánh, hộp ngoài dạt xa hơn */
 .lx-gbox-side { --k: 0; opacity: var(--sideOp, 1); transform: translate(calc(var(--sideSpread, 0px) * var(--k)), var(--sideDrop, 0px)) scale(var(--sideScale, 1)); filter: blur(var(--sideBlur, 0px)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.06)); }
 .lx-gbox-n1 { --k: -1.4; }
@@ -143,9 +143,9 @@
 /* Bóng tiếp xúc giữa bàn tay và đáy hộp */
 .lx-gbox-mid::after { content: ''; position: absolute; left: 10%; right: 10%; bottom: -8px; height: 16px; background: radial-gradient(ellipse at center, rgba(11, 11, 12, 0.45) 0%, transparent 75%); opacity: var(--contactOp, 0); transform: scale(var(--contactScale, 0.8)); pointer-events: none; }
 /* Hai tay: đi vào từ hai góc dưới theo quỹ đạo cong, vừa tịnh tiến vừa xoay cổ tay */
-.lx-hero-arms { position: absolute; left: 50%; bottom: -40px; z-index: 1; width: min(880px, 96vw, 100vh); height: 55vh; transform: translateX(-50%); pointer-events: none; }
+.lx-hero-arms { position: absolute; left: 50%; bottom: -88px; z-index: 1; width: min(800px, 92vw, 92vh); height: 55vh; transform: translateX(-50%); pointer-events: none; }
 .lx-arm { position: absolute; bottom: 0; width: 49%; will-change: transform; }
-.lx-arm svg { width: 100%; height: auto; filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.18)); }
+.lx-arm img { display: block; width: 100%; height: auto; filter: drop-shadow(0 22px 30px rgba(0, 0, 0, 0.16)); }
 .lx-arm-l { left: 2%; transform-origin: 20% 90%; transform: translate(calc(var(--armLX, -35) * 1%), calc(var(--armLY, 115) * 1%)) rotate(calc(var(--armLRot, -14) * 1deg)); }
 .lx-arm-r { right: 2%; transform-origin: 80% 90%; transform: translate(calc(var(--armRX, 35) * 1%), calc(var(--armRY, 115) * 1%)) rotate(calc(var(--armRRot, 14) * 1deg)); }
 .lx-hero-p2 { position: absolute; left: 50%; top: min(36%, calc(50% - 150px)); z-index: 6; width: 100%; padding: 0 var(--lx-pad-x); opacity: var(--p2op, 0); transform: translate(-50%, calc(-50% + var(--p2y, 30px))); pointer-events: none; }
@@ -303,12 +303,15 @@
   .lx-hero-in { padding: calc(var(--lx-nav-h) + 24px) var(--lx-pad-x) 48px; }
   .lx-hero-p1 { opacity: 1 !important; transform: none !important; }
   .lx-hero-boxes { margin-top: 36px; transform: none !important; }
-  .lx-gbox-n1, .lx-gbox-n5 { display: none; }
+  .lx-gbox-side { display: none; }
+  .lx-gbox-mid { max-width: min(58vw, 260px); }
   .lx-gbox-side { opacity: 0.4 !important; filter: none !important; transform: none !important; }
   .lx-gbox-mid { margin-bottom: 0; transform: none !important; }
   .lx-gbox-mid::after { opacity: 1; transform: none; }
   /* Mobile: giữ đôi tay, đặt tĩnh ngay dưới hộp giữa như đang nâng đỡ */
-  .lx-hero-arms { position: relative; left: auto; bottom: auto; z-index: 3; display: flex; justify-content: center; width: 100%; height: auto; margin-top: -12%; transform: none; }
+  .lx-hero-arms { position: relative; left: auto; bottom: auto; z-index: 1; display: flex; justify-content: center; width: 100%; height: auto; margin-top: -34%; transform: none; }
+  .lx-arm-l { margin-right: -6%; }
+  .lx-arm-r { margin-left: -6%; }
   .lx-arm { position: relative; width: 48%; transform: none !important; }
   .lx-arm-l, .lx-arm-r { left: auto; right: auto; }
   .lx-hero-hint { display: none; }
@@ -340,4 +343,9 @@
   .lx-hero-p2 { position: static; margin-top: 48px; opacity: 1; transform: none; pointer-events: auto; }
   .lx-logos-row, .lx-hero-hint::after { animation: none; }
   .lx .reveal { transform: none; }
+}
+@media (max-width: 480px) {
+  .lx-gbox-mid { max-width: 46vw; }
+  .lx-hero-arms { margin-top: -26%; }
+  .lx-arm { width: 52%; }
 }

@@ -53,6 +53,7 @@ Phản hồi sau bản đầu: homepage dạng split và gallery bất đối x�
 | Trang chủ | Hero cuộn 2 pha: hai tay vest may đo (sơ mi trắng, khuy măng-sét đỏ BOND) đi vào theo quỹ đạo cong, tay phải trước một nhịp, đặt sau hộp để mặt hộp hiện trọn; hộp giữa nảy nhẹ khi được đỡ, có bóng tiếp xúc; bốn hộp phụ dạt sang hai bên và mờ đi; mobile giữ đôi tay ở dạng tĩnh ("Brands, in hand.") với đồng hồ Tháng/Ngày/Giờ/Phút đến Tết Đinh Mùi · Dải logo khách hàng thật (15 logo trong `public/assets/clients`, bản gốc ở `public/Logo Client`) · Hai mô hình · Set sẵn · Set độc bản theo ngân sách · Khoảnh khắc Tết · Quy trình accordion · CTA đỏ |
 | Số liệu | Tên set, giá, cấu phần, MOQ, thời gian, địa chỉ văn phòng lấy theo file, đã được BOND xác nhận. Nằm trong `src/data/content.ts` để sửa nhanh |
 | Zalo | `zaloUrl` trong `src/data/content.ts` đang để trống, mọi nút Zalo tạm dẫn về `/lien-he`. Điền link Zalo OA là xong |
+| Ảnh hero | Tay và 5 hộp quà là ảnh render tách lớp tạo bằng Higgsfield (GPT Image 2.5, nền trong suốt), lưu ở `public/assets/hero` dạng WebP. Tay trái là ảnh tay phải lật ngang để hai tay đồng bộ. Đây là minh họa, chưa phải ảnh sản phẩm thật |
 | Chất liệu | Lớp hạt giấy rất mịn phủ toàn trang (`.lx-grain`). Mã trang chủ dùng tiền tố `lx-` trong `src/styles/luxe.css` |
 
 ---

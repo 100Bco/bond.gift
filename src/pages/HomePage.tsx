@@ -3,7 +3,7 @@ import { bespokeBudgets, clientLogos, giftModels, giftProcesses, readySets } fro
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { Reveal } from '@/components/bond/Reveal';
 import { ZaloLink } from '@/components/bond/ZaloLink';
-import { Arm, GiftBox, ModelArt, MomentArt, SetArt } from '@/components/bond/GiftArt';
+import { ModelArt, MomentArt, SetArt } from '@/components/bond/GiftArt';
 import { usePrefersReducedMotion } from '@/hooks/use-in-view';
 
 /* Trang chủ editorial: hero hai pha, hai mô hình quà, set sẵn, set độc bản, khoảnh khắc Tết, quy trình. */
@@ -37,6 +37,14 @@ const norm = (p: number, a: number, b: number) => clamp((p - a) / (b - a));
 const easeOut4 = (t: number) => 1 - Math.pow(1 - t, 4);
 const easeOutBack = (t: number) => { const c1 = 1.70158; const c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); };
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+const heroBoxes = [
+  { src: '/assets/hero/box-ivory.webp', w: 560, h: 658, cls: 'lx-gbox-n1' },
+  { src: '/assets/hero/box-black-red.webp', w: 560, h: 661, cls: 'lx-gbox-n2' },
+  { src: '/assets/hero/box-crimson.webp', w: 800, h: 1133, cls: '', mid: true },
+  { src: '/assets/hero/box-black-ivory.webp', w: 560, h: 611, cls: 'lx-gbox-n4' },
+  { src: '/assets/hero/box-raw.webp', w: 560, h: 705, cls: 'lx-gbox-n5' },
+];
 
 function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -114,17 +122,18 @@ function Hero() {
             )}
           </div>
 
-          <div className="lx-hero-boxes" role="img" aria-label="Minh họa năm hộp quà BOND, hộp đỏ ở giữa">
-            <div className="lx-gbox lx-gbox-side lx-gbox-n1"><GiftBox tone="ivory" /></div>
-            <div className="lx-gbox lx-gbox-side lx-gbox-n2"><GiftBox tone="obsidian" /></div>
-            <div className="lx-gbox lx-gbox-mid"><GiftBox tone="crimson" big /></div>
-            <div className="lx-gbox lx-gbox-side lx-gbox-n4"><GiftBox tone="black" /></div>
-            <div className="lx-gbox lx-gbox-side lx-gbox-n5"><GiftBox tone="raw" /></div>
+          {/* Ảnh render tách lớp (Higgsfield), nền trong suốt; chuyển động giữ nguyên */}
+          <div className="lx-hero-boxes" role="img" aria-label="Năm hộp quà BOND, hộp đỏ ở giữa được đôi tay mặc vest nâng lên">
+            {heroBoxes.map((box) => (
+              <div key={box.src} className={`lx-gbox ${box.mid ? 'lx-gbox-mid' : 'lx-gbox-side'} ${box.cls}`}>
+                <img src={box.src} alt="" width={box.w} height={box.h} decoding="async" fetchPriority={box.mid ? 'high' : undefined} />
+              </div>
+            ))}
           </div>
 
           <div className="lx-hero-arms" aria-hidden="true">
-            <div className="lx-arm lx-arm-l"><Arm side="l" /></div>
-            <div className="lx-arm lx-arm-r"><Arm side="r" /></div>
+            <div className="lx-arm lx-arm-l"><img src="/assets/hero/arm-left.webp" alt="" width={900} height={943} decoding="async" /></div>
+            <div className="lx-arm lx-arm-r"><img src="/assets/hero/arm-right.webp" alt="" width={900} height={943} decoding="async" /></div>
           </div>
 
           <div className={`lx-hero-p2 ${phase2 ? 'is-live' : ''}`}>
