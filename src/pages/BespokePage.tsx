@@ -40,7 +40,7 @@ function Collection({ col, no, unit, first }: { col: BespokeCollection; no: numb
         <h2 id={`lx-bp-col-${no}`}>{col.name}</h2>
       </div>
       <div ref={ref} className={`lx-bp-reveal${inView ? ' is-in' : ''}`}>
-        <div className={col.cover ? 'lx-bp-grid' : 'lx-bp-row'}>
+        <div className={col.cover ? 'lx-bp-grid' : col.items.length >= 4 ? 'lx-bp-row' : `lx-bp-pair lx-bp-pair-${col.items.length}`}>
           {col.cover && <Shot img={col.cover} i={0} className="lx-bp-cover" onOpen={() => setShot(at(col.cover!))} priority={first} />}
           <div className="lx-bp-items">
             {col.items.map((img, i) => <Shot key={img.src} img={img} i={i + 1} caption className="lx-bp-item" onOpen={() => setShot(at(img))} priority={first && !col.cover} />)}
