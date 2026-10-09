@@ -592,9 +592,12 @@
   /* Tay xuất phát thấp hơn để không lấp ló dưới bộ quà khi chưa cuộn */
   .lx-hands-l { transform: translateY(calc(var(--handLY, 100) * 1.6%)) rotate(calc(var(--handLRot, -8) * 1deg)); }
   .lx-hands-r { transform: translateY(calc(var(--handRY, 100) * 1.6%)) rotate(calc(var(--handRRot, 8) * 1deg)); }
-  .lx-cd { gap: 12px; padding: 10px 16px; }
-  .lx-cd-group { gap: 12px; }
-  .lx-cd-sep { height: 30px; }
+  .lx-cd { gap: 9px; padding: 10px 0; }
+  .lx-cd-group { gap: 9px; }
+  .lx-cd-sep { height: 28px; }
+  .lx-cd-unit { min-width: 42px; }
+  .lx-cd-num { font-size: clamp(26px, 8vw, 34px); }
+  .lx-cd-lab { font-size: 10px; letter-spacing: 0.16em; }
   .lx-logos-in { flex-direction: column; align-items: flex-start; gap: 20px; }
   .lx-logos-lab { max-width: none; }
   .lx-logos-track { width: 100%; }
