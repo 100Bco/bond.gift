@@ -61,8 +61,6 @@ export function ReadySetPage() {
   const [shot, setShot] = useState<number | null>(null);
   const set = readySets.find((s) => s.slug === params?.slug);
   const reduced = usePrefersReducedMotion();
-  const mediaRef = useRef<HTMLDivElement>(null);
-  const logoRef = useRef<HTMLDivElement>(null);
   const shotsRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<HTMLOListElement>(null);
   const stepsRef = useRef<HTMLOListElement>(null);
@@ -70,9 +68,6 @@ export function ReadySetPage() {
   // Chuyển động bám theo thanh cuộn: cuộn ngược thì chạy ngược, không lặp lại kiểu "hiện dần".
   useScrollFx(() => {
     const vh = window.innerHeight;
-    // Ảnh đứng yên bên trái (máy tính); đọc tới khối logo thì ảnh chuyển sang cận logo trên nắp.
-    const logo = logoRef.current;
-    if (logo && mediaRef.current) mediaRef.current.classList.toggle('is-alt', window.innerWidth > 1024 && logo.getBoundingClientRect().top < vh * 0.75);
     // Bộ 3 ảnh trôi ngang: hai ảnh bên ngược chiều nhau, ảnh giữa chậm hơn.
     const shots = shotsRef.current;
     if (shots) {
@@ -82,21 +77,9 @@ export function ReadySetPage() {
         el.style.transform = `translate3d(${([-1, 0.35, 1][i] * t * 26).toFixed(1)}px, 0, 0)`;
       });
     }
-    // Trong hộp có gì: món nằm gần giữa màn hình nhất được làm nổi, các món khác nhạt đi.
+    // Trong hộp có gì: số thứ tự đổi từ xám sang đỏ lần lượt khi món cuộn qua 70% chiều cao màn hình.
     const list = itemsRef.current;
-    if (list) {
-      const r = list.getBoundingClientRect();
-      const active = r.top < vh * 0.5 && r.bottom > vh * 0.5;
-      list.classList.toggle('is-active', active);
-      let best: Element | null = null;
-      let bestD = Infinity;
-      for (const li of list.children) {
-        const b = li.getBoundingClientRect();
-        const dist = Math.abs(b.top + b.height / 2 - vh * 0.5);
-        if (dist < bestD) { bestD = dist; best = li; }
-      }
-      for (const li of list.children) li.classList.toggle('is-focus', active && li === best);
-    }
+    if (list) for (const li of list.children) li.classList.toggle('is-lit', li.getBoundingClientRect().top + 28 < vh * 0.7);
     // Quy trình: đường dọc đổ đỏ theo thanh cuộn, chạm bước nào thì bước đó sáng lên.
     const steps = stepsRef.current;
     if (steps) {
@@ -130,10 +113,8 @@ export function ReadySetPage() {
               <span aria-current="page">{set.name}</span>
             </nav>
             <div className="lx-sd-hero-grid">
-              <div ref={mediaRef} className="lx-sd-media">
-                <span className="lx-sd-media-main"><SetArt look={set.look} /></span>
-                <span className="lx-sd-media-alt" aria-hidden="true"><SetArt look={set.look} /></span>
-                <span className="lx-sd-media-cap" aria-hidden="true">Cận logo trên nắp</span>
+              <div className="lx-sd-media">
+                <SetArt look={set.look} />
               </div>
               <div className="lx-sd-intro">
                 <p className="lx-eyebrow">Set sẵn</p>
@@ -141,7 +122,7 @@ export function ReadySetPage() {
                 <p className="lx-sd-price">{set.price}</p>
                 <p className="lx-lead">{set.contents}</p>
                 <SpecList rows={[time, moq, ['Kích thước hộp', pendingSpec], ['Trọng lượng', pendingSpec], ['Hạn sử dụng', pendingSpec]]} />
-                <div ref={logoRef} className="lx-sd-logo">
+                <div className="lx-sd-logo">
                   <h2 className="lx-sd-logo-t">Logo của anh chị</h2>
                   <p>Logo được ép kim ở giữa nắp hộp và mặt trước thiệp. Anh chị gửi file logo dạng vector (AI, PDF hoặc SVG). BOND gửi maket để anh chị duyệt trước khi sản xuất.</p>
                 </div>

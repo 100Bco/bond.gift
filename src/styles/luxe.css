@@ -459,10 +459,9 @@
 @media (hover: hover) {
   .lx-stair:has(.lx-card:hover) .lx-card:not(:hover) { opacity: 0.55; }
 }
-/* Mở trang chi tiết: ảnh thu từ 110% về 100%, chữ cột phải trượt vào từ bên trái. Chỉ chạy một lần. */
-@keyframes lx-sd-zoom { from { transform: scale(1.1); } }
+/* Mở trang chi tiết: chữ cột phải trượt vào từ bên trái. Chỉ chạy một lần. Ảnh lớn đứng yên. */
 @keyframes lx-sd-slide { from { opacity: 0; transform: translateX(-28px); } }
-.lx-sd-media-main { animation: lx-sd-zoom 1.6s var(--lx-ease) both; }
+.lx-sd-media svg { width: 62%; height: auto; }
 .lx-sd-intro > * { animation: lx-sd-slide 1s var(--lx-ease) both; }
 .lx-sd-intro > :nth-child(1) { animation-delay: 0.15s; }
 .lx-sd-intro > :nth-child(2) { animation-delay: 0.25s; }
@@ -471,30 +470,14 @@
 .lx-sd-intro > :nth-child(5) { animation-delay: 0.55s; }
 .lx-sd-intro > :nth-child(6) { animation-delay: 0.65s; }
 .lx-sd-intro > :nth-child(7) { animation-delay: 0.75s; }
-/* Ảnh lớn: hai lớp chồng nhau, đọc tới khối logo thì chuyển mờ sang lớp cận logo */
-.lx-sd-media-main, .lx-sd-media-alt { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; transition: opacity 0.9s var(--lx-ease), transform 1.2s var(--lx-ease); }
-.lx-sd-media-main svg { width: 62%; height: auto; }
-.lx-sd-media-alt { opacity: 0; transform: scale(1.04); }
-.lx-sd-media-alt svg { width: 200%; height: auto; }
-.lx-sd-media-cap { position: absolute; left: 20px; bottom: 18px; font-size: 12.5px; color: var(--lx-muted); opacity: 0; transition: opacity 0.9s var(--lx-ease); }
-.lx-sd-media.is-alt .lx-sd-media-main { opacity: 0; }
-.lx-sd-media.is-alt .lx-sd-media-alt { opacity: 1; transform: none; }
-.lx-sd-media.is-alt .lx-sd-media-cap { opacity: 1; }
-@media (min-width: 1025px) {
-  /* Ảnh thấp hơn cột chữ để còn quãng đứng yên khi cột phải cuộn qua bảng thông số và khối logo */
-  .lx-sd-media { position: sticky; top: calc(var(--lx-nav-h) + 24px); aspect-ratio: auto; height: min(560px, calc(100vh - var(--lx-nav-h) - 48px)); }
-}
 /* Bộ 3 ảnh: lớp ảnh rộng hơn khung để trôi ngang mà không lộ mép */
 .lx-sd-shot-img { position: relative; }
 .lx-sd-shot-layer { position: absolute; inset: 0 -6%; display: flex; align-items: center; justify-content: center; will-change: transform; }
 .lx-sd-shot-layer svg { width: 30%; height: auto; transition: transform 1.2s var(--lx-ease); }
 .lx-sd-shot:hover .lx-sd-shot-layer svg { transform: scale(1.06); }
-/* Trong hộp có gì: món gần giữa màn hình nổi lên, các món khác nhạt đi */
-.lx-sd-items .lx-sd-item { transition: opacity 0.6s var(--lx-ease); }
-.lx-sd-items .lx-cmp-step-n, .lx-sd-items .lx-sd-item-t { transition: color 0.6s var(--lx-ease), font-weight 0.6s; }
-.lx-sd-items.is-active .lx-sd-item { opacity: 0.38; }
-.lx-sd-items.is-active .lx-sd-item.is-focus { opacity: 1; }
-.lx-sd-items.is-active .is-focus .lx-sd-item-t { font-weight: 600; }
+/* Trong hộp có gì: số thứ tự đổi từ xám sang đỏ lần lượt theo thanh cuộn, chữ luôn rõ */
+.lx-sd-items .lx-cmp-step-n { color: var(--lx-muted); transition: color 0.6s var(--lx-ease); }
+.lx-sd-items .lx-sd-item.is-lit .lx-cmp-step-n { color: var(--lx-red); }
 /* Quy trình: đường dọc đổ đỏ theo --p, bước nào được chạm thì số sáng đỏ */
 .lx-sd-steps { position: relative; padding-left: 30px; border-top: 0; }
 .lx-sd-steps::before, .lx-sd-steps::after { content: ''; position: absolute; left: 3px; top: 0; bottom: 0; width: 1px; }
@@ -510,8 +493,8 @@
 .lx-sd-other-img svg { transition: transform 0.9s var(--lx-ease); }
 .lx-sd-other:hover .lx-sd-other-img svg { transform: scale(1.12); }
 @media (prefers-reduced-motion: reduce) {
-  .lx-sd-media-main, .lx-sd-intro > * { animation: none; }
-  .lx-sd-steps .lx-cmp-step-n { color: var(--lx-red); }
+  .lx-sd-intro > * { animation: none; }
+  .lx-sd-steps .lx-cmp-step-n, .lx-sd-items .lx-cmp-step-n { color: var(--lx-red); }
 }
 
 
