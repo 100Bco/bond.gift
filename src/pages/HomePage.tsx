@@ -253,7 +253,7 @@ function ModelCol({ kind, index }: { kind: 'ready' | 'bespoke'; index: number })
   const [done, setDone] = useState(false);
   useEffect(() => {
     if (!inView) { setDone(false); return; }
-    const t = window.setTimeout(() => setDone(true), 3400);
+    const t = window.setTimeout(() => setDone(true), 2900);
     return () => window.clearTimeout(t);
   }, [inView]);
   const m = giftModels[kind];
