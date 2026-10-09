@@ -7,7 +7,6 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { HomePage } from '@/pages/HomePage';
 import { AboutPage } from '@/pages/AboutPage';
 import { CatalogDetailPage, CollectionPage, SignaturePage } from '@/pages/CollectionPages';
-import { ProcessPage } from '@/pages/ProcessPage';
 import { ServiceDetailPage, ServiceHubPage } from '@/pages/ServicePages';
 import { ProjectDetailPage, ProjectsPage } from '@/pages/ProjectPages';
 import { CapabilitiesPage, CapabilityDetailPage } from '@/pages/CapabilityPages';
@@ -16,6 +15,12 @@ import { CareersPage, ContactPage, DocumentsPage, FaqPage, LegalPage, NotFoundPa
 import { KitDocumentPage, KitGate } from '@/pages/KitPages';
 
 const queryClient = new QueryClient();
+
+/* Trang quy trình riêng đã gộp vào khối "Hai cách để BOND làm quà" trên trang chủ. */
+function ProcessRedirect() {
+  window.location.replace('/#quy-trinh');
+  return null;
+}
 
 /* Sitemap và URL giữ nguyên như phiên bản trước; chỉ thay giao diện của từng route. */
 function Router() {
@@ -31,7 +36,7 @@ function Router() {
         <Route path="/bo-suu-tap" component={CollectionPage} />
         <Route path="/bo-suu-tap/signature" component={SignaturePage} />
         <Route path="/bo-suu-tap/:slug" component={CatalogDetailPage} />
-        <Route path="/quy-trinh" component={ProcessPage} />
+        <Route path="/quy-trinh" component={ProcessRedirect} />
         <Route path="/qua-tang" component={() => <ServiceHubPage type="gift" />} />
         <Route path="/qua-tang/:slug" component={() => <ServiceDetailPage kind="gift" />} />
         <Route path="/bao-bi" component={() => <ServiceHubPage type="packaging" />} />

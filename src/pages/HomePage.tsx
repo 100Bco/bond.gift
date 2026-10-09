@@ -3,7 +3,7 @@ import { bespokeBudgets, clientLogos, giftModels, giftProcesses, readySets } fro
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { Reveal } from '@/components/bond/Reveal';
 import { ZaloLink } from '@/components/bond/ZaloLink';
-import { ModelArt, MomentArt, SetArt } from '@/components/bond/GiftArt';
+import { MomentArt, SetArt } from '@/components/bond/GiftArt';
 import { usePrefersReducedMotion } from '@/hooks/use-in-view';
 
 /* Trang chủ editorial: hero hai pha, hai mô hình quà, set sẵn, set độc bản, khoảnh khắc Tết, quy trình. */
@@ -221,9 +221,39 @@ function LogoStrip() {
   );
 }
 
+function ModelSteps({ kind }: { kind: 'ready' | 'bespoke' }) {
+  const [open, setOpen] = useState(false);
+  const proc = giftProcesses[kind];
+  const id = `lx-steps-${kind}`;
+  return (
+    <div className="lx-cmp-proc">
+      <div className="lx-cmp-proc-head">
+        <h4 className="lx-cmp-proc-ttl">Quy trình</h4>
+        <span className="lx-cmp-proc-meta">{proc.meta}</span>
+      </div>
+      {proc.note && <p className="lx-cmp-proc-note">{proc.note}</p>}
+      <ol className="lx-cmp-steps" id={id} data-open={open}>
+        {proc.steps.map(([t, d], i) => (
+          <li key={t} className="lx-cmp-step">
+            <span className="lx-cmp-step-n">{pad(i + 1)}</span>
+            <div className="lx-cmp-step-body">
+              <p className="lx-cmp-step-t">{t}</p>
+              <div className="lx-cmp-step-d" inert={!open || undefined}><p>{d}</p></div>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <button type="button" className="lx-cmp-toggle" aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)}>
+        <span>{open ? 'Thu gọn chi tiết' : 'Xem chi tiết các bước'}</span>
+        <span className="lx-acc-ico" aria-hidden="true" />
+      </button>
+    </div>
+  );
+}
+
 function Models() {
   return (
-    <section className="lx-sec lx-cmp" id="hai-mo-hinh" aria-labelledby="lx-cmp-title">
+    <section className="lx-sec lx-cmp" id="quy-trinh" aria-labelledby="lx-cmp-title">
       <div className="lx-wrap">
         <Reveal className="lx-cmp-head">
           <p className="lx-eyebrow">Hai phương thức tiếp cận</p>
@@ -239,10 +269,20 @@ function Models() {
                 <span className="lx-cmp-badge">Mô hình {pad(i + 1)}</span>
                 <h3 className="lx-cmp-name">{m.name}</h3>
                 <p className="lx-cmp-say">{m.say}</p>
-                <div className="lx-cmp-preview"><ModelArt kind={kind} /></div>
+                <div className="lx-cmp-preview">
+                  <img
+                    src={kind === 'ready' ? '/assets/models/set-san.webp' : '/assets/models/set-doc-ban.webp'}
+                    alt={kind === 'ready' ? 'Set quà Tết hộp đỏ họa tiết tùng bày trên bàn tiệc' : 'Hộp quà độc bản họa tiết hoa xanh ngọc in logo doanh nghiệp'}
+                    width={1200}
+                    height={805}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
                 <dl className="lx-cmp-specs">
                   {m.specs.map(([k, v]) => <div key={k} className="lx-cmp-row"><dt>{k}</dt><dd>{v}</dd></div>)}
                 </dl>
+                <ModelSteps kind={kind} />
                 <a href={kind === 'ready' ? '#set-san' : '#set-doc-ban'} className={`lx-btn ${kind === 'ready' ? 'lx-btn-line' : 'lx-btn-red'}`}>
                   {kind === 'ready' ? 'Xem catalogue Set Sẵn' : 'Khám phá giải pháp Độc Bản'}
                 </a>
@@ -351,48 +391,6 @@ function Moment() {
   );
 }
 
-function Process() {
-  const [open, setOpen] = useState<string | null>(giftProcesses[1].id);
-  return (
-    <section className="lx-sec lx-proc" id="quy-trinh" aria-labelledby="lx-proc-title">
-      <div className="lx-wrap">
-        <Reveal className="lx-sec-head">
-          <div>
-            <p className="lx-eyebrow">Tiến trình chuyên nghiệp</p>
-            <h2 id="lx-proc-title">Từ ý niệm đến tay người nhận</h2>
-          </div>
-          <p className="lx-lead">Hai quy trình kiểm soát chất lượng nghiêm ngặt, đảm bảo tiến độ chính xác tuyệt đối mùa cao điểm.</p>
-        </Reveal>
-        <Reveal className="lx-acc">
-          {giftProcesses.map((proc) => {
-            const isOpen = open === proc.id;
-            return (
-              <div key={proc.id} className="lx-acc-item">
-                <h3 className="lx-acc-h">
-                  <button type="button" className="lx-acc-btn" aria-expanded={isOpen} aria-controls={proc.id} onClick={() => setOpen(isOpen ? null : proc.id)}>
-                    <span className="lx-acc-ttl">{proc.title}</span>
-                    <span className="lx-acc-meta">{proc.meta}</span>
-                    <span className="lx-acc-ico" aria-hidden="true" />
-                  </button>
-                </h3>
-                <div className="lx-acc-body" id={proc.id} role="region" aria-label={proc.title}>
-                  <div className="lx-acc-inner" inert={!isOpen || undefined}>
-                    <ol className="lx-steps">
-                      {proc.steps.map(([t, d], i) => (
-                        <li key={t} className="lx-step"><span className="lx-step-n">{pad(i + 1)}</span><div><p className="lx-step-t">{t}</p><p className="lx-step-d">{d}</p></div></li>
-                      ))}
-                    </ol>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
 function Cta() {
   return (
     <section className="lx-cta" aria-labelledby="lx-cta-title">
@@ -406,6 +404,12 @@ function Cta() {
 }
 
 export function HomePage() {
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const t = window.setTimeout(() => document.getElementById(id)?.scrollIntoView(), 60);
+    return () => window.clearTimeout(t);
+  }, []);
   return (
     <SiteShell>
       <div className="lx">
@@ -415,7 +419,6 @@ export function HomePage() {
         <ReadySets />
         <Bespoke />
         <Moment />
-        <Process />
         <Cta />
       </div>
     </SiteShell>
