@@ -167,12 +167,14 @@ export const clientLogos: { name: string; logo: string; h: number }[] = ([
   ['Calista', 'calista', 50], ['Rubies', 'rubies', 38], ['Magonn', 'magonn', 28], ['Sypik Australia', 'sypik-australia', 40], ['Nuclean', 'nuclean', 26],
 ] as [string, string, number][]).map(([name, slug, h]) => ({ name, logo: `/assets/clients/${slug}.webp`, h }));
 
-export type ReadySet = { name: string; tier: string; price: string; contents: string; look: 'ivory' | 'ink' | 'red' | 'black' };
+export type ReadySet = { slug: string; name: string; tier: string; price: string; contents: string; look: 'ivory' | 'ink' | 'red' | 'black' };
+/** Thông số chưa có số liệu thật thì hiển thị dòng này, không tự đặt số. */
+export const pendingSpec = 'Đang cập nhật';
 export const readySets: ReadySet[] = [
-  { name: 'An Lộc', tier: 'Căn bản', price: '499.000₫ / set', contents: '1 Vang hảo hạng + 3 Hũ hạt dinh dưỡng tuyển lựa + Hộp mứt truyền thống', look: 'ivory' },
-  { name: 'Cát Tường', tier: 'Phổ thông', price: '799.000₫ / set', contents: '1 Vang nhập khẩu + Hạt thượng hạng + Trái cây sấy dẻo + Thịt khô thảo mộc', look: 'ink' },
-  { name: 'Phú Quý', tier: 'Cao cấp', price: '1.299.000₫ / set', contents: '1 Rượu mạnh trứ danh + Hạt Macca & Hạnh nhân organic + Trà Shan Tuyết cổ thụ', look: 'red' },
-  { name: 'Tâm Giao', tier: 'Thượng hạng', price: '2.399.000₫ / set', contents: 'Rượu Single Malt thượng hạng + Yến sào nguyên tổ + Trà Ô Long thượng phẩm + Hộp sơn mài', look: 'black' },
+  { slug: 'an-loc', name: 'An Lộc', tier: 'Căn bản', price: '499.000₫ / set', contents: '1 Vang hảo hạng + 3 Hũ hạt dinh dưỡng tuyển lựa + Hộp mứt truyền thống', look: 'ivory' },
+  { slug: 'cat-tuong', name: 'Cát Tường', tier: 'Phổ thông', price: '799.000₫ / set', contents: '1 Vang nhập khẩu + Hạt thượng hạng + Trái cây sấy dẻo + Thịt khô thảo mộc', look: 'ink' },
+  { slug: 'phu-quy', name: 'Phú Quý', tier: 'Cao cấp', price: '1.299.000₫ / set', contents: '1 Rượu mạnh trứ danh + Hạt Macca & Hạnh nhân organic + Trà Shan Tuyết cổ thụ', look: 'red' },
+  { slug: 'tam-giao', name: 'Tâm Giao', tier: 'Thượng hạng', price: '2.399.000₫ / set', contents: 'Rượu Single Malt thượng hạng + Yến sào nguyên tổ + Trà Ô Long thượng phẩm + Hộp sơn mài', look: 'black' },
 ];
 
 export const bespokeBudgets = [
