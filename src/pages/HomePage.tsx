@@ -4,6 +4,7 @@ import { bespokeBudgets, clientLogos, giftModels, giftProcesses, readySets } fro
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { Reveal } from '@/components/bond/Reveal';
 import { ZaloLink } from '@/components/bond/ZaloLink';
+import { ReplayReveal, d } from '@/components/bond/ReplayReveal';
 import { MomentArt, SetArt } from '@/components/bond/GiftArt';
 import { usePrefersReducedMotion, useReplayInView } from '@/hooks/use-in-view';
 
@@ -157,7 +158,7 @@ function Hero() {
         <span className="lx-scroll-cue" aria-hidden="true"><i /></span>
         <div className="lx-hero-in">
           <div className="lx-hero-p1" style={{ pointerEvents: phase2 ? 'none' : undefined }}>
-            <p className="lx-eyebrow">Quà Tết Doanh Nghiệp · Đinh Mùi 2027</p>
+            <p className="lx-eyebrow">Quà Tết doanh nghiệp · Đinh Mùi 2027</p>
             <h1 id="lx-hero-title" className="lx-hero-title">Relationships, <em className="lx-serif">compounded.</em></h1>
             <p className="lx-hero-sub">Mối quan hệ, được nhân lên theo thời gian.</p>
             {cd && (
@@ -280,7 +281,7 @@ function ModelCol({ kind, index }: { kind: 'ready' | 'bespoke'; index: number })
       </dl>
       <ModelSteps kind={kind} />
       <a href={kind === 'ready' ? '#set-san' : '#set-doc-ban'} className={`lx-btn ${kind === 'ready' ? 'lx-btn-line' : 'lx-btn-red'}`}>
-        {kind === 'ready' ? 'Xem Set Sẵn' : 'Xem Set Độc Bản'}
+        {kind === 'ready' ? 'Xem Set sẵn' : 'Xem Set độc bản'}
       </a>
     </div>
   );
@@ -340,29 +341,31 @@ function Models() {
 function ReadySets() {
   return (
     <section className="lx-sec lx-ready" id="set-san" aria-labelledby="lx-ready-title">
-      <div className="lx-wrap">
-        <Reveal className="lx-sec-head">
+      <div className="lx-wrap lx-wrap-wide">
+        <ReplayReveal className="lx-sec-head">
           <div>
-            <p className="lx-eyebrow">01 · Catalogue tuyển chọn</p>
-            <h2 id="lx-ready-title">Set Sẵn Cao Cấp</h2>
+            <p className="lx-eyebrow lx-rv-up" style={d(0)}>Mô hình 01</p>
+            <h2 id="lx-ready-title" className="lx-rv-up" style={d(0.1)}>Set sẵn</h2>
           </div>
-          <p className="lx-lead">Giao nhanh, đồng bộ nhận diện, ứng dụng kỹ thuật dập ép kim logo thương hiệu tinh xảo.</p>
-        </Reveal>
+          <p className="lx-lead lx-rv-up" style={d(0.2)}>Giao trong hai tuần. Logo thương hiệu của anh chị được ép kim lên hộp và thiệp. Không cần thiết kế lại từ đầu.</p>
+        </ReplayReveal>
         <div className="lx-cards">
-          {readySets.map((set, i) => (
-            <Reveal key={set.slug} delay={(i % 4) as 0 | 1 | 2 | 3}>
-              <Link href={`/set-san/${set.slug}`} className="lx-card">
-                <div className="lx-card-img">
-                  <span className="lx-card-tag">{set.tier}</span>
-                  <SetArt look={set.look} />
-                </div>
-                <h3 className="lx-card-name">{set.name}</h3>
-                <p className="lx-card-price">{set.price}</p>
-                <p className="lx-card-in">{set.contents}</p>
-                <span className="lx-card-more">Xem chi tiết <span aria-hidden="true">→</span></span>
-              </Link>
-            </Reveal>
-          ))}
+          {readySets.map((set, i) => {
+            const o = (i % 4) * 0.12;
+            return (
+              <ReplayReveal key={set.slug}>
+                <Link href={`/set-san/${set.slug}`} className="lx-card lx-rv-line" style={d(o + 0.5)}>
+                  <div className="lx-card-img lx-rv-img" style={d(o + 0.1)}>
+                    <SetArt look={set.look} />
+                  </div>
+                  <h3 className="lx-card-name lx-rv-up" style={d(o + 0.6)}>{set.name}</h3>
+                  <p className="lx-card-price lx-rv-up" style={d(o + 0.7)}>{set.price}</p>
+                  <p className="lx-card-in lx-rv-up" style={d(o + 0.8)}>{set.contents}</p>
+                  <span className="lx-card-more lx-rv-up" style={d(o + 0.9)}>Xem chi tiết <span aria-hidden="true">→</span></span>
+                </Link>
+              </ReplayReveal>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -375,8 +378,8 @@ function Bespoke() {
       <div className="lx-wrap">
         <Reveal className="lx-sec-head">
           <div>
-            <p className="lx-eyebrow">02 · Thiết kế riêng biệt</p>
-            <h2 id="lx-custom-title">Set Quà Độc Bản</h2>
+            <p className="lx-eyebrow">Mô hình 02</p>
+            <h2 id="lx-custom-title">Set độc bản</h2>
             <div className="lx-disc">
               <span className="lx-cross" aria-hidden="true" />
               <p>Mỗi đề xuất dưới đây là một điểm xuất phát ý niệm sáng tạo. BOND cùng đội ngũ ZAD sẽ phát triển cấu trúc bao bì và trải nghiệm unboxing độc quyền cho riêng thương hiệu của bạn.</p>

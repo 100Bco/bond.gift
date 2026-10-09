@@ -77,8 +77,8 @@ function ProcessStrip() {
   return (
     <Section tone="canvas" className="process-strip">
       <SectionIntro label="Quy trình phù hợp" title={<>Rõ từng mốc.<br />Chắc từng bước.</>}>
-        <p>Set Độc Bản đi qua 7 bước, khoảng 8 tuần từ brief đến giao hàng. Chúng tôi nói rõ ngay từ đầu.</p>
-        <p><TextLink href="/#quy-trinh">So sánh với Set Sẵn</TextLink></p>
+        <p>Set độc bản đi qua 7 bước, khoảng 8 tuần từ brief đến giao hàng. Chúng tôi nói rõ ngay từ đầu.</p>
+        <p><TextLink href="/#quy-trinh">So sánh với Set sẵn</TextLink></p>
       </SectionIntro>
       <StepCarousel />
     </Section>

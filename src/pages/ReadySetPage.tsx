@@ -1,7 +1,8 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useRoute } from 'wouter';
-import { giftModels, giftProcesses, pendingSpec, readySets } from '@/data/content';
+import { giftModels, giftProcesses, pendingSpec, readySets, type ReadySet } from '@/data/content';
 import { SiteShell } from '@/components/layout/SiteChrome';
-import { Reveal } from '@/components/bond/Reveal';
+import { ReplayReveal, d } from '@/components/bond/ReplayReveal';
 import { ZaloLink } from '@/components/bond/ZaloLink';
 import { SetArt } from '@/components/bond/GiftArt';
 import { NotFoundPage } from '@/pages/UtilityPages';
@@ -9,13 +10,14 @@ import { NotFoundPage } from '@/pages/UtilityPages';
 const pad = (n: number) => String(n).padStart(2, '0');
 
 /* Ảnh thật chưa có: mỗi ô giữ chỗ ghi rõ cần chụp gì. */
-const galleryShots = ['Hộp đóng, góc 3/4', 'Hộp mở, thấy ruột set', 'Cận chất liệu hộp', 'Cận logo ép kim'];
+const galleryShots = ['Hộp đóng, góc 3/4', 'Hộp mở, thấy toàn bộ ruột', 'Cận vị trí logo trên nắp'];
 
-function SpecList({ rows }: { rows: [string, string][] }) {
+/** Bảng thông số; mỗi hàng trượt lên và có đường kẻ chạy trái sang phải, cách nhau 0,08 giây. */
+function SpecList({ rows, start = 0 }: { rows: [string, string][]; start?: number }) {
   return (
     <dl className="lx-sd-specs">
-      {rows.map(([k, v]) => (
-        <div key={k} className="lx-cmp-row">
+      {rows.map(([k, v], i) => (
+        <div key={k} className="lx-cmp-row lx-rv-up lx-rv-line" style={d(start + i * 0.08)}>
           <dt>{k}</dt>
           <dd className={v === pendingSpec ? 'is-pending' : undefined}>{v}</dd>
         </div>
@@ -24,12 +26,45 @@ function SpecList({ rows }: { rows: [string, string][] }) {
   );
 }
 
+/** Popup phóng to ảnh: Esc hoặc bấm nền để đóng, phím trái phải để chuyển ảnh. */
+function Lightbox({ set, index, onClose, onMove }: { set: ReadySet; index: number; onClose: () => void; onMove: (step: number) => void }) {
+  const closeRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const prev = document.activeElement as HTMLElement | null;
+    closeRef.current?.focus();
+    const { overflow } = document.body.style;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight') onMove(1);
+      if (e.key === 'ArrowLeft') onMove(-1);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = overflow; prev?.focus(); };
+  }, [onClose, onMove]);
+  return (
+    <div className="lx-lb" role="dialog" aria-modal="true" aria-label={`Ảnh ${set.name}`} onClick={onClose}>
+      <figure className="lx-lb-fig" onClick={(e) => e.stopPropagation()}>
+        <div className="lx-lb-img"><SetArt look={set.look} /></div>
+        <figcaption>{pad(index + 1)} / {pad(galleryShots.length)} · {galleryShots[index]} · ảnh {pendingSpec.toLowerCase()}</figcaption>
+      </figure>
+      <button ref={closeRef} type="button" className="lx-lb-btn lx-lb-close" onClick={onClose} aria-label="Đóng">×</button>
+      <button type="button" className="lx-lb-btn lx-lb-prev" onClick={(e) => { e.stopPropagation(); onMove(-1); }} aria-label="Ảnh trước">←</button>
+      <button type="button" className="lx-lb-btn lx-lb-next" onClick={(e) => { e.stopPropagation(); onMove(1); }} aria-label="Ảnh sau">→</button>
+    </div>
+  );
+}
+
 /** Trang chi tiết một set sẵn: /set-san/:slug. Thông số chưa có số liệu thật hiển thị "Đang cập nhật". */
 export function ReadySetPage() {
   const [, params] = useRoute('/set-san/:slug');
+  const [shot, setShot] = useState<number | null>(null);
   const set = readySets.find((s) => s.slug === params?.slug);
+  const close = useCallback(() => setShot(null), []);
+  const move = useCallback((step: number) => setShot((i) => (i === null ? i : (i + step + galleryShots.length) % galleryShots.length)), []);
   if (!set) return <NotFoundPage />;
-  const items = set.contents.split(' + ');
+  // Mỗi món một dòng nên viết hoa chữ đầu dòng; trong câu mô tả vẫn giữ chữ thường.
+  const items = set.contents.split(' + ').map((t) => t.charAt(0).toUpperCase() + t.slice(1));
   const others = readySets.filter((s) => s.slug !== set.slug);
   const steps = giftProcesses.ready.steps;
   const [time, moq] = giftModels.ready.specs;
@@ -37,144 +72,134 @@ export function ReadySetPage() {
   return (
     <SiteShell>
       <div className="lx lx-sd">
-        {/* 1. Phần đầu trang: ảnh, tên, giá, thông số nhanh */}
+        {/* 1. Phần đầu trang: ảnh, tên, giá, thông số, logo, nút chính */}
         <section className="lx-sd-hero" aria-labelledby="lx-sd-title">
           <div className="lx-wrap">
             <nav className="lx-sd-crumb" aria-label="Đường dẫn">
               <Link href="/">Trang chủ</Link>
               <span aria-hidden="true">/</span>
-              <Link href="/#set-san">Set Sẵn</Link>
+              <Link href="/#set-san">Set sẵn</Link>
               <span aria-hidden="true">/</span>
               <span aria-current="page">{set.name}</span>
             </nav>
-            <div className="lx-sd-hero-grid">
-              <Reveal className="lx-sd-media">
-                <span className="lx-card-tag">{set.tier}</span>
+            <ReplayReveal className="lx-sd-hero-grid">
+              <div className="lx-sd-media lx-rv-img" style={d(0.1)}>
                 <SetArt look={set.look} />
-              </Reveal>
-              <Reveal className="lx-sd-intro" delay={1}>
-                <p className="lx-eyebrow">Set Sẵn · {set.tier}</p>
-                <h1 id="lx-sd-title">{set.name}</h1>
-                <p className="lx-sd-price">{set.price}</p>
-                <p className="lx-lead">{set.contents}.</p>
-                <SpecList rows={[time, moq, ['Tùy biến', 'Gắn logo lên hộp và thiệp']]} />
-                <div className="lx-sd-actions">
-                  <ZaloLink className="lx-btn lx-btn-red">Tư vấn qua Zalo</ZaloLink>
-                  <Link href="/#quy-trinh" className="lx-btn lx-btn-line">Xem quy trình</Link>
+              </div>
+              <div className="lx-sd-intro">
+                <p className="lx-eyebrow lx-rv-up" style={d(0.25)}>Set sẵn</p>
+                <h1 id="lx-sd-title" className="lx-rv-up" style={d(0.35)}>{set.name}</h1>
+                <p className="lx-sd-price lx-rv-up" style={d(0.45)}>{set.price}</p>
+                <p className="lx-lead lx-rv-up" style={d(0.55)}>{set.contents}</p>
+                <SpecList start={0.65} rows={[time, moq, ['Kích thước hộp', pendingSpec], ['Trọng lượng', pendingSpec], ['Hạn sử dụng', pendingSpec]]} />
+                <div className="lx-sd-logo lx-rv-up" style={d(1.1)}>
+                  <h2 className="lx-sd-logo-t">Logo của anh chị</h2>
+                  <p>Logo được ép kim ở giữa nắp hộp và mặt trước thiệp. Anh chị gửi file logo dạng vector (AI, PDF hoặc SVG). BOND gửi maket để anh chị duyệt trước khi sản xuất.</p>
                 </div>
-              </Reveal>
-            </div>
+                <div className="lx-sd-actions lx-rv-up" style={d(1.2)}>
+                  <ZaloLink className="lx-btn lx-btn-red">Tư vấn qua Zalo</ZaloLink>
+                  <Link href="/#quy-trinh" className="lx-sd-textlink">Xem quy trình <span aria-hidden="true">→</span></Link>
+                </div>
+              </div>
+            </ReplayReveal>
           </div>
         </section>
 
-        {/* 2. Bộ ảnh */}
+        {/* 2. Bộ ảnh, bấm để phóng to */}
         <section className="lx-sd-gallery" aria-label={`Hình ảnh ${set.name}`}>
-          <div className="lx-wrap">
-            <div className="lx-sd-shots">
-              {galleryShots.map((label) => (
-                <figure key={label} className="lx-sd-shot">
-                  <SetArt look={set.look} />
-                  <figcaption>{label} · ảnh {pendingSpec.toLowerCase()}</figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
+          <ReplayReveal className="lx-wrap lx-sd-shots">
+            {galleryShots.map((label, i) => (
+              <button key={label} type="button" className="lx-sd-shot" onClick={() => setShot(i)} aria-label={`Phóng to ảnh: ${label}`}>
+                <span className="lx-sd-shot-img lx-rv-img" style={d(0.1 + i * 0.12)}><SetArt look={set.look} /></span>
+                <span className="lx-sd-shot-cap lx-rv-up" style={d(0.5 + i * 0.12)}>{label} · ảnh {pendingSpec.toLowerCase()}</span>
+              </button>
+            ))}
+          </ReplayReveal>
         </section>
 
         {/* 3. Trong hộp có gì */}
         <section className="lx-sec lx-sd-sec" aria-labelledby="lx-sd-in">
-          <div className="lx-wrap lx-sd-split">
-            <Reveal className="lx-sd-side">
-              <p className="lx-eyebrow">Thành phần</p>
-              <h2 id="lx-sd-in">Trong hộp có gì</h2>
-              <p className="lx-sd-note">Có thể đổi món theo menu sẵn có của BOND.</p>
-            </Reveal>
-            <Reveal className="lx-sd-main" delay={1}>
-              <ol className="lx-sd-items">
-                {items.map((item, i) => (
-                  <li key={item} className="lx-sd-item">
-                    <span className="lx-cmp-step-n">{pad(i + 1)}</span>
-                    <div>
-                      <p className="lx-sd-item-t">{item}</p>
-                      <p className="lx-sd-item-d">Dung tích / khối lượng: <span className="is-pending">{pendingSpec}</span> · Xuất xứ: <span className="is-pending">{pendingSpec}</span></p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </Reveal>
-          </div>
+          <ReplayReveal className="lx-wrap lx-sd-split">
+            <div className="lx-sd-side">
+              <p className="lx-eyebrow lx-rv-up" style={d(0)}>Thành phần</p>
+              <h2 id="lx-sd-in" className="lx-rv-up" style={d(0.1)}>Trong hộp có gì</h2>
+              <p className="lx-sd-note lx-rv-up" style={d(0.2)}>Có thể đổi món theo menu sẵn có của BOND.</p>
+            </div>
+            <ol className="lx-sd-items">
+              {items.map((item, i) => (
+                <li key={item} className="lx-sd-item lx-rv-up lx-rv-line" style={d(0.3 + i * 0.12)}>
+                  <span className="lx-cmp-step-n">{pad(i + 1)}</span>
+                  <div>
+                    <p className="lx-sd-item-t">{item}</p>
+                    <p className="lx-sd-item-d">Dung tích / khối lượng: <span className="is-pending">{pendingSpec}</span> · Xuất xứ: <span className="is-pending">{pendingSpec}</span></p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </ReplayReveal>
         </section>
 
-        {/* 4–5. Thông số hộp và tùy biến thương hiệu */}
-        <section className="lx-sec lx-sd-sec lx-sd-soft" aria-label="Thông số hộp và tùy biến thương hiệu">
-          <div className="lx-wrap lx-sd-pair">
-            <Reveal>
-              <h2 className="lx-sd-h">Thông số hộp</h2>
-              <SpecList rows={[['Kích thước', pendingSpec], ['Chất liệu', pendingSpec], ['Màu sắc', pendingSpec], ['Trọng lượng cả set', pendingSpec]]} />
-            </Reveal>
-            <Reveal delay={1}>
-              <h2 className="lx-sd-h">Tùy biến thương hiệu</h2>
-              <SpecList rows={[['Vị trí logo', pendingSpec], ['Kỹ thuật', 'In hoặc ép kim logo'], ['Thiệp', 'Thiệp kèm theo, gắn logo thương hiệu'], ['Duyệt mẫu', 'Khách duyệt mẫu in logo trước khi sản xuất']]} />
-            </Reveal>
-          </div>
+        {/* 4. Thông số hộp và thông tin đặt hàng */}
+        <section className="lx-sec lx-sd-sec lx-sd-soft" aria-label="Thông số hộp và thông tin đặt hàng">
+          <ReplayReveal className="lx-wrap lx-sd-pair">
+            <div>
+              <h2 className="lx-sd-h lx-rv-up" style={d(0)}>Thông số hộp</h2>
+              <SpecList start={0.15} rows={[['Kích thước', pendingSpec], ['Trọng lượng cả set', pendingSpec], ['Chất liệu', pendingSpec], ['Màu sắc', pendingSpec]]} />
+            </div>
+            <div>
+              <h2 className="lx-sd-h lx-rv-up" style={d(0.1)}>Thông tin đặt hàng</h2>
+              <SpecList start={0.25} rows={[['Giá', set.price], ['VAT', pendingSpec], moq, time, ['Giao hàng', 'Một điểm hoặc nhiều điểm theo danh sách người nhận']]} />
+            </div>
+          </ReplayReveal>
         </section>
 
-        {/* 6–7. Thông tin đặt hàng và quy trình */}
-        <section className="lx-sec lx-sd-sec" aria-label="Thông tin đặt hàng và quy trình">
-          <div className="lx-wrap lx-sd-pair">
-            <Reveal>
-              <h2 className="lx-sd-h">Thông tin đặt hàng</h2>
-              <SpecList rows={[['Giá', set.price], ['VAT', pendingSpec], moq, time, ['Giao hàng', 'Một điểm hoặc nhiều điểm theo danh sách người nhận']]} />
-            </Reveal>
-            <Reveal delay={1}>
-              <h2 className="lx-sd-h">Quy trình {steps.length} bước</h2>
-              <ol className="lx-sd-steps">
-                {steps.map(([t, d], i) => (
-                  <li key={t} className="lx-sd-item">
-                    <span className="lx-cmp-step-n">{pad(i + 1)}</span>
-                    <div><p className="lx-sd-item-t">{t}</p><p className="lx-sd-item-d">{d}</p></div>
-                  </li>
-                ))}
-              </ol>
-            </Reveal>
-          </div>
+        {/* 5. Quy trình */}
+        <section className="lx-sec lx-sd-sec" aria-labelledby="lx-sd-steps">
+          <ReplayReveal className="lx-wrap lx-sd-split">
+            <div className="lx-sd-side">
+              <p className="lx-eyebrow lx-rv-up" style={d(0)}>Khoảng 2 tuần</p>
+              <h2 id="lx-sd-steps" className="lx-rv-up" style={d(0.1)}>Quy trình {steps.length} bước</h2>
+            </div>
+            <ol className="lx-sd-steps">
+              {steps.map(([t, desc], i) => (
+                <li key={t} className="lx-sd-item lx-rv-up lx-rv-line" style={d(0.25 + i * 0.12)}>
+                  <span className="lx-cmp-step-n">{pad(i + 1)}</span>
+                  <div><p className="lx-sd-item-t">{t}</p><p className="lx-sd-item-d">{desc}</p></div>
+                </li>
+              ))}
+            </ol>
+          </ReplayReveal>
         </section>
 
-        {/* 8. Các set còn lại */}
-        <section className="lx-sec lx-sd-sec lx-sd-soft" aria-labelledby="lx-sd-more">
-          <div className="lx-wrap">
-            <Reveal className="lx-sec-head">
-              <div>
-                <p className="lx-eyebrow">So sánh</p>
-                <h2 id="lx-sd-more">Các set sẵn khác</h2>
-              </div>
-            </Reveal>
-            <div className="lx-cards lx-sd-others">
+        {/* 6. Các set còn lại */}
+        <section className="lx-sec lx-sd-sec lx-sd-soft lx-sd-more" aria-labelledby="lx-sd-more">
+          <ReplayReveal className="lx-wrap">
+            <h2 id="lx-sd-more" className="lx-sd-h lx-rv-up" style={d(0)}>Các set khác</h2>
+            <div className="lx-sd-others">
               {others.map((o, i) => (
-                <Reveal key={o.slug} delay={(i % 3) as 0 | 1 | 2}>
-                  <Link href={`/set-san/${o.slug}`} className="lx-card">
-                    <div className="lx-card-img">
-                      <span className="lx-card-tag">{o.tier}</span>
-                      <SetArt look={o.look} />
-                    </div>
-                    <h3 className="lx-card-name">{o.name}</h3>
-                    <p className="lx-card-price">{o.price}</p>
-                    <span className="lx-card-more">Xem chi tiết <span aria-hidden="true">→</span></span>
-                  </Link>
-                </Reveal>
+                <Link key={o.slug} href={`/set-san/${o.slug}`} className="lx-sd-other lx-rv-up lx-rv-line" style={d(0.15 + i * 0.12)}>
+                  <span className="lx-sd-other-img"><SetArt look={o.look} /></span>
+                  <span className="lx-sd-other-txt">
+                    <span className="lx-sd-other-name">{o.name}</span>
+                    <span className="lx-sd-other-price">{o.price}</span>
+                  </span>
+                  <span className="lx-sd-other-go" aria-hidden="true">→</span>
+                </Link>
               ))}
             </div>
-          </div>
+          </ReplayReveal>
         </section>
 
-        {/* 9. Liên hệ */}
+        {/* 7. Liên hệ */}
         <section className="lx-cta" aria-labelledby="lx-sd-cta">
-          <div className="lx-wrap">
-            <Reveal><h2 id="lx-sd-cta">Đặt set {set.name}<br />cho doanh nghiệp của bạn.</h2></Reveal>
-            <Reveal delay={1}><p>Từ 10 set, khoảng 2 tuần từ khi chốt đến khi giao. BOND gửi mẫu in logo để bạn duyệt trước khi sản xuất.</p></Reveal>
-            <Reveal delay={2}><ZaloLink className="lx-btn lx-btn-white">Tư vấn qua Zalo</ZaloLink></Reveal>
-          </div>
+          <ReplayReveal className="lx-wrap">
+            <h2 id="lx-sd-cta" className="lx-rv-up" style={d(0)}>Đặt set {set.name}<br />cho doanh nghiệp của bạn.</h2>
+            <p className="lx-rv-up" style={d(0.15)}>Từ 10 set, khoảng 2 tuần từ khi chốt đến khi giao. BOND gửi maket in logo để anh chị duyệt trước khi sản xuất.</p>
+            <div className="lx-rv-up" style={d(0.3)}><ZaloLink className="lx-btn lx-btn-white">Tư vấn qua Zalo</ZaloLink></div>
+          </ReplayReveal>
         </section>
+
+        {shot !== null && <Lightbox set={set} index={shot} onClose={close} onMove={move} />}
       </div>
     </SiteShell>
   );
