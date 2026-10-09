@@ -481,9 +481,9 @@ function Moment() {
       <div className="lx-wrap lx-moment-grid">
         <div className="lx-moment-img"><div ref={ref} className="lx-moment-art"><MomentArt /></div></div>
         <Reveal className="lx-moment-txt">
-          <p className="lx-eyebrow">Triết lý tặng quà</p>
-          <h2 id="lx-moment-title">Món quà Tết không được nhớ vì giá.<br />Nó được nhớ vì người nhận<br /><em className="lx-serif">cảm thấy mình trân quý.</em></h2>
-          <p>Đó là lý do BOND bắt đầu từ việc thấu cảm chân dung người nhận: địa vị, phong vị sống và gu thẩm mỹ. Sau đó mới tạo hình nên chất liệu, chi tiết mở hộp và tuyển chọn từng thức quà bên trong.</p>
+          <p className="lx-eyebrow">Khoảnh khắc trao quà</p>
+          <h2 id="lx-moment-title">Món quà Tết không được nhớ vì giá.<br />Nó được nhớ vì người nhận<br /><em className="lx-serif">cảm thấy mình được trân quý.</em></h2>
+          <p>Đó là lý do BOND bắt đầu từ câu hỏi người nhận là ai, rồi mới đến chất liệu, cách hộp mở ra và những gì đặt bên trong.</p>
         </Reveal>
       </div>
     </section>
@@ -494,9 +494,9 @@ function Cta() {
   return (
     <section className="lx-cta" aria-labelledby="lx-cta-title">
       <div className="lx-wrap">
-        <Reveal><h2 id="lx-cta-title">Bắt đầu từ bây giờ<br />là thời điểm hoàn hảo nhất.</h2></Reveal>
-        <Reveal delay={1}><p>Tết Đinh Mùi sẽ diễn ra vào tháng 2/2027. Các dự án set quà thiết kế độc bản cần khoảng 8 tuần cho việc nghiên cứu mẫu và sản xuất đạt độ tinh xảo cao nhất.</p></Reveal>
-        <Reveal delay={2}><ZaloLink className="lx-btn lx-btn-white"><span>Khởi tạo cuộc trò chuyện</span><ArrowUp /></ZaloLink></Reveal>
+        <Reveal><h2 id="lx-cta-title">Bây giờ là lúc bắt đầu.</h2></Reveal>
+        <Reveal delay={1}><p>Tết Đinh Mùi rơi vào ngày 6 tháng 2 năm 2027. Set độc bản cần khoảng 8 tuần, trong đó anh chị được duyệt mẫu thật và nếm thử trước khi sản xuất.</p></Reveal>
+        <Reveal delay={2}><ZaloLink className="lx-btn lx-btn-white"><span>Tư vấn qua Zalo</span><ArrowUp /></ZaloLink></Reveal>
       </div>
     </section>
   );

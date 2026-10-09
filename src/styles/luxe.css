@@ -89,7 +89,7 @@
 
 /* ---------- Footer ---------- */
 .lx-foot { background: var(--lx-ink); color: #FFFFFF; padding: clamp(70px, 8vw, 110px) 0 36px; }
-.lx-foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.3fr; gap: clamp(40px, 5vw, 80px); }
+.lx-foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1.4fr; gap: clamp(40px, 5vw, 80px); }
 .lx-foot-brand { display: inline-flex; }
 .lx-foot-brand .logo { width: 132px; height: auto; }
 .lx-foot-tag { margin-top: 20px; max-width: 320px; font-size: 14.5px; color: rgba(255, 255, 255, 0.6); }
@@ -99,6 +99,8 @@
 .lx-foot-bot { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-top: clamp(60px, 7vw, 96px); padding-top: 30px; border-top: 1px solid var(--lx-line-dark); font-size: 13px; color: rgba(255, 255, 255, 0.55); }
 .lx-foot-legal { display: flex; gap: 24px; }
 .lx-foot-legal a:hover { color: #FFFFFF; }
+.lx-foot-eco a { transition: color 0.3s var(--lx-ease); }
+.lx-foot-eco a:hover { color: #FFFFFF; }
 .lx-foot-eco { display: flex; align-items: center; gap: 14px; font-family: var(--font-display); font-size: 13px; font-weight: 600; letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.7); }
 .lx-foot-eco i { width: 4px; height: 4px; border-radius: 50%; background: var(--lx-red); }
 
@@ -369,7 +371,7 @@
 .lx-moment-img { display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 5; overflow: hidden; background: #141312; border: 1px solid var(--lx-line-dark); }
 .lx-moment-art { width: 75%; will-change: transform; }
 .lx-moment-art svg { width: 100%; height: auto; }
-.lx-moment-txt .lx-eyebrow { margin-bottom: 24px; color: rgba(255, 255, 255, 0.55); }
+.lx .lx-moment-txt .lx-eyebrow { margin-bottom: 24px; color: rgba(255, 255, 255, 0.45); }
 .lx-moment-txt h2 { font-size: clamp(28px, 3.1vw, 46px); line-height: 1.15; letter-spacing: -0.03em; }
 .lx-moment-txt h2 em { color: #FF5C80; }
 .lx-moment-txt p:last-child { margin-top: 28px; font-size: 17px; line-height: 1.7; color: rgba(255, 255, 255, 0.7); }
