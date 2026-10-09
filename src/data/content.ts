@@ -156,12 +156,16 @@ export const kitDocuments = [
 /** Link Zalo OA chính thức. Để trống thì mọi nút Zalo dẫn về trang liên hệ. */
 export const zaloUrl = '';
 
-/** Logo khách hàng đã đồng hành cùng hệ sinh thái 100B (file gốc trong /public/Logo Client). */
-export const clientLogos: { name: string; logo: string }[] = [
-  ['Viettel Academy', 'viettel-academy'], ['Google', 'google'], ['VAECO', 'vaeco'], ['Cốc Cốc', 'coc-coc'], ['SIG', 'sig'],
-  ['Hagoo', 'hagoo'], ['Atera Central', 'atera-central'], ['Eva de Eva', 'eva-de-eva'], ['Tracy Couture', 'tracy-couture'], ['Haviet', 'haviet'],
-  ['Calista', 'calista'], ['Rubies', 'rubies'], ['Magonn', 'magonn'], ['Sypik Australia', 'sypik-australia'], ['Nuclean', 'nuclean'],
-].map(([name, slug]) => ({ name, logo: `/assets/clients/${slug}.webp` }));
+/**
+ * Logo khách hàng đã đồng hành cùng hệ sinh thái 100B (file gốc trong /public/Logo Client).
+ * `h` là chiều cao hiển thị (px) đã cân quang học: tính từ lượng nét mực thật và tỷ lệ của từng logo,
+ * để logo đặc (MAGONN, Nuclean) nhỏ lại, logo mảnh (Viettel Academy, Calista) to lên, nhìn nặng ngang nhau.
+ */
+export const clientLogos: { name: string; logo: string; h: number }[] = ([
+  ['Viettel Academy', 'viettel-academy', 54], ['Google', 'google', 46], ['VAECO', 'vaeco', 44], ['Cốc Cốc', 'coc-coc', 45], ['SIG', 'sig', 38],
+  ['Hagoo', 'hagoo', 35], ['Atera Central', 'atera-central', 46], ['Eva de Eva', 'eva-de-eva', 38], ['Tracy Couture', 'tracy-couture', 46], ['Haviet', 'haviet', 30],
+  ['Calista', 'calista', 50], ['Rubies', 'rubies', 38], ['Magonn', 'magonn', 28], ['Sypik Australia', 'sypik-australia', 40], ['Nuclean', 'nuclean', 26],
+] as [string, string, number][]).map(([name, slug, h]) => ({ name, logo: `/assets/clients/${slug}.webp`, h }));
 
 export type ReadySet = { name: string; tier: string; price: string; contents: string; look: 'ivory' | 'ink' | 'red' | 'black' };
 export const readySets: ReadySet[] = [

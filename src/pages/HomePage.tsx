@@ -89,7 +89,32 @@ function Hero() {
 
     // Đo đáy khối chữ để bộ quà lấp đúng phần còn lại của màn hình (phương án A: không cắt món nào)
     const p1 = hero.querySelector<HTMLElement>('.lx-hero-p1');
-    const measure = () => { if (p1) set('--stage-top', `${Math.round(p1.offsetTop + p1.offsetHeight)}px`); };
+    const p2 = hero.querySelector<HTMLElement>('.lx-hero-p2');
+    const stage = hero.querySelector<HTMLElement>('.lx-stage');
+    const measure = () => {
+      if (p1) set('--stage-top', `${Math.round(p1.offsetTop + p1.offsetHeight)}px`);
+      // Khung cuối: đặt cụm "Brands, in hand." sao cho đáy nút cách đầu ngón tay ít nhất 64px.
+      // Tính từ bố cục chưa biến đổi của sân khấu, rồi áp lại phép phóng to quanh tâm transform-origin.
+      requestAnimationFrame(() => {
+        if (!stage || !p2) return;
+        const cs = getComputedStyle(stage);
+        const zoom = parseFloat(cs.getPropertyValue('--zoom-max')) || 1;
+        const originY = parseFloat(cs.transformOrigin.split(' ')[1] ?? '0');
+        const w = stage.offsetWidth;
+        const h = stage.offsetHeight;
+        const handsH = 0.62 * w * (1045 / 1400);
+        const fingertip = h * 1.04 - handsH + 0.049 * handsH; // đầu ngón tay cao nhất trong ảnh tay ôm hộp
+        const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--lx-nav-h')) || 82;
+        // Màn thấp: phóng to ít hơn để vẫn đủ chỗ cho chữ phía trên và khoảng cách 64px
+        const minTip = navH + 24 + p2.offsetHeight + 64;
+        const fit = (stage.offsetTop + originY - minTip) / (originY - fingertip);
+        const z = Math.max(1, Math.min(zoom, fit));
+        stage.style.setProperty('--zoom-fit', z.toFixed(4));
+        const fingertipOnScreen = stage.offsetTop + originY + (fingertip - originY) * z;
+        const top = Math.max(navH + 24, fingertipOnScreen - 64 - p2.offsetHeight);
+        set('--p2-top', `${Math.round(top)}px`);
+      });
+    };
     measure();
     window.addEventListener('resize', measure);
     if (reduced) return () => window.removeEventListener('resize', measure);
@@ -158,6 +183,9 @@ function Hero() {
             <img className="lx-stage-layer lx-stage-box" src="/assets/hero/collection-box.webp" alt="" width={1600} height={757} fetchPriority="high" decoding="async" />
           </div>
 
+          {/* Khung cuối: đáy cảnh tan dần vào nền thay vì bị cắt ngang */}
+          <div className="lx-hero-fade" aria-hidden="true" />
+
           <div className={`lx-hero-p2 ${phase2 ? 'is-live' : ''}`}>
             <p className="lx-hero-line2">Brands, <span className="lx-serif">in hand.</span></p>
             <p className="lx-hero-line2sub">Đưa dấu ấn thương hiệu vào từng món quà trao tay.</p>
@@ -175,13 +203,14 @@ function LogoStrip() {
   const row = reduced ? clientLogos : [...clientLogos, ...clientLogos];
   return (
     <section className="lx-logos" aria-label="Khách hàng đã đồng hành">
+      <div className="lx-logos-frame" aria-hidden="true"><i className="lx-cross" /><i className="lx-cross" /><i className="lx-cross" /><i className="lx-cross" /></div>
       <div className="lx-logos-in">
         <p className="lx-logos-lab">Đã đồng hành cùng hệ sinh thái 100B</p>
         <div className="lx-logos-track">
           <ul className={`lx-logos-row ${reduced ? 'is-static' : ''}`}>
             {row.map((c, i) => (
               <li key={`${c.name}-${i}`} aria-hidden={i >= clientLogos.length ? true : undefined}>
-                <img src={c.logo} alt={i >= clientLogos.length ? '' : c.name} loading="lazy" height={36} />
+                <img src={c.logo} alt={i >= clientLogos.length ? '' : c.name} loading="lazy" style={{ height: c.h }} />
               </li>
             ))}
           </ul>
