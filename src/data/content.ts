@@ -196,9 +196,9 @@ export const giftModels = {
 };
 
 /** Quy trình theo từng mô hình, hiển thị ngay trong khối "Hai cách để BOND làm quà" trên trang chủ. */
-export const giftProcesses: Record<'ready' | 'bespoke', { meta: string; note?: string; steps: [string, string][] }> = {
+export const giftProcesses: Record<'ready' | 'bespoke', { duration: string; note?: string; steps: [string, string][] }> = {
   ready: {
-    meta: 'Khoảng 2 tuần · 5 bước',
+    duration: 'khoảng 2 tuần',
     note: 'Tinh gọn: bỏ khâu duyệt mẫu vật lý, nếm thử và thiết kế riêng.',
     steps: [
       ['Tiếp nhận brief', 'Dịp tặng, số lượng, ngân sách mỗi phần và thời điểm cần hàng.'],
@@ -209,7 +209,7 @@ export const giftProcesses: Record<'ready' | 'bespoke', { meta: string; note?: s
     ],
   },
   bespoke: {
-    meta: 'Khoảng 8 tuần · 7 bước',
+    duration: 'khoảng 8 tuần',
     steps: [
       ['Tiếp nhận brief', 'Dịp tặng, số lượng, ngân sách mỗi phần, chân dung người nhận và thời điểm cần hàng.'],
       ['Đề xuất phương án', '2 đến 3 hướng thiết kế cùng cấu phần quà tương ứng.'],

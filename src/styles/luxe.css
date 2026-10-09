@@ -223,32 +223,33 @@
 .lx-cmp-row dd { font-weight: 500; text-align: right; }
 .lx-cmp-col .lx-btn { margin-top: auto; align-self: flex-start; }
 /* Quy trình trong từng cột: chỉ hiện tên bước, bấm nút mới mở mô tả */
-.lx-cmp-proc { margin: 44px 0 44px; }
-.lx-cmp-proc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
-.lx-cmp-proc-ttl { font-family: var(--font-display); font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
-.lx-cmp-proc-meta { font-size: 14px; color: var(--lx-muted); }
-.lx-cmp-col-bespoke .lx-cmp-proc-meta { color: rgba(255, 255, 255, 0.55); }
-.lx-cmp-proc-note { margin-top: 10px; font-size: 14.5px; color: var(--lx-muted); }
-.lx-cmp-steps { margin-top: 18px; border-top: 1px solid var(--lx-line); }
-.lx-cmp-col-bespoke .lx-cmp-steps { border-top-color: var(--lx-line-dark); }
-.lx-cmp-step { display: flex; gap: 18px; padding: 14px 0; border-bottom: 1px solid var(--lx-line); }
-.lx-cmp-col-bespoke .lx-cmp-step { border-bottom-color: var(--lx-line-dark); }
-.lx-cmp-step-n { flex: none; width: 24px; font-family: var(--font-display); font-size: 14px; font-weight: 600; line-height: 1.6; color: var(--lx-red); }
-.lx-cmp-col-bespoke .lx-cmp-step-n { color: #FF5C80; }
-.lx-cmp-step-body { flex: 1; min-width: 0; }
-.lx-cmp-step-t { font-size: 15.5px; font-weight: 500; line-height: 1.5; }
-.lx-cmp-step-d { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.8s var(--lx-ease), opacity 0.8s var(--lx-ease); }
-.lx-cmp-step-d > p { overflow: hidden; font-size: 14.5px; color: var(--lx-muted); }
-.lx-cmp-col-bespoke .lx-cmp-step-d > p { color: rgba(255, 255, 255, 0.6); }
-.lx-cmp-steps[data-open='true'] .lx-cmp-step-d { grid-template-rows: 1fr; opacity: 1; }
-.lx-cmp-steps[data-open='true'] .lx-cmp-step-d > p { padding-top: 4px; }
-.lx-cmp-toggle { display: inline-flex; align-items: center; gap: 14px; margin-top: 20px; font-size: 14.5px; font-weight: 500; }
-.lx-cmp-toggle .lx-acc-ico { width: 12px; height: 12px; }
+.lx-cmp-proc { margin: 0 0 44px; border-bottom: 1px solid var(--lx-line); }
+.lx-cmp-col-bespoke .lx-cmp-proc { border-bottom-color: var(--lx-line-dark); }
+.lx-cmp-toggle { display: flex; align-items: baseline; gap: 6px; width: 100%; padding: 20px 0; text-align: left; font-size: 15.5px; }
+.lx-cmp-toggle-t { font-weight: 500; }
+.lx-cmp-toggle-m { color: var(--lx-muted); }
+.lx-cmp-col-bespoke .lx-cmp-toggle-m { color: rgba(255, 255, 255, 0.55); }
+.lx-cmp-toggle .lx-acc-ico { align-self: center; margin-left: auto; width: 12px; height: 12px; }
 .lx-cmp-toggle .lx-acc-ico::before { left: 5.5px; height: 12px; width: 1px; }
 .lx-cmp-toggle .lx-acc-ico::after { top: 5.5px; width: 12px; height: 1px; }
 .lx-cmp-toggle[aria-expanded='true'] .lx-acc-ico::before { transform: rotate(90deg); opacity: 0; }
 .lx-cmp-col-bespoke .lx-cmp-toggle .lx-acc-ico::before, .lx-cmp-col-bespoke .lx-cmp-toggle .lx-acc-ico::after { background: #FFFFFF; }
 .lx-cmp-toggle[aria-expanded='true'] .lx-acc-ico::after { background: var(--lx-red); }
+.lx-cmp-proc-body { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.8s var(--lx-ease), opacity 0.8s var(--lx-ease); }
+.lx-cmp-proc[data-open='true'] .lx-cmp-proc-body { grid-template-rows: 1fr; opacity: 1; }
+.lx-cmp-proc-inner { overflow: hidden; }
+.lx-cmp-proc-note { padding-bottom: 12px; font-size: 14.5px; color: var(--lx-muted); }
+.lx-cmp-col-bespoke .lx-cmp-proc-note { color: rgba(255, 255, 255, 0.55); }
+.lx-cmp-steps { border-top: 1px solid var(--lx-line); padding-bottom: 8px; }
+.lx-cmp-col-bespoke .lx-cmp-steps { border-top-color: var(--lx-line-dark); }
+.lx-cmp-step { display: flex; gap: 18px; padding: 14px 0; }
+.lx-cmp-step + .lx-cmp-step { border-top: 1px solid var(--lx-line); }
+.lx-cmp-col-bespoke .lx-cmp-step + .lx-cmp-step { border-top-color: var(--lx-line-dark); }
+.lx-cmp-step-n { flex: none; width: 24px; font-family: var(--font-display); font-size: 14px; font-weight: 600; line-height: 1.6; color: var(--lx-red); }
+.lx-cmp-col-bespoke .lx-cmp-step-n { color: #FF5C80; }
+.lx-cmp-step-t { font-size: 15.5px; font-weight: 500; line-height: 1.5; }
+.lx-cmp-step-d { margin-top: 2px; font-size: 14.5px; color: var(--lx-muted); }
+.lx-cmp-col-bespoke .lx-cmp-step-d { color: rgba(255, 255, 255, 0.6); }
 .lx-cmp-toggle:focus-visible { outline: 2px solid var(--lx-red); outline-offset: 4px; }
 .lx-cmp-col-bespoke .lx-btn-red:hover { background: #FFFFFF; color: var(--lx-ink); }
 
