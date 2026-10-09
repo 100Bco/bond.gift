@@ -226,27 +226,25 @@ function ModelSteps({ kind }: { kind: 'ready' | 'bespoke' }) {
   const proc = giftProcesses[kind];
   const id = `lx-steps-${kind}`;
   return (
-    <div className="lx-cmp-proc">
-      <div className="lx-cmp-proc-head">
-        <h4 className="lx-cmp-proc-ttl">Quy trình</h4>
-        <span className="lx-cmp-proc-meta">{proc.meta}</span>
-      </div>
-      {proc.note && <p className="lx-cmp-proc-note">{proc.note}</p>}
-      <ol className="lx-cmp-steps" id={id} data-open={open}>
-        {proc.steps.map(([t, d], i) => (
-          <li key={t} className="lx-cmp-step">
-            <span className="lx-cmp-step-n">{pad(i + 1)}</span>
-            <div className="lx-cmp-step-body">
-              <p className="lx-cmp-step-t">{t}</p>
-              <div className="lx-cmp-step-d" inert={!open || undefined}><p>{d}</p></div>
-            </div>
-          </li>
-        ))}
-      </ol>
+    <div className="lx-cmp-proc" data-open={open}>
       <button type="button" className="lx-cmp-toggle" aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)}>
-        <span>{open ? 'Thu gọn chi tiết' : 'Xem chi tiết các bước'}</span>
+        <span className="lx-cmp-toggle-t">Quy trình {proc.steps.length} bước</span>
+        <span className="lx-cmp-toggle-m">· {proc.duration}</span>
         <span className="lx-acc-ico" aria-hidden="true" />
       </button>
+      <div className="lx-cmp-proc-body" id={id} role="region" aria-label={`Quy trình ${proc.steps.length} bước`}>
+        <div className="lx-cmp-proc-inner" inert={!open || undefined}>
+          {proc.note && <p className="lx-cmp-proc-note">{proc.note}</p>}
+          <ol className="lx-cmp-steps">
+            {proc.steps.map(([t, d], i) => (
+              <li key={t} className="lx-cmp-step">
+                <span className="lx-cmp-step-n">{pad(i + 1)}</span>
+                <div><p className="lx-cmp-step-t">{t}</p><p className="lx-cmp-step-d">{d}</p></div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
     </div>
   );
 }
