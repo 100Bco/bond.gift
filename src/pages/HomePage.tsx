@@ -34,9 +34,8 @@ function useTetCountdown() {
 
 const clamp = (v: number) => Math.min(Math.max(v, 0), 1);
 const norm = (p: number, a: number, b: number) => clamp((p - a) / (b - a));
-const easeOut4 = (t: number) => 1 - Math.pow(1 - t, 4);
-const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-const easeOutBack = (t: number) => { const c1 = 1.70158; const c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); };
+/** Đường cong êm: tăng tốc rồi giảm tốc đều (sine in-out). */
+const ease = (t: number) => -(Math.cos(Math.PI * t) - 1) / 2;
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 function Hero() {
@@ -48,58 +47,86 @@ function Hero() {
   useEffect(() => {
     const hero = ref.current;
     if (!hero) return;
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      if (reduced) return;
-      const total = hero.offsetHeight - window.innerHeight;
-      const progress = clamp((window.scrollY - hero.offsetTop) / (total || 1));
-      const set = (k: string, v: string) => hero.style.setProperty(k, v);
-      // 1. Chữ pha 1 rút đi
-      const pOut = easeOut4(norm(progress, 0.3, 0.5));
-      set('--p1op', (1 - pOut).toFixed(3));
-      set('--p1y', `${lerp(0, -45, pOut).toFixed(1)}px`);
-      // 2. Các món còn lại mờ dần, lùi nhẹ và nhòe như chuyển tiêu cự
-      const pRest = easeOut4(norm(progress, 0.1, 0.42));
+    const set = (k: string, v: string) => hero.style.setProperty(k, v);
+
+    // Vẽ cảnh theo tiến độ p (0 đến 1). Mọi pha dùng đường cong êm, không nảy.
+    const render = (p: number) => {
+      set('--hintOp', (1 - ease(norm(p, 0, 0.08))).toFixed(3));
+      // 1. Các món còn lại mờ dần và lùi rất nhẹ (bỏ hiệu ứng nhòe để khung hình mượt)
+      const pRest = ease(norm(p, 0.08, 0.4));
       set('--restOp', (1 - pRest).toFixed(3));
-      set('--restScale', lerp(1, 0.96, pRest).toFixed(4));
-      set('--restBlur', `${lerp(0, 6, pRest).toFixed(2)}px`);
-      // 3. Hộp bên phải trượt vào giữa theo đường cong, xoay khớp góc hộp trong ảnh tay cầm
-      const pMove = easeInOut(norm(progress, 0.28, 0.64));
+      set('--restScale', lerp(1, 0.97, pRest).toFixed(4));
+      // 2. Chữ pha 1 lui ra
+      const pOut = ease(norm(p, 0.22, 0.42));
+      set('--p1op', (1 - pOut).toFixed(3));
+      set('--p1y', `${lerp(0, -36, pOut).toFixed(1)}px`);
+      // 3. Hộp bên phải trượt vào giữa theo đường cong, xoay khớp góc hộp trong ảnh tay ôm
+      const pMove = ease(norm(p, 0.26, 0.62));
       const arc = Math.sin(pMove * Math.PI) * -8;
       set('--boxX', lerp(0, -36, pMove).toFixed(3));
       set('--boxY', (lerp(0, -14, pMove) + arc).toFixed(3));
       set('--boxRot', lerp(0, 6, pMove).toFixed(2));
       set('--boxScale', lerp(1, 1.15, pMove).toFixed(4));
-      // 4. Tay không đưa lên lệch nhịp, xoay cổ tay nhẹ về thẳng
-      const pHandR = easeOut4(norm(progress, 0.36, 0.64));
-      const pHandL = easeOut4(norm(progress, 0.4, 0.66));
+      // Máy quay tiến lại gần: cả cảnh phóng to từ từ trong lúc hộp bay vào
+      set('--zoom', ease(norm(p, 0.28, 0.7)).toFixed(4));
+      // 4. Tay không đưa lên lệch nhịp, cổ tay xoay dần về thẳng
+      const pHandR = ease(norm(p, 0.34, 0.64));
+      const pHandL = ease(norm(p, 0.38, 0.68));
       set('--handRY', lerp(100, 0, pHandR).toFixed(2));
       set('--handLY', lerp(100, 0, pHandL).toFixed(2));
       set('--handRRot', lerp(8, 0, pHandR).toFixed(2));
       set('--handLRot', lerp(-8, 0, pHandL).toFixed(2));
-      // Khi hộp chạm tay: hòa sang ảnh tay đang ôm hộp, hộp lún nhẹ vào lòng bàn tay
-      // ảnh tay ôm hộp hiện đè lên trước, sau đó hộp riêng và tay không mới tắt
-      set('--heldOp', norm(progress, 0.625, 0.655).toFixed(3));
-      set('--emptyOp', (1 - norm(progress, 0.65, 0.68)).toFixed(3));
-      set('--heldY', lerp(-1.2, 0, easeOutBack(norm(progress, 0.63, 0.8))).toFixed(3));
-      // 5. Chữ pha 2 xuất hiện
-      const pIn = easeOut4(norm(progress, 0.78, 0.96));
+      // 5. Hòa từ từ sang ảnh tay đang ôm hộp; hộp lún nhẹ rồi dừng hẳn
+      set('--heldOp', ease(norm(p, 0.6, 0.68)).toFixed(3));
+      set('--emptyOp', (1 - ease(norm(p, 0.645, 0.7))).toFixed(3));
+      set('--heldY', lerp(-1.2, 0, ease(norm(p, 0.6, 0.76))).toFixed(3));
+      // 6. Chữ pha 2 hiện ra
+      const pIn = ease(norm(p, 0.74, 0.94));
       set('--p2op', pIn.toFixed(3));
-      set('--p2y', `${lerp(30, 0, pIn).toFixed(1)}px`);
-      set('--hintOp', (1 - easeOut4(norm(progress, 0.02, 0.12))).toFixed(3));
+      set('--p2y', `${lerp(24, 0, pIn).toFixed(1)}px`);
       setPhase2(pIn > 0.5);
     };
-    const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); cancelAnimationFrame(frame); };
+
+    // Đo đáy khối chữ để bộ quà lấp đúng phần còn lại của màn hình (phương án A: không cắt món nào)
+    const p1 = hero.querySelector<HTMLElement>('.lx-hero-p1');
+    const measure = () => { if (p1) set('--stage-top', `${Math.round(p1.offsetTop + p1.offsetHeight)}px`); };
+    measure();
+    window.addEventListener('resize', measure);
+    if (reduced) return () => window.removeEventListener('resize', measure);
+    // Quán tính: tiến độ hiển thị đuổi theo vị trí cuộn, nên mỗi nấc lăn chuột trôi mượt thay vì nhảy.
+    // Chỉ làm mượt chuyển động trong trang, không can thiệp thao tác cuộn của người xem.
+    const target = () => {
+      const total = hero.offsetHeight - window.innerHeight;
+      return clamp((window.scrollY - hero.offsetTop) / (total || 1));
+    };
+    let current = target();
+    let last = performance.now();
+    let frame = 0;
+    const tick = (now: number) => {
+      const dt = Math.min(64, now - last);
+      last = now;
+      const goal = target();
+      const k = 1 - Math.exp(-dt / 180); // hằng số thời gian khoảng 0,18 giây
+      current += (goal - current) * k;
+      if (Math.abs(goal - current) < 0.0004) current = goal;
+      render(current);
+      frame = current === goal ? 0 : requestAnimationFrame(tick);
+    };
+    const wake = () => { if (!frame) { last = performance.now(); frame = requestAnimationFrame(tick); } };
+    render(current);
+    window.addEventListener('scroll', wake, { passive: true });
+    window.addEventListener('resize', wake);
+    return () => { window.removeEventListener('scroll', wake); window.removeEventListener('resize', wake); window.removeEventListener('resize', measure); cancelAnimationFrame(frame); };
   }, [reduced]);
 
   return (
     <section ref={ref} className={`lx-hero ${reduced ? 'is-static' : ''}`} aria-labelledby="lx-hero-title">
       <div className="lx-hero-sticky">
+        {/* Khung lưới lấy từ logo: đường kẻ dưới menu, hai đường dọc ở mép khung nội dung, dấu chữ thập tại điểm giao */}
+        <div className="lx-frame" aria-hidden="true">
+          <span className="lx-frame-rule" />
+          <span className="lx-frame-col"><i className="lx-cross lx-frame-cross lx-frame-cross-l" /><i className="lx-cross lx-frame-cross lx-frame-cross-r" /></span>
+        </div>
         <div className="lx-hero-in">
           <div className="lx-hero-p1" style={{ pointerEvents: phase2 ? 'none' : undefined }}>
             <p className="lx-eyebrow">Quà Tết Doanh Nghiệp · Đinh Mùi 2027</p>

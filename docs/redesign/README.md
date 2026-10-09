@@ -54,7 +54,8 @@ Phản hồi sau bản đầu: homepage dạng split và gallery bất đối x�
 | Số liệu | Tên set, giá, cấu phần, MOQ, thời gian, địa chỉ văn phòng lấy theo file, đã được BOND xác nhận. Nằm trong `src/data/content.ts` để sửa nhanh |
 | Zalo | `zaloUrl` trong `src/data/content.ts` đang để trống, mọi nút Zalo tạm dẫn về `/lien-he`. Điền link Zalo OA là xong |
 | Ảnh hero | Ảnh bộ quà BOND do BOND cung cấp (đã tách nền): `collection-rest` (bộ quà trừ hộp phải) và `collection-box` (hộp phải). Đôi tay tạo bằng Higgsfield (GPT Image 2.5) từ ảnh hộp thật và ảnh tay tham chiếu, ánh sáng dịu khớp nền ngà: `hands-held` (tay đang ôm hộp, ngón cái đè mép hộp, có bóng thật), `hands-empty-left/right` (cùng đôi tay, không hộp). Khi cuộn: các món khác mờ dần, hộp phải trượt vào giữa và xoay khớp góc hộp trong ảnh tay ôm, tay không đưa lên lệch nhịp, rồi hòa sang ảnh tay đang ôm hộp. Hộp trong `hands-held` là bản AI dựng lại từ hộp thật; logo đã soát khớp |
-| Chất liệu | Lớp hạt giấy rất mịn phủ toàn trang (`.lx-grain`). Mã trang chủ dùng tiền tố `lx-` trong `src/styles/luxe.css` |
+| Chất liệu | Lớp hạt giấy rất mịn phủ toàn trang (`.lx-grain`, 3,5%). Eyebrow dùng dấu chữ thập đỏ lấy từ khe chữ thập của logo B. Hero có khung lưới: đường kẻ dưới menu, hai đường dọc ở mép khung 1360px, dấu chữ thập tại điểm giao (từ 1024px). Mã trang chủ dùng tiền tố `lx-` trong `src/styles/luxe.css` |
+| Motion | Hero dài 320vh. Tiến độ hiển thị đuổi theo vị trí cuộn với quán tính khoảng 0,18 giây (không can thiệp thanh cuộn), mọi pha dùng đường cong sine êm, không nảy. Bỏ hiệu ứng nhòe để khung hình mượt. Cảnh phóng to nhẹ như máy quay tiến lại gần. Reveal 1,2 giây, hover 0,5 đến 0,6 giây, dải logo 80 giây một vòng |
 
 ---
 
