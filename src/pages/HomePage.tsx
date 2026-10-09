@@ -34,7 +34,8 @@ function useTetCountdown() {
 
 const clamp = (v: number) => Math.min(Math.max(v, 0), 1);
 const norm = (p: number, a: number, b: number) => clamp((p - a) / (b - a));
-const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+const easeOut4 = (t: number) => 1 - Math.pow(1 - t, 4);
+const easeOutBack = (t: number) => { const c1 = 1.70158; const c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); };
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 function Hero() {
@@ -52,25 +53,38 @@ function Hero() {
       if (reduced || window.innerWidth <= 860) return;
       const total = hero.offsetHeight - window.innerHeight;
       const progress = clamp((window.scrollY - hero.offsetTop) / (total || 1));
-      const pArmL = easeOut(norm(progress, 0.3, 0.7));
-      const pArmR = easeOut(norm(progress, 0.28, 0.68));
-      const pOut = easeOut(norm(progress, 0.38, 0.6));
-      const pIn = easeOut(norm(progress, 0.68, 0.92));
       const set = (k: string, v: string) => hero.style.setProperty(k, v);
-      set('--armLY', lerp(115, 0, pArmL).toFixed(2));
-      set('--armRY', lerp(115, 0, pArmR).toFixed(2));
+      // 1. Chữ pha 1 rút đi
+      const pOut = easeOut4(norm(progress, 0.32, 0.55));
       set('--p1op', (1 - pOut).toFixed(3));
-      set('--p1y', `${lerp(0, -50, pOut).toFixed(1)}px`);
-      set('--boxY', `${lerp(0, -64, pArmL).toFixed(1)}px`);
-      set('--midLift', `${lerp(0, -36, pArmL).toFixed(1)}px`);
-      set('--midScale', lerp(1, 1.12, pArmL).toFixed(3));
-      set('--sideOp', lerp(1, 0.2, pArmL).toFixed(3));
-      set('--sideScale', lerp(1, 0.92, pArmL).toFixed(3));
-      set('--sideDrop', `${lerp(0, 18, pArmL).toFixed(1)}px`);
-      set('--sideBlur', `${lerp(0, 3, pArmL).toFixed(2)}px`);
+      set('--p1y', `${lerp(0, -45, pOut).toFixed(1)}px`);
+      // 2. Hai tay đi theo quỹ đạo cong (X, Y, xoay), tay phải vào trước một nhịp
+      const pArmL = easeOut4(norm(progress, 0.35, 0.72));
+      const pArmR = easeOut4(norm(progress, 0.32, 0.69));
+      set('--armLX', lerp(-35, 0, pArmL).toFixed(2));
+      set('--armLY', lerp(115, 0, pArmL).toFixed(2));
+      set('--armLRot', lerp(-14, 0, pArmL).toFixed(2));
+      set('--armRX', lerp(35, 0, pArmR).toFixed(2));
+      set('--armRY', lerp(115, 0, pArmR).toFixed(2));
+      set('--armRRot', lerp(14, 0, pArmR).toFixed(2));
+      // 3. Hộp giữa được nhấc lên có độ nảy, bóng tiếp xúc hiện dưới đáy
+      const pLift = easeOutBack(norm(progress, 0.48, 0.75));
+      set('--midLift', `${lerp(0, -42, pLift).toFixed(1)}px`);
+      set('--midScale', lerp(1, 1.14, pLift).toFixed(3));
+      set('--contactOp', lerp(0, 1, pArmL).toFixed(2));
+      set('--contactScale', lerp(0.6, 1.1, pLift).toFixed(2));
+      // 4. Bốn hộp phụ dạt sang hai bên, hạ xuống và mờ đi như chuyển tiêu cự
+      const pSide = easeOut4(norm(progress, 0.3, 0.68));
+      set('--sideSpread', `${lerp(0, 50, pSide).toFixed(1)}px`);
+      set('--sideDrop', `${lerp(0, 24, pSide).toFixed(1)}px`);
+      set('--sideScale', lerp(1, 0.88, pSide).toFixed(3));
+      set('--sideOp', lerp(1, 0.15, pSide).toFixed(3));
+      set('--sideBlur', `${lerp(0, 4, pSide).toFixed(2)}px`);
+      // 5. Chữ pha 2 xuất hiện
+      const pIn = easeOut4(norm(progress, 0.72, 0.95));
       set('--p2op', pIn.toFixed(3));
       set('--p2y', `${lerp(30, 0, pIn).toFixed(1)}px`);
-      set('--hintOp', (1 - easeOut(norm(progress, 0.02, 0.15))).toFixed(3));
+      set('--hintOp', (1 - easeOut4(norm(progress, 0.02, 0.15))).toFixed(3));
       setPhase2(pIn > 0.5);
     };
     const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
