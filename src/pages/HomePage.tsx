@@ -23,14 +23,30 @@ function useTetCountdown() {
     anchor.setMonth(anchor.getMonth() + months);
     if (anchor > TET) { months -= 1; anchor = new Date(now.getTime()); anchor.setMonth(anchor.getMonth() + months); }
     const diff = TET.getTime() - anchor.getTime();
-    return { m: months, d: Math.floor(diff / 86_400_000), h: Math.floor(diff / 3_600_000) % 24, min: Math.floor(diff / 60_000) % 60 };
+    return { m: months, d: Math.floor(diff / 86_400_000), h: Math.floor(diff / 3_600_000) % 24, min: Math.floor(diff / 60_000) % 60, s: Math.floor(diff / 1000) % 60 };
   };
   const [value, setValue] = useState(calc);
   useEffect(() => {
-    const id = window.setInterval(() => setValue(calc()), 15_000);
+    const id = window.setInterval(() => setValue(calc()), 1000);
     return () => window.clearInterval(id);
   }, []);
   return value;
+}
+
+/** Đồng hồ đếm ngược đến Tết, tách riêng để mỗi giây chỉ vẽ lại phần này, không vẽ lại cả hero. */
+function Countdown() {
+  const cd = useTetCountdown();
+  if (!cd) return null;
+  return (
+    <div className="lx-cd" role="timer" aria-label={`Còn ${cd.m} tháng ${cd.d} ngày đến Tết Đinh Mùi 2027`}>
+      {([[cd.m, 'Tháng'], [cd.d, 'Ngày'], [cd.h, 'Giờ'], [cd.min, 'Phút'], [cd.s, 'Giây']] as [number, string][]).map(([v, label], i) => (
+        <div key={label} className="lx-cd-group" aria-hidden="true">
+          {i > 0 && <span className="lx-cd-sep" />}
+          <span className="lx-cd-unit"><span className="lx-cd-num">{pad(v)}</span><span className="lx-cd-lab">{label}</span></span>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 const clamp = (v: number) => Math.min(Math.max(v, 0), 1);
@@ -42,7 +58,6 @@ const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 function Hero() {
   const ref = useRef<HTMLElement>(null);
   const reduced = usePrefersReducedMotion();
-  const cd = useTetCountdown();
   const [phase2, setPhase2] = useState(false);
 
   useEffect(() => {
@@ -160,16 +175,7 @@ function Hero() {
             <p className="lx-eyebrow">Quà Tết doanh nghiệp · Đinh Mùi 2027</p>
             <h1 id="lx-hero-title" className="lx-hero-title">Relationships, <em className="lx-serif">compounded.</em></h1>
             <p className="lx-hero-sub">Mối quan hệ, được nhân lên theo thời gian.</p>
-            {cd && (
-              <div className="lx-cd" role="timer" aria-label={`Còn ${cd.m} tháng ${cd.d} ngày đến Tết Đinh Mùi 2027`}>
-                {([[cd.m, 'Tháng'], [cd.d, 'Ngày'], [cd.h, 'Giờ'], [cd.min, 'Phút']] as [number, string][]).map(([v, label], i) => (
-                  <div key={label} className="lx-cd-group" aria-hidden="true">
-                    {i > 0 && <span className="lx-cd-sep" />}
-                    <span className="lx-cd-unit"><span className="lx-cd-num">{pad(v)}</span><span className="lx-cd-lab">{label}</span></span>
-                  </div>
-                ))}
-              </div>
-            )}
+            <Countdown />
           </div>
 
           {/* Bộ quà BOND (ảnh tách nền): các món khác mờ dần, hộp bên phải trượt vào giữa, hai tay đưa lên đỡ */}
