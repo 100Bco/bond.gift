@@ -35,16 +35,9 @@ function useTetCountdown() {
 const clamp = (v: number) => Math.min(Math.max(v, 0), 1);
 const norm = (p: number, a: number, b: number) => clamp((p - a) / (b - a));
 const easeOut4 = (t: number) => 1 - Math.pow(1 - t, 4);
+const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 const easeOutBack = (t: number) => { const c1 = 1.70158; const c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); };
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-
-const heroBoxes = [
-  { src: '/assets/hero/box-ivory.webp', w: 560, h: 658, cls: 'lx-gbox-n1' },
-  { src: '/assets/hero/box-black-red.webp', w: 560, h: 661, cls: 'lx-gbox-n2' },
-  { src: '/assets/hero/box-crimson.webp', w: 800, h: 1133, cls: '', mid: true },
-  { src: '/assets/hero/box-black-ivory.webp', w: 560, h: 611, cls: 'lx-gbox-n4' },
-  { src: '/assets/hero/box-raw.webp', w: 560, h: 705, cls: 'lx-gbox-n5' },
-];
 
 function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -58,41 +51,41 @@ function Hero() {
     let frame = 0;
     const update = () => {
       frame = 0;
-      if (reduced || window.innerWidth <= 860) return;
+      if (reduced) return;
       const total = hero.offsetHeight - window.innerHeight;
       const progress = clamp((window.scrollY - hero.offsetTop) / (total || 1));
       const set = (k: string, v: string) => hero.style.setProperty(k, v);
       // 1. Chữ pha 1 rút đi
-      const pOut = easeOut4(norm(progress, 0.32, 0.55));
+      const pOut = easeOut4(norm(progress, 0.3, 0.5));
       set('--p1op', (1 - pOut).toFixed(3));
       set('--p1y', `${lerp(0, -45, pOut).toFixed(1)}px`);
-      // 2. Hai tay đi theo quỹ đạo cong (X, Y, xoay), tay phải vào trước một nhịp
-      const pArmL = easeOut4(norm(progress, 0.35, 0.72));
-      const pArmR = easeOut4(norm(progress, 0.32, 0.69));
-      set('--armLX', lerp(-35, 0, pArmL).toFixed(2));
-      set('--armLY', lerp(115, 0, pArmL).toFixed(2));
-      set('--armLRot', lerp(-14, 0, pArmL).toFixed(2));
-      set('--armRX', lerp(35, 0, pArmR).toFixed(2));
-      set('--armRY', lerp(115, 0, pArmR).toFixed(2));
-      set('--armRRot', lerp(14, 0, pArmR).toFixed(2));
-      // 3. Hộp giữa được nhấc lên có độ nảy, bóng tiếp xúc hiện dưới đáy
-      const pLift = easeOutBack(norm(progress, 0.48, 0.75));
-      set('--midLift', `${lerp(0, -42, pLift).toFixed(1)}px`);
-      set('--midScale', lerp(1, 1.14, pLift).toFixed(3));
-      set('--contactOp', lerp(0, 1, pArmL).toFixed(2));
-      set('--contactScale', lerp(0.6, 1.1, pLift).toFixed(2));
-      // 4. Bốn hộp phụ dạt sang hai bên, hạ xuống và mờ đi như chuyển tiêu cự
-      const pSide = easeOut4(norm(progress, 0.3, 0.68));
-      set('--sideSpread', `${lerp(0, 50, pSide).toFixed(1)}px`);
-      set('--sideDrop', `${lerp(0, 24, pSide).toFixed(1)}px`);
-      set('--sideScale', lerp(1, 0.88, pSide).toFixed(3));
-      set('--sideOp', lerp(1, 0.15, pSide).toFixed(3));
-      set('--sideBlur', `${lerp(0, 4, pSide).toFixed(2)}px`);
+      // 2. Các món còn lại mờ dần, lùi nhẹ và nhòe như chuyển tiêu cự
+      const pRest = easeOut4(norm(progress, 0.1, 0.42));
+      set('--restOp', (1 - pRest).toFixed(3));
+      set('--restScale', lerp(1, 0.96, pRest).toFixed(4));
+      set('--restBlur', `${lerp(0, 6, pRest).toFixed(2)}px`);
+      // 3. Hộp bên phải trượt vào giữa theo đường cong, xoay dần về thẳng
+      const pMove = easeInOut(norm(progress, 0.28, 0.66));
+      const arc = Math.sin(pMove * Math.PI) * -6;
+      set('--boxX', lerp(0, -35.6, pMove).toFixed(3));
+      set('--boxY', (lerp(0, -24, pMove) + arc).toFixed(3));
+      set('--boxRot', lerp(0, 24, pMove).toFixed(2));
+      // 4. Hai tay đưa lên lệch nhịp; khi chạm đáy hộp thì hộp nảy nhẹ
+      const pHandR = easeOut4(norm(progress, 0.4, 0.72));
+      const pHandL = easeOut4(norm(progress, 0.44, 0.76));
+      set('--handRY', lerp(100, 0, pHandR).toFixed(2));
+      set('--handLY', lerp(100, 0, pHandL).toFixed(2));
+      set('--handRRot', lerp(10, 0, pHandR).toFixed(2));
+      set('--handLRot', lerp(-10, 0, pHandL).toFixed(2));
+      const pLift = easeOutBack(norm(progress, 0.7, 0.86));
+      set('--boxLift', lerp(0, -3, pLift).toFixed(3));
+      set('--boxScale', (lerp(1, 1.2, pMove) * lerp(1, 1.04, pLift)).toFixed(4));
+      set('--contactOp', norm(progress, 0.66, 0.76).toFixed(3));
       // 5. Chữ pha 2 xuất hiện
-      const pIn = easeOut4(norm(progress, 0.72, 0.95));
+      const pIn = easeOut4(norm(progress, 0.78, 0.96));
       set('--p2op', pIn.toFixed(3));
       set('--p2y', `${lerp(30, 0, pIn).toFixed(1)}px`);
-      set('--hintOp', (1 - easeOut4(norm(progress, 0.02, 0.15))).toFixed(3));
+      set('--hintOp', (1 - easeOut4(norm(progress, 0.02, 0.12))).toFixed(3));
       setPhase2(pIn > 0.5);
     };
     const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
@@ -122,18 +115,13 @@ function Hero() {
             )}
           </div>
 
-          {/* Ảnh render tách lớp (Higgsfield), nền trong suốt; chuyển động giữ nguyên */}
-          <div className="lx-hero-boxes" role="img" aria-label="Năm hộp quà BOND, hộp đỏ ở giữa được đôi tay mặc vest nâng lên">
-            {heroBoxes.map((box) => (
-              <div key={box.src} className={`lx-gbox ${box.mid ? 'lx-gbox-mid' : 'lx-gbox-side'} ${box.cls}`}>
-                <img src={box.src} alt="" width={box.w} height={box.h} decoding="async" fetchPriority={box.mid ? 'high' : undefined} />
-              </div>
-            ))}
-          </div>
-
-          <div className="lx-hero-arms" aria-hidden="true">
-            <div className="lx-arm lx-arm-l"><img src="/assets/hero/arm-left.webp" alt="" width={900} height={943} decoding="async" /></div>
-            <div className="lx-arm lx-arm-r"><img src="/assets/hero/arm-right.webp" alt="" width={900} height={943} decoding="async" /></div>
+          {/* Bộ quà BOND (ảnh tách nền): các món khác mờ dần, hộp bên phải trượt vào giữa, hai tay đưa lên đỡ */}
+          <div className="lx-stage" role="img" aria-label="Bộ quà Tết BOND: hộp, hũ hạt, rượu vang và tượng dê; một hộp quà được đôi tay nâng lên">
+            <img className="lx-stage-layer lx-stage-rest" src="/assets/hero/collection-rest.webp" alt="" width={1600} height={757} fetchPriority="high" decoding="async" />
+            <img className="lx-stage-layer lx-stage-hand lx-stage-hand-l" src="/assets/hero/hand-left.webp" alt="" width={1600} height={757} decoding="async" />
+            <img className="lx-stage-layer lx-stage-hand lx-stage-hand-r" src="/assets/hero/hand-right.webp" alt="" width={1600} height={757} decoding="async" />
+            <span className="lx-stage-contact" aria-hidden="true" />
+            <img className="lx-stage-layer lx-stage-box" src="/assets/hero/collection-box.webp" alt="" width={1600} height={757} fetchPriority="high" decoding="async" />
           </div>
 
           <div className={`lx-hero-p2 ${phase2 ? 'is-live' : ''}`}>
