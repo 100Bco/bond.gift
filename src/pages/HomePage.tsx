@@ -4,7 +4,7 @@ import { SiteShell } from '@/components/layout/SiteChrome';
 import { Reveal } from '@/components/bond/Reveal';
 import { ZaloLink } from '@/components/bond/ZaloLink';
 import { MomentArt, SetArt } from '@/components/bond/GiftArt';
-import { usePrefersReducedMotion } from '@/hooks/use-in-view';
+import { useInView, usePrefersReducedMotion } from '@/hooks/use-in-view';
 
 /* Trang chủ editorial: hero hai pha, hai mô hình quà, set sẵn, set độc bản, khoảnh khắc Tết, quy trình. */
 
@@ -248,7 +248,72 @@ function ModelSteps({ kind }: { kind: 'ready' | 'bespoke' }) {
   );
 }
 
+function ModelCol({ kind, index }: { kind: 'ready' | 'bespoke'; index: number }) {
+  const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.12, once: true, rootMargin: '0px 0px -10% 0px' });
+  const [done, setDone] = useState(false);
+  useEffect(() => {
+    if (!inView) return;
+    const t = window.setTimeout(() => setDone(true), 2200);
+    return () => window.clearTimeout(t);
+  }, [inView]);
+  const m = giftModels[kind];
+  return (
+    <div ref={ref} className={`lx-cmp-col lx-cmp-col-${kind}${inView ? ' is-in' : ''}${done ? ' is-done' : ''}`}>
+      <span className="lx-cmp-badge">Mô hình {pad(index + 1)}</span>
+      <h3 className="lx-cmp-name">{m.name}</h3>
+      <p className="lx-cmp-say">{m.say}</p>
+      <div className="lx-cmp-preview">
+        <div className="lx-cmp-par">
+          <img
+            src={kind === 'ready' ? '/assets/models/set-san.webp' : '/assets/models/set-doc-ban.webp'}
+            alt={kind === 'ready' ? 'Set quà Tết hộp đỏ họa tiết tùng bày trên bàn tiệc' : 'Hộp quà độc bản họa tiết hoa xanh ngọc in logo doanh nghiệp'}
+            width={1200}
+            height={805}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+      <dl className="lx-cmp-specs">
+        {m.specs.map(([k, v]) => <div key={k} className="lx-cmp-row"><dt>{k}</dt><dd>{v}</dd></div>)}
+      </dl>
+      <ModelSteps kind={kind} />
+      <a href={kind === 'ready' ? '#set-san' : '#set-doc-ban'} className={`lx-btn ${kind === 'ready' ? 'lx-btn-line' : 'lx-btn-red'}`}>
+        {kind === 'ready' ? 'Xem Set Sẵn' : 'Xem Set Độc Bản'}
+      </a>
+    </div>
+  );
+}
+
 function Models() {
+  const reduced = usePrefersReducedMotion();
+  const animate = !reduced;
+  const [gridRef, inView] = useInView<HTMLDivElement>({ threshold: 0.18, once: true, rootMargin: '0px 0px -10% 0px' });
+
+  // Ảnh trôi chậm hơn trang một chút khi cuộn qua (lệch tối đa khoảng 4% khung ảnh).
+  useEffect(() => {
+    if (reduced) return;
+    const grid = gridRef.current;
+    if (!grid) return;
+    const layers = [...grid.querySelectorAll<HTMLElement>('.lx-cmp-par')];
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const vh = window.innerHeight;
+      for (const el of layers) {
+        const r = el.parentElement!.getBoundingClientRect();
+        if (r.bottom < -100 || r.top > vh + 100) continue;
+        const t = Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2)));
+        el.style.transform = `translate3d(0, ${(t * 4).toFixed(2)}%, 0)`;
+      }
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); if (raf) cancelAnimationFrame(raf); };
+  }, [reduced, gridRef]);
+
   return (
     <section className="lx-sec lx-cmp" id="quy-trinh" aria-labelledby="lx-cmp-title">
       <div className="lx-wrap">
@@ -257,36 +322,15 @@ function Models() {
           <h2 id="lx-cmp-title">Hai cách để BOND làm quà<br />cho thương hiệu của bạn</h2>
           <p className="lx-lead">Cùng một đội ngũ, cùng một chuẩn hoàn thiện. Khác nhau ở mức độ bạn muốn món quà mang dấu ấn riêng đến đâu.</p>
         </Reveal>
-        <Reveal className="lx-cmp-grid">
+        <div ref={gridRef} className={`lx-cmp-grid${animate ? ' lx-cmp-anim' : ''}${inView ? ' is-in' : ''}`}>
           <span className="lx-cross lx-cmp-cross" aria-hidden="true" />
-          {(['ready', 'bespoke'] as const).map((kind, i) => {
-            const m = giftModels[kind];
-            return (
-              <div key={kind} className={`lx-cmp-col lx-cmp-col-${kind}`}>
-                <span className="lx-cmp-badge">Mô hình {pad(i + 1)}</span>
-                <h3 className="lx-cmp-name">{m.name}</h3>
-                <p className="lx-cmp-say">{m.say}</p>
-                <div className="lx-cmp-preview">
-                  <img
-                    src={kind === 'ready' ? '/assets/models/set-san.webp' : '/assets/models/set-doc-ban.webp'}
-                    alt={kind === 'ready' ? 'Set quà Tết hộp đỏ họa tiết tùng bày trên bàn tiệc' : 'Hộp quà độc bản họa tiết hoa xanh ngọc in logo doanh nghiệp'}
-                    width={1200}
-                    height={805}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <dl className="lx-cmp-specs">
-                  {m.specs.map(([k, v]) => <div key={k} className="lx-cmp-row"><dt>{k}</dt><dd>{v}</dd></div>)}
-                </dl>
-                <ModelSteps kind={kind} />
-                <a href={kind === 'ready' ? '#set-san' : '#set-doc-ban'} className={`lx-btn ${kind === 'ready' ? 'lx-btn-line' : 'lx-btn-red'}`}>
-                  {kind === 'ready' ? 'Xem Set Sẵn' : 'Xem Set Độc Bản'}
-                </a>
-              </div>
-            );
-          })}
-        </Reveal>
+          <span className="lx-cmp-ln lx-cmp-ln-t" aria-hidden="true" />
+          <span className="lx-cmp-ln lx-cmp-ln-m" aria-hidden="true" />
+          <span className="lx-cmp-ln lx-cmp-ln-l" aria-hidden="true" />
+          <span className="lx-cmp-ln lx-cmp-ln-r" aria-hidden="true" />
+          <span className="lx-cmp-ln lx-cmp-ln-b" aria-hidden="true" />
+          {(['ready', 'bespoke'] as const).map((kind, i) => <ModelCol key={kind} kind={kind} index={i} />)}
+        </div>
       </div>
     </section>
   );
