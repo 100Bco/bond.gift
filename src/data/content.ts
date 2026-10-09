@@ -185,20 +185,19 @@ export const bespokeBudgets = [
 export const giftModels = {
   ready: {
     name: 'Set Sẵn',
-    say: 'Tuyển chọn từ những giải pháp hoàn thiện nhất, gắn ấn tượng logo thương hiệu.',
-    specs: [['Thời gian sản xuất', 'Khoảng 2 tuần'], ['Số lượng tối thiểu (MOQ)', 'Từ 10 set'], ['Mức độ tùy biến', 'Gắn logo lên hộp & thiệp cao cấp']] as [string, string][],
+    say: 'Chọn mẫu có sẵn, thêm dấu ấn thương hiệu.',
+    specs: [['Thời gian hoàn thành', 'Khoảng 2 tuần'], ['Số lượng tối thiểu', 'Từ 10 set'], ['Mức độ tùy biến', 'Gắn logo lên hộp và thiệp']] as [string, string][],
   },
   bespoke: {
     name: 'Set Độc Bản',
-    say: 'Thiết kế đo ni đóng giày 100%, độc quyền theo ngôn ngữ thương hiệu của bạn.',
-    specs: [['Thời gian thiết kế & mẫu', 'Khoảng 8 tuần'], ['Số lượng tối thiểu (MOQ)', 'Theo thỏa thuận dự án'], ['Mức độ tùy biến', 'Khuôn mẫu, chất liệu & ruột quà 100% độc quyền']] as [string, string][],
+    say: 'Thiết kế riêng 100% theo thương hiệu của bạn.',
+    specs: [['Thời gian hoàn thành', 'Khoảng 8 tuần'], ['Số lượng tối thiểu', 'Theo thỏa thuận'], ['Mức độ tùy biến', 'Thiết kế toàn bộ, độc quyền']] as [string, string][],
   },
 };
 
 /** Quy trình theo từng mô hình, hiển thị ngay trong khối "Hai cách để BOND làm quà" trên trang chủ. */
-export const giftProcesses: Record<'ready' | 'bespoke', { duration: string; note?: string; steps: [string, string][] }> = {
+export const giftProcesses: Record<'ready' | 'bespoke', { note?: string; steps: [string, string][] }> = {
   ready: {
-    duration: 'khoảng 2 tuần',
     note: 'Tinh gọn: bỏ khâu duyệt mẫu vật lý, nếm thử và thiết kế riêng.',
     steps: [
       ['Tiếp nhận brief', 'Dịp tặng, số lượng, ngân sách mỗi phần và thời điểm cần hàng.'],
@@ -209,7 +208,6 @@ export const giftProcesses: Record<'ready' | 'bespoke', { duration: string; note
     ],
   },
   bespoke: {
-    duration: 'khoảng 8 tuần',
     steps: [
       ['Tiếp nhận brief', 'Dịp tặng, số lượng, ngân sách mỗi phần, chân dung người nhận và thời điểm cần hàng.'],
       ['Đề xuất phương án', '2 đến 3 hướng thiết kế cùng cấu phần quà tương ứng.'],
