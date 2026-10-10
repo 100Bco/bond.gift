@@ -172,7 +172,7 @@ function Hero() {
           <span className="lx-frame-col"><i className="lx-cross lx-frame-cross lx-frame-cross-l" /><i className="lx-cross lx-frame-cross lx-frame-cross-r" /></span>
         </div>
         {/* Mũi tên cuộn: nét 1px ở khoảng trống góc dưới bên trái, nổi trên ảnh */}
-        <span className="lx-scroll-cue" aria-hidden="true"><i /></span>
+        <span className="lx-scroll-cue" aria-hidden="true"><i /><span className="lx-scroll-cue-t">Cuộn xuống</span></span>
         <div className="lx-hero-in">
           <div className="lx-hero-p1" style={{ pointerEvents: phase2 ? 'none' : undefined }}>
             <h1 id="lx-hero-title" className="lx-hero-title">Quà Tết doanh nghiệp</h1>
