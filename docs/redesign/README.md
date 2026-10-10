@@ -26,7 +26,7 @@ Phản hồi sau bản đầu: homepage dạng split và gallery bất đối x�
 |---|---|
 | Bỏ toàn bộ tông be, kem, sage | Nền trắng, xám rất nhạt trung tính (`#F6F6F8`, `#EEEEF1`) và hồng magenta rất nhạt (`#FDF4F7`). Tên token cũ giữ nguyên để không phải sửa component, chỉ đổi giá trị |
 | Hero căn giữa mọi trang | `EditorialHero` luôn căn giữa: label, headline, lead, CTA, rồi visual ngang 21:9 bên dưới. Prop `layout` còn đó nhưng không còn tạo split |
-| Hero trang chủ | Headline "Relationships, compounded." căn giữa, dưới là 3 khung sản phẩm bằng nhau (quà tặng, bao bì, vật phẩm) và hàng điều kiện hợp tác |
+| Hero trang chủ | H1 "Quà Tết doanh nghiệp" (cỡ clamp(30px, 5.5vw, 60px)), bỏ câu tiếng Anh; đồng hồ đếm ngược Tháng · Ngày · Giờ · Phút · Giây cỡ nhỏ, nhãn "tới Tết Đinh Mùi 2027" in hoa màu xám bên dưới; ảnh bộ quà và chuyển động cuộn giữ nguyên |
 | Gallery thẳng đều | Bộ sưu tập, dự án, showcase dịch vụ, bao bì theo ngành, gallery con người, card năng lực: lưới 3 cột bằng nhau, cùng tỷ lệ ảnh. Bỏ `grid-offset`, bỏ featured card to nhỏ lẫn lộn trong listing |
 | Card dạng hộp | Card trắng, viền mảnh, bo 16px, ảnh sát mép trên, thân card có padding và link "Xem mẫu →" / "Xem dự án →" |
 | Tiêu đề section căn giữa | `SectionIntro` mặc định `center` |

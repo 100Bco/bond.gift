@@ -38,6 +38,7 @@ function Countdown() {
   const cd = useTetCountdown();
   if (!cd) return null;
   return (
+    <>
     <div className="lx-cd" role="timer" aria-label={`Còn ${cd.m} tháng ${cd.d} ngày đến Tết Đinh Mùi 2027`}>
       {([[cd.m, 'Tháng'], [cd.d, 'Ngày'], [cd.h, 'Giờ'], [cd.min, 'Phút'], [cd.s, 'Giây']] as [number, string][]).map(([v, label], i) => (
         <div key={label} className="lx-cd-group" aria-hidden="true">
@@ -46,6 +47,8 @@ function Countdown() {
         </div>
       ))}
     </div>
+    <p className="lx-cd-cap" aria-hidden="true">tới Tết Đinh Mùi 2027</p>
+    </>
   );
 }
 
@@ -172,9 +175,7 @@ function Hero() {
         <span className="lx-scroll-cue" aria-hidden="true"><i /></span>
         <div className="lx-hero-in">
           <div className="lx-hero-p1" style={{ pointerEvents: phase2 ? 'none' : undefined }}>
-            <p className="lx-eyebrow">Quà Tết doanh nghiệp · Đinh Mùi 2027</p>
-            <h1 id="lx-hero-title" className="lx-hero-title">Relationships, <em className="lx-serif">compounded.</em></h1>
-            <p className="lx-hero-sub">Mối quan hệ, được nhân lên theo thời gian.</p>
+            <h1 id="lx-hero-title" className="lx-hero-title">Quà Tết doanh nghiệp</h1>
             <Countdown />
           </div>
 
