@@ -124,15 +124,14 @@
 .lx-hero-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
 .lx-hero-in { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; padding: calc(var(--lx-nav-h) + 1vh) var(--lx-pad-x) 0; text-align: center; }
 .lx-hero-p1 { max-width: 960px; opacity: var(--p1op, 1); transform: translateY(var(--p1y, 0px)); will-change: opacity, transform; }
-.lx-hero-title { margin-top: 16px; font-family: var(--font-display); font-weight: 600; font-size: clamp(42px, 7vw, 96px); line-height: 0.95; letter-spacing: -0.035em; }
-.lx-hero-title em { font-weight: 400; color: var(--lx-red); }
-.lx-hero-sub { margin-top: 14px; font-size: clamp(16px, 1.35vw, 20px); color: var(--lx-muted); }
+.lx-hero-title { margin-top: clamp(16px, 4.5vh, 48px); font-family: var(--font-display); font-weight: 600; font-size: clamp(30px, 5.5vw, 60px); line-height: 1.05; letter-spacing: -0.03em; }
 .lx-cd { display: inline-flex; align-items: center; gap: clamp(16px, 2.8vw, 36px); margin-top: clamp(20px, 3vh, 40px); padding: 10px 0; }
 .lx-cd-group { display: flex; align-items: center; gap: clamp(16px, 2.8vw, 36px); }
-.lx-cd-unit { display: flex; flex-direction: column; align-items: center; min-width: 52px; }
-.lx-cd-num { font-family: var(--font-display); font-weight: 600; font-size: clamp(34px, 4.4vw, 56px); line-height: 0.95; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
-.lx-cd-lab { margin-top: 8px; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lx-muted); }
-.lx-cd-sep { width: 1px; height: 38px; background: var(--lx-line-strong); }
+.lx-cd-unit { display: flex; flex-direction: column; align-items: center; min-width: 46px; }
+.lx-cd-num { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 3vw, 40px); line-height: 0.95; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.lx-cd-lab { margin-top: 6px; font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lx-muted); }
+.lx-cd-sep { width: 1px; height: 30px; background: var(--lx-line-strong); }
+.lx-cd-cap { margin-top: 6px; font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lx-muted); }
 
 /* Sân khấu ảnh: mọi lớp cùng khổ 2000×946 (ảnh gốc 2000×1116 cắt bớt phần trên) nên chồng khít lên nhau */
 /* Phương án A: bộ quà hiện trọn, đáy bộ quà chạm đúng mép dưới màn hình.
@@ -527,9 +526,9 @@
   .lx-hands-r { transform: translateY(calc(var(--handRY, 100) * 1.6%)) rotate(calc(var(--handRRot, 8) * 1deg)); }
   .lx-cd { gap: 9px; padding: 10px 0; }
   .lx-cd-group { gap: 9px; }
-  .lx-cd-sep { height: 28px; }
+  .lx-cd-sep { height: 24px; }
   .lx-cd-unit { min-width: 42px; }
-  .lx-cd-num { font-size: clamp(26px, 8vw, 34px); }
+  .lx-cd-num { font-size: clamp(22px, 6.6vw, 28px); }
   .lx-cd-lab { font-size: 10px; letter-spacing: 0.16em; }
   .lx-logos-in { flex-direction: column; align-items: flex-start; gap: 20px; }
   .lx-logos-lab { max-width: none; }
