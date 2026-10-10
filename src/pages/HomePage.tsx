@@ -175,7 +175,7 @@ function Hero() {
         <span className="lx-scroll-cue" aria-hidden="true"><i /></span>
         <div className="lx-hero-in">
           <div className="lx-hero-p1" style={{ pointerEvents: phase2 ? 'none' : undefined }}>
-            <h1 id="lx-hero-title" className="lx-hero-title">Quà Tết doanh nghiệp</h1>
+            <h1 id="lx-hero-title" className="lx-hero-title">Quà <em className="lx-serif">Tết</em> doanh nghiệp</h1>
             <Countdown />
           </div>
 

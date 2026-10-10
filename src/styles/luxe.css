@@ -125,6 +125,7 @@
 .lx-hero-in { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; padding: calc(var(--lx-nav-h) + 1vh) var(--lx-pad-x) 0; text-align: center; }
 .lx-hero-p1 { max-width: 960px; opacity: var(--p1op, 1); transform: translateY(var(--p1y, 0px)); will-change: opacity, transform; }
 .lx-hero-title { margin-top: clamp(16px, 4.5vh, 48px); font-family: var(--font-display); font-weight: 600; font-size: clamp(30px, 5.5vw, 60px); line-height: 1.05; letter-spacing: -0.03em; }
+.lx-hero-title em { font-weight: 500; color: var(--lx-red); }
 .lx-cd { display: inline-flex; align-items: center; gap: clamp(16px, 2.8vw, 36px); margin-top: clamp(20px, 3vh, 40px); padding: 10px 0; }
 .lx-cd-group { display: flex; align-items: center; gap: clamp(16px, 2.8vw, 36px); }
 .lx-cd-unit { display: flex; flex-direction: column; align-items: center; min-width: 46px; }
