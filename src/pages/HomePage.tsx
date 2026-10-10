@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState, type PointerEvent as RPointerEvent } from 'react';
+import { useEffect, useRef, useState, type PointerEvent as RPointerEvent, type ReactNode } from 'react';
 import { Link } from 'wouter';
 import { bespokeTiers, clientLogos, giftModels, giftProcesses, readySets } from '@/data/content';
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { Reveal } from '@/components/bond/Reveal';
 import { ZaloLink } from '@/components/bond/ZaloLink';
 import { MomentArt, SetArt } from '@/components/bond/GiftArt';
-import { usePrefersReducedMotion, useReplayInView } from '@/hooks/use-in-view';
+import { useInView, usePrefersReducedMotion } from '@/hooks/use-in-view';
 
 /* Trang chủ editorial: hero hai pha, hai mô hình quà, set sẵn, set độc bản, khoảnh khắc Tết, quy trình. */
 
@@ -228,99 +228,55 @@ function LogoStrip() {
   );
 }
 
-function ModelSteps({ kind }: { kind: 'ready' | 'bespoke' }) {
-  const [open, setOpen] = useState(false);
-  const proc = giftProcesses[kind];
-  const id = `lx-steps-${kind}`;
+/** Một ô giá trị trong bảng so sánh: full là chữ đầy đủ, short là bản rút gọn hiện dưới 480px. null là "không có". */
+type CmpCell = { full: string; short?: string; big?: boolean; sub?: string } | null;
+const cmpRows: [string, CmpCell, CmpCell][] = [
+  ['Thời gian hoàn thành', { full: '2 tuần', big: true, sub: 'từ lúc chốt mẫu' }, { full: '8 tuần', big: true, sub: 'từ brief đến giao hàng' }],
+  ['Số lượng tối thiểu', { full: '10 set', big: true }, { full: 'Theo dự án' }],
+  ['Kịp đặt sau 15 tháng 12', { full: 'Có' }, null],
+  ['Xem mẫu trước khi đặt', { full: 'Mẫu thật, xem ngay' }, { full: 'Sau khi duyệt thiết kế' }],
+  ['Thiết kế bao bì', { full: 'Gắn logo lên mẫu có sẵn' }, { full: 'Thiết kế từ đầu theo nhận diện', short: 'Thiết kế từ đầu' }],
+  ['Kết cấu hộp riêng', null, { full: 'Thiết kế theo yêu cầu' }],
+  ['Chọn chất liệu và gia công', { full: 'Theo mẫu' }, { full: 'Tự chọn' }],
+  ['Ruột quà', { full: 'Theo cấu hình có sẵn', short: 'Cấu hình sẵn' }, { full: 'Tuyển chọn theo yêu cầu' }],
+  ['Nếm thử trước khi chốt', null, { full: 'Có' }],
+  ['Độc quyền thiết kế', null, { full: 'Mẫu không dùng cho khách khác', short: 'Độc quyền' }],
+];
+
+function CmpValue({ cell }: { cell: CmpCell }) {
+  if (!cell) return <span className="lx-cmpt-none" aria-label="Không có">—</span>;
+  const text = cell.short
+    ? <><span className="lx-cmpt-lg">{cell.full}</span><span className="lx-cmpt-sm">{cell.short}</span></>
+    : cell.full;
   return (
-    <div className="lx-cmp-proc" data-open={open}>
-      <button type="button" className="lx-cmp-toggle" aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)}>
-        <span className="lx-cmp-toggle-t">Quy trình {proc.steps.length} bước</span>
-        <span className="lx-acc-ico" aria-hidden="true" />
-      </button>
-      <div className="lx-cmp-proc-body" id={id} role="region" aria-label={`Quy trình ${proc.steps.length} bước`}>
-        <div className="lx-cmp-proc-inner" inert={!open || undefined}>
-          {proc.note && <p className="lx-cmp-proc-note">{proc.note}</p>}
-          <ol className="lx-cmp-steps">
-            {proc.steps.map(([t, d], i) => (
-              <li key={t} className="lx-cmp-step">
-                <span className="lx-cmp-step-n">{pad(i + 1)}</span>
-                <div><p className="lx-cmp-step-t">{t}</p><p className="lx-cmp-step-d">{d}</p></div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </div>
+    <>
+      <span className={cell.big ? 'lx-cmpt-big' : 'lx-cmpt-val'}>{text}</span>
+      {cell.sub && <span className="lx-cmpt-sub">{cell.sub}</span>}
+    </>
+  );
+}
+
+/** Một dòng so sánh: nhãn chiếm cả hàng, hai giá trị bên dưới luôn thẳng hàng. Hiện dần một lần khi cuộn tới. */
+function CmpRow({ label, children }: { label: string; children: ReactNode }) {
+  const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.2, once: true, rootMargin: '0px 0px -6% 0px' });
+  return (
+    <div ref={ref} role="row" className={`lx-cmpt-row${inView ? ' is-in' : ''}`}>
+      <div role="rowheader" className="lx-cmpt-label">{label}</div>
+      {children}
     </div>
   );
 }
 
-function ModelCol({ kind, index }: { kind: 'ready' | 'bespoke'; index: number }) {
-  const [ref, inView] = useReplayInView<HTMLDivElement>();
-  const [done, setDone] = useState(false);
-  useEffect(() => {
-    if (!inView) { setDone(false); return; }
-    const t = window.setTimeout(() => setDone(true), 2900);
-    return () => window.clearTimeout(t);
-  }, [inView]);
-  const m = giftModels[kind];
-  return (
-    <div ref={ref} className={`lx-cmp-col lx-cmp-col-${kind}${inView ? ' is-in' : ''}${done ? ' is-done' : ''}`}>
-      <span className="lx-cmp-badge">Mô hình {pad(index + 1)}</span>
-      <h3 className="lx-cmp-name">{m.name}</h3>
-      <p className="lx-cmp-say">{m.say}</p>
-      <div className="lx-cmp-preview">
-        <div className="lx-cmp-par">
-          <img
-            src={kind === 'ready' ? '/assets/models/set-san.webp' : '/assets/models/set-doc-ban.webp'}
-            alt={kind === 'ready' ? 'Set quà Tết hộp đỏ họa tiết tùng bày trên bàn tiệc' : 'Hộp quà độc bản họa tiết hoa xanh ngọc in logo doanh nghiệp'}
-            width={1200}
-            height={805}
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-      </div>
-      <dl className="lx-cmp-specs">
-        {m.specs.map(([k, v]) => <div key={k} className="lx-cmp-row"><dt>{k}</dt><dd>{v}</dd></div>)}
-      </dl>
-      <ModelSteps kind={kind} />
-      <a href={kind === 'ready' ? '#set-san' : '#set-doc-ban'} className={`lx-btn ${kind === 'ready' ? 'lx-btn-line' : 'lx-btn-red'}`}>
-        {kind === 'ready' ? 'Xem Set sẵn' : 'Xem Set độc bản'}
-      </a>
-    </div>
-  );
-}
-
+/**
+ * Hai cách đặt quà, trình bày kiểu bảng so sánh của Apple: không card, không nền, chỉ đường kẻ ngang 1px.
+ * Tên hai cột dính trên đầu khi cuộn; chỗ không có ghi dấu "—".
+ */
 function Models() {
-  const reduced = usePrefersReducedMotion();
-  const animate = !reduced;
-  const [gridRef, inView] = useReplayInView<HTMLDivElement>({ threshold: 0.18 });
-
-  // Ảnh trôi chậm hơn trang một chút khi cuộn qua (lệch tối đa khoảng 4% khung ảnh).
-  useEffect(() => {
-    if (reduced) return;
-    const grid = gridRef.current;
-    if (!grid) return;
-    const layers = [...grid.querySelectorAll<HTMLElement>('.lx-cmp-par')];
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const vh = window.innerHeight;
-      for (const el of layers) {
-        const r = el.parentElement!.getBoundingClientRect();
-        if (r.bottom < -100 || r.top > vh + 100) continue;
-        const t = Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2)));
-        el.style.transform = `translate3d(0, ${(t * 4).toFixed(2)}%, 0)`;
-      }
-    };
-    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); if (raf) cancelAnimationFrame(raf); };
-  }, [reduced, gridRef]);
-
+  const [open, setOpen] = useState(false);
+  const cols = [
+    { kind: 'ready' as const, img: '/assets/models/set-san.webp', alt: 'Set quà Tết hộp đỏ họa tiết tùng bày trên bàn tiệc', href: '#set-san', cta: 'Xem Set sẵn', btn: 'lx-btn-red' },
+    { kind: 'bespoke' as const, img: '/assets/models/set-doc-ban.webp', alt: 'Hộp quà độc bản họa tiết hoa xanh ngọc in logo doanh nghiệp', href: '#set-doc-ban', cta: 'Xem hướng thiết kế', btn: 'lx-btn-line' },
+  ];
   return (
     <section className="lx-sec lx-cmp" id="quy-trinh" aria-labelledby="lx-cmp-title">
       <div className="lx-wrap">
@@ -329,14 +285,51 @@ function Models() {
           <h2 id="lx-cmp-title">Hai cách để BOND làm quà<br />cho thương hiệu của bạn</h2>
           <p className="lx-lead">Cùng một đội ngũ, cùng một chuẩn hoàn thiện. Khác nhau ở mức độ bạn muốn món quà mang dấu ấn riêng đến đâu.</p>
         </Reveal>
-        <div ref={gridRef} className={`lx-cmp-grid${animate ? ' lx-cmp-anim' : ''}${inView ? ' is-in' : ''}`}>
-          <span className="lx-cross lx-cmp-cross" aria-hidden="true" />
-          <span className="lx-cmp-ln lx-cmp-ln-t" aria-hidden="true" />
-          <span className="lx-cmp-ln lx-cmp-ln-m" aria-hidden="true" />
-          <span className="lx-cmp-ln lx-cmp-ln-l" aria-hidden="true" />
-          <span className="lx-cmp-ln lx-cmp-ln-r" aria-hidden="true" />
-          <span className="lx-cmp-ln lx-cmp-ln-b" aria-hidden="true" />
-          {(['ready', 'bespoke'] as const).map((kind, i) => <ModelCol key={kind} kind={kind} index={i} />)}
+        <div className="lx-cmpt" role="table" aria-label="So sánh Set sẵn và Set độc bản">
+          <div className="lx-cmpt-head" role="row">
+            {cols.map((c) => <h3 key={c.kind} role="columnheader" className="lx-cmpt-name">{giftModels[c.kind].name}</h3>)}
+          </div>
+          <div className="lx-cmpt-top">
+            {cols.map((c) => (
+              <div key={c.kind} className="lx-cmpt-intro">
+                <div className="lx-cmpt-img"><img src={c.img} alt={c.alt} width={1200} height={805} loading="lazy" decoding="async" /></div>
+                <p className="lx-cmpt-say">{giftModels[c.kind].say}</p>
+                <a href={c.href} className={`lx-btn ${c.btn}`}>{c.cta}</a>
+              </div>
+            ))}
+          </div>
+          {cmpRows.map(([label, a, b]) => (
+            <CmpRow key={label} label={label}>
+              <div role="cell" className="lx-cmpt-cell"><CmpValue cell={a} /></div>
+              <div role="cell" className="lx-cmpt-cell"><CmpValue cell={b} /></div>
+            </CmpRow>
+          ))}
+          <CmpRow label="Quy trình">
+            {cols.map((c) => {
+              const proc = giftProcesses[c.kind];
+              return (
+                <div key={c.kind} role="cell" className="lx-cmpt-cell">
+                  <span className="lx-cmpt-val">{proc.steps.length} bước</span>
+                  <div className="lx-cmpt-steps" id={`lx-cmpt-steps-${c.kind}`} data-open={open}>
+                    <div className="lx-cmpt-steps-in" inert={!open || undefined}>
+                      {proc.note && <p className="lx-cmpt-note">{proc.note}</p>}
+                      <ol>
+                        {proc.steps.map(([t, d], i) => (
+                          <li key={t} className="lx-cmp-step">
+                            <span className="lx-cmp-step-n">{pad(i + 1)}</span>
+                            <div><p className="lx-cmp-step-t">{t}</p><p className="lx-cmp-step-d">{d}</p></div>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            <button type="button" className="lx-cmpt-toggle" aria-expanded={open} aria-controls="lx-cmpt-steps-ready lx-cmpt-steps-bespoke" onClick={() => setOpen(!open)}>
+              {open ? 'Thu gọn các bước' : 'Xem các bước'} <span aria-hidden="true">{open ? '−' : '+'}</span>
+            </button>
+          </CmpRow>
         </div>
       </div>
     </section>
