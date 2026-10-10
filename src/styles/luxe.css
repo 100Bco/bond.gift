@@ -211,7 +211,7 @@
 .lx-cmpt-intro:hover .lx-cmpt-img img { transform: scale(1.04); }
 .lx-cmpt-say { margin: 22px 0 24px; font-size: 16.5px; line-height: 1.55; color: var(--lx-muted); }
 .lx-cmpt-intro .lx-btn { margin-top: auto; align-self: center; }
-.lx-cmpt-row { padding: 38px 0 32px; border-top: 1px solid var(--lx-line); }
+.lx-cmpt-row { padding: 18px 0 34px; border-top: 1px solid var(--lx-line); }
 .lx-cmpt-label { grid-column: 1 / -1; text-align: center; margin-bottom: 14px; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--lx-muted); }
 /* Nhãn, giá trị và dấu "—" căn giữa để mỗi dòng đối xứng quanh trục giữa bảng; danh sách bước vẫn căn trái */
 .lx-cmpt-cell { display: flex; flex-direction: column; align-items: center; gap: 0; min-width: 0; text-align: center; }
