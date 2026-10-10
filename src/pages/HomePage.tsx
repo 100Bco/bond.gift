@@ -232,14 +232,15 @@ function LogoStrip() {
 type CmpCell = { full: string; short?: string; big?: boolean; sub?: string } | null;
 const cmpRows: [string, CmpCell, CmpCell][] = [
   ['Thời gian hoàn thành', { full: '2 tuần', big: true, sub: 'từ lúc chốt mẫu' }, { full: '8 tuần', big: true, sub: 'từ brief đến giao hàng' }],
-  ['Số lượng tối thiểu', { full: '10 set', big: true }, { full: 'Theo dự án' }],
-  ['Kịp đặt sau 15 tháng 12', { full: 'Có' }, null],
+  // Hai bên cùng cỡ chữ cho đến khi có số tối thiểu chính thức của Set độc bản; có số thì đổi cả hai sang big.
+  ['Số lượng tối thiểu', { full: '10 set' }, { full: 'Theo dự án' }],
+  ['Hạn chốt đơn cuối cùng', { full: '15 tháng 1', sub: 'để kịp giao trước Tết' }, { full: '15 tháng 12', sub: 'để kịp thiết kế và sản xuất' }],
   ['Xem mẫu trước khi đặt', { full: 'Mẫu thật, xem ngay' }, { full: 'Sau khi duyệt thiết kế' }],
   ['Thiết kế bao bì', { full: 'Gắn logo lên mẫu có sẵn' }, { full: 'Thiết kế từ đầu theo nhận diện', short: 'Thiết kế từ đầu' }],
   ['Kết cấu hộp riêng', null, { full: 'Thiết kế theo yêu cầu' }],
   ['Chọn chất liệu và gia công', { full: 'Theo mẫu' }, { full: 'Tự chọn' }],
   ['Ruột quà', { full: 'Theo cấu hình có sẵn', short: 'Cấu hình sẵn' }, { full: 'Tuyển chọn theo yêu cầu' }],
-  ['Nếm thử trước khi chốt', null, { full: 'Có' }],
+  ['Nếm thử trước khi chốt', null, { full: 'Gửi hộp mẫu tận nơi để nếm thử', short: 'Hộp mẫu tận nơi' }],
   ['Độc quyền thiết kế', null, { full: 'Mẫu không dùng cho khách khác', short: 'Độc quyền' }],
 ];
 
@@ -274,8 +275,8 @@ function CmpRow({ label, children }: { label: string; children: ReactNode }) {
 function Models() {
   const [open, setOpen] = useState(false);
   const cols = [
-    { kind: 'ready' as const, img: '/assets/models/set-san.webp', alt: 'Set quà Tết hộp đỏ họa tiết tùng bày trên bàn tiệc', href: '#set-san', cta: 'Xem Set sẵn', btn: 'lx-btn-red' },
-    { kind: 'bespoke' as const, img: '/assets/models/set-doc-ban.webp', alt: 'Hộp quà độc bản họa tiết hoa xanh ngọc in logo doanh nghiệp', href: '#set-doc-ban', cta: 'Xem hướng thiết kế', btn: 'lx-btn-line' },
+    { kind: 'ready' as const, img: '/assets/models/set-san.webp', alt: 'Set quà Tết hộp đỏ họa tiết tùng bày trên bàn tiệc' },
+    { kind: 'bespoke' as const, img: '/assets/models/set-doc-ban.webp', alt: 'Hộp quà độc bản họa tiết hoa xanh ngọc in logo doanh nghiệp' },
   ];
   return (
     <section className="lx-sec lx-cmp" id="quy-trinh" aria-labelledby="lx-cmp-title">
@@ -294,7 +295,10 @@ function Models() {
               <div key={c.kind} className="lx-cmpt-intro">
                 <div className="lx-cmpt-img"><img src={c.img} alt={c.alt} width={1200} height={805} loading="lazy" decoding="async" /></div>
                 <p className="lx-cmpt-say">{giftModels[c.kind].say}</p>
-                <a href={c.href} className={`lx-btn ${c.btn}`}>{c.cta}</a>
+                {/* Nút là tín hiệu ưu tiên duy nhất còn lại: Set độc bản dùng nút đỏ đặc, Set sẵn nút viền */}
+                {c.kind === 'ready'
+                  ? <a href="#set-san" className="lx-btn lx-btn-line">Xem Set sẵn</a>
+                  : <ZaloLink className="lx-btn lx-btn-red">Nhận tư vấn thiết kế</ZaloLink>}
               </div>
             ))}
           </div>
@@ -327,7 +331,7 @@ function Models() {
               );
             })}
             <button type="button" className="lx-cmpt-toggle" aria-expanded={open} aria-controls="lx-cmpt-steps-ready lx-cmpt-steps-bespoke" onClick={() => setOpen(!open)}>
-              {open ? 'Thu gọn các bước' : 'Xem các bước'} <span aria-hidden="true">{open ? '−' : '+'}</span>
+              {open ? 'Thu gọn các bước' : 'Xem các bước của cả hai quy trình'} <span aria-hidden="true">{open ? '−' : '+'}</span>
             </button>
           </CmpRow>
         </div>
