@@ -203,17 +203,19 @@
 .lx-cmpt { --cg: clamp(20px, 5vw, 64px); max-width: 980px; margin: 0 auto; }
 .lx-cmpt-head, .lx-cmpt-top, .lx-cmpt-row { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--cg); }
 .lx-cmpt-head { position: sticky; top: var(--lx-nav-h); z-index: 5; padding: 18px 0 14px; background: var(--lx-paper); border-bottom: 1px solid var(--lx-line); }
-.lx-cmpt-name { font-size: clamp(20px, 2.2vw, 30px); letter-spacing: -0.02em; }
+.lx-cmpt-name { font-size: clamp(20px, 2.2vw, 30px); letter-spacing: -0.02em; text-align: center; }
 .lx-cmpt-top { padding: clamp(28px, 4vw, 48px) 0 clamp(36px, 4vw, 56px); }
-.lx-cmpt-intro { display: flex; flex-direction: column; align-items: flex-start; }
+.lx-cmpt-intro { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .lx-cmpt-img { width: 100%; aspect-ratio: 3 / 2; overflow: hidden; background: var(--lx-soft); }
 .lx-cmpt-img img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.6s var(--lx-ease); }
 .lx-cmpt-intro:hover .lx-cmpt-img img { transform: scale(1.04); }
 .lx-cmpt-say { margin: 22px 0 24px; font-size: 16.5px; line-height: 1.55; color: var(--lx-muted); }
-.lx-cmpt-intro .lx-btn { margin-top: auto; }
+.lx-cmpt-intro .lx-btn { margin-top: auto; align-self: center; }
 .lx-cmpt-row { padding: 38px 0 32px; border-top: 1px solid var(--lx-line); }
-.lx-cmpt-label { grid-column: 1 / -1; margin-bottom: 14px; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--lx-muted); }
-.lx-cmpt-cell { display: flex; flex-direction: column; align-items: flex-start; gap: 0; min-width: 0; }
+.lx-cmpt-label { grid-column: 1 / -1; text-align: center; margin-bottom: 14px; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--lx-muted); }
+/* Nhãn, giá trị và dấu "—" căn giữa để mỗi dòng đối xứng quanh trục giữa bảng; danh sách bước vẫn căn trái */
+.lx-cmpt-cell { display: flex; flex-direction: column; align-items: center; gap: 0; min-width: 0; text-align: center; }
+.lx-cmpt-steps { text-align: left; }
 .lx-cmpt-val { font-size: clamp(16px, 1.3vw, 18px); font-weight: 500; line-height: 1.45; }
 .lx-cmpt-big { font-family: var(--font-display); font-weight: 600; font-size: clamp(34px, 4.4vw, 58px); letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
 .lx-cmpt-sub { margin-top: 6px; font-size: 14px; line-height: 1.4; color: var(--lx-muted); }
