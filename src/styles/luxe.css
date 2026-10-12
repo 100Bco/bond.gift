@@ -283,14 +283,24 @@
 .lx-disc { display: flex; align-items: flex-start; gap: 14px; max-width: 680px; margin-top: 24px; padding: 4px 0 4px 18px; border-left: 2px solid var(--lx-red); }
 .lx-disc .lx-cross { margin-top: 6px; }
 .lx-disc p { font-size: 15px; line-height: 1.6; color: var(--lx-muted); }
+/* Vòng tròn "Xem chi tiết" giữa ảnh khi rê chuột (thẻ Set sẵn và ô Set độc bản); điện thoại không hiện. */
+.lx-peek { position: absolute; left: 50%; top: 50%; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 112px; height: 112px; border-radius: 50%; background: var(--lx-red); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0; transform: translate(-50%, -50%) scale(0.4); transition: transform 0.5s var(--lx-ease), opacity 0.4s var(--lx-ease); pointer-events: none; }
+.lx-peek i { font-style: normal; font-size: 15px; letter-spacing: 0; }
+.lx-bud-img::after, .lx-card-img::after { content: ''; position: absolute; inset: 0; z-index: 1; background: rgba(0, 0, 0, 0.16); opacity: 0; transition: opacity 0.5s var(--lx-ease); pointer-events: none; }
+@media (hover: hover) {
+  .lx-bud-card:hover .lx-peek, .lx-card:hover .lx-peek { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  .lx-bud-card:hover .lx-bud-img::after, .lx-card:hover .lx-card-img::after { opacity: 1; }
+}
+.lx-bud-card:focus-visible .lx-peek, .lx-card:focus-visible .lx-peek { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+@media (hover: none) { .lx-peek { display: none; } }
+
 /* Lưới 2×2 các mức ngân sách: ảnh vuông, chỉ tên (in hoa) và giá; bấm mở trang con. */
 .lx-bud { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(36px, 4vw, 64px) clamp(20px, 2.4vw, 36px); margin-top: clamp(48px, 6vw, 76px); }
 .lx-bud-card { display: flex; flex-direction: column; }
-.lx-bud-img { display: block; aspect-ratio: 1 / 1; overflow: hidden; background: var(--lx-soft); }
+.lx-bud-img { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; background: var(--lx-soft); }
 .lx-bud-img img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--lx-ease); }
 .lx-bud-card:hover .lx-bud-img img { transform: scale(1.04); }
-.lx-bud-name { margin-top: 22px; font-family: var(--font-display); font-size: clamp(17px, 1.5vw, 21px); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.4s var(--lx-ease); }
-.lx-bud-card:hover .lx-bud-name { color: var(--lx-red); }
+.lx-bud-name { margin-top: 22px; font-family: var(--font-display); font-size: clamp(17px, 1.5vw, 21px); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
 .lx-bud-money { margin-top: 6px; font-size: 15.5px; font-weight: 500; color: var(--lx-muted); font-variant-numeric: tabular-nums; }
 .lx-bud-money small { font-size: inherit; font-weight: 400; }
 
