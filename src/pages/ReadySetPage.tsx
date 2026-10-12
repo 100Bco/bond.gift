@@ -84,7 +84,7 @@ export function ReadySetPage() {
             </nav>
             <div className="lx-sd-hero-grid">
               <div className="lx-sd-media">
-                <SetArt look={set.look} />
+                <img src={set.photo} alt={`Set sẵn ${set.name}`} width={1200} height={1500} decoding="async" />
               </div>
               <div className="lx-sd-intro">
                 <p className="lx-eyebrow">Set sẵn · {set.code}</p>
@@ -179,7 +179,7 @@ export function ReadySetPage() {
             <div className="lx-sd-others">
               {others.map((o, i) => (
                 <Link key={o.slug} href={`/set-san/${o.slug}`} className="lx-sd-other">
-                  <span className="lx-sd-other-img"><SetArt look={o.look} /></span>
+                  <span className="lx-sd-other-img"><img src={o.photo} alt="" width={144} height={180} loading="lazy" decoding="async" /></span>
                   <span className="lx-sd-other-txt">
                     <span className="lx-sd-other-name">{o.name}</span>
                     <span className="lx-sd-other-price">{o.price}</span>

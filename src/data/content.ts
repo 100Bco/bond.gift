@@ -169,7 +169,7 @@ export const clientLogos: { name: string; logo: string; h: number }[] = ([
 
 /** Một món trong set: qty là khối lượng hoặc dung tích theo catalog. */
 export type SetItem = { name: string; qty: string };
-export type ReadySet = { slug: string; code: string; name: string; price: string; contents: string; items: SetItem[]; boxType: string; boxSize: string; look: 'ivory' | 'ink' | 'red' | 'black' };
+export type ReadySet = { slug: string; code: string; name: string; price: string; contents: string; photo: string; items: SetItem[]; boxType: string; boxSize: string; look: 'ivory' | 'ink' | 'red' | 'black' };
 /** Thông số chưa có số liệu thật thì hiển thị dòng này, không tự đặt số. */
 export const pendingSpec = 'Đang cập nhật';
 /** Điều khoản chung theo catalog, dùng cho cả Set sẵn và Set độc bản. */
@@ -182,7 +182,7 @@ export const orderTerms = {
 /** Bốn set sẵn theo catalog (mã SS01 đến SS04). Đổi slug thì thêm redirect slug cũ trong vercel.json. */
 export const readySets: ReadySet[] = [
   {
-    slug: 'huong-sac-xuan', code: 'SS01', name: 'Hương Sắc Xuân', price: '499.000đ / set', look: 'ivory',
+    slug: 'huong-sac-xuan', code: 'SS01', name: 'Hương Sắc Xuân', price: '499.000đ / set', look: 'ivory', photo: '/assets/set-san/huong-sac-xuan.webp',
     contents: 'Mứt gừng hoặc táo đỏ + trà sen sấy thăng hoa + bánh quy nhập khẩu + kẹo dẻo trái cây + rượu vang',
     items: [
       { name: 'Mứt gừng hoặc táo đỏ', qty: '150g' },
@@ -194,7 +194,7 @@ export const readySets: ReadySet[] = [
     boxType: 'Hộp cứng', boxSize: '28 × 36 × 10 cm',
   },
   {
-    slug: 'xuan-cat-tuong', code: 'SS02', name: 'Xuân Cát Tường', price: '799.000đ / set', look: 'ink',
+    slug: 'xuan-cat-tuong', code: 'SS02', name: 'Xuân Cát Tường', price: '799.000đ / set', look: 'ink', photo: '/assets/set-san/xuan-cat-tuong.webp',
     contents: 'Mứt gừng hoặc táo đỏ + trà sen sấy thăng hoa + bánh xốp phủ socola Nga + kẹo dẻo trái cây + rượu vang',
     items: [
       { name: 'Mứt gừng hoặc táo đỏ', qty: '150g' },
@@ -206,7 +206,7 @@ export const readySets: ReadySet[] = [
     boxType: 'Hộp cứng', boxSize: '36 × 36 × 10 cm',
   },
   {
-    slug: 'xuan-phu-quy', code: 'SS03', name: 'Xuân Phú Quý', price: '1.299.000đ / set', look: 'red',
+    slug: 'xuan-phu-quy', code: 'SS03', name: 'Xuân Phú Quý', price: '1.299.000đ / set', look: 'red', photo: '/assets/set-san/xuan-phu-quy.webp',
     contents: 'Socola + ô mai + trà Basilur hoặc trà Phúc Kiến + rượu vang',
     items: [
       { name: 'Socola', qty: '150g' },
@@ -217,7 +217,7 @@ export const readySets: ReadySet[] = [
     boxType: 'Hộp 2 tầng', boxSize: '37,5 × 15,5 × 21,5 cm',
   },
   {
-    slug: 'van-loc-vinh-hoa', code: 'SS04', name: 'Vạn Lộc Vinh Hoa', price: '2.899.000đ / set', look: 'black',
+    slug: 'van-loc-vinh-hoa', code: 'SS04', name: 'Vạn Lộc Vinh Hoa', price: '2.899.000đ / set', look: 'black', photo: '/assets/set-san/van-loc-vinh-hoa.webp',
     contents: 'Chivas 18 + socola Nga + bánh Nga + kẹo Đức + trà Ahmad + mứt Tết',
     items: [
       { name: 'Rượu Chivas 18', qty: '750ml' },
