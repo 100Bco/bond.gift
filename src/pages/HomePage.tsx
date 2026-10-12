@@ -397,8 +397,8 @@ function ReadySets() {
           <div>
             <p className="lx-eyebrow">Mô hình 01</p>
             <h2 id="lx-ready-title">Set sẵn</h2>
+            <p className="lx-sec-meta"><span>Từ 10 set</span><i aria-hidden="true">·</i><span>Giao trong 2 tuần</span><i aria-hidden="true">·</i><span>In logo UV lên nắp hộp</span></p>
           </div>
-          <p className="lx-lead">Giao trong 2 tuần. Logo thương hiệu của anh chị được in UV lên nắp hộp. Không cần thiết kế lại từ đầu.</p>
         </Reveal>
         <div ref={gridRef} className="lx-cards lx-stair">
           {readySets.map((set) => (
@@ -425,12 +425,12 @@ function Bespoke() {
           <div>
             <p className="lx-eyebrow">Mô hình 02</p>
             <h2 id="lx-custom-title">Set độc bản</h2>
+            <p className="lx-sec-meta"><span>Từ 300 set</span><i aria-hidden="true">·</i><span>Khoảng 8 tuần</span><i aria-hidden="true">·</i><span>Thiết kế riêng theo thương hiệu</span></p>
             <div className="lx-disc">
               <span className="lx-cross" aria-hidden="true" />
               <p>Mỗi mẫu dưới đây là một hướng thiết kế để bắt đầu. BOND và ZAD sẽ phát triển kết cấu hộp và trải nghiệm mở hộp riêng cho thương hiệu của anh chị, không dùng lại cho bất kỳ doanh nghiệp nào khác.</p>
             </div>
           </div>
-          <p className="lx-lead">Chọn mức ngân sách của anh chị để xem các hướng thiết kế tương ứng.</p>
         </Reveal>
         <Reveal className="lx-bud">
           {bespokeTiers.map((b) => (
