@@ -161,6 +161,25 @@
 .lx-frame-cross-r { right: -7px; }
 @media (min-width: 1024px) { .lx-frame { display: block; } }
 /* Khung cuối: đáy cảnh tan vào nền (chỉ hiện khi tay đã ôm hộp, nên màn đầu bộ quà vẫn hiện trọn) */
+.lx-hero-in { z-index: 1; }
+/* Trang trí Tết trong hero: nằm dưới chữ và ảnh (z-index 0), chỉ có ở hero vì nằm trong khung dính */
+.lx-tet { position: absolute; inset: var(--lx-nav-h) 0 0 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.lx-tet-branch { position: absolute; top: -6px; width: clamp(140px, 15vw, 240px); height: auto; opacity: 0.6; }
+.lx-tet-branch.is-left { left: 0; }
+.lx-tet-branch.is-right { right: 0; }
+.lx-petal { position: absolute; top: -24px; display: block; opacity: 0.72; animation: lx-fall var(--dur) linear var(--delay) infinite; will-change: transform; }
+.lx-petal i { display: block; width: 100%; height: 100%; animation: lx-sway calc(var(--dur) / 3) ease-in-out var(--delay) infinite alternate; }
+.lx-petal svg { display: block; width: 100%; height: 100%; }
+@keyframes lx-fall { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(0, calc(100vh + 48px), 0); } }
+@keyframes lx-sway { from { transform: translateX(calc(var(--sway) * -1)) rotate(0deg); } to { transform: translateX(var(--sway)) rotate(var(--spin)); } }
+@media (max-width: 860px) {
+  .lx-petal:nth-of-type(n + 7) { display: none; }
+  .lx-tet-branch { width: 110px; opacity: 0.5; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lx-petal, .lx-petal i { animation: none; }
+  .lx-petal { top: var(--top); }
+}
 .lx-hero-fade { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; height: 160px; background: linear-gradient(to bottom, rgba(250, 248, 245, 0), var(--lx-paper) 92%); opacity: var(--heldOp, 0); pointer-events: none; }
 /* Khung hero cắt các phần trồi ra ngoài (tay đi lên từ dưới) */
 .lx-hero-sticky { overflow: hidden; }

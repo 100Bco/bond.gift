@@ -5,6 +5,7 @@ import { SiteShell } from '@/components/layout/SiteChrome';
 import { Reveal } from '@/components/bond/Reveal';
 import { ZaloLink } from '@/components/bond/ZaloLink';
 import { MomentArt } from '@/components/bond/GiftArt';
+import { TetPetals } from '@/components/bond/TetPetals';
 import { useInView, usePrefersReducedMotion } from '@/hooks/use-in-view';
 
 /* Trang chủ editorial: hero hai pha, hai mô hình quà, set sẵn, set độc bản, khoảnh khắc Tết, quy trình. */
@@ -171,6 +172,8 @@ function Hero() {
           <span className="lx-frame-rule" />
           <span className="lx-frame-col"><i className="lx-cross lx-frame-cross lx-frame-cross-l" /><i className="lx-cross lx-frame-cross lx-frame-cross-r" /></span>
         </div>
+        {/* Trang trí Tết: cành mai, đào ở hai góc trên và hoa rơi chậm phía sau nội dung */}
+        <TetPetals />
         {/* Mũi tên cuộn: nét 1px ở khoảng trống góc dưới bên trái, nổi trên ảnh */}
         <span className="lx-scroll-cue" aria-hidden="true"><i /><span className="lx-scroll-cue-t">Cuộn xuống</span></span>
         <div className="lx-hero-in">
