@@ -468,7 +468,7 @@ function Moment() {
   return (
     <section className="lx-moment" id="khoanh-khac" aria-labelledby="lx-moment-title">
       <div className="lx-wrap lx-moment-grid">
-        <div className="lx-moment-img"><div ref={ref} className="lx-moment-art"><img src="/assets/hero/hands-held.webp" alt="Đôi tay nâng hộp quà Tết BOND màu đỏ" width={1400} height={1045} loading="lazy" decoding="async" /></div></div>
+        <div className="lx-moment-img"><div ref={ref} className="lx-moment-art"><img src="/assets/set-san/van-loc-vinh-hoa.webp" alt="Set Vạn Lộc Vinh Hoa mở hai cánh, bên trong là rượu Chivas 18, socola, trà và bánh kẹo" width={1086} height={1448} loading="lazy" decoding="async" /></div></div>
         <Reveal className="lx-moment-txt">
           <p className="lx-eyebrow">Khoảnh khắc trao quà</p>
           <h2 id="lx-moment-title">Món quà Tết không được nhớ vì giá.<br />Nó được nhớ vì người nhận<br /><em className="lx-serif">cảm thấy mình được trân quý.</em></h2>
