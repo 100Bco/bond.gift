@@ -13,7 +13,7 @@ export function Logo({ className = '' }: { className?: string }) {
 const navLinks: [string, string][] = [
   ['Set sẵn', '/#set-san'],
   ['Set độc bản', '/#set-doc-ban'],
-  ['Quy trình', '/#quy-trinh'],
+  ['Quy trình', '/#quy-trinh-buoc'],
 ];
 
 const ArrowUp = () => (
@@ -80,7 +80,7 @@ export function SiteFooter() {
               <Link href="/#set-san">Set sẵn</Link>
               <Link href="/#set-doc-ban">Set độc bản</Link>
               <Link href="/ve-bond">Về BOND</Link>
-              <Link href="/#quy-trinh">Quy trình</Link>
+              <a href="/#quy-trinh-buoc">Quy trình</a>
               <Link href="/cau-hoi-thuong-gap">Câu hỏi thường gặp</Link>
             </div>
           </div>

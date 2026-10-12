@@ -261,10 +261,10 @@ function CmpValue({ cell }: { cell: CmpCell }) {
 }
 
 /** Một dòng so sánh: nhãn chiếm cả hàng, hai giá trị bên dưới luôn thẳng hàng. Hiện dần một lần khi cuộn tới. */
-function CmpRow({ label, children }: { label: string; children: ReactNode }) {
+function CmpRow({ label, id, children }: { label: string; id?: string; children: ReactNode }) {
   const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.2, once: true, rootMargin: '0px 0px -6% 0px' });
   return (
-    <div ref={ref} role="row" className={`lx-cmpt-row${inView ? ' is-in' : ''}`}>
+    <div ref={ref} id={id} role="row" className={`lx-cmpt-row${inView ? ' is-in' : ''}`}>
       <div role="rowheader" className="lx-cmpt-label">{label}</div>
       {children}
     </div>
@@ -311,7 +311,8 @@ function Models() {
               <div role="cell" className="lx-cmpt-cell"><CmpValue cell={b} /></div>
             </CmpRow>
           ))}
-          <CmpRow label="Quy trình">
+          {/* Menu "Quy trình" nhảy thẳng tới dòng này (#quy-trinh-buoc) */}
+          <CmpRow label="Quy trình" id="quy-trinh-buoc">
             {cols.map((c) => {
               const proc = giftProcesses[c.kind];
               return (

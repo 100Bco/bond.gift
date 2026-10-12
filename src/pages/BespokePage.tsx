@@ -8,6 +8,7 @@ import { ZaloLink } from '@/components/bond/ZaloLink';
 import { Lightbox } from '@/components/bond/Lightbox';
 import { NotFoundPage } from '@/pages/UtilityPages';
 import { SpecList } from '@/pages/ReadySetPage';
+import { ProcessLink, ProcessSteps } from '@/components/bond/ProcessSteps';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -95,7 +96,7 @@ export function BespokePage() {
               <p className="lx-bp-note">Ngân sách tham khảo cho trọn bộ, gồm thiết kế riêng, bao bì và sản phẩm bên trong. Báo giá chính xác theo từng dự án.</p>
               <div className="lx-sd-actions">
                 <ZaloLink className="lx-btn lx-btn-red">Tư vấn qua Zalo</ZaloLink>
-                <Link href="/#quy-trinh" className="lx-sd-textlink">Xem quy trình <span aria-hidden="true">→</span></Link>
+                <ProcessLink />
               </div>
             </div>
           </div>
@@ -116,6 +117,8 @@ export function BespokePage() {
             </ol>
           )}
         </div>
+
+        <ProcessSteps kind="bespoke" eyebrow="Khoảng 8 tuần" />
 
         <section className="lx-cta" aria-labelledby="lx-bp-cta">
           <div className="lx-wrap">

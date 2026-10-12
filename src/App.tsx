@@ -20,7 +20,7 @@ const queryClient = new QueryClient();
 
 /* Trang quy trình riêng đã gộp vào khối "Hai cách để BOND làm quà" trên trang chủ. */
 function ProcessRedirect() {
-  window.location.replace('/#quy-trinh');
+  window.location.replace('/#quy-trinh-buoc');
   return null;
 }
 
