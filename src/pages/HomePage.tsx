@@ -232,16 +232,16 @@ function LogoStrip() {
 }
 
 /** Một ô giá trị trong bảng so sánh: full là chữ đầy đủ, short là bản rút gọn hiện dưới 480px. null là "không có". */
-type CmpCell = { full: string; short?: string; big?: boolean; sub?: string } | null;
+type CmpCell = { full: string; short?: string; big?: boolean; sub?: string; subShort?: string } | null;
 const cmpRows: [string, CmpCell, CmpCell][] = [
-  ['Thời gian hoàn thành', { full: '2 tuần', big: true, sub: 'từ lúc chốt mẫu' }, { full: '8 tuần', big: true, sub: 'từ khi nhận yêu cầu đến giao hàng' }],
+  ['Thời gian hoàn thành', { full: '2 tuần', big: true, sub: 'từ lúc chốt mẫu' }, { full: '8 tuần', big: true, sub: 'từ khi nhận yêu cầu đến giao hàng', subShort: 'từ khi nhận yêu cầu' }],
   ['Số lượng tối thiểu', { full: '10 set', big: true }, { full: '300 set', big: true }],
-  ['Hạn chốt đơn cuối cùng', { full: '15 tháng 1', sub: 'để kịp giao trước Tết' }, { full: '15 tháng 12', sub: 'để kịp thiết kế và sản xuất' }],
-  ['Xem mẫu trước khi đặt', { full: 'Mẫu thật, xem ngay' }, { full: 'Sau khi duyệt thiết kế' }],
-  ['Thiết kế bao bì', { full: 'Gắn logo lên mẫu có sẵn' }, { full: 'Thiết kế từ đầu theo nhận diện', short: 'Thiết kế từ đầu' }],
-  ['Kết cấu hộp riêng', null, { full: 'Thiết kế theo yêu cầu' }],
+  ['Hạn chốt đơn cuối cùng', { full: '15 tháng 1', sub: 'để kịp giao trước Tết', subShort: 'kịp giao trước Tết' }, { full: '15 tháng 12', sub: 'để kịp thiết kế và sản xuất', subShort: 'kịp sản xuất' }],
+  ['Xem mẫu trước khi đặt', { full: 'Mẫu thật, xem ngay', short: 'Xem ngay' }, { full: 'Sau khi duyệt thiết kế', short: 'Sau khi duyệt' }],
+  ['Thiết kế bao bì', { full: 'Gắn logo lên mẫu có sẵn', short: 'Gắn logo' }, { full: 'Thiết kế từ đầu theo nhận diện', short: 'Thiết kế từ đầu' }],
+  ['Kết cấu hộp riêng', null, { full: 'Thiết kế theo yêu cầu', short: 'Theo yêu cầu' }],
   ['Chọn chất liệu và gia công', { full: 'Theo mẫu' }, { full: 'Tự chọn' }],
-  ['Ruột quà', { full: 'Theo cấu hình có sẵn', short: 'Cấu hình sẵn' }, { full: 'Tuyển chọn theo yêu cầu' }],
+  ['Ruột quà', { full: 'Theo cấu hình có sẵn', short: 'Cấu hình sẵn' }, { full: 'Tuyển chọn theo yêu cầu', short: 'Theo yêu cầu' }],
   ['Nếm thử trước khi chốt', null, { full: 'Gửi hộp mẫu tận nơi để nếm thử', short: 'Hộp mẫu tận nơi' }],
   ['Độc quyền thiết kế', null, { full: 'Mẫu không dùng cho doanh nghiệp khác', short: 'Độc quyền' }],
 ];
@@ -254,7 +254,7 @@ function CmpValue({ cell }: { cell: CmpCell }) {
   return (
     <>
       <span className={cell.big ? 'lx-cmpt-big' : 'lx-cmpt-val'}>{text}</span>
-      {cell.sub && <span className="lx-cmpt-sub">{cell.sub}</span>}
+      {cell.sub && <span className="lx-cmpt-sub">{cell.subShort ? <><span className="lx-cmpt-lg">{cell.sub}</span><span className="lx-cmpt-sm">{cell.subShort}</span></> : cell.sub}</span>}
     </>
   );
 }
@@ -296,11 +296,11 @@ function Models() {
             {cols.map((c) => (
               <div key={c.kind} className="lx-cmpt-intro">
                 <div className="lx-cmpt-img"><img src={c.img} alt={c.alt} width={1200} height={900} loading="lazy" decoding="async" /></div>
-                <p className="lx-cmpt-say">{giftModels[c.kind].say}</p>
+                <p className="lx-cmpt-say"><span className="lx-cmpt-lg">{giftModels[c.kind].say}</span><span className="lx-cmpt-sm">{c.kind === 'ready' ? 'Có sẵn, thêm logo.' : 'Thiết kế riêng.'}</span></p>
                 {/* Nút là tín hiệu ưu tiên duy nhất còn lại: Set độc bản dùng nút đỏ đặc, Set sẵn nút viền */}
                 {c.kind === 'ready'
                   ? <a href="#set-san" className="lx-btn lx-btn-line">Xem Set sẵn</a>
-                  : <ZaloLink className="lx-btn lx-btn-red">Nhận tư vấn thiết kế</ZaloLink>}
+                  : <ZaloLink className="lx-btn lx-btn-red"><span className="lx-cmpt-lg">Nhận tư vấn thiết kế</span><span className="lx-cmpt-sm">Nhận tư vấn</span></ZaloLink>}
               </div>
             ))}
           </div>
@@ -471,7 +471,7 @@ function Moment() {
         <div className="lx-moment-img"><div ref={ref} className="lx-moment-art"><img src="/assets/set-san/van-loc-vinh-hoa.webp" alt="Set Vạn Lộc Vinh Hoa mở hai cánh, bên trong là rượu Chivas 18, socola, trà và bánh kẹo" width={1086} height={1448} loading="lazy" decoding="async" /></div></div>
         <Reveal className="lx-moment-txt">
           <p className="lx-eyebrow">Khoảnh khắc trao quà</p>
-          <h2 id="lx-moment-title">Món quà Tết không được nhớ vì giá.<br />Nó được nhớ vì người nhận<br /><em className="lx-serif">cảm thấy mình được trân quý.</em></h2>
+          <h2 id="lx-moment-title"><span className="lx-l">Món quà Tết không được nhớ vì giá.</span> <span className="lx-l">Nó được nhớ vì người nhận</span> <em className="lx-serif lx-l">cảm thấy mình được trân quý.</em></h2>
           <p>Đó là lý do BOND bắt đầu từ câu hỏi người nhận là ai, rồi mới đến chất liệu, cách hộp mở ra và những gì đặt bên trong.</p>
         </Reveal>
       </div>
@@ -485,13 +485,13 @@ function Cta() {
   return (
     <section className="lx-cta" aria-labelledby="lx-cta-title">
       <div className="lx-wrap">
-        {days > 0 && <Reveal><p className="lx-cta-days">Còn <strong>{days}</strong> ngày tới Tết Đinh Mùi</p></Reveal>}
+        {days > 0 && <Reveal><p className="lx-cta-days">Còn <strong>{days}</strong> ngày tới Tết<span className="lx-cta-lg"> Đinh Mùi</span></p></Reveal>}
         <Reveal><h2 id="lx-cta-title">Bây giờ là lúc bắt đầu.</h2></Reveal>
         <Reveal delay={1}><p>Tết Đinh Mùi rơi vào ngày 6 tháng 2 năm 2027.</p></Reveal>
         <Reveal delay={1}>
           <dl className="lx-cta-dl">
-            <div><dt>Set độc bản</dt><dd>Chốt đơn trước 15 tháng 12</dd></div>
-            <div><dt>Set sẵn</dt><dd>Chốt đơn trước 15 tháng 1</dd></div>
+            <div><dt>Set độc bản</dt><dd><span className="lx-cta-lg">Chốt đơn trước</span><span className="lx-cta-sm">Trước</span> 15 tháng 12</dd></div>
+            <div><dt>Set sẵn</dt><dd><span className="lx-cta-lg">Chốt đơn trước</span><span className="lx-cta-sm">Trước</span> 15 tháng 1</dd></div>
           </dl>
         </Reveal>
         <Reveal delay={2}><ZaloLink className="lx-btn lx-btn-white"><span>Tư vấn qua Zalo</span><ArrowUp /></ZaloLink></Reveal>
