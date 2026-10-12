@@ -487,7 +487,7 @@ function Cta() {
       <div className="lx-wrap">
         {days > 0 && <Reveal><p className="lx-cta-days">Còn <strong>{days}</strong> ngày tới Tết<span className="lx-cta-lg"> Đinh Mùi</span></p></Reveal>}
         <Reveal><h2 id="lx-cta-title">Bây giờ là lúc bắt đầu.</h2></Reveal>
-        <Reveal delay={1}><p>Tết Đinh Mùi rơi vào ngày 6 tháng 2 năm 2027.</p></Reveal>
+        <Reveal delay={1}><p>Tết Đinh Mùi rơi vào ngày <span className="lx-nowrap">6 tháng 2 năm 2027.</span></p></Reveal>
         <Reveal delay={1}>
           <dl className="lx-cta-dl">
             <div><dt>Set độc bản</dt><dd><span className="lx-cta-lg">Chốt đơn trước</span><span className="lx-cta-sm">Trước</span> 15 tháng 12</dd></div>
