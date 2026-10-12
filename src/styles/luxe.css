@@ -464,7 +464,7 @@
 .lx-bp-hero { padding: calc(var(--lx-nav-h) + clamp(28px, 4vw, 56px)) 0 clamp(40px, 5vw, 72px); }
 .lx-bp-hero-in { max-width: 760px; }
 .lx-bp h1 { margin-top: 16px; font-family: var(--font-display); font-size: clamp(40px, 5.4vw, 76px); font-weight: 600; line-height: 1; letter-spacing: -0.04em; }
-.lx-bp h1 span { display: block; margin-top: 12px; font-family: var(--font-sans, inherit); font-size: clamp(17px, 1.5vw, 21px); font-weight: 400; letter-spacing: 0; line-height: 1.4; color: var(--lx-muted); font-variant-numeric: tabular-nums; }
+.lx-bp h1 span { display: block; margin-top: 12px; font-family: var(--font-sans, inherit); font-size: clamp(17px, 1.5vw, 21px); font-weight: 500; letter-spacing: 0; line-height: 1.4; color: var(--lx-ink); font-variant-numeric: tabular-nums; }
 .lx-bp-meta { margin-top: 10px; font-size: 15.5px; color: var(--lx-muted); }
 .lx-bp-tiers { display: flex; flex-wrap: wrap; gap: 4px 28px; margin-top: 28px; border-bottom: 1px solid var(--lx-line); font-size: 14px; font-weight: 500; font-variant-numeric: tabular-nums; }
 .lx-bp-tiers a { margin-bottom: -1px; padding: 10px 0 12px; border-bottom: 2px solid transparent; color: var(--lx-muted); transition: color 0.3s var(--lx-ease), border-color 0.3s var(--lx-ease); }
@@ -500,6 +500,15 @@
 /* Mẫu thiết kế riêng (1 đến 3 ảnh ngang): giữ đúng tỷ lệ ảnh, không cắt */
 .lx-bp-pair .lx-bp-items { grid-template-columns: repeat(2, 1fr); }
 .lx-bp-pair-1 .lx-bp-items { grid-template-columns: 1fr; max-width: 66%; }
+/* Mẫu riêng: ảnh 2/3 bên trái, danh sách phối màu 1/3 bên phải */
+.lx-bp-solo { display: grid; grid-template-columns: 2fr 1fr; gap: clamp(24px, 4vw, 64px); align-items: start; }
+.lx-bp-solo .lx-bp-pair-1 .lx-bp-items { max-width: none; }
+.lx-bp-sw-h { padding-bottom: 14px; border-bottom: 1px solid var(--lx-line); font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--lx-muted); }
+.lx-bp-swatches li { display: flex; align-items: baseline; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--lx-line); font-size: 16px; }
+.lx-bp-swatches button { font-weight: 500; text-align: left; transition: color 0.3s var(--lx-ease); }
+.lx-bp-swatches button:hover { color: var(--lx-red); }
+.lx-bp-swatches .is-pending { font-size: 14.5px; color: var(--lx-muted); font-style: italic; }
+@media (max-width: 860px) { .lx-bp-solo { grid-template-columns: 1fr; } }
 .lx-bp-pair .lx-bp-item .lx-bp-shot { aspect-ratio: 1264 / 848; }
 .lx-bp-scene { margin-top: clamp(16px, 1.6vw, 24px); }
 .lx-bp-scene .lx-bp-shot { aspect-ratio: 21 / 8; }

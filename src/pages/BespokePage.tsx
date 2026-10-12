@@ -11,6 +11,8 @@ import { SpecList } from '@/pages/ReadySetPage';
 import { ProcessLink, ProcessSteps } from '@/components/bond/ProcessSteps';
 
 const pad = (n: number) => String(n).padStart(2, '0');
+/** "Bộ sưu tập thiết yếu" thành "Thiết yếu" cho tab chọn mức. */
+const shortName = (name: string) => { const s = name.replace(/^Bộ sưu tập /, ''); return s.charAt(0).toUpperCase() + s.slice(1); };
 
 function Shot({ img, className, onOpen, i, caption, priority }: { img: BespokeImage; className: string; onOpen: () => void; i: number; caption?: boolean; priority?: boolean }) {
   return (
@@ -42,11 +44,29 @@ function Collection({ col, no, unit, first }: { col: BespokeCollection; no: numb
         <h2 id={`lx-bp-col-${no}`}>{col.name}</h2>
       </div>
       <div ref={ref} className={`lx-bp-reveal${inView ? ' is-in' : ''}`}>
-        <div className={col.cover ? 'lx-bp-grid' : col.items.length >= 4 ? 'lx-bp-row' : `lx-bp-pair lx-bp-pair-${col.items.length}`}>
-          {col.cover && <Shot img={col.cover} i={0} className="lx-bp-cover" onOpen={() => setShot(at(col.cover!))} priority={first} />}
-          <div className="lx-bp-items">
-            {col.items.map((img, i) => <Shot key={img.src} img={img} i={i + 1} caption className="lx-bp-item" onOpen={() => setShot(at(img))} priority={first && !col.cover} />)}
+        <div className={col.colorways ? 'lx-bp-solo' : undefined}>
+          <div className={col.cover ? 'lx-bp-grid' : col.items.length >= 4 ? 'lx-bp-row' : `lx-bp-pair lx-bp-pair-${col.items.length}`}>
+            {col.cover && <Shot img={col.cover} i={0} className="lx-bp-cover" onOpen={() => setShot(at(col.cover!))} priority={first} />}
+            <div className="lx-bp-items">
+              {col.items.map((img, i) => <Shot key={img.src} img={img} i={i + 1} caption className="lx-bp-item" onOpen={() => setShot(at(img))} priority={first && !col.cover} />)}
+            </div>
           </div>
+          {/* Mẫu riêng chưa đủ ảnh: cột phải liệt kê đủ các phối màu, phối màu chưa có ảnh ghi rõ */}
+          {col.colorways && (
+            <aside className="lx-bp-swatches" aria-label={`Các phối màu của ${col.name}`}>
+              <p className="lx-bp-sw-h">{col.colorways} phối màu</p>
+              <ol>
+                {Array.from({ length: col.colorways }, (_, i) => col.items[i]).map((img, i) => (
+                  <li key={i}>
+                    <span className="lx-cmp-step-n">{pad(i + 1)}</span>
+                    {img
+                      ? <button type="button" onClick={() => setShot(at(img))}>{img.name}</button>
+                      : <span className="is-pending">Ảnh {pendingSpec.toLowerCase()}</span>}
+                  </li>
+                ))}
+              </ol>
+            </aside>
+          )}
         </div>
         {col.scene && <Shot img={col.scene} i={col.items.length + 1} caption className="lx-bp-scene" onOpen={() => setShot(at(col.scene!))} />}
       </div>
@@ -81,15 +101,15 @@ export function BespokePage() {
               <span aria-hidden="true">/</span>
               <Link href="/#set-doc-ban">Set độc bản</Link>
               <span aria-hidden="true">/</span>
-              <span aria-current="page">{tier.money}</span>
+              <span aria-current="page">{tier.name}</span>
             </nav>
             <div className="lx-bp-hero-in">
-              <p className="lx-eyebrow">{tier.name}</p>
-              <h1 id="lx-bp-title">Set độc bản <span>ngân sách {tier.money} mỗi set</span></h1>
+              <p className="lx-eyebrow">Set độc bản</p>
+              <h1 id="lx-bp-title">{tier.name} <span>{tier.money} / set</span></h1>
               <p className="lx-bp-meta">{tier.meta}</p>
               <nav className="lx-bp-tiers" aria-label="Các mức ngân sách">
                 {bespokeTiers.map((t) => (
-                  <Link key={t.slug} href={`/set-doc-ban/${t.slug}`} className={t.slug === tier.slug ? 'is-current' : undefined} aria-current={t.slug === tier.slug ? 'page' : undefined}>{t.money}</Link>
+                  <Link key={t.slug} href={`/set-doc-ban/${t.slug}`} className={t.slug === tier.slug ? 'is-current' : undefined} aria-current={t.slug === tier.slug ? 'page' : undefined}>{shortName(t.name)} · {t.money}</Link>
                 ))}
               </nav>
               <SpecList rows={[['Thành phần', tier.contents], ['Hộp', tier.box], ['Túi', orderTerms.bag], moq, ['VAT và vận chuyển', orderTerms.vat], ['Thanh toán', orderTerms.pay]]} />
