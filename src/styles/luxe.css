@@ -628,6 +628,7 @@
   .lx-moment-txt h2 .lx-l { display: inline; }
 }
 .lx-cta-sm { display: none; }
+.lx-nowrap { white-space: nowrap; }
 @media (max-width: 860px) { .lx-cta-sm { display: inline; } }
 /* Tiêu đề nhiều dòng: chia đều độ dài các dòng, tránh một chữ rơi lẻ xuống dòng cuối */
 .lx-moment-txt h2, .lx-cta h2, .lx-cmp-head h2 { text-wrap: balance; }
