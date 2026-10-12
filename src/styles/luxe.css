@@ -283,6 +283,10 @@
 .lx-sec-head { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 36px; margin-bottom: clamp(48px, 6vw, 80px); }
 .lx-sec-head h2 { margin-top: 14px; }
 .lx-sec-head .lx-lead { max-width: 480px; }
+/* Dòng thông tin ngắn dưới tiêu đề khối: các ý cách nhau bằng dấu chấm giữa */
+.lx-sec-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; margin-top: 16px; font-size: clamp(15px, 1.2vw, 17px); font-weight: 500; color: var(--lx-ink); }
+.lx-sec-meta i { font-style: normal; color: var(--lx-red); }
+@media (max-width: 480px) { .lx-sec-meta { flex-direction: column; align-items: flex-start; gap: 2px; } .lx-sec-meta i { display: none; } }
 
 /* Set sẵn */
 .lx-ready { background: var(--lx-card); border-top: 1px solid var(--lx-line); }
