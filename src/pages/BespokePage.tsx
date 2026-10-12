@@ -119,8 +119,8 @@ export function BespokePage() {
 
         <section className="lx-cta" aria-labelledby="lx-bp-cta">
           <div className="lx-wrap">
-            <Reveal><h2 id="lx-bp-cta">Chọn hướng thiết kế,<br />BOND làm riêng cho bạn.</h2></Reveal>
-            <Reveal delay={1}><p>Khoảng 8 tuần từ brief đến giao hàng, có mẫu thật để duyệt và nếm thử trước khi sản xuất.</p></Reveal>
+            <Reveal><h2 id="lx-bp-cta">Chọn hướng thiết kế,<br />BOND làm riêng cho anh chị.</h2></Reveal>
+            <Reveal delay={1}><p>Khoảng 8 tuần từ khi nhận yêu cầu đến giao hàng, có mẫu thật để duyệt và nếm thử trước khi sản xuất.</p></Reveal>
             <Reveal delay={2}><ZaloLink className="lx-btn lx-btn-white">Tư vấn qua Zalo</ZaloLink></Reveal>
           </div>
         </section>

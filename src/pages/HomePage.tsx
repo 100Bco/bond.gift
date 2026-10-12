@@ -235,7 +235,7 @@ function LogoStrip() {
 /** Một ô giá trị trong bảng so sánh: full là chữ đầy đủ, short là bản rút gọn hiện dưới 480px. null là "không có". */
 type CmpCell = { full: string; short?: string; big?: boolean; sub?: string } | null;
 const cmpRows: [string, CmpCell, CmpCell][] = [
-  ['Thời gian hoàn thành', { full: '2 tuần', big: true, sub: 'từ lúc chốt mẫu' }, { full: '8 tuần', big: true, sub: 'từ brief đến giao hàng' }],
+  ['Thời gian hoàn thành', { full: '2 tuần', big: true, sub: 'từ lúc chốt mẫu' }, { full: '8 tuần', big: true, sub: 'từ khi nhận yêu cầu đến giao hàng' }],
   ['Số lượng tối thiểu', { full: '10 set', big: true }, { full: '300 set', big: true }],
   ['Hạn chốt đơn cuối cùng', { full: '15 tháng 1', sub: 'để kịp giao trước Tết' }, { full: '15 tháng 12', sub: 'để kịp thiết kế và sản xuất' }],
   ['Xem mẫu trước khi đặt', { full: 'Mẫu thật, xem ngay' }, { full: 'Sau khi duyệt thiết kế' }],
@@ -244,7 +244,7 @@ const cmpRows: [string, CmpCell, CmpCell][] = [
   ['Chọn chất liệu và gia công', { full: 'Theo mẫu' }, { full: 'Tự chọn' }],
   ['Ruột quà', { full: 'Theo cấu hình có sẵn', short: 'Cấu hình sẵn' }, { full: 'Tuyển chọn theo yêu cầu' }],
   ['Nếm thử trước khi chốt', null, { full: 'Gửi hộp mẫu tận nơi để nếm thử', short: 'Hộp mẫu tận nơi' }],
-  ['Độc quyền thiết kế', null, { full: 'Mẫu không dùng cho khách khác', short: 'Độc quyền' }],
+  ['Độc quyền thiết kế', null, { full: 'Mẫu không dùng cho doanh nghiệp khác', short: 'Độc quyền' }],
 ];
 
 function CmpValue({ cell }: { cell: CmpCell }) {
@@ -286,8 +286,8 @@ function Models() {
       <div className="lx-wrap">
         <Reveal className="lx-cmp-head">
           <p className="lx-eyebrow">Hai cách đặt quà</p>
-          <h2 id="lx-cmp-title">Hai cách để BOND làm quà<br />cho thương hiệu của bạn</h2>
-          <p className="lx-lead">Cùng một đội ngũ, cùng một chuẩn hoàn thiện. Khác nhau ở mức độ bạn muốn món quà mang dấu ấn riêng đến đâu.</p>
+          <h2 id="lx-cmp-title">Hai cách để BOND làm quà<br />cho thương hiệu của anh chị</h2>
+          <p className="lx-lead">Cùng một đội ngũ, cùng một chuẩn hoàn thiện. Khác nhau ở mức độ anh chị muốn món quà mang dấu ấn riêng đến đâu.</p>
         </Reveal>
         <div className="lx-cmpt" role="table" aria-label="So sánh Set sẵn và Set độc bản">
           <div className="lx-cmpt-head" role="row">
@@ -397,7 +397,7 @@ function ReadySets() {
             <p className="lx-eyebrow">Mô hình 01</p>
             <h2 id="lx-ready-title">Set sẵn</h2>
           </div>
-          <p className="lx-lead">Giao trong hai tuần. Logo thương hiệu của anh chị được in UV lên hộp và thiệp. Không cần thiết kế lại từ đầu.</p>
+          <p className="lx-lead">Giao trong 2 tuần. Logo thương hiệu của anh chị được in UV lên nắp hộp. Không cần thiết kế lại từ đầu.</p>
         </Reveal>
         <div ref={gridRef} className="lx-cards lx-stair">
           {readySets.map((set) => (
@@ -426,7 +426,7 @@ function Bespoke() {
             <h2 id="lx-custom-title">Set độc bản</h2>
             <div className="lx-disc">
               <span className="lx-cross" aria-hidden="true" />
-              <p>Mỗi mẫu dưới đây là một hướng thiết kế để bắt đầu. BOND và ZAD sẽ phát triển kết cấu hộp và trải nghiệm mở hộp riêng cho thương hiệu của anh chị, không dùng lại cho bất kỳ khách nào khác.</p>
+              <p>Mỗi mẫu dưới đây là một hướng thiết kế để bắt đầu. BOND và ZAD sẽ phát triển kết cấu hộp và trải nghiệm mở hộp riêng cho thương hiệu của anh chị, không dùng lại cho bất kỳ doanh nghiệp nào khác.</p>
             </div>
           </div>
           <p className="lx-lead">Chọn mức ngân sách của anh chị để xem các hướng thiết kế tương ứng.</p>

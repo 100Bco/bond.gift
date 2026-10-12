@@ -90,11 +90,11 @@ export function ReadySetPage() {
                 <p className="lx-eyebrow">Set sẵn · {set.code}</p>
                 <h1 id="lx-sd-title">{set.name}</h1>
                 <p className="lx-sd-price">{set.price}</p>
-                <p className="lx-lead">{set.contents}</p>
-                <SpecList rows={[time, moq, ['Kích thước hộp', set.boxSize], ['Trọng lượng', pendingSpec], ['Hạn sử dụng', pendingSpec]]} />
+                <p className="lx-lead">{set.desc}</p>
+                <SpecList rows={[['Kích thước hộp', set.boxSize], moq, time, ['Trọng lượng', pendingSpec], ['Hạn sử dụng', pendingSpec]]} />
                 <div className="lx-sd-logo">
                   <h2 className="lx-sd-logo-t">Logo của anh chị</h2>
-                  <p>Logo được in UV ở giữa nắp hộp và mặt trước thiệp. Anh chị gửi file logo dạng vector (AI, PDF hoặc SVG). BOND gửi maket để anh chị duyệt trước khi sản xuất.</p>
+                  <p>Logo được in UV ở giữa nắp hộp. Anh chị gửi file logo dạng vector (AI, PDF hoặc SVG). BOND gửi maket để anh chị duyệt trước khi sản xuất.</p>
                   <p className="lx-sd-logo-gift">{orderTerms.readyGift}</p>
                 </div>
                 <div className="lx-sd-actions">
@@ -124,12 +124,13 @@ export function ReadySetPage() {
             <div className="lx-sd-side">
               <p className="lx-eyebrow">Thành phần</p>
               <h2 id="lx-sd-in">Trong hộp có gì</h2>
-              <p className="lx-sd-note">Có thể đổi món theo menu sẵn có của BOND.</p>
+              <p className="lx-sd-note">Có thể đổi món theo danh sách món sẵn có của BOND.</p>
             </div>
             <ol ref={itemsRef} className="lx-sd-items">
               {set.items.map((item, i) => (
                 <li key={item.name} className="lx-sd-item">
                   <span className="lx-cmp-step-n">{pad(i + 1)}</span>
+                  <img className="lx-sd-item-img" src={`/assets/set-san/items/${set.slug}-${i + 1}.webp`} alt="" width={160} height={160} loading="lazy" decoding="async" />
                   <div>
                     <p className="lx-sd-item-t">{item.name}</p>
                     <p className="lx-sd-item-d">{item.qty.endsWith('ml') ? 'Dung tích' : 'Khối lượng'}: {item.qty}</p>
@@ -145,11 +146,11 @@ export function ReadySetPage() {
           <div className="lx-wrap lx-sd-pair">
             <div>
               <h2 className="lx-sd-h">Thông số hộp</h2>
-              <SpecList rows={[['Loại hộp', set.boxType], ['Kích thước', set.boxSize], ['Túi', orderTerms.bag], ['Trọng lượng cả set', pendingSpec], ['Màu sắc', pendingSpec]]} />
+              <SpecList rows={[['Loại hộp', set.boxType], ['Túi', orderTerms.bag], ['Màu sắc', pendingSpec]]} />
             </div>
             <div>
               <h2 className="lx-sd-h">Thông tin đặt hàng</h2>
-              <SpecList rows={[['Giá', set.price], ['VAT và vận chuyển', orderTerms.vat], ['Thanh toán', orderTerms.pay], moq, time, ['Giao hàng', 'Một điểm hoặc nhiều điểm theo danh sách người nhận']]} />
+              <SpecList rows={[['Giá', set.price], ['VAT và vận chuyển', orderTerms.vat], ['Thanh toán', orderTerms.pay], ['Giao hàng', 'Một điểm hoặc nhiều điểm theo danh sách người nhận']]} />
             </div>
           </div>
         </section>
@@ -177,14 +178,14 @@ export function ReadySetPage() {
           <div className="lx-wrap">
             <h2 id="lx-sd-more" className="lx-sd-h">Các set khác</h2>
             <div className="lx-sd-others">
-              {others.map((o, i) => (
-                <Link key={o.slug} href={`/set-san/${o.slug}`} className="lx-sd-other">
-                  <span className="lx-sd-other-img"><img src={o.photo} alt="" width={144} height={180} loading="lazy" decoding="async" /></span>
-                  <span className="lx-sd-other-txt">
-                    <span className="lx-sd-other-name">{o.name}</span>
-                    <span className="lx-sd-other-price">{o.price}</span>
-                  </span>
-                  <span className="lx-sd-other-go" aria-hidden="true">→</span>
+              {others.map((o) => (
+                <Link key={o.slug} href={`/set-san/${o.slug}`} className="lx-card">
+                  <div className="lx-card-img">
+                    <span className="lx-card-box"><img src={o.photo} alt={`Set sẵn ${o.name}`} width={1200} height={1500} loading="lazy" decoding="async" /></span>
+                    <span className="lx-peek" aria-hidden="true">Xem chi tiết<i>→</i></span>
+                  </div>
+                  <h3 className="lx-card-name">{o.name}</h3>
+                  <p className="lx-card-price">{o.price}</p>
                 </Link>
               ))}
             </div>
@@ -194,7 +195,7 @@ export function ReadySetPage() {
         {/* 7. Liên hệ */}
         <section className="lx-cta" aria-labelledby="lx-sd-cta">
           <div className="lx-wrap">
-            <h2 id="lx-sd-cta">Đặt set {set.name}<br />cho doanh nghiệp của bạn.</h2>
+            <h2 id="lx-sd-cta">Đặt set {set.name}<br />cho doanh nghiệp của anh chị.</h2>
             <p>Từ 10 set, khoảng 2 tuần từ khi chốt đến khi giao. BOND gửi maket in logo để anh chị duyệt trước khi sản xuất.</p>
             <div><ZaloLink className="lx-btn lx-btn-white">Tư vấn qua Zalo</ZaloLink></div>
           </div>

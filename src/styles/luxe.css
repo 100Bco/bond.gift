@@ -397,19 +397,12 @@
 .lx-sd-note { margin-top: 16px; font-size: 15px; color: var(--lx-muted); }
 .lx-sd-items, .lx-sd-steps { border-top: 1px solid var(--lx-line); }
 .lx-sd-item { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--lx-line); }
+.lx-sd-item-img { flex: none; width: 56px; height: 56px; margin-top: -8px; border-radius: 50%; object-fit: cover; background: var(--lx-card); }
 .lx-sd-item-t { font-size: 17px; font-weight: 500; line-height: 1.45; }
 .lx-sd-item-d { margin-top: 4px; font-size: 14.5px; color: var(--lx-muted); }
 .lx-sd-pair { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 96px); align-items: start; }
 .lx-sd-h { margin-bottom: 24px; font-size: clamp(24px, 2.4vw, 34px) !important; }
-.lx-sd-others { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 clamp(24px, 3vw, 48px); border-top: 1px solid var(--lx-line); }
-.lx-sd-other { display: flex; align-items: center; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--lx-line); }
-.lx-sd-other-img { flex: none; display: flex; align-items: center; justify-content: center; width: 72px; aspect-ratio: 4 / 5; background: var(--lx-paper); }
-.lx-sd-other-img svg { width: 70%; height: auto; }
-.lx-sd-other-txt { display: flex; flex-direction: column; gap: 4px; }
-.lx-sd-other-name { font-family: var(--font-display); font-size: 19px; font-weight: 600; letter-spacing: -0.02em; }
-.lx-sd-other-price { font-size: 14px; color: var(--lx-muted); font-variant-numeric: tabular-nums; }
-.lx-sd-other-go { margin-left: auto; transition: transform 0.5s var(--lx-ease), color 0.3s var(--lx-ease); }
-.lx-sd-other:hover .lx-sd-other-go { transform: translateX(6px); color: var(--lx-red); }
+.lx-sd-others { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2.4vw, 36px); }
 .lx-sd-more { padding: clamp(56px, 7vw, 96px) 0; }
 .lx-wrap-wide { max-width: 1480px; }
 
@@ -453,9 +446,6 @@
 .lx-sd-steps .lx-sd-item.is-lit::before { background: var(--lx-red); border-color: var(--lx-red); }
 .lx-sd-steps .lx-sd-item.is-lit .lx-cmp-step-n { color: var(--lx-red); }
 /* Các set khác: rê chuột thì ảnh nhỏ phóng to */
-.lx-sd-other-img { overflow: hidden; }
-.lx-sd-other-img img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--lx-ease); }
-.lx-sd-other:hover .lx-sd-other-img img { transform: scale(1.08); }
 @media (prefers-reduced-motion: reduce) {
   .lx-sd-intro > *, .lx-bp-hero-in > * { animation: none; }
   .lx-bp-reveal .lx-bp-fig { opacity: 1; transform: none; transition: none; }
@@ -528,7 +518,9 @@
 @media (max-width: 1024px) {
   .lx-cards { grid-template-columns: repeat(2, 1fr); }
   .lx-sd-hero-grid, .lx-sd-split, .lx-sd-pair { grid-template-columns: 1fr; }
-  .lx-sd-others { grid-template-columns: 1fr; }
+  .lx-sd-others { gap: 12px; }
+  .lx-sd-others .lx-card-name { font-size: 15px; }
+  .lx-sd-others .lx-card-price { font-size: 13px; }
   .lx-moment-grid { grid-template-columns: 1fr; gap: 48px; }
   .lx-moment-img { max-height: 50vh; aspect-ratio: auto; height: 50vh; }
 }
