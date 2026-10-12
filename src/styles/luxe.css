@@ -353,8 +353,16 @@
 .lx-cta { position: relative; overflow: hidden; padding: clamp(96px, 11vw, 160px) 0; background: #DB0D3E; color: #FFFFFF; text-align: center; }
 .lx-cta .lx-wrap { position: relative; }
 .lx-cta h2 { font-size: clamp(34px, 5vw, 68px); letter-spacing: -0.03em; }
-.lx-cta p { max-width: 620px; margin: 24px auto 0; font-size: 17px; line-height: 1.65; color: rgba(255, 255, 255, 0.9); }
+.lx-cta p { max-width: 620px; margin: 24px auto 0; font-size: 18px; line-height: 1.65; color: rgba(255, 255, 255, 0.9); }
 .lx-cta .lx-btn { margin-top: 42px; }
+/* Trang chủ: dòng đếm ngày phía trên tiêu đề và hai hạn chốt đơn */
+.lx-cta .lx-cta-days { display: inline-flex; align-items: baseline; gap: 6px; margin: 0 0 28px; padding: 7px 16px; border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 999px; font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #FFFFFF; }
+.lx-cta-days strong { font-size: 15px; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
+.lx-cta-dl { display: flex; justify-content: center; margin-top: 28px; }
+.lx-cta-dl > div { padding: 4px clamp(20px, 4vw, 48px); }
+.lx-cta-dl > div + div { border-left: 1px solid rgba(255, 255, 255, 0.4); }
+.lx-cta-dl dt { font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.75); }
+.lx-cta-dl dd { margin-top: 8px; font-family: var(--font-display); font-size: clamp(17px, 1.7vw, 22px); font-weight: 600; letter-spacing: -0.01em; }
 
 /* ---------- Trang chi tiết set sẵn (/set-san/:slug) ---------- */
 .lx-sd { background: var(--lx-paper); }

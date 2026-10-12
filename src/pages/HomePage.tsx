@@ -480,11 +480,20 @@ function Moment() {
 }
 
 function Cta() {
+  // Số ngày còn lại tới Tết, tự đếm lùi theo ngày; qua Tết thì ẩn dòng này.
+  const days = Math.ceil((TET.getTime() - Date.now()) / 86400000);
   return (
     <section className="lx-cta" aria-labelledby="lx-cta-title">
       <div className="lx-wrap">
+        {days > 0 && <Reveal><p className="lx-cta-days">Còn <strong>{days}</strong> ngày tới Tết Đinh Mùi</p></Reveal>}
         <Reveal><h2 id="lx-cta-title">Bây giờ là lúc bắt đầu.</h2></Reveal>
-        <Reveal delay={1}><p>Tết Đinh Mùi rơi vào ngày 6 tháng 2 năm 2027. Set độc bản cần khoảng 8 tuần, trong đó anh chị được duyệt mẫu thật và nếm thử trước khi sản xuất.</p></Reveal>
+        <Reveal delay={1}><p>Tết Đinh Mùi rơi vào ngày 6 tháng 2 năm 2027.</p></Reveal>
+        <Reveal delay={1}>
+          <dl className="lx-cta-dl">
+            <div><dt>Set độc bản</dt><dd>Chốt đơn trước 15 tháng 12</dd></div>
+            <div><dt>Set sẵn</dt><dd>Chốt đơn trước 15 tháng 1</dd></div>
+          </dl>
+        </Reveal>
         <Reveal delay={2}><ZaloLink className="lx-btn lx-btn-white"><span>Tư vấn qua Zalo</span><ArrowUp /></ZaloLink></Reveal>
       </div>
     </section>
