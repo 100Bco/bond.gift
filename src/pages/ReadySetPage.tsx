@@ -1,13 +1,14 @@
 import { useCallback, useRef, useState } from 'react';
 import { Link, useRoute } from 'wouter';
-import { giftModels, giftProcesses, orderTerms, pendingSpec, readySets } from '@/data/content';
+import { giftModels, orderTerms, pendingSpec, readySets } from '@/data/content';
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { usePrefersReducedMotion } from '@/hooks/use-in-view';
-import { clamp01, useScrollFx } from '@/hooks/use-scroll-fx';
+import { useScrollFx } from '@/hooks/use-scroll-fx';
 import { ZaloLink } from '@/components/bond/ZaloLink';
 import { SetArt } from '@/components/bond/GiftArt';
 import { NotFoundPage } from '@/pages/UtilityPages';
 import { Lightbox } from '@/components/bond/Lightbox';
+import { ProcessLink, ProcessSteps } from '@/components/bond/ProcessSteps';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -35,7 +36,6 @@ export function ReadySetPage() {
   const reduced = usePrefersReducedMotion();
   const shotsRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<HTMLOListElement>(null);
-  const stepsRef = useRef<HTMLOListElement>(null);
 
   // Chuyển động bám theo thanh cuộn: cuộn ngược thì chạy ngược, không lặp lại kiểu "hiện dần".
   useScrollFx(() => {
@@ -52,21 +52,12 @@ export function ReadySetPage() {
     // Trong hộp có gì: số thứ tự đổi từ xám sang đỏ lần lượt khi món cuộn qua 70% chiều cao màn hình.
     const list = itemsRef.current;
     if (list) for (const li of list.children) li.classList.toggle('is-lit', li.getBoundingClientRect().top + 28 < vh * 0.7);
-    // Quy trình: đường dọc đổ đỏ theo thanh cuộn, chạm bước nào thì bước đó sáng lên.
-    const steps = stepsRef.current;
-    if (steps) {
-      const r = steps.getBoundingClientRect();
-      const p = clamp01((vh * 0.6 - r.top) / r.height);
-      steps.style.setProperty('--p', p.toFixed(4));
-      for (const li of steps.querySelectorAll<HTMLElement>('.lx-sd-item')) li.classList.toggle('is-lit', li.offsetTop + 28 <= p * r.height);
-    }
   }, !reduced, [params?.slug]);
 
   const close = useCallback(() => setShot(null), []);
   const move = useCallback((step: number) => setShot((i) => (i === null ? i : (i + step + galleryShots.length) % galleryShots.length)), []);
   if (!set) return <NotFoundPage />;
   const others = readySets.filter((s) => s.slug !== set.slug);
-  const steps = giftProcesses.ready.steps;
   const [time, moq] = giftModels.ready.specs;
 
   return (
@@ -99,7 +90,7 @@ export function ReadySetPage() {
                 </div>
                 <div className="lx-sd-actions">
                   <ZaloLink className="lx-btn lx-btn-red">Tư vấn qua Zalo</ZaloLink>
-                  <Link href="/#quy-trinh" className="lx-sd-textlink">Xem quy trình <span aria-hidden="true">→</span></Link>
+                  <ProcessLink />
                 </div>
               </div>
             </div>
@@ -156,22 +147,7 @@ export function ReadySetPage() {
         </section>
 
         {/* 5. Quy trình */}
-        <section className="lx-sec lx-sd-sec" aria-labelledby="lx-sd-steps">
-          <div className="lx-wrap lx-sd-split">
-            <div className="lx-sd-side">
-              <p className="lx-eyebrow">Khoảng 2 tuần</p>
-              <h2 id="lx-sd-steps">Quy trình {steps.length} bước</h2>
-            </div>
-            <ol ref={stepsRef} className="lx-sd-steps">
-              {steps.map(([t, desc], i) => (
-                <li key={t} className="lx-sd-item">
-                  <span className="lx-cmp-step-n">{pad(i + 1)}</span>
-                  <div><p className="lx-sd-item-t">{t}</p><p className="lx-sd-item-d">{desc}</p></div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
+        <ProcessSteps kind="ready" eyebrow="Khoảng 2 tuần" />
 
         {/* 6. Các set còn lại */}
         <section className="lx-sec lx-sd-sec lx-sd-soft lx-sd-more" aria-labelledby="lx-sd-more">

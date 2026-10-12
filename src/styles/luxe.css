@@ -222,6 +222,8 @@
 /* Hai mô hình: bảng so sánh kiểu Apple, không card, không nền, chỉ đường kẻ ngang 1px */
 .lx-cmpt { --cg: clamp(20px, 5vw, 64px); max-width: 1180px; margin: 0 auto; }
 .lx-cmpt-head, .lx-cmpt-top, .lx-cmpt-row { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--cg); }
+/* html đã có scroll-padding-top = --header-h + 16px; cộng thêm phần còn thiếu để dòng nằm ngay dưới hàng tên dính (cao khoảng 84px) */
+#quy-trinh-buoc { scroll-margin-top: calc(var(--lx-nav-h) + 84px - var(--header-h) - 16px); }
 .lx-cmpt-head { position: sticky; top: var(--lx-nav-h); z-index: 5; padding: 18px 0 14px; background: var(--lx-paper); border-bottom: 1px solid var(--lx-line); }
 .lx-cmpt-name { font-size: clamp(20px, 2.2vw, 30px); letter-spacing: -0.02em; text-align: center; }
 .lx-cmpt-top { padding: clamp(24px, 3vw, 36px) 0 clamp(30px, 3.4vw, 44px); }
