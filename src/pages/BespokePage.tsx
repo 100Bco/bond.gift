@@ -1,4 +1,4 @@
-import { useCallback, useState, type CSSProperties } from 'react';
+import { useCallback, useState, type CSSProperties, type MouseEvent } from 'react';
 import { useInView } from '@/hooks/use-in-view';
 import { Link, useRoute } from 'wouter';
 import { bespokeTiers, giftModels, orderTerms, pendingSpec, type BespokeCollection, type BespokeImage } from '@/data/content';
@@ -11,8 +11,13 @@ import { SpecList } from '@/pages/ReadySetPage';
 import { ProcessLink, ProcessSteps } from '@/components/bond/ProcessSteps';
 
 const pad = (n: number) => String(n).padStart(2, '0');
-/** "Bộ sưu tập thiết yếu" thành "Thiết yếu" cho tab chọn mức. */
-const shortName = (name: string) => { const s = name.replace(/^Bộ sưu tập /, ''); return s.charAt(0).toUpperCase() + s.slice(1); };
+/** Cuộn mượt tới bộ sưu tập trong cùng trang, không thêm # vào đường dẫn. */
+const jump = (e: MouseEvent<HTMLAnchorElement>) => {
+  const el = document.getElementById(e.currentTarget.hash.slice(1));
+  if (!el) return;
+  e.preventDefault();
+  el.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+};
 
 function Shot({ img, className, onOpen, i, caption, priority }: { img: BespokeImage; className: string; onOpen: () => void; i: number; caption?: boolean; priority?: boolean }) {
   return (
@@ -38,7 +43,7 @@ function Collection({ col, no, unit, first }: { col: BespokeCollection; no: numb
   const move = useCallback((step: number) => setShot((i) => (i === null ? i : (i + step + images.length) % images.length)), [images.length]);
   const at = (img: BespokeImage) => images.indexOf(img);
   return (
-    <section className="lx-bp-col" aria-labelledby={`lx-bp-col-${no}`}>
+    <section id={`bst-${no}`} className="lx-bp-col" aria-labelledby={`lx-bp-col-${no}`}>
       <div className="lx-bp-col-head">
         <p className="lx-eyebrow">{unit} {pad(no)}</p>
         <h2 id={`lx-bp-col-${no}`}>{col.name}</h2>
@@ -90,6 +95,9 @@ export function BespokePage() {
   const ready = tier.collections.filter((c) => c.items.length);
   const waiting = tier.collections.filter((c) => !c.items.length);
   const [, moq] = giftModels.bespoke.specs;
+  // Mục lục theo đúng thứ tự trên trang: bộ có ảnh trước, bộ chưa có ảnh sau.
+  const toc = [...ready, ...waiting];
+  const others = bespokeTiers.filter((t) => t.slug !== tier.slug);
 
   return (
     <SiteShell>
@@ -103,21 +111,41 @@ export function BespokePage() {
               <span aria-hidden="true">/</span>
               <span aria-current="page">{tier.name}</span>
             </nav>
+            <div className="lx-bp-hero-grid">
             <div className="lx-bp-hero-in">
               <p className="lx-eyebrow">Set độc bản</p>
               <h1 id="lx-bp-title">{tier.name} <span>{tier.money} / set</span></h1>
               <p className="lx-bp-meta">{tier.meta}</p>
-              <nav className="lx-bp-tiers" aria-label="Các mức ngân sách">
-                {bespokeTiers.map((t) => (
-                  <Link key={t.slug} href={`/set-doc-ban/${t.slug}`} className={t.slug === tier.slug ? 'is-current' : undefined} aria-current={t.slug === tier.slug ? 'page' : undefined}>{shortName(t.name)} · {t.money}</Link>
-                ))}
-              </nav>
               <SpecList rows={[['Thành phần', tier.contents], ['Hộp', tier.box], ['Túi', orderTerms.bag], moq, ['VAT và vận chuyển', orderTerms.vat], ['Thanh toán', orderTerms.pay]]} />
               <p className="lx-bp-note">Ngân sách tham khảo cho trọn bộ, gồm thiết kế riêng, bao bì và sản phẩm bên trong. Báo giá chính xác theo từng dự án.</p>
               <div className="lx-sd-actions">
                 <ZaloLink className="lx-btn lx-btn-red">Tư vấn qua Zalo</ZaloLink>
                 <ProcessLink />
               </div>
+            </div>
+
+            {/* Mục lục: mọi bộ sưu tập (hoặc thiết kế) của mức này, bấm để cuộn xuống đúng bộ */}
+            <nav className="lx-bp-toc" aria-label={`Các ${tier.unit.toLowerCase()} trong mức này`}>
+              <p className="lx-bp-sw-h">{tier.collections.length} {tier.unit.toLowerCase()}</p>
+              <ol>
+                {toc.map((col, i) => {
+                  const thumb = col.cover ?? col.items[0];
+                  const count = col.colorways ?? col.items.length;
+                  return (
+                    <li key={i}>
+                      <a href={`#bst-${i + 1}`} onClick={jump}>
+                        <span className="lx-bp-toc-img">{thumb && <img src={thumb.src} alt="" width={128} height={128} loading="lazy" decoding="async" style={thumb.pos ? { objectPosition: thumb.pos } : undefined} />}</span>
+                        <span className="lx-cmp-step-n">{pad(i + 1)}</span>
+                        <span className="lx-bp-toc-t">
+                          <span className="lx-bp-toc-name">{col.name ?? tier.unit}</span>
+                          {thumb ? <span className="lx-bp-toc-d">{count} phối màu</span> : <span className="lx-bp-toc-d is-pending">Ảnh {pendingSpec.toLowerCase()}</span>}
+                        </span>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ol>
+            </nav>
             </div>
           </div>
         </section>
@@ -128,7 +156,7 @@ export function BespokePage() {
           {waiting.length > 0 && (
             <ol className="lx-bp-waiting" start={ready.length + 1} aria-label={`${tier.unit} chưa có ảnh`}>
               {waiting.map((col, i) => (
-                <li key={i} className="lx-bp-wait">
+                <li key={i} id={`bst-${ready.length + i + 1}`} className="lx-bp-wait">
                   <span className="lx-cmp-step-n">{pad(ready.length + i + 1)}</span>
                   <span>{col.name ? `${tier.unit} ${col.name}` : tier.unit}</span>
                   <span className="is-pending">Ảnh {pendingSpec.toLowerCase()}</span>
@@ -139,6 +167,25 @@ export function BespokePage() {
         </div>
 
         <ProcessSteps kind="bespoke" eyebrow="Khoảng 8 tuần" />
+
+        {/* Các mức khác: thẻ ảnh giống "Các set khác" bên trang Set sẵn */}
+        <section className="lx-sec lx-sd-sec lx-sd-soft lx-sd-more" aria-labelledby="lx-bp-more">
+          <div className="lx-wrap">
+            <h2 id="lx-bp-more" className="lx-sd-h">Các mức khác</h2>
+            <div className="lx-sd-others">
+              {others.map((o) => (
+                <Link key={o.slug} href={`/set-doc-ban/${o.slug}`} className="lx-card">
+                  <div className="lx-card-img">
+                    <span className="lx-card-box"><img src={o.cover} alt={`${o.name}, ${o.money} mỗi set`} width={800} height={1000} loading="lazy" decoding="async" style={o.coverPos ? { objectPosition: o.coverPos } : undefined} /></span>
+                    <span className="lx-peek" aria-hidden="true">Xem chi tiết<i>→</i></span>
+                  </div>
+                  <h3 className="lx-card-name">{o.name}</h3>
+                  <p className="lx-card-price">{o.money} / set</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
 
         <section className="lx-cta" aria-labelledby="lx-bp-cta">
           <div className="lx-wrap">
