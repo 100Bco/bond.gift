@@ -220,18 +220,18 @@
 .lx-logos-note { max-width: 1400px; margin: 18px auto 0; padding: 0 var(--lx-pad-x); font-size: 13px; color: var(--lx-muted); }
 
 /* Hai mô hình: bảng so sánh kiểu Apple, không card, không nền, chỉ đường kẻ ngang 1px */
-.lx-cmpt { --cg: clamp(20px, 5vw, 64px); max-width: 980px; margin: 0 auto; }
+.lx-cmpt { --cg: clamp(20px, 5vw, 64px); max-width: 1180px; margin: 0 auto; }
 .lx-cmpt-head, .lx-cmpt-top, .lx-cmpt-row { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--cg); }
 .lx-cmpt-head { position: sticky; top: var(--lx-nav-h); z-index: 5; padding: 18px 0 14px; background: var(--lx-paper); border-bottom: 1px solid var(--lx-line); }
 .lx-cmpt-name { font-size: clamp(20px, 2.2vw, 30px); letter-spacing: -0.02em; text-align: center; }
-.lx-cmpt-top { padding: clamp(28px, 4vw, 48px) 0 clamp(36px, 4vw, 56px); }
+.lx-cmpt-top { padding: clamp(24px, 3vw, 36px) 0 clamp(30px, 3.4vw, 44px); }
 .lx-cmpt-intro { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.lx-cmpt-img { width: 100%; aspect-ratio: 3 / 2; overflow: hidden; background: var(--lx-soft); }
+.lx-cmpt-img { width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: var(--lx-soft); }
 .lx-cmpt-img img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.6s var(--lx-ease); }
 .lx-cmpt-intro:hover .lx-cmpt-img img { transform: scale(1.04); }
 .lx-cmpt-say { margin: 22px 0 24px; font-size: 16.5px; line-height: 1.55; color: var(--lx-muted); }
 .lx-cmpt-intro .lx-btn { margin-top: auto; align-self: center; }
-.lx-cmpt-row { padding: 18px 0 34px; border-top: 1px solid var(--lx-line); }
+.lx-cmpt-row { padding: 16px 0 28px; border-top: 1px solid var(--lx-line); }
 .lx-cmpt-label { grid-column: 1 / -1; text-align: center; margin-bottom: 14px; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--lx-muted); }
 /* Nhãn, giá trị và dấu "—" căn giữa để mỗi dòng đối xứng quanh trục giữa bảng; danh sách bước vẫn căn trái */
 .lx-cmpt-cell { display: flex; flex-direction: column; align-items: center; gap: 0; min-width: 0; text-align: center; }
@@ -265,7 +265,7 @@
   .lx-cmp-step { gap: 10px; }
   .lx-cmp-step-n { width: 20px; }
 }
-.lx-cmp-head { max-width: 800px; margin: 0 auto clamp(48px, 7vw, 90px); text-align: center; }
+.lx-cmp-head { max-width: 800px; margin: 0 auto clamp(34px, 5vw, 63px); text-align: center; }
 .lx-cmp-head h2 { margin-top: 16px; }
 .lx-cmp-head .lx-lead { margin-top: 18px; }
 .lx-cmp-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 58px; padding: 14px 0; border-bottom: 1px solid var(--lx-line); font-size: 15px; }

@@ -278,7 +278,7 @@ function CmpRow({ label, children }: { label: string; children: ReactNode }) {
 function Models() {
   const [open, setOpen] = useState(false);
   const cols = [
-    { kind: 'ready' as const, img: '/assets/models/set-san.webp', alt: 'Set quà Tết hộp đỏ họa tiết tùng bày trên bàn tiệc' },
+    { kind: 'ready' as const, img: '/assets/set-san/huong-sac-xuan.webp', alt: 'Set sẵn Hương Sắc Xuân: hộp quà hoa đỏ cam cùng rượu vang, trà sen và bánh kẹo' },
     { kind: 'bespoke' as const, img: '/assets/models/set-doc-ban.webp', alt: 'Hộp quà độc bản họa tiết hoa xanh ngọc in logo doanh nghiệp' },
   ];
   return (
@@ -296,7 +296,7 @@ function Models() {
           <div className="lx-cmpt-top">
             {cols.map((c) => (
               <div key={c.kind} className="lx-cmpt-intro">
-                <div className="lx-cmpt-img"><img src={c.img} alt={c.alt} width={1200} height={805} loading="lazy" decoding="async" /></div>
+                <div className="lx-cmpt-img"><img src={c.img} alt={c.alt} width={1200} height={900} loading="lazy" decoding="async" /></div>
                 <p className="lx-cmpt-say">{giftModels[c.kind].say}</p>
                 {/* Nút là tín hiệu ưu tiên duy nhất còn lại: Set độc bản dùng nút đỏ đặc, Set sẵn nút viền */}
                 {c.kind === 'ready'
