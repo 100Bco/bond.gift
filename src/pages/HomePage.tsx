@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState, type PointerEvent as RPointerEvent, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'wouter';
 import { bespokeTiers, clientLogos, giftModels, giftProcesses, readySets } from '@/data/content';
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { Reveal } from '@/components/bond/Reveal';
 import { ZaloLink } from '@/components/bond/ZaloLink';
-import { MomentArt, SetArt } from '@/components/bond/GiftArt';
+import { MomentArt } from '@/components/bond/GiftArt';
 import { useInView, usePrefersReducedMotion } from '@/hooks/use-in-view';
 
 /* Trang chủ editorial: hero hai pha, hai mô hình quà, set sẵn, set độc bản, khoảnh khắc Tết, quy trình. */
@@ -386,20 +386,6 @@ function ReadySets() {
     return () => { window.removeEventListener('scroll', kick); window.removeEventListener('resize', kick); if (raf) cancelAnimationFrame(raf); };
   }, [reduced]);
 
-  // Rê chuột: hộp quà nghiêng nhẹ theo con trỏ, tối đa khoảng 4 độ.
-  const tilt = (e: RPointerEvent<HTMLAnchorElement>) => {
-    if (reduced || e.pointerType !== 'mouse') return;
-    const r = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    e.currentTarget.style.setProperty('--ry', `${(x * 8).toFixed(2)}deg`);
-    e.currentTarget.style.setProperty('--rx', `${(-y * 8).toFixed(2)}deg`);
-  };
-  const untilt = (e: RPointerEvent<HTMLAnchorElement>) => {
-    e.currentTarget.style.setProperty('--ry', '0deg');
-    e.currentTarget.style.setProperty('--rx', '0deg');
-  };
-
   return (
     <section className="lx-sec lx-ready" id="set-san" aria-labelledby="lx-ready-title">
       <div className="lx-wrap lx-wrap-wide">
@@ -412,15 +398,13 @@ function ReadySets() {
         </Reveal>
         <div ref={gridRef} className="lx-cards lx-stair">
           {readySets.map((set) => (
-            <Link key={set.slug} href={`/set-san/${set.slug}`} className="lx-card" onPointerMove={tilt} onPointerLeave={untilt}>
+            <Link key={set.slug} href={`/set-san/${set.slug}`} className="lx-card">
               <div className="lx-card-img">
-                <span className="lx-card-box"><SetArt look={set.look} /></span>
+                <span className="lx-card-box"><img src={set.photo} alt={`Set sẵn ${set.name}`} width={1200} height={1500} loading="lazy" decoding="async" /></span>
                 <span className="lx-peek" aria-hidden="true">Xem chi tiết<i>→</i></span>
               </div>
               <h3 className="lx-card-name">{set.name}</h3>
               <p className="lx-card-price">{set.price}</p>
-              <p className="lx-card-in">{set.contents}</p>
-              <span className="lx-card-more">Xem chi tiết <span aria-hidden="true">→</span></span>
             </Link>
           ))}
         </div>
