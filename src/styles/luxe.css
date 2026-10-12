@@ -347,6 +347,7 @@
 .lx-sd-logo { margin-top: 32px; padding: 24px 26px; background: var(--lx-card); }
 .lx-sd-logo-t { font-size: 16px !important; letter-spacing: 0 !important; line-height: 1.4 !important; }
 .lx-sd-logo p { margin-top: 8px; font-size: 15px; line-height: 1.65; color: var(--lx-muted); }
+.lx-sd-logo .lx-sd-logo-gift { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--lx-line); color: var(--lx-red); font-weight: 500; }
 .lx-sd-gallery { padding-bottom: clamp(56px, 7vw, 96px); }
 .lx-sd-shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 1.6vw, 24px); }
 .lx-sd-shot { display: flex; flex-direction: column; gap: 12px; text-align: left; cursor: zoom-in; }
@@ -450,6 +451,7 @@
 .lx-bp-tiers a { margin-bottom: -1px; padding: 10px 0 12px; border-bottom: 2px solid transparent; color: var(--lx-muted); transition: color 0.3s var(--lx-ease), border-color 0.3s var(--lx-ease); }
 .lx-bp-tiers a:hover { color: var(--lx-ink); }
 .lx-bp-tiers a.is-current { color: var(--lx-ink); border-bottom-color: var(--lx-red); }
+.lx-bp-hero-in .lx-sd-specs { margin-top: 28px; max-width: 620px; }
 .lx-bp-note { margin-top: 20px; max-width: 620px; font-size: 15px; line-height: 1.65; color: var(--lx-muted); }
 .lx-bp-hero-in .lx-sd-actions { margin-top: 28px; }
 /* Mở trang: phần đầu hiện dần một lần */

@@ -167,14 +167,68 @@ export const clientLogos: { name: string; logo: string; h: number }[] = ([
   ['Calista', 'calista', 50], ['Rubies', 'rubies', 38], ['Magonn', 'magonn', 28], ['Sypik Australia', 'sypik-australia', 40], ['Nuclean', 'nuclean', 26],
 ] as [string, string, number][]).map(([name, slug, h]) => ({ name, logo: `/assets/clients/${slug}.webp`, h }));
 
-export type ReadySet = { slug: string; name: string; tier: string; price: string; contents: string; look: 'ivory' | 'ink' | 'red' | 'black' };
+/** Một món trong set: qty là khối lượng hoặc dung tích theo catalog. */
+export type SetItem = { name: string; qty: string };
+export type ReadySet = { slug: string; code: string; name: string; price: string; contents: string; items: SetItem[]; boxType: string; boxSize: string; look: 'ivory' | 'ink' | 'red' | 'black' };
 /** Thông số chưa có số liệu thật thì hiển thị dòng này, không tự đặt số. */
 export const pendingSpec = 'Đang cập nhật';
+/** Điều khoản chung theo catalog, dùng cho cả Set sẵn và Set độc bản. */
+export const orderTerms = {
+  vat: 'Giá chưa gồm 8% VAT và phí vận chuyển',
+  pay: 'Đặt cọc 50% khi chốt đơn, thanh toán 50% còn lại trước khi giao',
+  bag: 'Túi giấy đi kèm',
+  readyGift: 'Tặng in logo UV khi đặt từ 10 set và đặt cọc trước 15/11/2026.',
+};
+/** Bốn set sẵn theo catalog (mã SS01 đến SS04). Đổi slug thì thêm redirect slug cũ trong vercel.json. */
 export const readySets: ReadySet[] = [
-  { slug: 'an-loc', name: 'An Lộc', tier: 'Căn bản', price: '499.000đ / set', contents: '1 vang + 3 hũ hạt dinh dưỡng + hộp mứt truyền thống', look: 'ivory' },
-  { slug: 'cat-tuong', name: 'Cát Tường', tier: 'Phổ thông', price: '799.000đ / set', contents: '1 vang nhập khẩu + hạt tuyển chọn + trái cây sấy + thịt khô thảo mộc', look: 'ink' },
-  { slug: 'phu-quy', name: 'Phú Quý', tier: 'Cao cấp', price: '1.299.000đ / set', contents: '1 rượu mạnh + macca và hạnh nhân + trà Shan Tuyết + trái cây sấy', look: 'red' },
-  { slug: 'tam-giao', name: 'Tâm Giao', tier: 'Thượng hạng', price: '2.399.000đ / set', contents: '1 whisky single malt + yến sào nguyên tổ + trà Ô Long + hộp sơn mài', look: 'black' },
+  {
+    slug: 'huong-sac-xuan', code: 'SS01', name: 'Hương Sắc Xuân', price: '499.000đ / set', look: 'ivory',
+    contents: 'Mứt gừng hoặc táo đỏ + trà sen sấy thăng hoa + bánh quy nhập khẩu + kẹo dẻo trái cây + rượu vang',
+    items: [
+      { name: 'Mứt gừng hoặc táo đỏ', qty: '150g' },
+      { name: 'Trà sen sấy thăng hoa (nguyên bông)', qty: '180g' },
+      { name: 'Bánh quy nhập khẩu', qty: '100g' },
+      { name: 'Kẹo dẻo trái cây', qty: '120g' },
+      { name: 'Rượu vang', qty: '750ml' },
+    ],
+    boxType: 'Hộp cứng', boxSize: '28 × 36 × 10 cm',
+  },
+  {
+    slug: 'xuan-cat-tuong', code: 'SS02', name: 'Xuân Cát Tường', price: '799.000đ / set', look: 'ink',
+    contents: 'Mứt gừng hoặc táo đỏ + trà sen sấy thăng hoa + bánh xốp phủ socola Nga + kẹo dẻo trái cây + rượu vang',
+    items: [
+      { name: 'Mứt gừng hoặc táo đỏ', qty: '150g' },
+      { name: 'Trà sen sấy thăng hoa (nguyên bông)', qty: '180g' },
+      { name: 'Bánh xốp phủ socola Nga', qty: '100g' },
+      { name: 'Kẹo dẻo trái cây', qty: '120g' },
+      { name: 'Rượu vang', qty: '750ml' },
+    ],
+    boxType: 'Hộp cứng', boxSize: '36 × 36 × 10 cm',
+  },
+  {
+    slug: 'xuan-phu-quy', code: 'SS03', name: 'Xuân Phú Quý', price: '1.299.000đ / set', look: 'red',
+    contents: 'Socola + ô mai + trà Basilur hoặc trà Phúc Kiến + rượu vang',
+    items: [
+      { name: 'Socola', qty: '150g' },
+      { name: 'Ô mai mận dẻo hoặc ô mai sấu, khế', qty: '150g hoặc 180g' },
+      { name: 'Trà Basilur hoặc trà Phúc Kiến', qty: '100g hoặc 120g' },
+      { name: 'Rượu vang', qty: '750ml' },
+    ],
+    boxType: 'Hộp 2 tầng', boxSize: '37,5 × 15,5 × 21,5 cm',
+  },
+  {
+    slug: 'van-loc-vinh-hoa', code: 'SS04', name: 'Vạn Lộc Vinh Hoa', price: '2.899.000đ / set', look: 'black',
+    contents: 'Chivas 18 + socola Nga + bánh Nga + kẹo Đức + trà Ahmad + mứt Tết',
+    items: [
+      { name: 'Rượu Chivas 18', qty: '750ml' },
+      { name: 'Socola Nga', qty: '150g' },
+      { name: 'Bánh Nga', qty: '150g' },
+      { name: 'Kẹo Đức', qty: '180g' },
+      { name: 'Trà Ahmad', qty: '100g' },
+      { name: 'Mứt Tết', qty: '120g' },
+    ],
+    boxType: 'Hộp cứng cánh mở, có tay xách', boxSize: '36 × 36 × 15 cm',
+  },
 ];
 
 /** Một ảnh trong trang Set độc bản. pos là object-position khi ảnh được cắt vào khung vuông. */
@@ -184,18 +238,20 @@ export type BespokeImage = { src: string; name: string; alt: string; pos?: strin
  * cover luôn là ảnh thiết kế hộp; ảnh đời sống (bày trên bàn tiệc...) đặt ở scene, hiện thành dải nhỏ phía dưới.
  */
 export type BespokeCollection = { name?: string; cover?: BespokeImage; items: BespokeImage[]; scene?: BespokeImage };
-export type BespokeTier = { slug: string; money: string; meta: string; unit: string; thumb?: string; collections: BespokeCollection[] };
+export type BespokeTier = { slug: string; money: string; meta: string; unit: string; thumb?: string; contents: string; box: string; collections: BespokeCollection[] };
 
 const b499 = '/assets/bespoke/499';
 const tuQuy = 'Tứ Quý Cát Tường';
 const sonDuong = 'Sơn Dương Như Ý';
-const bidv = 'Thiết kế riêng cho BIDV';
 const pending = (n: number): BespokeCollection[] => Array.from({ length: n }, () => ({ items: [] }));
+/** Mẫu chưa có ảnh nhưng đã có tên. */
+const named = (...names: string[]): BespokeCollection[] => names.map((name) => ({ name, items: [] }));
 
 /** Bốn mức ngân sách Set độc bản; mỗi mức có một trang con /set-doc-ban/:slug. */
 export const bespokeTiers: BespokeTier[] = [
   {
     slug: '499', money: '499.000đ', thumb: `${b499}/tu-quy-xuan-tung.webp`, meta: '5 bộ sưu tập · 4 phối màu mỗi bộ', unit: 'Bộ sưu tập',
+    contents: '1 chai rượu vang và 3 hoặc 4 hộp nhân', box: 'Hộp âm dương 28 × 36 cm',
     collections: [
       {
         name: tuQuy,
@@ -220,29 +276,31 @@ export const bespokeTiers: BespokeTier[] = [
       ...pending(3),
     ],
   },
-  { slug: '799', money: '799.000đ', meta: '4 bộ sưu tập · 4 phối màu mỗi bộ', unit: 'Bộ sưu tập', collections: pending(4) },
+  { slug: '799', money: '799.000đ', meta: '4 bộ sưu tập · 4 phối màu mỗi bộ', unit: 'Bộ sưu tập', contents: '1 chai rượu vang và 4 hộp nhân', box: 'Hộp âm dương 36 × 36 cm', collections: pending(4) },
   {
-    slug: '1299', money: '1.299.000đ', meta: '3 mẫu thiết kế riêng', unit: 'Mẫu',
+    slug: '1299', money: '1.299.000đ', meta: '3 thiết kế · 3 phối màu mỗi thiết kế', unit: 'Thiết kế',
+    contents: '1 chai rượu vang và 3 hộp nhân', box: 'Hộp 2 tầng 37,5 × 15,5 × 21,5 cm',
     collections: [
       {
-        name: bidv,
+        name: 'BIDV',
         items: [
-          { w: 1264, h: 848, src: '/assets/bespoke/1299/bidv-hop-hai-canh.webp', name: 'Hộp hai cánh mở', alt: 'Hộp quà hai cánh màu xanh ngọc có huy hiệu vàng ở giữa và logo BIDV' },
+          { w: 1264, h: 848, src: '/assets/bespoke/1299/bidv-hop-hai-canh.webp', name: 'Xanh ngọc', alt: 'Hộp quà hai cánh màu xanh ngọc có huy hiệu vàng ở giữa và logo BIDV' },
         ],
       },
-      ...pending(2),
+      ...named('BOND', '100B'),
     ],
   },
   {
-    slug: '2399', money: '2.399.000đ', meta: '2 mẫu thiết kế riêng', unit: 'Mẫu',
+    slug: '2899', money: '2.899.000đ', meta: '3 thiết kế · 3 phối màu mỗi thiết kế', unit: 'Thiết kế',
+    contents: '1 chai rượu tây và 5 hộp nhân', box: 'Hộp cánh mở có tay xách 36 × 36 cm',
     collections: [
       {
-        name: bidv,
+        name: 'BIDV',
         items: [
-          { w: 1264, h: 848, src: '/assets/bespoke/2399/bidv-hop-da.webp', name: 'Hộp da có quai xách', alt: 'Hộp quà bọc da màu xanh ngọc có quai xách và khóa vàng, logo BIDV trong ô hình hoa' },
+          { w: 1264, h: 848, src: '/assets/bespoke/2399/bidv-hop-da.webp', name: 'Xanh ngọc', alt: 'Hộp quà bọc da màu xanh ngọc có quai xách và khóa vàng, logo BIDV trong ô hình hoa' },
         ],
       },
-      ...pending(1),
+      ...named('100B', 'BOND'),
     ],
   },
 ];
@@ -256,7 +314,7 @@ export const giftModels = {
   bespoke: {
     name: 'Set độc bản',
     say: 'Thiết kế riêng 100% theo thương hiệu của bạn.',
-    specs: [['Thời gian hoàn thành', 'Khoảng 8 tuần'], ['Số lượng tối thiểu', 'Theo thỏa thuận'], ['Mức độ tùy biến', 'Thiết kế toàn bộ, độc quyền']] as [string, string][],
+    specs: [['Thời gian hoàn thành', 'Khoảng 8 tuần'], ['Số lượng tối thiểu', 'Từ 300 set'], ['Mức độ tùy biến', 'Thiết kế toàn bộ, độc quyền']] as [string, string][],
   },
 };
 
@@ -268,7 +326,7 @@ export const giftProcesses: Record<'ready' | 'bespoke', { note?: string; steps: 
       ['Tiếp nhận brief', 'Dịp tặng, số lượng, ngân sách mỗi phần và thời điểm cần hàng.'],
       ['Chốt ruột quà', 'Chốt thành phần trong set; vẫn có thể đổi món dựa trên menu sẵn có.'],
       ['Duyệt mẫu sản xuất', 'In logo của khách lên set sẵn để khách duyệt; khách đồng ý mới sản xuất.'],
-      ['Sản xuất & đóng gói', 'In hoặc ép kim logo, đóng gói và kiểm tra chất lượng từng hộp.'],
+      ['Sản xuất & đóng gói', 'In UV logo lên hộp, đóng gói và kiểm tra chất lượng từng hộp.'],
       ['Giao hàng', 'Giao một điểm hoặc nhiều điểm theo danh sách người nhận.'],
     ],
   },

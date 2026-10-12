@@ -1,12 +1,13 @@
 import { useCallback, useState, type CSSProperties } from 'react';
 import { useInView } from '@/hooks/use-in-view';
 import { Link, useRoute } from 'wouter';
-import { bespokeTiers, pendingSpec, type BespokeCollection, type BespokeImage } from '@/data/content';
+import { bespokeTiers, giftModels, orderTerms, pendingSpec, type BespokeCollection, type BespokeImage } from '@/data/content';
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { Reveal } from '@/components/bond/Reveal';
 import { ZaloLink } from '@/components/bond/ZaloLink';
 import { Lightbox } from '@/components/bond/Lightbox';
 import { NotFoundPage } from '@/pages/UtilityPages';
+import { SpecList } from '@/pages/ReadySetPage';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -66,7 +67,8 @@ export function BespokePage() {
   const tier = bespokeTiers.find((t) => t.slug === params?.slug);
   if (!tier) return <NotFoundPage />;
   const ready = tier.collections.filter((c) => c.items.length);
-  const waiting = tier.collections.length - ready.length;
+  const waiting = tier.collections.filter((c) => !c.items.length);
+  const [, moq] = giftModels.bespoke.specs;
 
   return (
     <SiteShell>
@@ -89,7 +91,8 @@ export function BespokePage() {
                   <Link key={t.slug} href={`/set-doc-ban/${t.slug}`} className={t.slug === tier.slug ? 'is-current' : undefined} aria-current={t.slug === tier.slug ? 'page' : undefined}>{t.money}</Link>
                 ))}
               </nav>
-              <p className="lx-bp-note">Ngân sách tham khảo cho trọn bộ, gồm thiết kế riêng, bao bì và sản phẩm bên trong. Sản lượng tối thiểu và báo giá chính xác theo từng dự án.</p>
+              <SpecList rows={[['Thành phần', tier.contents], ['Hộp', tier.box], ['Túi', orderTerms.bag], moq, ['VAT và vận chuyển', orderTerms.vat], ['Thanh toán', orderTerms.pay]]} />
+              <p className="lx-bp-note">Ngân sách tham khảo cho trọn bộ, gồm thiết kế riêng, bao bì và sản phẩm bên trong. Báo giá chính xác theo từng dự án.</p>
               <div className="lx-sd-actions">
                 <ZaloLink className="lx-btn lx-btn-red">Tư vấn qua Zalo</ZaloLink>
                 <Link href="/#quy-trinh" className="lx-sd-textlink">Xem quy trình <span aria-hidden="true">→</span></Link>
@@ -101,12 +104,12 @@ export function BespokePage() {
         <div className="lx-wrap lx-wrap-wide lx-bp-body">
           {ready.map((col, i) => <Collection key={col.name} col={col} no={i + 1} unit={tier.unit} first={i === 0} />)}
 
-          {waiting > 0 && (
+          {waiting.length > 0 && (
             <ol className="lx-bp-waiting" start={ready.length + 1} aria-label={`${tier.unit} chưa có ảnh`}>
-              {Array.from({ length: waiting }, (_, i) => (
+              {waiting.map((col, i) => (
                 <li key={i} className="lx-bp-wait">
                   <span className="lx-cmp-step-n">{pad(ready.length + i + 1)}</span>
-                  <span>{tier.unit}</span>
+                  <span>{col.name ? `${tier.unit} ${col.name}` : tier.unit}</span>
                   <span className="is-pending">Ảnh {pendingSpec.toLowerCase()}</span>
                 </li>
               ))}

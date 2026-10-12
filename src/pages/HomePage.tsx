@@ -233,8 +233,7 @@ function LogoStrip() {
 type CmpCell = { full: string; short?: string; big?: boolean; sub?: string } | null;
 const cmpRows: [string, CmpCell, CmpCell][] = [
   ['Thời gian hoàn thành', { full: '2 tuần', big: true, sub: 'từ lúc chốt mẫu' }, { full: '8 tuần', big: true, sub: 'từ brief đến giao hàng' }],
-  // Hai bên cùng cỡ chữ cho đến khi có số tối thiểu chính thức của Set độc bản; có số thì đổi cả hai sang big.
-  ['Số lượng tối thiểu', { full: '10 set' }, { full: 'Theo dự án' }],
+  ['Số lượng tối thiểu', { full: '10 set', big: true }, { full: '300 set', big: true }],
   ['Hạn chốt đơn cuối cùng', { full: '15 tháng 1', sub: 'để kịp giao trước Tết' }, { full: '15 tháng 12', sub: 'để kịp thiết kế và sản xuất' }],
   ['Xem mẫu trước khi đặt', { full: 'Mẫu thật, xem ngay' }, { full: 'Sau khi duyệt thiết kế' }],
   ['Thiết kế bao bì', { full: 'Gắn logo lên mẫu có sẵn' }, { full: 'Thiết kế từ đầu theo nhận diện', short: 'Thiết kế từ đầu' }],
@@ -409,7 +408,7 @@ function ReadySets() {
             <p className="lx-eyebrow">Mô hình 01</p>
             <h2 id="lx-ready-title">Set sẵn</h2>
           </div>
-          <p className="lx-lead">Giao trong hai tuần. Logo thương hiệu của anh chị được ép kim lên hộp và thiệp. Không cần thiết kế lại từ đầu.</p>
+          <p className="lx-lead">Giao trong hai tuần. Logo thương hiệu của anh chị được in UV lên hộp và thiệp. Không cần thiết kế lại từ đầu.</p>
         </Reveal>
         <div ref={gridRef} className="lx-cards lx-stair">
           {readySets.map((set) => (
