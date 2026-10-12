@@ -83,7 +83,7 @@ export function BespokePage() {
               <span aria-current="page">{tier.money}</span>
             </nav>
             <div className="lx-bp-hero-in">
-              <p className="lx-eyebrow">Mô hình 02</p>
+              <p className="lx-eyebrow">{tier.name}</p>
               <h1 id="lx-bp-title">Set độc bản <span>ngân sách {tier.money} mỗi set</span></h1>
               <p className="lx-bp-meta">{tier.meta}</p>
               <nav className="lx-bp-tiers" aria-label="Các mức ngân sách">

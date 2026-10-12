@@ -238,7 +238,8 @@ export type BespokeImage = { src: string; name: string; alt: string; pos?: strin
  * cover luôn là ảnh thiết kế hộp; ảnh đời sống (bày trên bàn tiệc...) đặt ở scene, hiện thành dải nhỏ phía dưới.
  */
 export type BespokeCollection = { name?: string; cover?: BespokeImage; items: BespokeImage[]; scene?: BespokeImage };
-export type BespokeTier = { slug: string; money: string; meta: string; unit: string; thumb?: string; contents: string; box: string; collections: BespokeCollection[] };
+/** cover là ảnh vuông đại diện cho mức ở lưới trang chủ; coverPos là object-position khi cắt vào khung 1:1. */
+export type BespokeTier = { slug: string; name: string; money: string; meta: string; unit: string; cover: string; coverPos?: string; contents: string; box: string; collections: BespokeCollection[] };
 
 const b499 = '/assets/bespoke/499';
 const tuQuy = 'Tứ Quý Cát Tường';
@@ -250,7 +251,7 @@ const named = (...names: string[]): BespokeCollection[] => names.map((name) => (
 /** Bốn mức ngân sách Set độc bản; mỗi mức có một trang con /set-doc-ban/:slug. */
 export const bespokeTiers: BespokeTier[] = [
   {
-    slug: '499', money: '499.000đ', thumb: `${b499}/tu-quy-xuan-tung.webp`, meta: '5 bộ sưu tập · 4 phối màu mỗi bộ', unit: 'Bộ sưu tập',
+    slug: '499', name: 'Bộ sưu tập thiết yếu', money: '499.000đ', cover: `${b499}/tu-quy-cover.webp`, coverPos: '92% 50%', meta: '5 bộ sưu tập · 4 phối màu mỗi bộ', unit: 'Bộ sưu tập',
     contents: '1 chai rượu vang và 3 hoặc 4 hộp nhân', box: 'Hộp âm dương 28 × 36 cm',
     collections: [
       {
@@ -276,9 +277,10 @@ export const bespokeTiers: BespokeTier[] = [
       ...pending(3),
     ],
   },
-  { slug: '799', money: '799.000đ', meta: '4 bộ sưu tập · 4 phối màu mỗi bộ', unit: 'Bộ sưu tập', contents: '1 chai rượu vang và 4 hộp nhân', box: 'Hộp âm dương 36 × 36 cm', collections: pending(4) },
+  // Mức 799 chưa có ảnh: tạm dùng ảnh bìa Sơn Dương Như Ý.
+  { slug: '799', name: 'Bộ sưu tập đặc sắc', money: '799.000đ', cover: `${b499}/son-duong-cover.webp`, meta: '4 bộ sưu tập · 4 phối màu mỗi bộ', unit: 'Bộ sưu tập', contents: '1 chai rượu vang và 4 hộp nhân', box: 'Hộp âm dương 36 × 36 cm', collections: pending(4) },
   {
-    slug: '1299', money: '1.299.000đ', meta: '3 thiết kế · 3 phối màu mỗi thiết kế', unit: 'Thiết kế',
+    slug: '1299', name: 'Bộ sưu tập dấu ấn', money: '1.299.000đ', cover: '/assets/bespoke/1299/bidv-hop-hai-canh.webp', meta: '3 thiết kế · 3 phối màu mỗi thiết kế', unit: 'Thiết kế',
     contents: '1 chai rượu vang và 3 hộp nhân', box: 'Hộp 2 tầng 37,5 × 15,5 × 21,5 cm',
     collections: [
       {
@@ -291,7 +293,7 @@ export const bespokeTiers: BespokeTier[] = [
     ],
   },
   {
-    slug: '2899', money: '2.899.000đ', meta: '3 thiết kế · 3 phối màu mỗi thiết kế', unit: 'Thiết kế',
+    slug: '2899', name: 'Bộ sưu tập tuyệt tác', money: '2.899.000đ', cover: '/assets/bespoke/2399/bidv-hop-da.webp', meta: '3 thiết kế · 3 phối màu mỗi thiết kế', unit: 'Thiết kế',
     contents: '1 chai rượu tây và 5 hộp nhân', box: 'Hộp cánh mở có tay xách 36 × 36 cm',
     collections: [
       {

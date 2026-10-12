@@ -283,22 +283,16 @@
 .lx-disc { display: flex; align-items: flex-start; gap: 14px; max-width: 680px; margin-top: 24px; padding: 4px 0 4px 18px; border-left: 2px solid var(--lx-red); }
 .lx-disc .lx-cross { margin-top: 6px; }
 .lx-disc p { font-size: 15px; line-height: 1.6; color: var(--lx-muted); }
-.lx-bud { margin-top: clamp(48px, 6vw, 76px); border-top: 1px solid var(--lx-ink); }
-.lx-bud-row { position: relative; isolation: isolate; display: grid; grid-template-columns: 40px 120px 1.2fr 1.2fr auto; align-items: center; gap: clamp(20px, 3vw, 56px); padding: clamp(18px, 2vw, 24px) 16px; border-bottom: 1px solid var(--lx-line); transition: padding 0.6s var(--lx-ease); }
-.lx-bud-thumb { display: block; width: 120px; aspect-ratio: 4 / 5; overflow: hidden; background: var(--lx-soft); }
-.lx-bud-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--lx-ease); }
-.lx-bud-row:hover .lx-bud-thumb img { transform: scale(1.05); }
-.lx-bud-row::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--lx-card); opacity: 0; transition: opacity 0.6s var(--lx-ease); }
-.lx-bud-row:hover { padding-inline: 32px; }
-.lx-bud-row:hover::before { opacity: 1; }
-.lx-bud-no { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--lx-muted); }
-.lx-bud-money { font-family: var(--font-display); font-size: clamp(20px, 1.8vw, 26px); font-weight: 600; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
-.lx-bud-money small { margin-left: 8px; font-size: 14px; font-weight: 400; letter-spacing: normal; color: var(--lx-muted); }
-.lx-bud-meta { font-size: 15px; color: var(--lx-muted); }
-.lx-bud-go { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
-.lx-bud-go span { transition: transform 0.5s var(--lx-ease); }
-.lx-bud-row:hover .lx-bud-go { color: var(--lx-red); }
-.lx-bud-row:hover .lx-bud-go span { transform: translateX(6px); }
+/* Lưới 2×2 các mức ngân sách: ảnh vuông, chỉ tên (in hoa) và giá; bấm mở trang con. */
+.lx-bud { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(36px, 4vw, 64px) clamp(20px, 2.4vw, 36px); margin-top: clamp(48px, 6vw, 76px); }
+.lx-bud-card { display: flex; flex-direction: column; }
+.lx-bud-img { display: block; aspect-ratio: 1 / 1; overflow: hidden; background: var(--lx-soft); }
+.lx-bud-img img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--lx-ease); }
+.lx-bud-card:hover .lx-bud-img img { transform: scale(1.04); }
+.lx-bud-name { margin-top: 22px; font-family: var(--font-display); font-size: clamp(17px, 1.5vw, 21px); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.4s var(--lx-ease); }
+.lx-bud-card:hover .lx-bud-name { color: var(--lx-red); }
+.lx-bud-money { margin-top: 6px; font-size: 15.5px; font-weight: 500; color: var(--lx-muted); font-variant-numeric: tabular-nums; }
+.lx-bud-money small { font-size: inherit; font-weight: 400; }
 
 /* Khoảnh khắc Tết */
 .lx-moment { position: relative; display: flex; align-items: center; min-height: 92vh; overflow: hidden; padding: var(--lx-pad-y) 0; background: var(--lx-ink); color: #FFFFFF; }
@@ -550,10 +544,7 @@
   .lx-lb-prev, .lx-lb-next { top: auto; bottom: 18px; }
   .lx-lb-prev { left: calc(50% - 60px); }
   .lx-lb-next { right: calc(50% - 60px); }
-    .lx-bud-row { grid-template-columns: 88px 1fr auto; gap: 6px 16px; }
-  .lx-bud-thumb { width: 88px; grid-row: span 2; }
-  .lx-bud-no { display: none; }
-  .lx-bud-meta { grid-column: 2 / -1; }
+  .lx-bud { grid-template-columns: 1fr; }
   .lx-foot-grid { grid-template-columns: 1fr; gap: 40px; }
   .lx-fab { right: 18px; bottom: 18px; }
 }
