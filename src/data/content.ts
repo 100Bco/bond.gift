@@ -41,7 +41,7 @@ export const processSteps: ProcessStep[] = [
   { number: '02', title: 'Đề xuất phương án', duration: '3—5 ngày', copy: '2 đến 3 hướng thiết kế cùng cấu phần quà tương ứng.', output: 'Concept', motion: 'journey-concept' },
   { number: '03', title: 'Duyệt mẫu vật lý & nếm thử', duration: 'Theo lịch', copy: 'Gửi hộp mẫu tận nơi, nếm thử các thức quà trước khi chốt.', output: 'Mẫu vật lý', motion: 'kit' },
   { number: '04', title: 'Thiết kế hoàn thiện', duration: '1—3 tuần', copy: 'Đội ngũ ZAD hoàn thiện đồ họa độc quyền, in thử màu và làm mockup.', output: 'Mẫu duyệt', motion: 'colorway' },
-  { number: '05', title: 'Duyệt mẫu sản xuất', duration: '5—7 ngày', copy: 'Mẫu đầu chuyền được khách ký duyệt trước khi sản xuất hàng loạt.', output: 'Mẫu sản xuất', motion: 'layers' },
+  { number: '05', title: 'Duyệt mẫu sản xuất', duration: '5—7 ngày', copy: 'Mẫu đầu chuyền được anh chị ký duyệt trước khi sản xuất hàng loạt.', output: 'Mẫu sản xuất', motion: 'layers' },
   { number: '06', title: 'Sản xuất & đóng gói', duration: '2—4 tuần', copy: 'Sản xuất hàng loạt, gia công thủ công chi tiết phức tạp, kiểm tra và niêm phong từng hộp.', output: 'Lô hàng', motion: 'journey-production' },
   { number: '07', title: 'Giao hàng', duration: 'Theo lịch thỏa thuận', copy: 'Giao một điểm hoặc nhiều điểm theo danh sách người nhận, đúng mốc đã cam kết.', output: 'Biên bản bàn giao', motion: 'journey-delivery' },
 ];
@@ -167,9 +167,9 @@ export const clientLogos: { name: string; logo: string; h: number }[] = ([
   ['Calista', 'calista', 50], ['Rubies', 'rubies', 38], ['Magonn', 'magonn', 28], ['Sypik Australia', 'sypik-australia', 40], ['Nuclean', 'nuclean', 26],
 ] as [string, string, number][]).map(([name, slug, h]) => ({ name, logo: `/assets/clients/${slug}.webp`, h }));
 
-/** Một món trong set: qty là khối lượng hoặc dung tích theo catalog. */
+/** Một món trong set: qty là khối lượng hoặc dung tích theo catalog. Ảnh nhỏ ở /assets/set-san/items/<slug>-<thứ tự>.webp, cắt từ catalog. */
 export type SetItem = { name: string; qty: string };
-export type ReadySet = { slug: string; code: string; name: string; price: string; contents: string; photo: string; items: SetItem[]; boxType: string; boxSize: string; look: 'ivory' | 'ink' | 'red' | 'black' };
+export type ReadySet = { slug: string; code: string; name: string; price: string; contents: string; desc: string; photo: string; items: SetItem[]; boxType: string; boxSize: string; look: 'ivory' | 'ink' | 'red' | 'black' };
 /** Thông số chưa có số liệu thật thì hiển thị dòng này, không tự đặt số. */
 export const pendingSpec = 'Đang cập nhật';
 /** Điều khoản chung theo catalog, dùng cho cả Set sẵn và Set độc bản. */
@@ -183,6 +183,7 @@ export const orderTerms = {
 export const readySets: ReadySet[] = [
   {
     slug: 'huong-sac-xuan', code: 'SS01', name: 'Hương Sắc Xuân', price: '499.000đ / set', look: 'ivory', photo: '/assets/set-san/huong-sac-xuan.webp',
+    desc: 'Lấy cảm hứng từ sắc đỏ may mắn và hương vị Tết cổ truyền. Rượu vang, trà sen và bánh mứt gửi lời chúc an khang, sung túc đầu năm.',
     contents: 'Mứt gừng hoặc táo đỏ + trà sen sấy thăng hoa + bánh quy nhập khẩu + kẹo dẻo trái cây + rượu vang',
     items: [
       { name: 'Mứt gừng hoặc táo đỏ', qty: '150g' },
@@ -195,6 +196,7 @@ export const readySets: ReadySet[] = [
   },
   {
     slug: 'xuan-cat-tuong', code: 'SS02', name: 'Xuân Cát Tường', price: '799.000đ / set', look: 'ink', photo: '/assets/set-san/xuan-cat-tuong.webp',
+    desc: 'Lấy cảm hứng từ lời chúc cát tường, may mắn ngày đầu năm. Rượu vang, trà sen và bánh xốp socola Nga gửi mong ước một năm hanh thông, tài lộc.',
     contents: 'Mứt gừng hoặc táo đỏ + trà sen sấy thăng hoa + bánh xốp phủ socola Nga + kẹo dẻo trái cây + rượu vang',
     items: [
       { name: 'Mứt gừng hoặc táo đỏ', qty: '150g' },
@@ -207,6 +209,7 @@ export const readySets: ReadySet[] = [
   },
   {
     slug: 'xuan-phu-quy', code: 'SS03', name: 'Xuân Phú Quý', price: '1.299.000đ / set', look: 'red', photo: '/assets/set-san/xuan-phu-quy.webp',
+    desc: 'Lấy cảm hứng từ mùa xuân sung túc và lời chúc phú quý. Hộp hai tầng sắc đỏ họa tiết hoa xuân, gửi lời chúc tài lộc, vạn sự viên mãn.',
     contents: 'Socola + ô mai + trà Basilur hoặc trà Phúc Kiến + rượu vang',
     items: [
       { name: 'Socola', qty: '150g' },
@@ -218,6 +221,7 @@ export const readySets: ReadySet[] = [
   },
   {
     slug: 'van-loc-vinh-hoa', code: 'SS04', name: 'Vạn Lộc Vinh Hoa', price: '2.899.000đ / set', look: 'black', photo: '/assets/set-san/van-loc-vinh-hoa.webp',
+    desc: 'Lấy cảm hứng từ lời chúc tài lộc viên mãn, phú quý trường tồn. Hộp cánh mở có tay xách, rượu Chivas 18, trà Ahmad và bánh kẹo nhập khẩu, gửi lời chúc vạn sự hanh thông.',
     contents: 'Chivas 18 + socola Nga + bánh Nga + kẹo Đức + trà Ahmad + mứt Tết',
     items: [
       { name: 'Rượu Chivas 18', qty: '750ml' },
@@ -311,11 +315,11 @@ export const giftModels = {
   ready: {
     name: 'Set sẵn',
     say: 'Chọn mẫu có sẵn, thêm dấu ấn thương hiệu.',
-    specs: [['Thời gian hoàn thành', 'Khoảng 2 tuần'], ['Số lượng tối thiểu', 'Từ 10 set'], ['Mức độ tùy biến', 'Gắn logo lên hộp và thiệp']] as [string, string][],
+    specs: [['Thời gian hoàn thành', 'Khoảng 2 tuần'], ['Số lượng tối thiểu', 'Từ 10 set'], ['Mức độ tùy biến', 'In logo UV lên nắp hộp']] as [string, string][],
   },
   bespoke: {
     name: 'Set độc bản',
-    say: 'Thiết kế riêng 100% theo thương hiệu của bạn.',
+    say: 'Thiết kế riêng 100% theo thương hiệu của anh chị.',
     specs: [['Thời gian hoàn thành', 'Khoảng 8 tuần'], ['Số lượng tối thiểu', 'Từ 300 set'], ['Mức độ tùy biến', 'Thiết kế toàn bộ, độc quyền']] as [string, string][],
   },
 };
@@ -325,20 +329,20 @@ export const giftProcesses: Record<'ready' | 'bespoke', { note?: string; steps: 
   ready: {
     note: 'Tinh gọn: bỏ khâu duyệt mẫu vật lý, nếm thử và thiết kế riêng.',
     steps: [
-      ['Tiếp nhận brief', 'Dịp tặng, số lượng, ngân sách mỗi phần và thời điểm cần hàng.'],
-      ['Chốt ruột quà', 'Chốt thành phần trong set; vẫn có thể đổi món dựa trên menu sẵn có.'],
-      ['Duyệt mẫu sản xuất', 'In logo của khách lên set sẵn để khách duyệt; khách đồng ý mới sản xuất.'],
+      ['Tiếp nhận yêu cầu', 'Dịp tặng, số lượng, ngân sách mỗi phần và thời điểm cần hàng.'],
+      ['Chốt ruột quà', 'Chốt thành phần trong set; vẫn có thể đổi món theo danh sách món sẵn có.'],
+      ['Duyệt mẫu sản xuất', 'In logo của anh chị lên set sẵn để duyệt; anh chị đồng ý mới sản xuất.'],
       ['Sản xuất & đóng gói', 'In UV logo lên hộp, đóng gói và kiểm tra chất lượng từng hộp.'],
       ['Giao hàng', 'Giao một điểm hoặc nhiều điểm theo danh sách người nhận.'],
     ],
   },
   bespoke: {
     steps: [
-      ['Tiếp nhận brief', 'Dịp tặng, số lượng, ngân sách mỗi phần, chân dung người nhận và thời điểm cần hàng.'],
+      ['Tiếp nhận yêu cầu', 'Dịp tặng, số lượng, ngân sách mỗi phần, chân dung người nhận và thời điểm cần hàng.'],
       ['Đề xuất phương án', '2 đến 3 hướng thiết kế cùng cấu phần quà tương ứng.'],
       ['Duyệt mẫu vật lý & nếm thử', 'Gửi hộp mẫu tận nơi, nếm thử các thức quà trước khi chốt.'],
       ['Thiết kế hoàn thiện', 'Đội ngũ ZAD hoàn thiện đồ họa độc quyền, in thử màu và làm mockup.'],
-      ['Duyệt mẫu sản xuất', 'Mẫu đầu chuyền được khách ký duyệt trước khi sản xuất hàng loạt.'],
+      ['Duyệt mẫu sản xuất', 'Mẫu đầu chuyền được anh chị ký duyệt trước khi sản xuất hàng loạt.'],
       ['Sản xuất & đóng gói', 'Sản xuất hàng loạt, gia công thủ công chi tiết phức tạp, kiểm tra và niêm phong từng hộp.'],
       ['Giao hàng', 'Giao một điểm hoặc nhiều điểm theo danh sách người nhận, đúng mốc đã cam kết.'],
     ],
