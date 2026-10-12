@@ -4,6 +4,33 @@
   "installCommand": "pnpm install --frozen-lockfile",
   "buildCommand": "pnpm run build",
   "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/set-san/an-loc",
+      "destination": "/set-san/huong-sac-xuan",
+      "permanent": true
+    },
+    {
+      "source": "/set-san/cat-tuong",
+      "destination": "/set-san/xuan-cat-tuong",
+      "permanent": true
+    },
+    {
+      "source": "/set-san/phu-quy",
+      "destination": "/set-san/xuan-phu-quy",
+      "permanent": true
+    },
+    {
+      "source": "/set-san/tam-giao",
+      "destination": "/set-san/van-loc-vinh-hoa",
+      "permanent": true
+    },
+    {
+      "source": "/set-doc-ban/2399",
+      "destination": "/set-doc-ban/2899",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",

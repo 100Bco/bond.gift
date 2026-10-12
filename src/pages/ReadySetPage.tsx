@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import { Link, useRoute } from 'wouter';
-import { giftModels, giftProcesses, pendingSpec, readySets } from '@/data/content';
+import { giftModels, giftProcesses, orderTerms, pendingSpec, readySets } from '@/data/content';
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { usePrefersReducedMotion } from '@/hooks/use-in-view';
 import { clamp01, useScrollFx } from '@/hooks/use-scroll-fx';
@@ -14,7 +14,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
 /* Ảnh thật chưa có: mỗi ô giữ chỗ ghi rõ cần chụp gì. */
 const galleryShots = ['Hộp đóng, góc 3/4', 'Hộp mở, thấy toàn bộ ruột', 'Cận vị trí logo trên nắp'];
 
-function SpecList({ rows }: { rows: [string, string][] }) {
+export function SpecList({ rows }: { rows: [string, string][] }) {
   return (
     <dl className="lx-sd-specs">
       {rows.map(([k, v]) => (
@@ -65,8 +65,6 @@ export function ReadySetPage() {
   const close = useCallback(() => setShot(null), []);
   const move = useCallback((step: number) => setShot((i) => (i === null ? i : (i + step + galleryShots.length) % galleryShots.length)), []);
   if (!set) return <NotFoundPage />;
-  // Mỗi món một dòng nên viết hoa chữ đầu dòng; trong câu mô tả vẫn giữ chữ thường.
-  const items = set.contents.split(' + ').map((t) => t.charAt(0).toUpperCase() + t.slice(1));
   const others = readySets.filter((s) => s.slug !== set.slug);
   const steps = giftProcesses.ready.steps;
   const [time, moq] = giftModels.ready.specs;
@@ -89,14 +87,15 @@ export function ReadySetPage() {
                 <SetArt look={set.look} />
               </div>
               <div className="lx-sd-intro">
-                <p className="lx-eyebrow">Set sẵn</p>
+                <p className="lx-eyebrow">Set sẵn · {set.code}</p>
                 <h1 id="lx-sd-title">{set.name}</h1>
                 <p className="lx-sd-price">{set.price}</p>
                 <p className="lx-lead">{set.contents}</p>
-                <SpecList rows={[time, moq, ['Kích thước hộp', pendingSpec], ['Trọng lượng', pendingSpec], ['Hạn sử dụng', pendingSpec]]} />
+                <SpecList rows={[time, moq, ['Kích thước hộp', set.boxSize], ['Trọng lượng', pendingSpec], ['Hạn sử dụng', pendingSpec]]} />
                 <div className="lx-sd-logo">
                   <h2 className="lx-sd-logo-t">Logo của anh chị</h2>
-                  <p>Logo được ép kim ở giữa nắp hộp và mặt trước thiệp. Anh chị gửi file logo dạng vector (AI, PDF hoặc SVG). BOND gửi maket để anh chị duyệt trước khi sản xuất.</p>
+                  <p>Logo được in UV ở giữa nắp hộp và mặt trước thiệp. Anh chị gửi file logo dạng vector (AI, PDF hoặc SVG). BOND gửi maket để anh chị duyệt trước khi sản xuất.</p>
+                  <p className="lx-sd-logo-gift">{orderTerms.readyGift}</p>
                 </div>
                 <div className="lx-sd-actions">
                   <ZaloLink className="lx-btn lx-btn-red">Tư vấn qua Zalo</ZaloLink>
@@ -128,12 +127,12 @@ export function ReadySetPage() {
               <p className="lx-sd-note">Có thể đổi món theo menu sẵn có của BOND.</p>
             </div>
             <ol ref={itemsRef} className="lx-sd-items">
-              {items.map((item, i) => (
-                <li key={item} className="lx-sd-item">
+              {set.items.map((item, i) => (
+                <li key={item.name} className="lx-sd-item">
                   <span className="lx-cmp-step-n">{pad(i + 1)}</span>
                   <div>
-                    <p className="lx-sd-item-t">{item}</p>
-                    <p className="lx-sd-item-d">Dung tích / khối lượng: <span className="is-pending">{pendingSpec}</span> · Xuất xứ: <span className="is-pending">{pendingSpec}</span></p>
+                    <p className="lx-sd-item-t">{item.name}</p>
+                    <p className="lx-sd-item-d">{item.qty.endsWith('ml') ? 'Dung tích' : 'Khối lượng'}: {item.qty}</p>
                   </div>
                 </li>
               ))}
@@ -146,11 +145,11 @@ export function ReadySetPage() {
           <div className="lx-wrap lx-sd-pair">
             <div>
               <h2 className="lx-sd-h">Thông số hộp</h2>
-              <SpecList rows={[['Kích thước', pendingSpec], ['Trọng lượng cả set', pendingSpec], ['Chất liệu', pendingSpec], ['Màu sắc', pendingSpec]]} />
+              <SpecList rows={[['Loại hộp', set.boxType], ['Kích thước', set.boxSize], ['Túi', orderTerms.bag], ['Trọng lượng cả set', pendingSpec], ['Màu sắc', pendingSpec]]} />
             </div>
             <div>
               <h2 className="lx-sd-h">Thông tin đặt hàng</h2>
-              <SpecList rows={[['Giá', set.price], ['VAT', pendingSpec], moq, time, ['Giao hàng', 'Một điểm hoặc nhiều điểm theo danh sách người nhận']]} />
+              <SpecList rows={[['Giá', set.price], ['VAT và vận chuyển', orderTerms.vat], ['Thanh toán', orderTerms.pay], moq, time, ['Giao hàng', 'Một điểm hoặc nhiều điểm theo danh sách người nhận']]} />
             </div>
           </div>
         </section>
