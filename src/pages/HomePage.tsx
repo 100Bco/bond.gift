@@ -444,13 +444,11 @@ function Bespoke() {
           <p className="lx-lead">Chọn mức ngân sách của anh chị để xem các hướng thiết kế tương ứng.</p>
         </Reveal>
         <Reveal className="lx-bud">
-          {bespokeTiers.map((b, i) => (
-            <Link key={b.slug} href={`/set-doc-ban/${b.slug}`} className="lx-bud-row">
-              <span className="lx-bud-no">{pad(i + 1)}</span>
-              <span className="lx-bud-thumb" aria-hidden="true">{b.thumb && <img src={b.thumb} alt="" width={120} height={150} loading="lazy" decoding="async" />}</span>
-              <span className="lx-bud-money">{b.money} <small>ngân sách / set</small></span>
-              <span className="lx-bud-meta">{b.meta}</span>
-              <span className="lx-bud-go">Xem mẫu <span aria-hidden="true">→</span></span>
+          {bespokeTiers.map((b) => (
+            <Link key={b.slug} href={`/set-doc-ban/${b.slug}`} className="lx-bud-card">
+              <span className="lx-bud-img"><img src={b.cover} alt={`${b.name}, ngân sách ${b.money} mỗi set`} width={800} height={800} loading="lazy" decoding="async" style={b.coverPos ? { objectPosition: b.coverPos } : undefined} /></span>
+              <span className="lx-bud-name">{b.name}</span>
+              <span className="lx-bud-money">{b.money} <small>/ set</small></span>
             </Link>
           ))}
         </Reveal>
