@@ -7,6 +7,7 @@ import { useScrollFx } from '@/hooks/use-scroll-fx';
 import { ZaloLink } from '@/components/bond/ZaloLink';
 import { NotFoundPage } from '@/pages/UtilityPages';
 import { ProcessLink, ProcessSteps } from '@/components/bond/ProcessSteps';
+import { SetGallery } from '@/components/bond/SetGallery';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -57,7 +58,7 @@ export function ReadySetPage() {
             </nav>
             <div className="lx-sd-hero-grid">
               <div className="lx-sd-media">
-                <img src={set.photo} alt={`Set sẵn ${set.name}`} width={1200} height={1500} decoding="async" />
+                <SetGallery key={set.slug} name={set.name} images={[1, 2, 3].map((k) => `/assets/set-san/gallery/${set.slug}-${k}.webp`)} />
               </div>
               <div className="lx-sd-intro">
                 <p className="lx-eyebrow">Set sẵn · {set.code}</p>
