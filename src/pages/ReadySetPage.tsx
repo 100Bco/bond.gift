@@ -1,19 +1,14 @@
-import { useCallback, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { Link, useRoute } from 'wouter';
 import { giftModels, orderTerms, pendingSpec, readySets } from '@/data/content';
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { usePrefersReducedMotion } from '@/hooks/use-in-view';
 import { useScrollFx } from '@/hooks/use-scroll-fx';
 import { ZaloLink } from '@/components/bond/ZaloLink';
-import { SetArt } from '@/components/bond/GiftArt';
 import { NotFoundPage } from '@/pages/UtilityPages';
-import { Lightbox } from '@/components/bond/Lightbox';
 import { ProcessLink, ProcessSteps } from '@/components/bond/ProcessSteps';
 
 const pad = (n: number) => String(n).padStart(2, '0');
-
-/* Ảnh thật chưa có: mỗi ô giữ chỗ ghi rõ cần chụp gì. */
-const galleryShots = ['Hộp đóng, góc 3/4', 'Hộp mở, thấy toàn bộ ruột', 'Cận vị trí logo trên nắp'];
 
 export function SpecList({ rows }: { rows: [string, string][] }) {
   return (
@@ -31,31 +26,18 @@ export function SpecList({ rows }: { rows: [string, string][] }) {
 /** Trang chi tiết một set sẵn: /set-san/:slug. Thông số chưa có số liệu thật hiển thị "Đang cập nhật". */
 export function ReadySetPage() {
   const [, params] = useRoute('/set-san/:slug');
-  const [shot, setShot] = useState<number | null>(null);
   const set = readySets.find((s) => s.slug === params?.slug);
   const reduced = usePrefersReducedMotion();
-  const shotsRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<HTMLOListElement>(null);
 
   // Chuyển động bám theo thanh cuộn: cuộn ngược thì chạy ngược, không lặp lại kiểu "hiện dần".
   useScrollFx(() => {
     const vh = window.innerHeight;
-    // Bộ 3 ảnh trôi ngang: hai ảnh bên ngược chiều nhau, ảnh giữa chậm hơn.
-    const shots = shotsRef.current;
-    if (shots) {
-      const r = shots.getBoundingClientRect();
-      const t = Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2)));
-      shots.querySelectorAll<HTMLElement>('.lx-sd-shot-layer').forEach((el, i) => {
-        el.style.transform = `translate3d(${([-1, 0.35, 1][i] * t * 26).toFixed(1)}px, 0, 0)`;
-      });
-    }
     // Trong hộp có gì: số thứ tự đổi từ xám sang đỏ lần lượt khi món cuộn qua 70% chiều cao màn hình.
     const list = itemsRef.current;
     if (list) for (const li of list.children) li.classList.toggle('is-lit', li.getBoundingClientRect().top + 28 < vh * 0.7);
   }, !reduced, [params?.slug]);
 
-  const close = useCallback(() => setShot(null), []);
-  const move = useCallback((step: number) => setShot((i) => (i === null ? i : (i + step + galleryShots.length) % galleryShots.length)), []);
   if (!set) return <NotFoundPage />;
   const others = readySets.filter((s) => s.slug !== set.slug);
   const [time, moq] = giftModels.ready.specs;
@@ -94,18 +76,6 @@ export function ReadySetPage() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* 2. Bộ ảnh, bấm để phóng to */}
-        <section className="lx-sd-gallery" aria-label={`Hình ảnh ${set.name}`}>
-          <div ref={shotsRef} className="lx-wrap lx-sd-shots">
-            {galleryShots.map((label, i) => (
-              <button key={label} type="button" className="lx-sd-shot" onClick={() => setShot(i)} aria-label={`Phóng to ảnh: ${label}`}>
-                <span className="lx-sd-shot-img"><span className="lx-sd-shot-layer"><SetArt look={set.look} /></span></span>
-                <span className="lx-sd-shot-cap">{label} · ảnh {pendingSpec.toLowerCase()}</span>
-              </button>
-            ))}
           </div>
         </section>
 
@@ -177,14 +147,6 @@ export function ReadySetPage() {
           </div>
         </section>
 
-        {shot !== null && (
-          <Lightbox
-            slides={galleryShots.map((label) => ({ caption: `${label} · ảnh ${pendingSpec.toLowerCase()}`, label: `Ảnh ${set.name}`, content: <SetArt look={set.look} /> }))}
-            index={shot}
-            onClose={close}
-            onMove={move}
-          />
-        )}
       </div>
     </SiteShell>
   );
