@@ -46,7 +46,6 @@ function Collection({ col, no, unit, first }: { col: BespokeCollection; no: numb
   return (
     <section id={`bst-${no}`} className="lx-bp-col" aria-labelledby={`lx-bp-col-${no}`}>
       <div className="lx-bp-col-head">
-        <p className="lx-eyebrow">{unit} {pad(no)}</p>
         <h2 id={`lx-bp-col-${no}`}>{col.name}</h2>
       </div>
       <div ref={ref} className={`lx-bp-reveal${inView ? ' is-in' : ''}`}>
@@ -132,7 +131,6 @@ export function BespokePage() {
               </div>
               {slides[show] ? (
                 <div className="lx-bp-show-cap">
-                  <span className="lx-cmp-step-n">{pad(show + 1)}</span>
                   <span className="lx-bp-show-name">{slides[show].col.name}</span>
                   <span className="lx-bp-show-d">{slides[show].col.colorways ?? slides[show].col.items.length} phối màu</span>
                   <a href={`#bst-${show + 1}`} onClick={jump} className="lx-sd-textlink">Xem bộ này <span aria-hidden="true">↓</span></a>
