@@ -351,7 +351,7 @@ function Moment() {
   return (
     <section className="lx-moment" id="khoanh-khac" aria-labelledby="lx-moment-title">
       <div className="lx-wrap lx-moment-grid">
-        <div className="lx-moment-img"><div ref={ref} className="lx-moment-art">{/* Video lặp không tiếng (3 giây đầu, nối vòng bằng mờ chuyển): hai tay trao và hai tay nhận hộp quà BOND */}<video poster="/assets/moment/trao-qua-poster.jpg" width={1280} height={956} autoPlay muted loop playsInline disablePictureInPicture disableRemotePlayback preload="metadata" aria-label="Hai tay trao hộp quà BOND, hai tay khác đón nhận"><source src="/assets/moment/trao-qua.webm" type="video/webm" /><source src="/assets/moment/trao-qua.mp4" type="video/mp4" /></video></div></div>
+        <div className="lx-moment-img"><div ref={ref} className="lx-moment-art">{/* Video lặp không tiếng (bản 2, làm chậm cho mượt, nối vòng bằng mờ chuyển): hai tay trao và hai tay nhận hộp quà BOND */}<video poster="/assets/moment/trao-qua-poster.jpg" width={1280} height={956} autoPlay muted loop playsInline disablePictureInPicture disableRemotePlayback preload="metadata" aria-label="Hai tay trao hộp quà BOND, hai tay khác đón nhận"><source src="/assets/moment/trao-qua.webm" type="video/webm" /><source src="/assets/moment/trao-qua.mp4" type="video/mp4" /></video></div></div>
         <Reveal className="lx-moment-txt">
           <p className="lx-eyebrow">Khoảnh khắc trao quà</p>
           <h2 id="lx-moment-title"><span className="lx-l">Món quà Tết không được nhớ vì giá.</span> <span className="lx-l">Nó được nhớ vì người nhận</span> <em className="lx-serif lx-l">cảm thấy mình được trân quý.</em></h2>
