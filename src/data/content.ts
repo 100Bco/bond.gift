@@ -153,8 +153,8 @@ export const kitDocuments = [
 
 /* ---------- Trang chủ editorial: số liệu đã được BOND chốt (có thể đổi sau) ---------- */
 
-/** Link Zalo OA chính thức. Để trống thì mọi nút Zalo dẫn về trang liên hệ. */
-export const zaloUrl = '';
+/** Link Zalo OA chính thức (BOND). Để trống thì mọi nút Zalo dẫn về trang liên hệ. */
+export const zaloUrl = 'https://zalo.me/2039510427284124793';
 
 /**
  * Logo khách hàng đã đồng hành cùng hệ sinh thái 100B (file gốc trong /public/Logo Client).
@@ -349,4 +349,6 @@ export const giftProcesses: Record<'ready' | 'bespoke', { note?: string; steps: 
   },
 };
 
-export const officeLines = ['Hà Nội: Tòa nhà 100B, Q. Hoàn Kiếm', 'TP.HCM: Chi nhánh Quận 1'];
+export const officeLines = ['Số 15A ngõ 192 Lê Trọng Tấn, P. Phương Liệt, TP Hà Nội'];
+/** Hotline hiển thị và số gọi (tel:). */
+export const hotline = { label: '085.285.9595', tel: '+84852859595' };
