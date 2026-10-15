@@ -792,3 +792,17 @@
   .lx-proc-col + .lx-proc-col::before { display: none; }
   .lx-proc-name { display: none; }
 }
+/* Trang Quy trình (máy tính): gọn trong một màn hình 1440×900 */
+@media (min-width: 861px) {
+  .lx-proc { padding-top: calc(var(--lx-nav-h) + 28px) !important; padding-bottom: 28px; }
+  .lx-proc-head { margin-bottom: 18px; }
+  .lx-proc-head h1 { margin-top: 8px; font-size: clamp(24px, 2.3vw, 34px); }
+  .lx .lx-proc h2.lx-proc-name { margin: 0; font-size: 21px; line-height: 1.2; letter-spacing: -0.01em; }
+  .lx-proc-meta { margin: 2px 0 6px; padding-bottom: 8px; font-size: 12px; }
+  .lx-proc .lx-sd-item { padding: 8px 0; gap: 16px; }
+  .lx-proc .lx-sd-item-t { font-size: 15px; line-height: 1.35; }
+  .lx-proc .lx-sd-item-d { margin-top: 1px; font-size: 13px; line-height: 1.4; }
+  .lx-proc .lx-sd-steps .lx-sd-item::before { top: 14px; }
+  .lx-proc-cta { margin-top: 14px; }
+  .lx-proc-cta .lx-btn { padding-block: 10px; }
+}
