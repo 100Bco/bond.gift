@@ -806,3 +806,19 @@
   .lx-proc-cta { margin-top: 14px; }
   .lx-proc-cta .lx-btn { padding-block: 10px; }
 }
+/* Trang Quy trình (máy tính): khối chiếm đúng một màn hình, nội dung giãn ra và căn giữa theo chiều dọc; khối đỏ chỉ hiện khi cuộn xuống */
+@media (min-width: 861px) {
+  .lx-proc { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-bottom: 40px; }
+  .lx-proc-head { margin-bottom: clamp(20px, 3.4vh, 36px); }
+  .lx-proc-head h1 { font-size: clamp(26px, 2.6vw, 38px); }
+  .lx-proc-meta { margin: 4px 0 8px; padding-bottom: 12px; }
+  .lx-proc .lx-sd-item { padding: clamp(9px, 1.5vh, 16px) 0; }
+  .lx-proc .lx-sd-item-t { font-size: 16px; }
+  .lx-proc .lx-sd-item-d { margin-top: 3px; font-size: 13.5px; }
+  .lx-proc-cta { margin-top: clamp(16px, 2.4vh, 26px); }
+}
+@media (min-width: 861px) {
+  .lx-proc { padding-top: calc(var(--lx-nav-h) + clamp(16px, 3vh, 36px)) !important; padding-bottom: clamp(16px, 3vh, 36px); }
+  .lx-proc .lx-sd-item { padding: clamp(6px, 1.05vh, 14px) 0; }
+  .lx-proc-head { margin-bottom: clamp(14px, 2.6vh, 32px); }
+}
