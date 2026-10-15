@@ -129,7 +129,7 @@ export function ReadySetPage() {
                 <Link key={o.slug} href={`/set-san/${o.slug}`} className="lx-card">
                   <div className="lx-card-img">
                     <span className="lx-card-box"><img src={o.photo} alt={`Set sẵn ${o.name}`} width={1200} height={1500} loading="lazy" decoding="async" /></span>
-                    <span className="lx-peek" aria-hidden="true">Xem chi tiết<i>→</i></span>
+                    <span className="lx-peek" aria-hidden="true">→</span>
                   </div>
                   <h3 className="lx-card-name">{o.name}</h3>
                   <p className="lx-card-price">{o.price}</p>

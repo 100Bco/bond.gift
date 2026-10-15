@@ -822,3 +822,7 @@
   .lx-proc .lx-sd-item { padding: clamp(6px, 1.05vh, 14px) 0; }
   .lx-proc-head { margin-bottom: clamp(14px, 2.6vh, 32px); }
 }
+
+/* Vòng tròn trên ảnh thẻ: chỉ có mũi tên, 56px, đi theo con trỏ (vị trí --mx, --my do PeekFollow đặt) */
+.lx-peek { left: var(--mx, 50%); top: var(--my, 50%); width: 56px; height: 56px; gap: 0; font-size: 20px; font-weight: 400; letter-spacing: 0; transition: transform 0.4s var(--lx-ease), opacity 0.3s var(--lx-ease), left 0.18s ease-out, top 0.18s ease-out; }
+.lx-card-img, .lx-bud-img { cursor: none; }

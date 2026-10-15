@@ -114,6 +114,23 @@ function ZaloFab() {
   return <ZaloLink className={`lx-fab ${show ? 'is-shown' : ''}`} ariaLabel="Tư vấn trực tiếp qua Zalo"><MessageCircle size={24} strokeWidth={1.75} aria-hidden="true" /></ZaloLink>;
 }
 
+/** Vòng tròn mũi tên trên ảnh thẻ đi theo con trỏ: đặt --mx, --my (px) cho khung ảnh đang rê chuột. */
+function PeekFollow() {
+  useEffect(() => {
+    if (!window.matchMedia('(hover: hover)').matches) return;
+    const move = (e: PointerEvent) => {
+      const host = (e.target as Element | null)?.closest?.<HTMLElement>('.lx-card-img, .lx-bud-img');
+      if (!host) return;
+      const r = host.getBoundingClientRect();
+      host.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      host.style.setProperty('--my', `${e.clientY - r.top}px`);
+    };
+    document.addEventListener('pointermove', move, { passive: true });
+    return () => document.removeEventListener('pointermove', move);
+  }, []);
+  return null;
+}
+
 function ScrollToTop() {
   const [location] = useLocation();
   useEffect(() => {
@@ -129,6 +146,7 @@ export function SiteShell({ children, theme }: { children: ReactNode; theme?: 'g
       <div className="lx-grain" aria-hidden="true" />
       <a className="skip-link" href="#main">Bỏ qua điều hướng</a>
       <ScrollToTop />
+      <PeekFollow />
       <SiteHeader />
       <main id="main" tabIndex={-1}>{children}</main>
       <SiteFooter />

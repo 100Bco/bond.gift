@@ -67,7 +67,7 @@ export function ReadySets() {
             <Link key={set.slug} href={`/set-san/${set.slug}`} className="lx-card">
               <div className="lx-card-img">
                 <span className="lx-card-box"><img src={set.photo} alt={`Set sẵn ${set.name}`} width={1200} height={1500} loading="lazy" decoding="async" /></span>
-                <span className="lx-peek" aria-hidden="true">Xem chi tiết<i>→</i></span>
+                <span className="lx-peek" aria-hidden="true">→</span>
               </div>
               <h3 className="lx-card-name">{set.name}</h3>
               <p className="lx-card-price">{set.price}</p>
@@ -97,7 +97,7 @@ export function Bespoke() {
         <Reveal className="lx-bud">
           {bespokeTiers.map((b) => (
             <Link key={b.slug} href={`/set-doc-ban/${b.slug}`} className="lx-bud-card">
-              <span className="lx-bud-img"><img src={b.cover} alt={`${b.name}, ngân sách ${b.money} mỗi set`} width={800} height={800} loading="lazy" decoding="async" style={b.coverPos ? { objectPosition: b.coverPos } : undefined} /><span className="lx-peek" aria-hidden="true">Xem chi tiết<i>→</i></span></span>
+              <span className="lx-bud-img"><img src={b.cover} alt={`${b.name}, ngân sách ${b.money} mỗi set`} width={800} height={800} loading="lazy" decoding="async" style={b.coverPos ? { objectPosition: b.coverPos } : undefined} /><span className="lx-peek" aria-hidden="true">→</span></span>
               <span className="lx-bud-name">{b.name}</span>
               <span className="lx-bud-money">{b.money} <small>/ set</small></span>
             </Link>
