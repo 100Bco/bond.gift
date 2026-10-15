@@ -1,7 +1,7 @@
 import { type ReactNode, useEffect, useState } from 'react';
 import { MessageCircle } from 'lucide-react';
 import { Link, useLocation } from 'wouter';
-import { officeLines } from '@/data/content';
+import { hotline, officeLines } from '@/data/content';
 import { ZaloLink } from '@/components/bond/ZaloLink';
 
 /** Logo chính thức. Không vẽ lại, không kéo giãn, chỉ đặt trên nền sáng để giữ tương phản của wordmark. */
@@ -88,6 +88,7 @@ export function SiteFooter() {
             <p className="lx-foot-h">Liên hệ</p>
             <div className="lx-foot-l">
               <ZaloLink>Nhắn tin qua Zalo</ZaloLink>
+              <a href={`tel:${hotline.tel}`}>Hotline: {hotline.label}</a>
               {officeLines.map((line) => <span key={line}>{line}</span>)}
             </div>
           </div>
