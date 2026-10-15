@@ -65,7 +65,7 @@ export function ReadySetPage() {
                 <h1 id="lx-sd-title">{set.name}</h1>
                 <p className="lx-sd-price">{set.price}</p>
                 <p className="lx-lead">{set.desc}</p>
-                <SpecList rows={[['Kích thước hộp', set.boxSize], moq, time, ['Trọng lượng', pendingSpec], ['Hạn sử dụng', pendingSpec]]} />
+                <SpecList rows={[['Kích thước hộp', set.boxSize], moq, time]} />
                 <div className="lx-sd-logo">
                   <h2 className="lx-sd-logo-t">Logo của anh chị</h2>
                   <p>Logo được in UV ở giữa nắp hộp. Anh chị gửi file logo dạng vector (AI, PDF hoặc SVG). BOND gửi maket để anh chị duyệt trước khi sản xuất.</p>
