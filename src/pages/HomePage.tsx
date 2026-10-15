@@ -1,17 +1,16 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'wouter';
-import { bespokeTiers, clientLogos, giftModels, giftProcesses, readySets } from '@/data/content';
+import { clientLogos, giftModels, giftProcesses } from '@/data/content';
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { Reveal } from '@/components/bond/Reveal';
 import { ZaloLink } from '@/components/bond/ZaloLink';
 import { TetPetals } from '@/components/bond/TetPetals';
+import { TET, TetCta } from '@/components/bond/TetCta';
 import { useInView, usePrefersReducedMotion } from '@/hooks/use-in-view';
 
-/* Trang chủ editorial: hero hai pha, hai mô hình quà, set sẵn, set độc bản, khoảnh khắc Tết, quy trình. */
+/* Trang chủ: hero, logo đối tác, so sánh hai mô hình, khoảnh khắc trao quà, khối Tết cuối trang. Set sẵn, Set độc bản, Quy trình là trang riêng. */
 
-const TET = new Date('2027-02-06T00:00:00+07:00');
 const pad = (n: number) => String(Math.max(0, n)).padStart(2, '0');
-const ArrowUp = () => <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M4 12L12 4M12 4H5.5M12 4v6.5" /></svg>;
 const ArrowDown = () => <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M8 3v10M8 13l-4.5-4.5M8 13l4.5-4.5" /></svg>;
 
 function useTetCountdown() {
@@ -199,7 +198,7 @@ function Hero() {
           <div className={`lx-hero-p2 ${phase2 ? 'is-live' : ''}`}>
             <p className="lx-hero-line2">Brands, <span className="lx-serif">in hand.</span></p>
             <p className="lx-hero-line2sub">Đưa dấu ấn thương hiệu vào từng món quà trao tay.</p>
-            <a href="#set-san" className="lx-btn lx-btn-red" tabIndex={phase2 ? undefined : -1}><span>Khám phá bộ sưu tập</span><ArrowDown /></a>
+            <Link href="/set-san" className="lx-btn lx-btn-red" tabIndex={phase2 ? undefined : -1}><span>Khám phá bộ sưu tập</span><ArrowDown /></Link>
           </div>
 
         </div>
@@ -226,36 +225,23 @@ function LogoStrip() {
           </ul>
         </div>
       </div>
-      <p className="lx-logos-note">Bao gồm dự án nhận diện thương hiệu bởi ZAD và sản xuất quà tặng độc bản bởi BOND.</p>
     </section>
   );
 }
 
-/** Một ô giá trị trong bảng so sánh: full là chữ đầy đủ, short là bản rút gọn hiện dưới 480px. null là "không có". */
-type CmpCell = { full: string; short?: string; big?: boolean; sub?: string; subShort?: string } | null;
+/** Một ô giá trị trong bảng so sánh: một dòng, cùng cỡ chữ. short là bản rút gọn hiện dưới 480px. */
+type CmpCell = { full: string; short?: string };
 const cmpRows: [string, CmpCell, CmpCell][] = [
-  ['Thời gian hoàn thành', { full: '2 tuần', big: true, sub: 'từ lúc chốt mẫu' }, { full: '8 tuần', big: true, sub: 'từ khi nhận yêu cầu đến giao hàng', subShort: 'từ khi nhận yêu cầu' }],
-  ['Số lượng tối thiểu', { full: '10 set', big: true }, { full: '300 set', big: true }],
-  ['Hạn chốt đơn cuối cùng', { full: '15 tháng 1', sub: 'để kịp giao trước Tết', subShort: 'kịp giao trước Tết' }, { full: '15 tháng 12', sub: 'để kịp thiết kế và sản xuất', subShort: 'kịp sản xuất' }],
-  ['Xem mẫu trước khi đặt', { full: 'Mẫu thật, xem ngay', short: 'Xem ngay' }, { full: 'Sau khi duyệt thiết kế', short: 'Sau khi duyệt' }],
-  ['Thiết kế bao bì', { full: 'Gắn logo lên mẫu có sẵn', short: 'Gắn logo' }, { full: 'Thiết kế từ đầu theo nhận diện', short: 'Thiết kế từ đầu' }],
-  ['Kết cấu hộp riêng', null, { full: 'Thiết kế theo yêu cầu', short: 'Theo yêu cầu' }],
-  ['Chọn chất liệu và gia công', { full: 'Theo mẫu' }, { full: 'Tự chọn' }],
-  ['Ruột quà', { full: 'Theo cấu hình có sẵn', short: 'Cấu hình sẵn' }, { full: 'Tuyển chọn theo yêu cầu', short: 'Theo yêu cầu' }],
-  ['Nếm thử trước khi chốt', null, { full: 'Gửi hộp mẫu tận nơi để nếm thử', short: 'Hộp mẫu tận nơi' }],
-  ['Độc quyền thiết kế', null, { full: 'Mẫu không dùng cho doanh nghiệp khác', short: 'Độc quyền' }],
+  ['Thời gian hoàn thành', { full: '2 tuần từ lúc chốt mẫu', short: '2 tuần' }, { full: '8 tuần từ khi nhận yêu cầu', short: '8 tuần' }],
+  ['Số lượng tối thiểu', { full: '10 set' }, { full: '300 set' }],
+  ['Hạn chốt đơn', { full: 'Trước 15 tháng 1', short: 'Trước 15/1' }, { full: 'Trước 15 tháng 12', short: 'Trước 15/12' }],
 ];
 
 function CmpValue({ cell }: { cell: CmpCell }) {
-  if (!cell) return <span className="lx-cmpt-none" aria-label="Không có">—</span>;
-  const text = cell.short
-    ? <><span className="lx-cmpt-lg">{cell.full}</span><span className="lx-cmpt-sm">{cell.short}</span></>
-    : cell.full;
   return (
-    <>
-      <span className={cell.big ? 'lx-cmpt-big' : 'lx-cmpt-val'}>{text}</span>
-      {cell.sub && <span className="lx-cmpt-sub">{cell.subShort ? <><span className="lx-cmpt-lg">{cell.sub}</span><span className="lx-cmpt-sm">{cell.subShort}</span></> : cell.sub}</span>}
-    </>
+    <span className="lx-cmpt-val">
+      {cell.short ? <><span className="lx-cmpt-lg">{cell.full}</span><span className="lx-cmpt-sm">{cell.short}</span></> : cell.full}
+    </span>
   );
 }
 
@@ -281,11 +267,11 @@ function Models() {
     { kind: 'bespoke' as const, img: '/assets/models/set-doc-ban.webp', alt: 'Hộp quà độc bản họa tiết hoa xanh ngọc in logo doanh nghiệp' },
   ];
   return (
-    <section className="lx-sec lx-cmp" id="quy-trinh" aria-labelledby="lx-cmp-title">
+    <section className="lx-sec lx-cmp" id="so-sanh" aria-labelledby="lx-cmp-title">
       <div className="lx-wrap">
         <Reveal className="lx-cmp-head">
           <p className="lx-eyebrow">Hai cách đặt quà</p>
-          <h2 id="lx-cmp-title">Hai cách để BOND làm quà<br />cho thương hiệu của anh chị</h2>
+          <h2 id="lx-cmp-title">Hai cách để BOND làm quà cho thương hiệu của anh chị</h2>
           <p className="lx-lead">Cùng một đội ngũ, cùng một chuẩn hoàn thiện. Khác nhau ở mức độ anh chị muốn món quà mang dấu ấn riêng đến đâu.</p>
         </Reveal>
         <div className="lx-cmpt" role="table" aria-label="So sánh Set sẵn và Set độc bản">
@@ -299,7 +285,7 @@ function Models() {
                 <p className="lx-cmpt-say"><span className="lx-cmpt-lg">{giftModels[c.kind].say}</span><span className="lx-cmpt-sm">{c.kind === 'ready' ? 'Có sẵn, thêm logo.' : 'Thiết kế riêng.'}</span></p>
                 {/* Nút là tín hiệu ưu tiên duy nhất còn lại: Set độc bản dùng nút đỏ đặc, Set sẵn nút viền */}
                 {c.kind === 'ready'
-                  ? <a href="#set-san" className="lx-btn lx-btn-line">Xem Set sẵn</a>
+                  ? <Link href="/set-san" className="lx-btn lx-btn-line">Xem Set sẵn</Link>
                   : <ZaloLink className="lx-btn lx-btn-red"><span className="lx-cmpt-lg">Nhận tư vấn thiết kế</span><span className="lx-cmpt-sm">Nhận tư vấn</span></ZaloLink>}
               </div>
             ))}
@@ -310,8 +296,7 @@ function Models() {
               <div role="cell" className="lx-cmpt-cell"><CmpValue cell={b} /></div>
             </CmpRow>
           ))}
-          {/* Menu "Quy trình" nhảy thẳng tới dòng này (#quy-trinh-buoc) */}
-          <CmpRow label="Quy trình" id="quy-trinh-buoc">
+          <CmpRow label="Quy trình">
             {cols.map((c) => {
               const proc = giftProcesses[c.kind];
               return (
@@ -343,108 +328,6 @@ function Models() {
   );
 }
 
-function ReadySets() {
-  const reduced = usePrefersReducedMotion();
-  const gridRef = useRef<HTMLDivElement>(null);
-
-  // Bậc thang giá trị: bốn thẻ đứng so le (set rẻ nhất thấp nhất) rồi về thẳng hàng khi khối tới giữa màn hình.
-  // Bám theo thanh cuộn, có quán tính nhẹ cho mượt; cuộn ngược thì so le trở lại.
-  useEffect(() => {
-    const grid = gridRef.current;
-    if (!grid || reduced) return;
-    const cards = [...grid.querySelectorAll<HTMLElement>('.lx-card')];
-    let target = 0;
-    let cur = 0;
-    let raf = 0;
-    let last = 0;
-    const measure = () => {
-      const r = grid.getBoundingClientRect();
-      const vh = window.innerHeight;
-      target = Math.max(0, Math.min(1, (vh - r.top) / (vh / 2 + Math.min(r.height, vh) / 2)));
-    };
-    const apply = () => {
-      const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
-      const step = Math.min(56, window.innerWidth * 0.035);
-      const e = 0.5 - Math.cos(Math.PI * cur) / 2;
-      cards.forEach((c, i) => {
-        c.style.setProperty('--lift', `${((cols - 1 - (i % cols)) * step * (1 - e)).toFixed(1)}px`);
-        c.style.setProperty('--sc', (1 + 0.06 * (1 - e)).toFixed(4));
-      });
-    };
-    const tick = (t: number) => {
-      const dt = last ? Math.min(64, t - last) : 16;
-      last = t;
-      cur += (target - cur) * (1 - Math.exp(-dt / 160));
-      if (Math.abs(target - cur) < 0.0005) cur = target;
-      apply();
-      raf = cur === target ? 0 : requestAnimationFrame(tick);
-      if (!raf) last = 0;
-    };
-    const kick = () => { measure(); if (!raf) raf = requestAnimationFrame(tick); };
-    measure();
-    cur = target;
-    apply();
-    window.addEventListener('scroll', kick, { passive: true });
-    window.addEventListener('resize', kick);
-    return () => { window.removeEventListener('scroll', kick); window.removeEventListener('resize', kick); if (raf) cancelAnimationFrame(raf); };
-  }, [reduced]);
-
-  return (
-    <section className="lx-sec lx-ready" id="set-san" aria-labelledby="lx-ready-title">
-      <div className="lx-wrap lx-wrap-wide">
-        <Reveal className="lx-sec-head">
-          <div>
-            <p className="lx-eyebrow">Mô hình 01</p>
-            <h2 id="lx-ready-title">Set sẵn</h2>
-            <p className="lx-sec-meta"><span>Từ 10 set</span><i aria-hidden="true">·</i><span>Giao trong 2 tuần</span><i aria-hidden="true">·</i><span>In logo UV lên nắp hộp</span></p>
-          </div>
-        </Reveal>
-        <div ref={gridRef} className="lx-cards lx-stair">
-          {readySets.map((set) => (
-            <Link key={set.slug} href={`/set-san/${set.slug}`} className="lx-card">
-              <div className="lx-card-img">
-                <span className="lx-card-box"><img src={set.photo} alt={`Set sẵn ${set.name}`} width={1200} height={1500} loading="lazy" decoding="async" /></span>
-                <span className="lx-peek" aria-hidden="true">Xem chi tiết<i>→</i></span>
-              </div>
-              <h3 className="lx-card-name">{set.name}</h3>
-              <p className="lx-card-price">{set.price}</p>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Bespoke() {
-  return (
-    <section className="lx-sec lx-custom" id="set-doc-ban" aria-labelledby="lx-custom-title">
-      <div className="lx-wrap">
-        <Reveal className="lx-sec-head">
-          <div>
-            <p className="lx-eyebrow">Mô hình 02</p>
-            <h2 id="lx-custom-title">Set độc bản</h2>
-            <p className="lx-sec-meta"><span>Từ 300 set</span><i aria-hidden="true">·</i><span>Khoảng 8 tuần</span><i aria-hidden="true">·</i><span>Thiết kế riêng theo thương hiệu</span></p>
-            <div className="lx-disc">
-              <span className="lx-cross" aria-hidden="true" />
-              <p>Mỗi mẫu dưới đây là một hướng thiết kế để bắt đầu. BOND và ZAD sẽ phát triển kết cấu hộp và trải nghiệm mở hộp riêng cho thương hiệu của anh chị, không dùng lại cho bất kỳ doanh nghiệp nào khác.</p>
-            </div>
-          </div>
-        </Reveal>
-        <Reveal className="lx-bud">
-          {bespokeTiers.map((b) => (
-            <Link key={b.slug} href={`/set-doc-ban/${b.slug}`} className="lx-bud-card">
-              <span className="lx-bud-img"><img src={b.cover} alt={`${b.name}, ngân sách ${b.money} mỗi set`} width={800} height={800} loading="lazy" decoding="async" style={b.coverPos ? { objectPosition: b.coverPos } : undefined} /><span className="lx-peek" aria-hidden="true">Xem chi tiết<i>→</i></span></span>
-              <span className="lx-bud-name">{b.name}</span>
-              <span className="lx-bud-money">{b.money} <small>/ set</small></span>
-            </Link>
-          ))}
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
 function Moment() {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
@@ -468,7 +351,7 @@ function Moment() {
   return (
     <section className="lx-moment" id="khoanh-khac" aria-labelledby="lx-moment-title">
       <div className="lx-wrap lx-moment-grid">
-        <div className="lx-moment-img"><div ref={ref} className="lx-moment-art"><img src="/assets/moment/van-loc-vinh-hoa-mo.webp" alt="Set Vạn Lộc Vinh Hoa mở hai cánh, bên trong là rượu Chivas 18, socola, trà và bánh kẹo" width={1086} height={1448} loading="lazy" decoding="async" /></div></div>
+        <div className="lx-moment-img"><div ref={ref} className="lx-moment-art">{/* Ảnh tạm, sẽ thay bằng video lặp: hai tay trao và hai tay nhận hộp quà BOND */}<img src="/assets/hero/hands-held.webp" alt="Đôi tay nâng hộp quà Tết BOND màu đỏ" width={1400} height={1045} loading="lazy" decoding="async" /></div></div>
         <Reveal className="lx-moment-txt">
           <p className="lx-eyebrow">Khoảnh khắc trao quà</p>
           <h2 id="lx-moment-title"><span className="lx-l">Món quà Tết không được nhớ vì giá.</span> <span className="lx-l">Nó được nhớ vì người nhận</span> <em className="lx-serif lx-l">cảm thấy mình được trân quý.</em></h2>
@@ -479,31 +362,13 @@ function Moment() {
   );
 }
 
-function Cta() {
-  // Số ngày còn lại tới Tết, tự đếm lùi theo ngày; qua Tết thì ẩn dòng này.
-  const days = Math.ceil((TET.getTime() - Date.now()) / 86400000);
-  return (
-    <section className="lx-cta" aria-labelledby="lx-cta-title">
-      <div className="lx-wrap">
-        {days > 0 && <Reveal><p className="lx-cta-days">Còn <strong>{days}</strong> ngày tới Tết<span className="lx-cta-lg"> Đinh Mùi</span></p></Reveal>}
-        <Reveal><h2 id="lx-cta-title">Bây giờ là lúc bắt đầu.</h2></Reveal>
-        <Reveal delay={1}><p>Tết Đinh Mùi rơi vào ngày <span className="lx-nowrap">6 tháng 2 năm 2027.</span></p></Reveal>
-        <Reveal delay={1}>
-          <dl className="lx-cta-dl">
-            <div><dt>Set độc bản</dt><dd><span className="lx-cta-lg">Chốt đơn trước</span><span className="lx-cta-sm">Trước</span> 15 tháng 12</dd></div>
-            <div><dt>Set sẵn</dt><dd><span className="lx-cta-lg">Chốt đơn trước</span><span className="lx-cta-sm">Trước</span> 15 tháng 1</dd></div>
-          </dl>
-        </Reveal>
-        <Reveal delay={2}><ZaloLink className="lx-btn lx-btn-white"><span>Tư vấn qua Zalo</span><ArrowUp /></ZaloLink></Reveal>
-      </div>
-    </section>
-  );
-}
-
 export function HomePage() {
   useEffect(() => {
     const id = decodeURIComponent(window.location.hash.slice(1));
     if (!id) return;
+    // Link cũ dạng /#set-san, /#set-doc-ban, /#quy-trinh: chuyển sang trang riêng
+    const moved: Record<string, string> = { 'set-san': '/set-san', 'set-doc-ban': '/set-doc-ban', 'quy-trinh': '/quy-trinh', 'quy-trinh-buoc': '/quy-trinh' };
+    if (moved[id]) { window.location.replace(moved[id]); return; }
     const t = window.setTimeout(() => document.getElementById(id)?.scrollIntoView(), 60);
     return () => window.clearTimeout(t);
   }, []);
@@ -513,10 +378,8 @@ export function HomePage() {
         <Hero />
         <LogoStrip />
         <Models />
-        <ReadySets />
-        <Bespoke />
         <Moment />
-        <Cta />
+        <TetCta />
       </div>
     </SiteShell>
   );

@@ -52,7 +52,7 @@ export function ReadySetPage() {
             <nav className="lx-sd-crumb" aria-label="Đường dẫn">
               <Link href="/">Trang chủ</Link>
               <span aria-hidden="true">/</span>
-              <Link href="/#set-san">Set sẵn</Link>
+              <Link href="/set-san">Set sẵn</Link>
               <span aria-hidden="true">/</span>
               <span aria-current="page">{set.name}</span>
             </nav>

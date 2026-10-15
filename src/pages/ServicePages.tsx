@@ -78,7 +78,7 @@ function ProcessStrip() {
     <Section tone="canvas" className="process-strip">
       <SectionIntro label="Quy trình phù hợp" title={<>Rõ từng mốc.<br />Chắc từng bước.</>}>
         <p>Set độc bản đi qua 7 bước, khoảng 8 tuần từ brief đến giao hàng. Chúng tôi nói rõ ngay từ đầu.</p>
-        <p><TextLink href="/#quy-trinh">So sánh với Set sẵn</TextLink></p>
+        <p><TextLink href="/#so-sanh">So sánh với Set sẵn</TextLink></p>
       </SectionIntro>
       <StepCarousel />
     </Section>
@@ -100,7 +100,7 @@ export function ServiceHubPage({ type }: { type: ServiceKind }) {
         label={config.label}
         title={config.title}
         lead={config.description}
-        actions={<><ButtonLink href="/lien-he">Trao đổi cùng BOND</ButtonLink><ButtonLink href="/#quy-trinh" variant="secondary">Xem quy trình</ButtonLink></>}
+        actions={<><ButtonLink href="/lien-he">Trao đổi cùng BOND</ButtonLink><ButtonLink href="/quy-trinh" variant="secondary">Xem quy trình</ButtonLink></>}
         media={<Media ratio="4 / 5" priority tone={config.heroMedia.tone} motion={config.heroMedia.motion} art={config.heroMedia.art} asset={config.heroMedia.asset} alt={`Minh họa ${config.title.toLowerCase()}`} />}
       />
 

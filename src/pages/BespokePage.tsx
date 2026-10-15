@@ -107,7 +107,7 @@ export function BespokePage() {
             <nav className="lx-sd-crumb" aria-label="Đường dẫn">
               <Link href="/">Trang chủ</Link>
               <span aria-hidden="true">/</span>
-              <Link href="/#set-doc-ban">Set độc bản</Link>
+              <Link href="/set-doc-ban">Set độc bản</Link>
               <span aria-hidden="true">/</span>
               <span aria-current="page">{tier.name}</span>
             </nav>
