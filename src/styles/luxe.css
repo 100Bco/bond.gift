@@ -654,3 +654,66 @@
   .lx-scroll-cue i { transform: none; }
   .lx .reveal { transform: none; }
 }
+
+/* ---------- Bản gọn (10/2026): menu trắng đặc, mỗi khối trang chủ gọn trong một màn hình ---------- */
+.lx-nav, .lx-nav.is-solid { background: #FFFFFF; border-bottom-color: var(--lx-line); backdrop-filter: none; -webkit-backdrop-filter: none; }
+/* Logo đối tác: nhãn căn giữa phía trên dải logo; logo đã tách nền trong suốt */
+.lx-logos { padding: 28px 0 30px; }
+.lx-logos-in { flex-direction: column; align-items: stretch; gap: 18px; }
+.lx-logos-lab { text-align: center; white-space: normal; }
+.lx-logos-row img { mix-blend-mode: normal; }
+/* Khối so sánh: 4 dòng, ảnh thấp hơn, khoảng cách hẹp */
+.lx-cmp { padding: clamp(48px, 6vh, 72px) 0; }
+.lx-cmp-head { margin-bottom: clamp(20px, 3vh, 32px); max-width: 980px; }
+.lx-cmp-head h2 { margin-top: 10px; font-size: clamp(24px, 2.5vw, 36px); }
+.lx-cmp-head .lx-lead { margin-top: 10px; font-size: 15.5px; }
+.lx-cmpt { max-width: 940px; }
+.lx-cmpt-head { padding: 10px 0 8px; }
+.lx-cmpt-name { font-size: clamp(18px, 1.7vw, 24px); }
+.lx-cmpt-top { padding: 16px 0 20px; }
+.lx-cmpt-img { aspect-ratio: 2 / 1; }
+.lx-cmpt-say { margin: 10px 0 12px; font-size: 14.5px; }
+.lx-cmpt-intro .lx-btn { padding-block: 12px; }
+.lx-cmpt-row { padding: 10px 0 14px; }
+.lx-cmpt-label { margin-bottom: 6px; font-size: 11px; }
+.lx-cmpt-val { font-size: clamp(16px, 1.25vw, 18px); font-weight: 600; }
+.lx-cmpt-toggle { margin-top: 10px; padding: 12px 0; font-size: 14.5px; }
+/* Khoảnh khắc trao quà: nền trắng, ảnh (sau là video) trong khung, gọn một màn hình */
+.lx-moment { min-height: 0; padding: clamp(48px, 7vh, 88px) 0; background: #FFFFFF; color: var(--lx-ink); }
+.lx-moment-img { position: relative; inset: auto; width: auto; aspect-ratio: 4 / 3; max-height: 72vh; display: flex; align-items: flex-end; justify-content: center; background: var(--lx-paper); }
+.lx-moment-img::after { display: none; }
+.lx-moment-art { position: relative; inset: auto; width: 92%; margin-bottom: -6%; }
+.lx-moment-art img, .lx-moment-art video { display: block; width: 100%; height: auto; object-fit: contain; }
+.lx-moment-txt { grid-column: 2; }
+.lx .lx-moment-txt .lx-eyebrow { color: var(--lx-muted); }
+.lx-moment-txt h2 em { color: var(--lx-red); }
+.lx-moment-txt p:last-child { color: var(--lx-muted); }
+/* Khối đỏ cuối trang gọn hơn */
+.lx-cta { padding: clamp(56px, 8vh, 96px) 0; }
+.lx-cta h2 { font-size: clamp(30px, 4vw, 54px); }
+.lx-cta .lx-btn { margin-top: 28px; }
+/* Trang riêng Set sẵn, Set độc bản, Quy trình: chừa chỗ cho menu */
+.lx-page > .lx-sec:first-child { padding-top: calc(var(--lx-nav-h) + clamp(40px, 6vh, 72px)); }
+.lx-page h1 { margin-top: 14px; font-size: clamp(36px, 4.6vw, 64px); }
+.lx-proc-hero { padding-bottom: clamp(24px, 4vh, 48px) !important; }
+@media (max-width: 860px) {
+  .lx-moment-img { margin: 0; height: auto; }
+  .lx-moment-txt { grid-column: auto; }
+  .lx-cmpt-img { aspect-ratio: 4 / 3; }
+}
+/* Khối so sánh: canh để cả khối (lúc chưa mở các bước) vừa một màn hình 900px */
+.lx-cmp { padding: clamp(32px, 4.5vh, 48px) 0; }
+.lx-cmp-head { margin-bottom: 14px; }
+.lx-cmp-head h2 { margin-top: 8px; font-size: clamp(22px, 2.2vw, 32px); }
+.lx-cmp-head .lx-lead { margin-top: 6px; font-size: 15px; }
+.lx-cmpt-top { padding: 12px 0 14px; }
+.lx-cmpt-img { aspect-ratio: 5 / 2; }
+.lx-cmpt-say { margin: 8px 0 10px; }
+.lx-cmpt-row { padding: 8px 0 10px; }
+.lx-cmpt-label { margin-bottom: 4px; }
+.lx-cmpt-toggle { margin-top: 6px; padding: 10px 0; }
+.lx-cmpt-img { aspect-ratio: 3 / 1; }
+.lx-cmpt-intro .lx-btn { padding-block: 10px; }
+.lx-cmp { padding: 28px 0 32px; }
+.lx-page h1 { font-family: var(--font-display); font-weight: 600; line-height: 1.05; letter-spacing: -0.035em; }
+@media (max-width: 860px) { .lx-cmpt-img { aspect-ratio: 3 / 2; } }

@@ -19,7 +19,7 @@ export function ProcessLink() {
 }
 
 /** Khối "Quy trình N bước" ở trang con: đường dọc đổ đỏ theo thanh cuộn, chạm bước nào thì bước đó sáng lên. */
-export function ProcessSteps({ kind, eyebrow }: { kind: 'ready' | 'bespoke'; eyebrow: string }) {
+export function ProcessSteps({ kind, eyebrow, id = SECTION_ID, title }: { kind: 'ready' | 'bespoke'; eyebrow: string; id?: string; title?: string }) {
   const steps = giftProcesses[kind].steps;
   const reduced = usePrefersReducedMotion();
   const ref = useRef<HTMLOListElement>(null);
@@ -33,11 +33,11 @@ export function ProcessSteps({ kind, eyebrow }: { kind: 'ready' | 'bespoke'; eye
   }, !reduced, [kind]);
 
   return (
-    <section id={SECTION_ID} className="lx-sec lx-sd-sec lx-sd-process" aria-labelledby="lx-sd-steps">
+    <section id={id} className="lx-sec lx-sd-sec lx-sd-process" aria-labelledby={`${id}-t`}>
       <div className="lx-wrap lx-sd-split">
         <div className="lx-sd-side">
           <p className="lx-eyebrow">{eyebrow}</p>
-          <h2 id="lx-sd-steps">Quy trình {steps.length} bước</h2>
+          <h2 id={`${id}-t`}>{title ?? `Quy trình ${steps.length} bước`}</h2>
         </div>
         <ol ref={ref} className="lx-sd-steps">
           {steps.map(([t, desc], i) => (

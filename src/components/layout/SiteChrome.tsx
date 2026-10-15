@@ -11,9 +11,9 @@ export function Logo({ className = '' }: { className?: string }) {
 
 /* Menu theo bản thiết kế editorial: ba điểm đến trên trang chủ + tư vấn Zalo */
 const navLinks: [string, string][] = [
-  ['Set sẵn', '/#set-san'],
-  ['Set độc bản', '/#set-doc-ban'],
-  ['Quy trình', '/#quy-trinh-buoc'],
+  ['Set sẵn', '/set-san'],
+  ['Set độc bản', '/set-doc-ban'],
+  ['Quy trình', '/quy-trinh'],
 ];
 
 const ArrowUp = () => (
@@ -46,7 +46,7 @@ export function SiteHeader() {
         <div className="lx-nav-in">
           <Link className="lx-brand" href="/" aria-label="Về trang chủ BOND"><Logo /></Link>
           <nav className="lx-nav-links" aria-label="Điều hướng chính">
-            {navLinks.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
+            {navLinks.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
           </nav>
           <ZaloLink className="lx-nav-cta"><span>Tư vấn qua Zalo</span><ArrowUp /></ZaloLink>
           <button type="button" className="lx-burger" onClick={() => setMenuOpen((v) => !v)} aria-expanded={menuOpen} aria-controls="lx-mobile-nav" aria-label={menuOpen ? 'Đóng menu' : 'Mở menu'}>
@@ -55,7 +55,7 @@ export function SiteHeader() {
         </div>
       </header>
       <div id="lx-mobile-nav" className={`lx-mobile ${menuOpen ? 'is-open' : ''}`} hidden={!menuOpen}>
-        {navLinks.map(([label, href]) => <a key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</a>)}
+        {navLinks.map(([label, href]) => <Link key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</Link>)}
         <ZaloLink className="lx-mobile-zalo">Tư vấn qua Zalo</ZaloLink>
       </div>
     </>
@@ -77,10 +77,10 @@ export function SiteFooter() {
           <div>
             <p className="lx-foot-h">Khám phá</p>
             <div className="lx-foot-l">
-              <Link href="/#set-san">Set sẵn</Link>
-              <Link href="/#set-doc-ban">Set độc bản</Link>
+              <Link href="/set-san">Set sẵn</Link>
+              <Link href="/set-doc-ban">Set độc bản</Link>
               <Link href="/ve-bond">Về BOND</Link>
-              <a href="/#quy-trinh-buoc">Quy trình</a>
+              <Link href="/quy-trinh">Quy trình</Link>
               <Link href="/cau-hoi-thuong-gap">Câu hỏi thường gặp</Link>
             </div>
           </div>

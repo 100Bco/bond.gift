@@ -10,6 +10,7 @@ import { CatalogDetailPage, CollectionPage, SignaturePage } from '@/pages/Collec
 import { ServiceDetailPage, ServiceHubPage } from '@/pages/ServicePages';
 import { ReadySetPage } from '@/pages/ReadySetPage';
 import { BespokePage } from '@/pages/BespokePage';
+import { BespokeListPage, ProcessPage, ReadySetsPage } from '@/pages/ListPages';
 import { ProjectDetailPage, ProjectsPage } from '@/pages/ProjectPages';
 import { CapabilitiesPage, CapabilityDetailPage } from '@/pages/CapabilityPages';
 import { InsightDetailPage, InsightsPage } from '@/pages/InsightPages';
@@ -17,12 +18,6 @@ import { CareersPage, ContactPage, DocumentsPage, FaqPage, LegalPage, NotFoundPa
 import { KitDocumentPage, KitGate } from '@/pages/KitPages';
 
 const queryClient = new QueryClient();
-
-/* Trang quy trình riêng đã gộp vào khối "Hai cách để BOND làm quà" trên trang chủ. */
-function ProcessRedirect() {
-  window.location.replace('/#quy-trinh-buoc');
-  return null;
-}
 
 /* Sitemap và URL giữ nguyên như phiên bản trước; chỉ thay giao diện của từng route. */
 function Router() {
@@ -38,7 +33,9 @@ function Router() {
         <Route path="/bo-suu-tap" component={CollectionPage} />
         <Route path="/bo-suu-tap/signature" component={SignaturePage} />
         <Route path="/bo-suu-tap/:slug" component={CatalogDetailPage} />
-        <Route path="/quy-trinh" component={ProcessRedirect} />
+        <Route path="/quy-trinh" component={ProcessPage} />
+        <Route path="/set-san" component={ReadySetsPage} />
+        <Route path="/set-doc-ban" component={BespokeListPage} />
         <Route path="/set-san/:slug" component={ReadySetPage} />
         <Route path="/set-doc-ban/:slug" component={BespokePage} />
         <Route path="/qua-tang" component={() => <ServiceHubPage type="gift" />} />
