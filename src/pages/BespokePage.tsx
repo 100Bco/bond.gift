@@ -177,7 +177,7 @@ export function BespokePage() {
                 <Link key={o.slug} href={`/set-doc-ban/${o.slug}`} className="lx-card">
                   <div className="lx-card-img">
                     <span className="lx-card-box"><img src={o.cover} alt={`${o.name}, ${o.money} mỗi set`} width={800} height={1000} loading="lazy" decoding="async" style={o.coverPos ? { objectPosition: o.coverPos } : undefined} /></span>
-                    <span className="lx-peek" aria-hidden="true">Xem chi tiết<i>→</i></span>
+                    <span className="lx-peek" aria-hidden="true">→</span>
                   </div>
                   <h3 className="lx-card-name">{o.name}</h3>
                   <p className="lx-card-price">{o.money} / set</p>

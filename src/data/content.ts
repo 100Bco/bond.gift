@@ -220,7 +220,7 @@ export const readySets: ReadySet[] = [
     boxType: 'Hộp 2 tầng', boxSize: '37,5 × 15,5 × 21,5 cm',
   },
   {
-    slug: 'van-loc-vinh-hoa', code: 'SS04', name: 'Vạn Lộc Vinh Hoa', price: '2.899.000đ / set', look: 'black', photo: '/assets/set-san/van-loc-vinh-hoa.webp',
+    slug: 'van-loc-vinh-hoa', code: 'SS04', name: 'Vạn Lộc Vinh Hoa', price: '2.899.000đ / set', look: 'black', photo: '/assets/set-san/gallery/van-loc-vinh-hoa-1.webp',
     desc: 'Lấy cảm hứng từ lời chúc tài lộc viên mãn, phú quý trường tồn. Hộp cánh mở có tay xách, rượu Chivas 18, trà Ahmad và bánh kẹo nhập khẩu, gửi lời chúc vạn sự hanh thông.',
     contents: 'Chivas 18 + socola Nga + bánh Nga + kẹo Đức + trà Ahmad + mứt Tết',
     items: [
