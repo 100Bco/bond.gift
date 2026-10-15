@@ -1,6 +1,9 @@
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { Bespoke, ReadySets } from '@/components/bond/Collections';
-import { ProcessSteps } from '@/components/bond/ProcessSteps';
+import { useState } from 'react';
+import { Link } from 'wouter';
+import { StepList } from '@/components/bond/ProcessSteps';
+import { ZaloLink } from '@/components/bond/ZaloLink';
 import { TetCta } from '@/components/bond/TetCta';
 import { giftProcesses } from '@/data/content';
 
@@ -28,20 +31,43 @@ export function BespokeListPage() {
   );
 }
 
-/** /quy-trinh: hai quy trình đặt quà, mỗi quy trình một khối có đường đỏ chạy theo cuộn. */
+/** /quy-trinh: hai quy trình đặt cạnh nhau (máy tính), điện thoại chuyển bằng hai tab. */
 export function ProcessPage() {
+  const [tab, setTab] = useState<'ready' | 'bespoke'>('ready');
+  const cols = [
+    { kind: 'ready' as const, name: 'Set sẵn', time: 'khoảng 2 tuần' },
+    { kind: 'bespoke' as const, name: 'Set độc bản', time: 'khoảng 8 tuần' },
+  ];
   return (
     <SiteShell>
       <div className="lx lx-sd lx-page">
-        <section className="lx-sec lx-proc-hero" aria-labelledby="lx-proc-title">
+        <section className="lx-sec lx-proc" aria-labelledby="lx-proc-title">
           <div className="lx-wrap">
-            <p className="lx-eyebrow">Quy trình</p>
-            <h1 id="lx-proc-title">Hai cách đặt quà,<br />hai quy trình rõ ràng.</h1>
-            <p className="lx-sec-meta"><span>Set sẵn {giftProcesses.ready.steps.length} bước, khoảng 2 tuần</span><i aria-hidden="true">·</i><span>Set độc bản {giftProcesses.bespoke.steps.length} bước, khoảng 8 tuần</span></p>
+            <div className="lx-proc-head">
+              <p className="lx-eyebrow">Quy trình</p>
+              <h1 id="lx-proc-title">Hai cách đặt quà, hai quy trình rõ ràng.</h1>
+            </div>
+            <div className="lx-proc-tabs" role="tablist" aria-label="Chọn quy trình">
+              {cols.map((c) => (
+                <button key={c.kind} type="button" role="tab" id={`tab-${c.kind}`} aria-controls={`proc-${c.kind}`} aria-selected={tab === c.kind} className={tab === c.kind ? 'is-on' : undefined} onClick={() => { setTab(c.kind); requestAnimationFrame(() => window.dispatchEvent(new Event('scroll'))); }}>{c.name}</button>
+              ))}
+            </div>
+            <div className="lx-proc-cols">
+              {cols.map((c) => (
+                <div key={c.kind} id={`proc-${c.kind}`} role="tabpanel" aria-labelledby={`tab-${c.kind}`} className={`lx-proc-col${tab === c.kind ? ' is-on' : ''}`}>
+                  <h2 className="lx-proc-name">{c.name}</h2>
+                  <p className="lx-proc-meta">{giftProcesses[c.kind].steps.length} bước · {c.time}</p>
+                  <StepList kind={c.kind} />
+                  <div className="lx-proc-cta">
+                    {c.kind === 'ready'
+                      ? <Link href="/set-san" className="lx-btn lx-btn-line">Xem Set sẵn</Link>
+                      : <ZaloLink className="lx-btn lx-btn-red">Nhận tư vấn thiết kế</ZaloLink>}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
-        <ProcessSteps kind="ready" id="set-san" eyebrow="Set sẵn · khoảng 2 tuần" />
-        <ProcessSteps kind="bespoke" id="set-doc-ban" eyebrow="Set độc bản · khoảng 8 tuần" />
         <TetCta />
       </div>
     </SiteShell>
