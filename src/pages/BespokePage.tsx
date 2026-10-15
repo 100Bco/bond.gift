@@ -9,6 +9,7 @@ import { Lightbox } from '@/components/bond/Lightbox';
 import { NotFoundPage } from '@/pages/UtilityPages';
 import { SpecList } from '@/pages/ReadySetPage';
 import { ProcessLink, ProcessSteps } from '@/components/bond/ProcessSteps';
+import { SetGallery } from '@/components/bond/SetGallery';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 /** Cuộn mượt tới bộ sưu tập trong cùng trang, không thêm # vào đường dẫn. */
@@ -89,14 +90,14 @@ function Collection({ col, no, unit, first }: { col: BespokeCollection; no: numb
 
 /** Trang con một mức ngân sách Set độc bản: gom mọi bộ sưu tập của mức đó vào một trang, ít chữ. */
 export function BespokePage() {
+  const [show, setShow] = useState(0);
   const [, params] = useRoute('/set-doc-ban/:slug');
   const tier = bespokeTiers.find((t) => t.slug === params?.slug);
   if (!tier) return <NotFoundPage />;
   const ready = tier.collections.filter((c) => c.items.length);
   const waiting = tier.collections.filter((c) => !c.items.length);
   const [, moq] = giftModels.bespoke.specs;
-  // Mục lục theo đúng thứ tự trên trang: bộ có ảnh trước, bộ chưa có ảnh sau.
-  const toc = [...ready, ...waiting];
+  const slides = ready.map((col) => ({ col, img: col.cover ?? col.items[0] }));
   const others = bespokeTiers.filter((t) => t.slug !== tier.slug);
 
   return (
@@ -124,28 +125,20 @@ export function BespokePage() {
               </div>
             </div>
 
-            {/* Mục lục: mọi bộ sưu tập (hoặc thiết kế) của mức này, bấm để cuộn xuống đúng bộ */}
-            <nav className="lx-bp-toc" aria-label={`Các ${tier.unit.toLowerCase()} trong mức này`}>
-              <p className="lx-bp-sw-h">{tier.collections.length} {tier.unit.toLowerCase()}</p>
-              <ol>
-                {toc.map((col, i) => {
-                  const thumb = col.cover ?? col.items[0];
-                  const count = col.colorways ?? col.items.length;
-                  return (
-                    <li key={i}>
-                      <a href={`#bst-${i + 1}`} onClick={jump}>
-                        <span className="lx-bp-toc-img">{thumb && <img src={thumb.src} alt="" width={128} height={128} loading="lazy" decoding="async" style={thumb.pos ? { objectPosition: thumb.pos } : undefined} />}</span>
-                        <span className="lx-cmp-step-n">{pad(i + 1)}</span>
-                        <span className="lx-bp-toc-t">
-                          <span className="lx-bp-toc-name">{col.name ?? tier.unit}</span>
-                          {thumb ? <span className="lx-bp-toc-d">{count} phối màu</span> : <span className="lx-bp-toc-d is-pending">Ảnh {pendingSpec.toLowerCase()}</span>}
-                        </span>
-                      </a>
-                    </li>
-                  );
-                })}
-              </ol>
-            </nav>
+            {/* Khung ảnh đầu trang: mỗi ảnh là ảnh bìa một bộ đã có ảnh; dưới ảnh là tên bộ và link cuộn xuống bộ đó */}
+            <div className="lx-bp-show">
+              <div className="lx-bp-show-media">
+                <SetGallery key={tier.slug} name={tier.name} images={slides.length ? slides.map((c) => c.img.src) : [tier.cover]} labels={slides.length ? slides.map((c) => c.col.name ?? tier.unit) : ['Ảnh tạm']} positions={slides.length ? slides.map((c) => c.img.pos) : [tier.coverPos]} onChange={setShow} />
+              </div>
+              {slides[show] ? (
+                <div className="lx-bp-show-cap">
+                  <span className="lx-cmp-step-n">{pad(show + 1)}</span>
+                  <span className="lx-bp-show-name">{slides[show].col.name}</span>
+                  <span className="lx-bp-show-d">{slides[show].col.colorways ?? slides[show].col.items.length} phối màu</span>
+                  <a href={`#bst-${show + 1}`} onClick={jump} className="lx-sd-textlink">Xem bộ này <span aria-hidden="true">↓</span></a>
+                </div>
+              ) : <p className="lx-bp-show-cap is-pending">Ảnh các {tier.unit.toLowerCase()} đang cập nhật</p>}
+            </div>
             </div>
           </div>
         </section>

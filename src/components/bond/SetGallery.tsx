@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState, type PointerEvent } from 'react';
+import { useCallback, useEffect, useRef, useState, type PointerEvent } from 'react';
 import { Lightbox } from '@/components/bond/Lightbox';
 
 const LABELS = ['Hộp mở', 'Các món bày ra ngoài', 'Hộp đóng'];
@@ -7,15 +7,16 @@ const LABELS = ['Hộp mở', 'Các món bày ra ngoài', 'Hộp đóng'];
  * Ảnh lớn đầu trang Set sẵn: nhiều ảnh xếp chồng, chuyển bằng mũi tên, chấm hoặc vuốt ngang; ảnh hiện dần.
  * Bấm vào ảnh mở popup phóng to, trong popup vẫn chuyển ảnh được.
  */
-export function SetGallery({ name, images }: { name: string; images: string[] }) {
+export function SetGallery({ name, images, labels = LABELS, positions, onChange }: { name: string; images: string[]; labels?: string[]; positions?: (string | undefined)[]; onChange?: (i: number) => void }) {
   const [i, setI] = useState(0);
   const [zoom, setZoom] = useState(false);
   const n = images.length;
   const go = useCallback((step: number) => setI((v) => (v + step + n) % n), [n]);
+  useEffect(() => { onChange?.(i); }, [i, onChange]);
   const close = useCallback(() => setZoom(false), []);
   const start = useRef<number | null>(null);
   const swiped = useRef(false);
-  const label = (k: number) => LABELS[k] ?? `Ảnh ${k + 1}`;
+  const label = (k: number) => labels[k] ?? `Ảnh ${k + 1}`;
 
   const down = (e: PointerEvent) => { start.current = e.clientX; swiped.current = false; };
   const up = (e: PointerEvent) => {
@@ -29,7 +30,7 @@ export function SetGallery({ name, images }: { name: string; images: string[] })
     <div className="lx-gal" role="region" aria-roledescription="carousel" aria-label={`Ảnh set ${name}`}>
       <button type="button" className="lx-gal-stage" onPointerDown={down} onPointerUp={up} onClick={() => { if (!swiped.current) setZoom(true); }} aria-label={`Phóng to ảnh: ${label(i)}`}>
         {images.map((src, k) => (
-          <img key={src} src={src} alt={`Set sẵn ${name}: ${label(k).toLowerCase()}`} width={1086} height={1448} loading={k === 0 ? 'eager' : 'lazy'} decoding="async" className={k === i ? 'is-on' : undefined} aria-hidden={k !== i || undefined} draggable={false} />
+          <img key={src} src={src} alt={`${name}: ${label(k)}`} width={1086} height={1448} loading={k === 0 ? 'eager' : 'lazy'} decoding="async" className={k === i ? 'is-on' : undefined} aria-hidden={k !== i || undefined} draggable={false} style={positions?.[k] ? { objectPosition: positions[k] } : undefined} />
         ))}
       </button>
       {n > 1 && (
@@ -45,7 +46,7 @@ export function SetGallery({ name, images }: { name: string; images: string[] })
       )}
       {zoom && (
         <Lightbox
-          slides={images.map((src, k) => ({ caption: `${label(k)} · ${name}`, label: `Ảnh set ${name}`, content: <img src={src} alt={`Set sẵn ${name}: ${label(k).toLowerCase()}`} /> }))}
+          slides={images.map((src, k) => ({ caption: `${label(k)} · ${name}`, label: `Ảnh set ${name}`, content: <img src={src} alt={`${name}: ${label(k)}`} /> }))}
           index={i}
           onClose={close}
           onMove={go}
