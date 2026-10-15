@@ -221,10 +221,10 @@ export const readySets: ReadySet[] = [
   },
   {
     slug: 'van-loc-vinh-hoa', code: 'SS04', name: 'Vạn Lộc Vinh Hoa', price: '2.899.000đ / set', look: 'black', photo: '/assets/set-san/gallery/van-loc-vinh-hoa-1.webp',
-    desc: 'Lấy cảm hứng từ lời chúc tài lộc viên mãn, phú quý trường tồn. Hộp cánh mở có tay xách, rượu Chivas 18, trà Ahmad và bánh kẹo nhập khẩu, gửi lời chúc vạn sự hanh thông.',
-    contents: 'Chivas 18 + socola Nga + bánh Nga + kẹo Đức + trà Ahmad + mứt Tết',
+    desc: 'Lấy cảm hứng từ lời chúc tài lộc viên mãn, phú quý trường tồn. Hộp cánh mở có tay xách, rượu mạnh, trà Ahmad và bánh kẹo nhập khẩu, gửi lời chúc vạn sự hanh thông.',
+    contents: 'Rượu mạnh + socola Nga + bánh Nga + kẹo Đức + trà Ahmad + mứt Tết',
     items: [
-      { name: 'Rượu Chivas 18', qty: '750ml' },
+      { name: 'Rượu mạnh nhãn BOND', qty: '750ml' },
       { name: 'Socola Nga', qty: '150g' },
       { name: 'Bánh Nga', qty: '150g' },
       { name: 'Kẹo Đức', qty: '180g' },
@@ -298,7 +298,7 @@ export const bespokeTiers: BespokeTier[] = [
   },
   {
     slug: '2899', name: 'Bộ sưu tập tuyệt tác', money: '2.899.000đ', cover: '/assets/bespoke/2399/bidv-hop-da.webp', meta: '3 thiết kế · 3 phối màu mỗi thiết kế', unit: 'Thiết kế',
-    contents: '1 chai rượu tây và 5 hộp quà nhỏ', box: 'Hộp cánh mở có tay xách 36 × 36 cm',
+    contents: '1 chai rượu mạnh nhãn BOND và 5 hộp quà nhỏ', box: 'Hộp cánh mở có tay xách 36 × 36 cm',
     collections: [
       {
         name: 'BIDV', colorways: 3,
