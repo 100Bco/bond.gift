@@ -842,3 +842,15 @@
   .lx-sd-logo .lx-sd-logo-gift { margin-top: 8px; padding-top: 8px; }
   .lx-sd-intro .lx-sd-actions { margin-top: 16px; flex-direction: row; align-items: center; gap: 24px; }
 }
+/* Bỏ hai dòng chưa có số liệu ở đầu trang chi tiết: trả lại khoảng thở cho cột thông tin */
+@media (min-width: 861px) {
+  .lx-sd-intro h1 { margin-top: 12px; font-size: clamp(34px, 3.8vw, 56px); }
+  .lx-sd-price { margin-top: 12px; font-size: 19px; }
+  .lx-sd-intro .lx-lead { margin-top: 14px; font-size: 16px; line-height: 1.6; }
+  .lx-sd-intro .lx-sd-specs { margin-top: 22px; }
+  .lx-sd-intro .lx-cmp-row { padding: 12px 0; font-size: 15px; }
+  .lx-sd-logo { margin-top: 22px; padding: 18px 22px; }
+  .lx-sd-logo p { margin-top: 6px; font-size: 14px; line-height: 1.6; }
+  .lx-sd-logo .lx-sd-logo-gift { margin-top: 10px; padding-top: 10px; }
+  .lx-sd-intro .lx-sd-actions { margin-top: 22px; }
+}
