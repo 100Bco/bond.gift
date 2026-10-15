@@ -263,8 +263,8 @@ function CmpRow({ label, id, children }: { label: string; id?: string; children:
 function Models() {
   const [open, setOpen] = useState(false);
   const cols = [
-    { kind: 'ready' as const, img: '/assets/set-san/huong-sac-xuan.webp', alt: 'Set sẵn Hương Sắc Xuân: hộp quà hoa đỏ cam cùng rượu vang, trà sen và bánh kẹo' },
-    { kind: 'bespoke' as const, img: '/assets/models/set-doc-ban.webp', alt: 'Hộp quà độc bản họa tiết hoa xanh ngọc in logo doanh nghiệp' },
+    { kind: 'ready' as const, img: '/assets/models/so-sanh-set-san.webp', w: 1672, h: 941, alt: 'Set sẵn Xuân Phú Quý: hộp hai tầng, hộp rượu và túi giấy họa tiết hoa' },
+    { kind: 'bespoke' as const, img: '/assets/models/so-sanh-set-doc-ban.webp', w: 1264, h: 848, alt: 'Hộp quà độc bản hai cánh màu xanh ngọc, huy hiệu vàng và logo BIDV' },
   ];
   return (
     <section className="lx-sec lx-cmp" id="so-sanh" aria-labelledby="lx-cmp-title">
@@ -281,7 +281,7 @@ function Models() {
           <div className="lx-cmpt-top">
             {cols.map((c) => (
               <div key={c.kind} className="lx-cmpt-intro">
-                <div className="lx-cmpt-img"><img src={c.img} alt={c.alt} width={1200} height={900} loading="lazy" decoding="async" /></div>
+                <div className="lx-cmpt-img"><img src={c.img} alt={c.alt} width={c.w} height={c.h} loading="lazy" decoding="async" /></div>
                 <p className="lx-cmpt-say"><span className="lx-cmpt-lg">{giftModels[c.kind].say}</span><span className="lx-cmpt-sm">{c.kind === 'ready' ? 'Có sẵn, thêm logo.' : 'Thiết kế riêng.'}</span></p>
                 {/* Nút là tín hiệu ưu tiên duy nhất còn lại: Set độc bản dùng nút đỏ đặc, Set sẵn nút viền */}
                 {c.kind === 'ready'
@@ -351,7 +351,7 @@ function Moment() {
   return (
     <section className="lx-moment" id="khoanh-khac" aria-labelledby="lx-moment-title">
       <div className="lx-wrap lx-moment-grid">
-        <div className="lx-moment-img"><div ref={ref} className="lx-moment-art">{/* Ảnh tạm, sẽ thay bằng video lặp: hai tay trao và hai tay nhận hộp quà BOND */}<img src="/assets/hero/hands-held.webp" alt="Đôi tay nâng hộp quà Tết BOND màu đỏ" width={1400} height={1045} loading="lazy" decoding="async" /></div></div>
+        <div className="lx-moment-img"><div ref={ref} className="lx-moment-art">{/* Video lặp không tiếng (chạy xuôi rồi ngược): hai tay trao và hai tay nhận hộp quà BOND */}<video poster="/assets/moment/trao-qua-poster.jpg" width={1280} height={956} autoPlay muted loop playsInline preload="metadata" aria-label="Hai tay trao hộp quà BOND, hai tay khác đón nhận"><source src="/assets/moment/trao-qua.webm" type="video/webm" /><source src="/assets/moment/trao-qua.mp4" type="video/mp4" /></video></div></div>
         <Reveal className="lx-moment-txt">
           <p className="lx-eyebrow">Khoảnh khắc trao quà</p>
           <h2 id="lx-moment-title"><span className="lx-l">Món quà Tết không được nhớ vì giá.</span> <span className="lx-l">Nó được nhớ vì người nhận</span> <em className="lx-serif lx-l">cảm thấy mình được trân quý.</em></h2>

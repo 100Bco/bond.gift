@@ -717,3 +717,14 @@
 .lx-cmp { padding: 28px 0 32px; }
 .lx-page h1 { font-family: var(--font-display); font-weight: 600; line-height: 1.05; letter-spacing: -0.035em; }
 @media (max-width: 860px) { .lx-cmpt-img { aspect-ratio: 3 / 2; } }
+
+/* So sánh: ảnh giữ nguyên tỷ lệ gốc, không cắt; hai ảnh cùng chiều cao, căn giữa */
+.lx-cmpt-img { aspect-ratio: auto; height: clamp(150px, 22vh, 200px); display: flex; justify-content: center; background: none; overflow: visible; }
+.lx-cmpt-img img { width: auto; max-width: 100%; height: 100%; object-fit: contain; }
+.lx-cmpt-intro:hover .lx-cmpt-img img { transform: none; }
+/* Khoảnh khắc trao quà: video phủ kín khung 4:3, nền khung trùng màu nền video */
+.lx-moment-img { aspect-ratio: 1280 / 956; align-items: stretch; background: #F6F6F2; overflow: hidden; }
+.lx-moment-art { position: absolute; inset: -12px 0; width: auto; margin: 0; }
+.lx-moment-art video { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 860px) { .lx-cmpt-img { height: auto; } .lx-cmpt-img img { width: 100%; height: auto; } }
+.lx-cmpt-img { height: clamp(130px, 17vh, 156px); }
