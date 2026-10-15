@@ -826,3 +826,19 @@
 /* Vòng tròn trên ảnh thẻ: chỉ có mũi tên, 56px, đi theo con trỏ (vị trí --mx, --my do PeekFollow đặt) */
 .lx-peek { left: var(--mx, 50%); top: var(--my, 50%); width: 56px; height: 56px; gap: 0; font-size: 20px; font-weight: 400; letter-spacing: 0; transition: transform 0.4s var(--lx-ease), opacity 0.3s var(--lx-ease), left 0.18s ease-out, top 0.18s ease-out; }
 .lx-card-img, .lx-bud-img { cursor: none; }
+/* Trang chi tiết Set sẵn (máy tính): ảnh và cột thông tin gọn trong một màn hình */
+@media (min-width: 861px) {
+  .lx-sd-hero { padding-top: calc(var(--lx-nav-h) + 20px); }
+  .lx-sd-hero .lx-sd-crumb { margin-bottom: 18px; }
+  .lx-sd-hero-grid { align-items: center; }
+  .lx-sd-media { max-height: calc(100vh - var(--lx-nav-h) - 90px); aspect-ratio: auto; height: min(calc(100vh - var(--lx-nav-h) - 90px), 760px); }
+  .lx-sd-intro h1 { margin-top: 8px; font-size: clamp(32px, 3.4vw, 50px); }
+  .lx-sd-price { margin-top: 8px; font-size: 18px; }
+  .lx-sd-intro .lx-lead { margin-top: 10px; font-size: 15px; line-height: 1.55; }
+  .lx-sd-intro .lx-sd-specs { margin-top: 16px; }
+  .lx-sd-intro .lx-cmp-row { min-height: 0; padding: 8px 0; font-size: 14px; }
+  .lx-sd-logo { margin-top: 16px; padding: 14px 18px; }
+  .lx-sd-logo p { margin-top: 4px; font-size: 13.5px; line-height: 1.5; }
+  .lx-sd-logo .lx-sd-logo-gift { margin-top: 8px; padding-top: 8px; }
+  .lx-sd-intro .lx-sd-actions { margin-top: 16px; flex-direction: row; align-items: center; gap: 24px; }
+}
