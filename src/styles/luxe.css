@@ -752,12 +752,7 @@
 @media (min-width: 861px) {
   .lx-moment-img { -webkit-mask-image: linear-gradient(to right, #000 86%, transparent), linear-gradient(to bottom, transparent 6%, #000 22%, #000 78%, transparent 94%); mask-image: linear-gradient(to right, #000 86%, transparent), linear-gradient(to bottom, transparent 6%, #000 22%, #000 78%, transparent 94%); -webkit-mask-composite: source-in; mask-composite: intersect; }
 }
-/* Khoảnh khắc trao quà (máy tính): video là dải ngang tràn cả hai mép màn hình để hai tay áo đi ra ngoài mép, chữ căn giữa bên dưới */
+/* Khoảnh khắc trao quà (máy tính): mép phải video (tay áo người nhận bị cắt ở khung gốc) mờ dần rộng hơn vào nền trắng */
 @media (min-width: 861px) {
-  .lx-moment { display: block; min-height: 0; padding: 0 0 clamp(40px, 6vh, 64px); }
-  .lx-moment-grid { display: block; }
-  .lx-moment-img { position: relative; left: auto; width: auto; height: min(50vh, 480px); margin: 0 calc(50% - 50vw); -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent); -webkit-mask-composite: source-over; mask-composite: add; }
-  .lx-moment-art video { object-fit: cover; object-position: 50% 52%; }
-  .lx-moment-txt { max-width: 860px; margin: 8px auto 0; text-align: center; }
-  .lx-moment-txt .lx-eyebrow { justify-content: center; }
+  .lx-moment-img { -webkit-mask-image: linear-gradient(to right, #000 58%, rgba(0, 0, 0, 0.55) 76%, transparent 96%), linear-gradient(to bottom, transparent 6%, #000 22%, #000 78%, transparent 94%); mask-image: linear-gradient(to right, #000 58%, rgba(0, 0, 0, 0.55) 76%, transparent 96%), linear-gradient(to bottom, transparent 6%, #000 22%, #000 78%, transparent 94%); }
 }
