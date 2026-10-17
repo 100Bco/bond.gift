@@ -48,7 +48,32 @@ export function BespokePage() {
           </div>
         </section>
 
-        {/* 2. Thông số hộp và thông tin đặt hàng */}
+        {/* 2. Trong hộp có gì (chỉ hiện khi đã có danh sách món) */}
+        {tier.items && tier.items.length > 0 && (
+          <section className="lx-sec lx-sd-sec" aria-labelledby="lx-sd-in">
+            <div className="lx-wrap lx-sd-split">
+              <div className="lx-sd-side">
+                <p className="lx-eyebrow">Thành phần gợi ý</p>
+                <h2 id="lx-sd-in">Trong hộp có gì</h2>
+                <p className="lx-sd-note">Thành phần có thể thay đổi theo yêu cầu của anh chị.</p>
+              </div>
+              <ol className="lx-sd-items">
+                {tier.items.map((item, i) => (
+                  <li key={item.name} className="lx-sd-item is-lit">
+                    <span className="lx-cmp-step-n">{String(i + 1).padStart(2, '0')}</span>
+                    <img className="lx-sd-item-img" src={item.img} alt="" width={160} height={160} loading="lazy" decoding="async" />
+                    <div>
+                      <p className="lx-sd-item-t">{item.name}</p>
+                      <p className="lx-sd-item-d">{item.qty.endsWith('ml') ? 'Dung tích' : 'Khối lượng'}: {item.qty}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
+        )}
+
+        {/* 3. Thông số hộp và thông tin đặt hàng */}
         <section className="lx-sec lx-sd-sec lx-sd-soft" aria-label="Thông số hộp và thông tin đặt hàng">
           <div className="lx-wrap lx-sd-pair">
             <div>
