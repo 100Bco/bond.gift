@@ -257,7 +257,7 @@ function CmpRow({ label, id, children }: { label: string; id?: string; children:
 function Models() {
   const [open, setOpen] = useState({ ready: false, bespoke: false });
   const cols = [
-    { kind: 'ready' as const, img: '/assets/models/so-sanh-set-san.webp', w: 1517, h: 1018, alt: 'Sẵn Trao: hộp quà hai cánh họa tiết hoa có quai xách, bên trong là rượu mạnh, sôcôla, bánh và trà' },
+    { kind: 'ready' as const, img: '/assets/models/so-sanh-set-san.webp', w: 1264, h: 848, alt: 'Sẵn Trao: hộp quà hai cánh đóng kín, nền xanh ngọc và đỏ, họa tiết hoa cúc và ngựa, có quai xách' },
     { kind: 'bespoke' as const, img: '/assets/models/so-sanh-set-doc-ban.webp', w: 1264, h: 848, alt: 'Hộp quà độc bản hai cánh màu xanh ngọc, huy hiệu vàng và logo BIDV' },
   ];
   return (
