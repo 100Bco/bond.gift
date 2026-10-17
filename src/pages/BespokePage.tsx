@@ -30,7 +30,7 @@ export function BespokePage() {
             </nav>
             <div className="lx-sd-hero-grid">
               <div className="lx-sd-media">
-                <SetGallery key={tier.slug} name={tier.name} images={tier.gallery} labels={tier.gallery.map((_, i) => `Ảnh ${i + 1}`)} />
+                {tier.gallery.length > 0 && <SetGallery key={tier.slug} name={tier.name} images={tier.gallery} labels={tier.gallery.map((_, i) => `Ảnh ${i + 1}`)} />}
               </div>
               <div className="lx-sd-intro">
                 <p className="lx-eyebrow">Độc Bản</p>
@@ -72,7 +72,7 @@ export function BespokePage() {
               {others.map((o) => (
                 <Link key={o.slug} href={`/set-doc-ban/${o.slug}`} className="lx-card">
                   <div className="lx-card-img">
-                    <span className="lx-card-box"><img src={o.cover} alt={`${o.name}, ${o.money} mỗi set`} width={800} height={1000} loading="lazy" decoding="async" style={o.coverPos ? { objectPosition: o.coverPos } : undefined} /></span>
+                    <span className="lx-card-box">{(o.gallery[0] ?? o.cover) && <img src={o.gallery[0] ?? o.cover} alt={`${o.name}, ${o.money} mỗi set`} width={800} height={1000} loading="lazy" decoding="async" />}</span>
                     <span className="lx-peek" aria-hidden="true">→</span>
                   </div>
                   <h3 className="lx-card-name">{o.name}</h3>

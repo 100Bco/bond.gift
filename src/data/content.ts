@@ -237,17 +237,18 @@ export const readySets: ReadySet[] = [
 
 /**
  * Bốn thiết kế Độc Bản (hộp BIDV) theo bốn mức giá; mỗi thiết kế có trang con /set-doc-ban/:slug trình bày như trang Sẵn Trao.
- * gallery: 4 ảnh ở khung ảnh đầu trang con, không nhãn. Ảnh đang dùng tạm, chờ ảnh thật.
+ * cover: ảnh vuông 1:1 ở trang danh sách. gallery: ảnh 4:5 ở khung ảnh đầu trang con, không nhãn (mỗi thiết kế tối đa 4 ảnh).
+ * Thiết kế chưa có ảnh thì để trống (cover rỗng, gallery rỗng).
  */
 export type BespokeTier = { slug: string; name: string; money: string; cover: string; coverPos?: string; contents: string; box: string; gallery: string[] };
 
-const bidvTemp = ['/assets/bespoke/1299/bidv-hop-hai-canh.webp', '/assets/bespoke/2399/bidv-hop-da.webp', '/assets/models/so-sanh-set-doc-ban.webp', '/assets/bespoke/1299/bidv-hop-hai-canh.webp'];
+const dz = '/assets/bespoke/designs';
 
 export const bespokeTiers: BespokeTier[] = [
-  { slug: '499', name: 'Thiết kế thiết yếu', money: '499.000đ', cover: '/assets/bespoke/499/tu-quy-cover.webp', coverPos: '92% 50%', contents: '1 chai rượu vang và 3 hoặc 4 hộp quà nhỏ', box: 'Hộp âm dương 28 × 36 cm', gallery: bidvTemp },
-  { slug: '799', name: 'Thiết kế đặc sắc', money: '799.000đ', cover: '/assets/bespoke/499/son-duong-cover.webp', contents: '1 chai rượu vang và 4 hộp quà nhỏ', box: 'Hộp âm dương 36 × 36 × 10 cm', gallery: bidvTemp },
-  { slug: '1299', name: 'Thiết kế dấu ấn', money: '1.299.000đ', cover: '/assets/bespoke/1299/bidv-hop-hai-canh.webp', contents: '1 chai rượu vang và 3 hộp quà nhỏ', box: 'Hộp 2 tầng 37,5 × 15,5 × 21,5 cm', gallery: bidvTemp },
-  { slug: '2899', name: 'Thiết kế tuyệt tác', money: '2.899.000đ', cover: '/assets/bespoke/2399/bidv-hop-da.webp', contents: '1 chai rượu mạnh nhãn BOND và 5 hộp quà nhỏ', box: 'Hộp cánh mở có tay xách 36 × 36 cm', gallery: bidvTemp },
+  { slug: '499', name: 'Thiết kế thiết yếu', money: '499.000đ', cover: `${dz}/hop-hoa-vuong.webp`, contents: '1 chai rượu vang và 3 hoặc 4 hộp quà nhỏ', box: 'Hộp âm dương 28 × 36 cm', gallery: [`${dz}/hop-hoa-1.webp`] },
+  { slug: '799', name: 'Thiết kế đặc sắc', money: '799.000đ', cover: `${dz}/hop-hai-canh-vuong.webp`, contents: '1 chai rượu vang và 4 hộp quà nhỏ', box: 'Hộp âm dương 36 × 36 × 10 cm', gallery: [`${dz}/hop-hai-canh-1.webp`] },
+  { slug: '1299', name: 'Thiết kế dấu ấn', money: '1.299.000đ', cover: `${dz}/hop-da-vuong.webp`, contents: '1 chai rượu vang và 3 hộp quà nhỏ', box: 'Hộp 2 tầng 37,5 × 15,5 × 21,5 cm', gallery: [`${dz}/hop-da-1.webp`] },
+  { slug: '2899', name: 'Thiết kế tuyệt tác', money: '2.899.000đ', cover: '', contents: '1 chai rượu mạnh nhãn BOND và 5 hộp quà nhỏ', box: 'Hộp cánh mở có tay xách 36 × 36 cm', gallery: [] },
 ];
 
 export const giftModels = {
