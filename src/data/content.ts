@@ -172,7 +172,7 @@ export type SetItem = { name: string; qty: string };
 export type ReadySet = { slug: string; code: string; name: string; price: string; contents: string; desc: string; photo: string; items: SetItem[]; boxType: string; boxSize: string; look: 'ivory' | 'ink' | 'red' | 'black' };
 /** Thông số chưa có số liệu thật thì hiển thị dòng này, không tự đặt số. */
 export const pendingSpec = 'Đang cập nhật';
-/** Điều khoản chung theo catalog, dùng cho cả Set sẵn và Set độc bản. */
+/** Điều khoản chung theo catalog, dùng cho cả Sẵn Trao và Độc Bản. */
 export const orderTerms = {
   vat: 'Giá chưa gồm 8% VAT và phí vận chuyển',
   pay: 'Đặt cọc 50% khi chốt đơn, thanh toán 50% còn lại trước khi giao',
@@ -235,7 +235,7 @@ export const readySets: ReadySet[] = [
   },
 ];
 
-/** Một ảnh trong trang Set độc bản. pos là object-position khi ảnh được cắt vào khung vuông. */
+/** Một ảnh trong trang Độc Bản. pos là object-position khi ảnh được cắt vào khung vuông. */
 export type BespokeImage = { src: string; name: string; alt: string; pos?: string; w?: number; h?: number };
 /**
  * Một bộ sưu tập (hoặc một mẫu riêng ở mức cao). Chưa có ảnh thì để trống cover và items.
@@ -252,7 +252,7 @@ const pending = (n: number): BespokeCollection[] => Array.from({ length: n }, ()
 /** Mẫu chưa có ảnh nhưng đã có tên. */
 const named = (...names: string[]): BespokeCollection[] => names.map((name) => ({ name, items: [] }));
 
-/** Bốn mức ngân sách Set độc bản; mỗi mức có một trang con /set-doc-ban/:slug. */
+/** Bốn mức ngân sách Độc Bản; mỗi mức có một trang con /set-doc-ban/:slug. */
 export const bespokeTiers: BespokeTier[] = [
   {
     slug: '499', name: 'Bộ sưu tập thiết yếu', money: '499.000đ', cover: `${b499}/tu-quy-cover.webp`, coverPos: '92% 50%', meta: '5 bộ sưu tập · 4 phối màu mỗi bộ', unit: 'Bộ sưu tập',
@@ -313,12 +313,12 @@ export const bespokeTiers: BespokeTier[] = [
 
 export const giftModels = {
   ready: {
-    name: 'Set sẵn',
+    name: 'Sẵn Trao',
     say: 'Chọn mẫu có sẵn, thêm dấu ấn thương hiệu.',
     specs: [['Thời gian hoàn thành', 'Khoảng 2 tuần'], ['Số lượng tối thiểu', 'Từ 10 set'], ['Mức độ tùy biến', 'In logo UV lên nắp hộp']] as [string, string][],
   },
   bespoke: {
-    name: 'Set độc bản',
+    name: 'Độc Bản',
     say: 'Thiết kế riêng 100% theo thương hiệu của anh chị.',
     specs: [['Thời gian hoàn thành', 'Khoảng 8 tuần'], ['Số lượng tối thiểu', 'Từ 300 set'], ['Mức độ tùy biến', 'Thiết kế toàn bộ, độc quyền']] as [string, string][],
   },
@@ -331,7 +331,7 @@ export const giftProcesses: Record<'ready' | 'bespoke', { note?: string; steps: 
     steps: [
       ['Tiếp nhận yêu cầu', 'Dịp tặng, số lượng, ngân sách mỗi phần và thời điểm cần hàng.'],
       ['Chốt ruột quà', 'Chốt thành phần trong set; vẫn có thể đổi món theo danh sách món sẵn có.'],
-      ['Duyệt mẫu sản xuất', 'In logo của anh chị lên set sẵn để duyệt; anh chị đồng ý mới sản xuất.'],
+      ['Duyệt mẫu sản xuất', 'In logo của anh chị lên mẫu Sẵn Trao để duyệt; anh chị đồng ý mới sản xuất.'],
       ['Sản xuất & đóng gói', 'In UV logo lên hộp, đóng gói và kiểm tra chất lượng từng hộp.'],
       ['Giao hàng', 'Giao một điểm hoặc nhiều điểm theo danh sách người nhận.'],
     ],

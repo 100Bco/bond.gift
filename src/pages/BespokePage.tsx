@@ -87,7 +87,7 @@ function Collection({ col, no, unit, first }: { col: BespokeCollection; no: numb
   );
 }
 
-/** Trang con một mức ngân sách Set độc bản: gom mọi bộ sưu tập của mức đó vào một trang, ít chữ. */
+/** Trang con một mức ngân sách Độc Bản: gom mọi bộ sưu tập của mức đó vào một trang, ít chữ. */
 export function BespokePage() {
   const [show, setShow] = useState(0);
   const [, params] = useRoute('/set-doc-ban/:slug');
@@ -107,13 +107,13 @@ export function BespokePage() {
             <nav className="lx-sd-crumb" aria-label="Đường dẫn">
               <Link href="/">Trang chủ</Link>
               <span aria-hidden="true">/</span>
-              <Link href="/set-doc-ban">Set độc bản</Link>
+              <Link href="/set-doc-ban">Độc Bản</Link>
               <span aria-hidden="true">/</span>
               <span aria-current="page">{tier.name}</span>
             </nav>
             <div className="lx-bp-hero-grid">
             <div className="lx-bp-hero-in">
-              <p className="lx-eyebrow">Set độc bản</p>
+              <p className="lx-eyebrow">Độc Bản</p>
               <h1 id="lx-bp-title">{tier.name} <span>{tier.money} / set</span></h1>
               <p className="lx-bp-meta">{tier.meta}</p>
               <SpecList rows={[['Thành phần', tier.contents], ['Hộp', tier.box], ['Túi', orderTerms.bag], moq, ['VAT và vận chuyển', orderTerms.vat], ['Thanh toán', orderTerms.pay]]} />
@@ -159,7 +159,7 @@ export function BespokePage() {
 
         <ProcessSteps kind="bespoke" eyebrow="Khoảng 8 tuần" />
 
-        {/* Các mức khác: thẻ ảnh giống "Các set khác" bên trang Set sẵn */}
+        {/* Các mức khác: thẻ ảnh giống "Các set khác" bên trang Sẵn Trao */}
         <section className="lx-sec lx-sd-sec lx-sd-soft lx-sd-more" aria-labelledby="lx-bp-more">
           <div className="lx-wrap">
             <h2 id="lx-bp-more" className="lx-sd-h">Các mức khác</h2>
