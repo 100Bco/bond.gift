@@ -936,3 +936,8 @@
   .lx-cmpt-row { padding: 9px 0; }
   .lx-cmpt-img img { max-height: max(170px, calc(100svh - 485px)); }
 }
+/* Trang Quy trình (máy tính): tên Sẵn Trao, Độc Bản tách xa dòng thời gian cho thoáng */
+@media (min-width: 861px) {
+  .lx .lx-proc h2.lx-proc-name { margin-bottom: 10px; }
+  .lx-proc-meta { margin-top: 0; padding-bottom: 12px; }
+}

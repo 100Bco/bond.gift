@@ -57,7 +57,7 @@ export function ProcessPage() {
               {cols.map((c) => (
                 <div key={c.kind} id={`proc-${c.kind}`} role="tabpanel" aria-labelledby={`tab-${c.kind}`} className={`lx-proc-col${tab === c.kind ? ' is-on' : ''}`} style={{ '--n': giftProcesses[c.kind].steps.length } as CSSProperties}>
                   <h2 className="lx-proc-name">{c.name}</h2>
-                  <p className="lx-proc-meta">{giftProcesses[c.kind].steps.length} bước · {c.time}</p>
+                  <p className="lx-proc-meta">{c.time}</p>
                   <StepList kind={c.kind} />
                   <div className="lx-proc-cta">
                     {c.kind === 'ready'
