@@ -77,7 +77,7 @@ function ProcessStrip() {
   return (
     <Section tone="canvas" className="process-strip">
       <SectionIntro label="Quy trình phù hợp" title={<>Rõ từng mốc.<br />Chắc từng bước.</>}>
-        <p>Độc Bản đi qua 7 bước, khoảng 8 tuần từ brief đến giao hàng. Chúng tôi nói rõ ngay từ đầu.</p>
+        <p>Độc Bản đi qua 7 bước, 8 tuần từ brief đến giao hàng. Chúng tôi nói rõ ngay từ đầu.</p>
         <p><TextLink href="/#so-sanh">So sánh với Sẵn Trao</TextLink></p>
       </SectionIntro>
       <StepCarousel />
@@ -265,7 +265,7 @@ export function ServiceDetailPage({ kind }: { kind: ServiceKind }) {
         <ul className="check-list">
           <li>Khả năng tùy biến theo nhận diện thương hiệu.</li>
           <li>MOQ và thời gian tham khảo theo từng nhóm.</li>
-          <li>Hồ sơ nguồn hàng và mẫu vật lý trước khi duyệt.</li>
+          <li>Hồ sơ nguồn hàng cho mọi đơn. Với Độc Bản, BOND gửi hộp mẫu tận nơi trước khi duyệt sản xuất.</li>
           <li>Giao một điểm hoặc nhiều điểm theo lịch.</li>
         </ul>
       </Chapter>

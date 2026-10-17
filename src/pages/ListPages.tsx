@@ -35,8 +35,8 @@ export function BespokeListPage() {
 export function ProcessPage() {
   const [tab, setTab] = useState<'ready' | 'bespoke'>('ready');
   const cols = [
-    { kind: 'ready' as const, name: 'Sẵn Trao', time: 'khoảng 2 tuần' },
-    { kind: 'bespoke' as const, name: 'Độc Bản', time: 'khoảng 8 tuần' },
+    { kind: 'ready' as const, name: 'Sẵn Trao', time: '1-2 tuần' },
+    { kind: 'bespoke' as const, name: 'Độc Bản', time: '8 tuần' },
   ];
   return (
     <SiteShell>

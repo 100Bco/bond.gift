@@ -67,7 +67,7 @@ export function CapabilitiesPage() {
 
 const sourcingCommitments = [
   ['Nguồn hàng rõ ràng', 'Nguồn gốc và khả năng thay thế là những câu hỏi cần có trước khi ký.'],
-  ['Hồ sơ đầy đủ', 'Hồ sơ nguồn hàng và mẫu vật lý trước khi duyệt.'],
+  ['Hồ sơ đầy đủ', 'Hồ sơ nguồn hàng cho mọi đơn. Với Độc Bản, BOND gửi hộp mẫu tận nơi trước khi duyệt sản xuất.'],
   ['Hạn sử dụng tính từ ngày giao', 'Hạn dùng được tính tại thời điểm người nhận cầm hộp trên tay, không phải khi xuất kho.'],
 ];
 

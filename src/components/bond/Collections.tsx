@@ -59,7 +59,7 @@ export function ReadySets() {
           <div>
             <p className="lx-eyebrow">Mô hình 01</p>
             <h1 id="lx-ready-title">Sẵn Trao</h1>
-            <p className="lx-sec-meta"><span>Từ 10 set</span><i aria-hidden="true">·</i><span>Giao trong 2 tuần</span><i aria-hidden="true">·</i><span>In logo UV lên nắp hộp</span></p>
+            <p className="lx-sec-meta"><span>Từ 10 set</span><i aria-hidden="true">·</i><span>1-2 tuần</span><i aria-hidden="true">·</i><span>In logo UV lên nắp hộp</span></p>
           </div>
         </Reveal>
         <div ref={gridRef} className="lx-cards lx-stair">
@@ -87,7 +87,7 @@ export function Bespoke() {
           <div>
             <p className="lx-eyebrow">Mô hình 02</p>
             <h1 id="lx-custom-title">Độc Bản</h1>
-            <p className="lx-sec-meta"><span>Từ 300 set</span><i aria-hidden="true">·</i><span>Khoảng 8 tuần</span><i aria-hidden="true">·</i><span>Thiết kế riêng theo thương hiệu</span></p>
+            <p className="lx-sec-meta"><span>Từ 300 set</span><i aria-hidden="true">·</i><span>8 tuần</span><i aria-hidden="true">·</i><span>Thiết kế riêng theo thương hiệu</span></p>
             <div className="lx-disc">
               <p>Mỗi mẫu dưới đây là một hướng thiết kế để bắt đầu. BOND và ZAD sẽ phát triển kết cấu hộp và trải nghiệm mở hộp riêng cho thương hiệu của anh chị, không dùng lại cho bất kỳ doanh nghiệp nào khác.</p>
             </div>
