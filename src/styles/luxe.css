@@ -941,3 +941,4 @@
   .lx .lx-proc h2.lx-proc-name { margin-bottom: 10px; }
   .lx-proc-meta { margin-top: 0; padding-bottom: 12px; }
 }
+@media (min-width: 861px) { .lx .lx-proc h2.lx-proc-name { font-size: 25px; } }
