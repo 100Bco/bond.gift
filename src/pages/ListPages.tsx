@@ -1,6 +1,6 @@
 import { SiteShell } from '@/components/layout/SiteChrome';
 import { Bespoke, ReadySets } from '@/components/bond/Collections';
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import { Link } from 'wouter';
 import { StepList } from '@/components/bond/ProcessSteps';
 import { ZaloLink } from '@/components/bond/ZaloLink';
@@ -52,9 +52,10 @@ export function ProcessPage() {
                 <button key={c.kind} type="button" role="tab" id={`tab-${c.kind}`} aria-controls={`proc-${c.kind}`} aria-selected={tab === c.kind} className={tab === c.kind ? 'is-on' : undefined} onClick={() => { setTab(c.kind); requestAnimationFrame(() => window.dispatchEvent(new Event('scroll'))); }}>{c.name}</button>
               ))}
             </div>
-            <div className="lx-proc-cols">
+            {/* Máy tính: hai cột dùng chung hàng (subgrid) để bước 1 thẳng bước 1, bước 2 thẳng bước 2 */}
+            <div className="lx-proc-cols" style={{ '--rows': Math.max(...cols.map((c) => giftProcesses[c.kind].steps.length)) } as CSSProperties}>
               {cols.map((c) => (
-                <div key={c.kind} id={`proc-${c.kind}`} role="tabpanel" aria-labelledby={`tab-${c.kind}`} className={`lx-proc-col${tab === c.kind ? ' is-on' : ''}`}>
+                <div key={c.kind} id={`proc-${c.kind}`} role="tabpanel" aria-labelledby={`tab-${c.kind}`} className={`lx-proc-col${tab === c.kind ? ' is-on' : ''}`} style={{ '--n': giftProcesses[c.kind].steps.length } as CSSProperties}>
                   <h2 className="lx-proc-name">{c.name}</h2>
                   <p className="lx-proc-meta">{giftProcesses[c.kind].steps.length} bước · {c.time}</p>
                   <StepList kind={c.kind} />

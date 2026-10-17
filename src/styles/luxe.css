@@ -891,3 +891,20 @@
 .lx-cmpt-li .lx-cmp-step { height: 100%; border-top: 1px solid var(--lx-line); }
 .lx-cmpt-li:nth-child(1) .lx-cmp-step { margin-top: 10px; }
 @media (prefers-reduced-motion: reduce) { .lx-cmpt-li { transition: none; } }
+/* Trang Quy trình (máy tính): hai cột chung hàng, bước cùng số nằm thẳng hàng; hàng thừa bên ngắn để trống */
+@media (min-width: 861px) {
+  .lx-proc-cols { grid-template-rows: auto auto repeat(var(--rows, 7), auto) auto; row-gap: 0; }
+  .lx-proc-col { display: grid; grid-row: 1 / span calc(var(--rows, 7) + 3); grid-template-rows: subgrid; align-content: start; }
+  .lx-proc-col .lx-sd-steps { display: grid; grid-row: span var(--n); grid-template-rows: subgrid; }
+  .lx-proc-col .lx-proc-cta { align-self: start; }
+}
+/* So sánh (máy tính): ảnh cao theo chiều cao màn hình để khối lấp đầy một màn, khung rộng hơn cho ảnh to ra */
+@media (min-width: 861px) {
+  .lx-cmpt { max-width: min(1320px, 100%); }
+  .lx-cmpt-img { height: clamp(200px, calc(100svh - 640px), 620px); }
+  .lx-cmpt-val { font-size: 17px; }
+  .lx-cmpt-row { padding: clamp(10px, 1.7vh, 18px) 0; }
+}
+@media (min-width: 861px) and (max-height: 800px) {
+  .lx-cmpt-img { height: max(160px, calc(100svh - 530px)); }
+}
