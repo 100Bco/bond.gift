@@ -6,6 +6,12 @@
   "outputDirectory": "dist",
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "tet2027.bond.gift" }],
+      "destination": "https://drive.google.com/drive/folders/1EytNE9WJhe6KNHWa6NCeSRJrF2mxjGcf",
+      "permanent": false
+    },
+    {
       "source": "/set-san/an-loc",
       "destination": "/set-san/huong-sac-xuan",
       "permanent": true
