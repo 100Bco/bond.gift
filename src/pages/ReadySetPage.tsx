@@ -61,7 +61,7 @@ export function ReadySetPage() {
                 <SetGallery key={set.slug} name={set.name} images={[1, 2, 3].map((k) => `/assets/set-san/gallery/${set.slug}-${k}.webp`)} />
               </div>
               <div className="lx-sd-intro">
-                <p className="lx-eyebrow">Sẵn Trao · {set.code}</p>
+                <p className="lx-eyebrow">Sẵn Trao</p>
                 <h1 id="lx-sd-title">{set.name}</h1>
                 <p className="lx-sd-price">{set.price}</p>
                 <p className="lx-lead">{set.desc}</p>
