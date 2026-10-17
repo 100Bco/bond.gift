@@ -289,32 +289,33 @@ function Models() {
             </CmpRow>
           ))}
           <CmpRow label="Quy trình">
-            {cols.map((c) => {
-              const proc = giftProcesses[c.kind];
-              return (
-                <div key={c.kind} role="cell" className="lx-cmpt-cell">
-                  {/* Bấm "N bước +" để xổ quy trình của riêng bên đó */}
-                  <button type="button" className="lx-cmpt-more" aria-expanded={open[c.kind]} aria-controls={`lx-cmpt-steps-${c.kind}`} onClick={() => setOpen((o) => ({ ...o, [c.kind]: !o[c.kind] }))}>
-                    <span className="lx-cmpt-val">{proc.steps.length} bước</span>
-                    <span className="lx-cmpt-pm" aria-hidden="true">{open[c.kind] ? '−' : '+'}</span>
-                    <span className="sr-only">{open[c.kind] ? 'Thu gọn quy trình' : 'Xem quy trình'} {giftModels[c.kind].name}</span>
-                  </button>
-                  <div className="lx-cmpt-steps" id={`lx-cmpt-steps-${c.kind}`} data-open={open[c.kind]}>
-                    <div className="lx-cmpt-steps-in" inert={!open[c.kind] || undefined}>
-                      {proc.note && <p className="lx-cmpt-note">{proc.note}</p>}
-                      <ol>
-                        {proc.steps.map(([t, d], i) => (
-                          <li key={t} className="lx-cmp-step">
-                            <span className="lx-cmp-step-n">{pad(i + 1)}</span>
-                            <div><p className="lx-cmp-step-t">{t}</p><p className="lx-cmp-step-d">{d}</p></div>
-                          </li>
-                        ))}
-                      </ol>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {cols.map((c) => (
+              <div key={c.kind} role="cell" className="lx-cmpt-cell">
+                {/* Bấm "N bước +" để xổ quy trình của riêng bên đó */}
+                <button type="button" className="lx-cmpt-more" aria-expanded={open[c.kind]} aria-controls={`lx-cmpt-steps-${c.kind}`} onClick={() => setOpen((o) => ({ ...o, [c.kind]: !o[c.kind] }))}>
+                  <span className="lx-cmpt-val">{giftProcesses[c.kind].steps.length} bước</span>
+                  <span className="lx-cmpt-pm" aria-hidden="true">{open[c.kind] ? '−' : '+'}</span>
+                  <span className="sr-only">{open[c.kind] ? 'Thu gọn quy trình' : 'Xem quy trình'} {giftModels[c.kind].name}</span>
+                </button>
+              </div>
+            ))}
+            {/* Các bước hai bên nằm chung một lưới: bước 1 cùng hàng bước 1, bước 2 cùng hàng bước 2 */}
+            <div className="lx-cmpt-flow">
+              {cols.map((c, col) => (
+                <ol key={c.kind} id={`lx-cmpt-steps-${c.kind}`} aria-label={`Quy trình ${giftModels[c.kind].name}`}>
+                  {giftProcesses[c.kind].steps.map(([t, d], i) => (
+                    <li key={t} className="lx-cmpt-li" data-open={open[c.kind]} style={{ gridColumn: col + 1, gridRow: i + 1 }}>
+                      <div className="lx-cmpt-li-in" inert={!open[c.kind] || undefined}>
+                        <div className="lx-cmp-step">
+                          <span className="lx-cmp-step-n">{pad(i + 1)}</span>
+                          <div><p className="lx-cmp-step-t">{t}</p><p className="lx-cmp-step-d">{d}</p></div>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              ))}
+            </div>
           </CmpRow>
         </div>
       </div>

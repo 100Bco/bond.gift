@@ -882,3 +882,12 @@
   .lx-cmpt-say { margin: 6px 0 8px; }
   .lx-cmpt-row { padding: 8px 0; }
 }
+/* Quy trình xổ xuống trong khối so sánh: hai bên chung một lưới để các bước thẳng hàng; mỗi bên mở riêng */
+.lx-cmpt-flow { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--cg); text-align: left; }
+.lx-cmpt-flow ol { display: contents; }
+.lx-cmpt-li { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.7s var(--lx-ease), opacity 0.7s var(--lx-ease); }
+.lx-cmpt-li[data-open='true'] { grid-template-rows: 1fr; opacity: 1; }
+.lx-cmpt-li-in { overflow: hidden; min-height: 0; }
+.lx-cmpt-li .lx-cmp-step { height: 100%; border-top: 1px solid var(--lx-line); }
+.lx-cmpt-li:nth-child(1) .lx-cmp-step { margin-top: 10px; }
+@media (prefers-reduced-motion: reduce) { .lx-cmpt-li { transition: none; } }
