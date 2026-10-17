@@ -224,7 +224,7 @@ export const readySets: ReadySet[] = [
     desc: 'Lấy cảm hứng từ lời chúc tài lộc viên mãn, phú quý trường tồn. Hộp cánh mở có tay xách, rượu mạnh, trà Ahmad và bánh kẹo nhập khẩu, gửi lời chúc vạn sự hanh thông.',
     contents: 'Rượu mạnh + sôcôla Nga + bánh Nga + kẹo Đức + trà Ahmad + mứt Tết',
     items: [
-      { name: 'Rượu mạnh nhãn BOND', qty: '750ml' },
+      { name: 'Rượu mạnh cao cấp', qty: '750ml' },
       { name: 'Sôcôla Nga', qty: '150g' },
       { name: 'Bánh Nga', qty: '150g' },
       { name: 'Kẹo Đức', qty: '180g' },
@@ -254,8 +254,8 @@ export const bespokeTiers: BespokeTier[] = [
   { slug: '799', name: 'Sơn Dương Như Ý', money: '799.000đ', cover: `${dz}/hop-hai-canh-vuong.webp`, contents: '1 chai rượu vang và 4 hộp quà nhỏ', box: 'Hộp âm dương 36 × 36 × 10 cm', gallery: [`${dz}/hop-hai-canh-1.webp`] },
   { slug: '1299', name: 'Xuân Khai Bảo Hạp', money: '1.299.000đ', cover: `${dz}/hop-da-vuong.webp`, contents: '1 chai rượu vang và 3 hộp quà nhỏ', box: 'Hộp 2 tầng 37,5 × 15,5 × 21,5 cm', gallery: [`${dz}/hop-da-1.webp`] },
   { slug: '2899', name: 'Ngũ Phúc Khai Xuân', money: '2.899.000đ',
-    desc: 'Ngũ Phúc Khai Xuân là thiết kế độc bản, làm riêng cho thương hiệu của bạn. Chiếc hộp mang dáng bông hoa năm cánh, như năm điều phúc gửi đến người nhận. Mặt nắp dập chìm những nét cong như cánh hoa đang xòe, viền nhũ vàng, giữa nắp là logo doanh nghiệp ép kim nổi. Nhấc nắp ra, khay vàng đựng phong bao lì xì hiện lên trước, bên dưới là chai rượu mạnh cao cấp cùng sôcôla, bánh Nga, kẹo Đức và trà Ahmad. Màu sắc, chất liệu và hoa văn đều may đo theo bộ nhận diện riêng của từng doanh nghiệp.', cover: `${dz}/hop-hoa-trang-vuong.webp`, contents: '1 chai rượu mạnh nhãn BOND và 5 hộp quà nhỏ', box: 'Hộp cánh mở có tay xách 36 × 36 cm', gallery: [1, 2, 3, 4].map((k) => `${dz}/hop-hoa-trang-${k}.webp`),
-    items: [it('Rượu mạnh nhãn BOND', '750ml', 'doc-ban-2899-ruou'), it('Sôcôla Nga', '150g', 'van-loc-vinh-hoa-2'), it('Bánh Nga', '150g', 'van-loc-vinh-hoa-3'), it('Kẹo Đức', '180g', 'van-loc-vinh-hoa-4'), it('Trà Ahmad', '100g', 'van-loc-vinh-hoa-5'), it('Mứt Tết', '120g', 'van-loc-vinh-hoa-6')] },
+    desc: 'Ngũ Phúc Khai Xuân là thiết kế độc bản, làm riêng cho thương hiệu của bạn. Chiếc hộp mang dáng bông hoa năm cánh, như năm điều phúc gửi đến người nhận. Mặt nắp dập chìm những nét cong như cánh hoa đang xòe, viền nhũ vàng, giữa nắp là logo doanh nghiệp ép kim nổi. Nhấc nắp ra, khay vàng đựng phong bao lì xì hiện lên trước, bên dưới là chai rượu mạnh cao cấp cùng sôcôla, bánh Nga, kẹo Đức và trà Ahmad. Màu sắc, chất liệu và hoa văn đều may đo theo bộ nhận diện riêng của từng doanh nghiệp.', cover: `${dz}/hop-hoa-trang-vuong.webp`, contents: '1 chai rượu mạnh cao cấp và 5 hộp quà nhỏ', box: 'Hộp cánh mở có tay xách 36 × 36 cm', gallery: [1, 2, 3, 4].map((k) => `${dz}/hop-hoa-trang-${k}.webp`),
+    items: [it('Rượu mạnh cao cấp', '750ml', 'doc-ban-2899-ruou'), it('Sôcôla Nga', '150g', 'van-loc-vinh-hoa-2'), it('Bánh Nga', '150g', 'van-loc-vinh-hoa-3'), it('Kẹo Đức', '180g', 'van-loc-vinh-hoa-4'), it('Trà Ahmad', '100g', 'van-loc-vinh-hoa-5'), it('Mứt Tết', '120g', 'van-loc-vinh-hoa-6')] },
 ];
 
 export const giftModels = {
