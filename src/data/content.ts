@@ -248,7 +248,7 @@ export const bespokeTiers: BespokeTier[] = [
   { slug: '499', name: 'Tứ Quý Cát Tường', money: '499.000đ', cover: `${dz}/hop-hoa-vuong.webp`, contents: '1 chai rượu vang và 3 hoặc 4 hộp quà nhỏ', box: 'Hộp âm dương 28 × 36 cm', gallery: [`${dz}/hop-hoa-1.webp`] },
   { slug: '799', name: 'Sơn Dương Như Ý', money: '799.000đ', cover: `${dz}/hop-hai-canh-vuong.webp`, contents: '1 chai rượu vang và 4 hộp quà nhỏ', box: 'Hộp âm dương 36 × 36 × 10 cm', gallery: [`${dz}/hop-hai-canh-1.webp`] },
   { slug: '1299', name: 'Xuân Khai Bảo Hạp', money: '1.299.000đ', cover: `${dz}/hop-da-vuong.webp`, contents: '1 chai rượu vang và 3 hộp quà nhỏ', box: 'Hộp 2 tầng 37,5 × 15,5 × 21,5 cm', gallery: [`${dz}/hop-da-1.webp`] },
-  { slug: '2899', name: 'Vạn Phúc Khai Hoa', money: '2.899.000đ', cover: '', contents: '1 chai rượu mạnh nhãn BOND và 5 hộp quà nhỏ', box: 'Hộp cánh mở có tay xách 36 × 36 cm', gallery: [] },
+  { slug: '2899', name: 'Vạn Phúc Khai Hoa', money: '2.899.000đ', cover: `${dz}/hop-hoa-trang-vuong.webp`, contents: '1 chai rượu mạnh nhãn BOND và 5 hộp quà nhỏ', box: 'Hộp cánh mở có tay xách 36 × 36 cm', gallery: [1, 2, 3, 4].map((k) => `${dz}/hop-hoa-trang-${k}.webp`) },
 ];
 
 export const giftModels = {
