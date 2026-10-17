@@ -86,7 +86,7 @@ export function BespokePage() {
         {/* 5. Liên hệ */}
         <section className="lx-cta" aria-labelledby="lx-sd-cta">
           <div className="lx-wrap">
-            <h2 id="lx-sd-cta">Đặt {tier.name.toLowerCase()}<br />cho doanh nghiệp của anh chị.</h2>
+            <h2 id="lx-sd-cta">Đặt {tier.name}<br />cho doanh nghiệp của anh chị.</h2>
             <p>Từ 300 set, 8 tuần từ khi nhận yêu cầu đến giao hàng, có mẫu thật để duyệt và nếm thử trước khi sản xuất.</p>
             <div><ZaloLink className="lx-btn lx-btn-white">Tư vấn qua Zalo</ZaloLink></div>
           </div>
