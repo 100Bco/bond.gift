@@ -57,7 +57,6 @@ export function ReadySets() {
       <div className="lx-wrap lx-wrap-wide">
         <Reveal className="lx-sec-head">
           <div>
-            <p className="lx-eyebrow">Mô hình 01</p>
             <h1 id="lx-ready-title">Sẵn Trao</h1>
             <p className="lx-sec-meta"><span>Từ 10 set</span><i aria-hidden="true">·</i><span>1-2 tuần</span><i aria-hidden="true">·</i><span>In logo UV lên nắp hộp</span></p>
           </div>
@@ -85,7 +84,6 @@ export function Bespoke() {
       <div className="lx-wrap">
         <Reveal className="lx-sec-head">
           <div>
-            <p className="lx-eyebrow">Mô hình 02</p>
             <h1 id="lx-custom-title">Độc Bản</h1>
             <p className="lx-sec-meta"><span>Từ 300 set</span><i aria-hidden="true">·</i><span>8 tuần</span><i aria-hidden="true">·</i><span>Thiết kế riêng theo thương hiệu</span></p>
             <div className="lx-disc">
