@@ -258,7 +258,7 @@ function Models() {
   const [open, setOpen] = useState({ ready: false, bespoke: false });
   const cols = [
     { kind: 'ready' as const, img: '/assets/models/so-sanh-set-san.webp', w: 1264, h: 848, alt: 'Sẵn Trao: hộp quà hai cánh đóng kín, nền xanh ngọc và đỏ, họa tiết hoa cúc và ngựa, có quai xách' },
-    { kind: 'bespoke' as const, img: '/assets/models/so-sanh-set-doc-ban.webp', w: 1264, h: 848, alt: 'Hộp quà độc bản hai cánh màu xanh ngọc, huy hiệu vàng và logo BIDV' },
+    { kind: 'bespoke' as const, img: '/assets/models/so-sanh-set-doc-ban.webp', w: 1264, h: 848, alt: 'Hộp quà Độc Bản hình hoa màu trắng, viền vàng và huy hiệu hoa vàng ở giữa' },
   ];
   return (
     <section className="lx-sec lx-cmp" id="so-sanh" aria-labelledby="lx-cmp-title">
