@@ -36,6 +36,7 @@ export function BespokePage() {
                 <p className="lx-eyebrow">Độc Bản</p>
                 <h1 id="lx-sd-title">{tier.name}</h1>
                 <p className="lx-sd-price">{tier.money}</p>
+                {tier.desc && <p className="lx-lead">{tier.desc}</p>}
                 <SpecList rows={[['Thành phần', tier.contents], ['Kích thước hộp', tier.box], moq, time]} />
                 <p className="lx-bp-note">Ngân sách tham khảo cho trọn bộ, gồm thiết kế riêng, bao bì và sản phẩm bên trong. Báo giá chính xác theo từng dự án.</p>
                 <div className="lx-sd-actions">
