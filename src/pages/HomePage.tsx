@@ -226,7 +226,7 @@ function LogoStrip() {
 /** Một ô giá trị trong bảng so sánh: một dòng, cùng cỡ chữ. short là bản rút gọn hiện dưới 480px. */
 type CmpCell = { full: string; short?: string };
 const cmpRows: [string, CmpCell, CmpCell][] = [
-  ['Thời gian hoàn thành', { full: '2 tuần từ lúc chốt mẫu', short: '2 tuần' }, { full: '8 tuần từ khi nhận yêu cầu', short: '8 tuần' }],
+  ['Thời gian hoàn thành', { full: '1-2 tuần' }, { full: '8 tuần' }],
   ['Số lượng tối thiểu', { full: '10 set' }, { full: '300 set' }],
   ['Hạn chốt đơn', { full: 'Chốt trước 15 tháng 12', short: 'Trước 15/12' }, { full: 'Chốt trước 15 tháng 11', short: 'Trước 15/11' }],
 ];

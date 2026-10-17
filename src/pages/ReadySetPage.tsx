@@ -118,7 +118,7 @@ export function ReadySetPage() {
         </section>
 
         {/* 5. Quy trình */}
-        <ProcessSteps kind="ready" eyebrow="Khoảng 2 tuần" />
+        <ProcessSteps kind="ready" eyebrow="1-2 tuần" />
 
         {/* 6. Các set còn lại */}
         <section className="lx-sec lx-sd-sec lx-sd-soft lx-sd-more" aria-labelledby="lx-sd-more">
@@ -143,7 +143,7 @@ export function ReadySetPage() {
         <section className="lx-cta" aria-labelledby="lx-sd-cta">
           <div className="lx-wrap">
             <h2 id="lx-sd-cta">Đặt set {set.name}<br />cho doanh nghiệp của anh chị.</h2>
-            <p>Từ 10 set, khoảng 2 tuần từ khi chốt đến khi giao. BOND gửi maket in logo để anh chị duyệt trước khi sản xuất.</p>
+            <p>Từ 10 set, 1-2 tuần từ khi chốt đến khi giao. BOND gửi maket in logo để anh chị duyệt trước khi sản xuất.</p>
             <div><ZaloLink className="lx-btn lx-btn-white">Tư vấn qua Zalo</ZaloLink></div>
           </div>
         </section>

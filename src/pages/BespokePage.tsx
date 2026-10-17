@@ -157,7 +157,7 @@ export function BespokePage() {
           )}
         </div>
 
-        <ProcessSteps kind="bespoke" eyebrow="Khoảng 8 tuần" />
+        <ProcessSteps kind="bespoke" eyebrow="8 tuần" />
 
         {/* Các mức khác: thẻ ảnh giống "Các set khác" bên trang Sẵn Trao */}
         <section className="lx-sec lx-sd-sec lx-sd-soft lx-sd-more" aria-labelledby="lx-bp-more">
@@ -181,7 +181,7 @@ export function BespokePage() {
         <section className="lx-cta" aria-labelledby="lx-bp-cta">
           <div className="lx-wrap">
             <Reveal><h2 id="lx-bp-cta">Chọn hướng thiết kế,<br />BOND làm riêng cho anh chị.</h2></Reveal>
-            <Reveal delay={1}><p>Khoảng 8 tuần từ khi nhận yêu cầu đến giao hàng, có mẫu thật để duyệt và nếm thử trước khi sản xuất.</p></Reveal>
+            <Reveal delay={1}><p>8 tuần từ khi nhận yêu cầu đến giao hàng, có mẫu thật để duyệt và nếm thử trước khi sản xuất.</p></Reveal>
             <Reveal delay={2}><ZaloLink className="lx-btn lx-btn-white">Tư vấn qua Zalo</ZaloLink></Reveal>
           </div>
         </section>

@@ -174,7 +174,7 @@ export type ReadySet = { slug: string; code: string; name: string; price: string
 export const pendingSpec = 'Đang cập nhật';
 /** Điều khoản chung theo catalog, dùng cho cả Sẵn Trao và Độc Bản. */
 export const orderTerms = {
-  vat: 'Giá chưa gồm 8% VAT và phí vận chuyển',
+  vat: 'Giá chưa bao gồm VAT và phí vận chuyển',
   pay: 'Đặt cọc 50% khi chốt đơn, thanh toán 50% còn lại trước khi giao',
   bag: 'Túi giấy đi kèm',
   readyGift: 'Tặng in logo UV khi đặt từ 10 set và đặt cọc trước 15/11/2026.',
@@ -196,12 +196,12 @@ export const readySets: ReadySet[] = [
   },
   {
     slug: 'xuan-cat-tuong', code: 'SS02', name: 'Xuân Cát Tường', price: '799.000đ / set', look: 'ink', photo: '/assets/set-san/xuan-cat-tuong.webp',
-    desc: 'Lấy cảm hứng từ lời chúc cát tường, may mắn ngày đầu năm. Rượu vang, trà sen và bánh xốp socola Nga gửi mong ước một năm hanh thông, tài lộc.',
-    contents: 'Mứt gừng hoặc táo đỏ + trà sen sấy thăng hoa + bánh xốp phủ socola Nga + kẹo dẻo trái cây + rượu vang',
+    desc: 'Lấy cảm hứng từ lời chúc cát tường, may mắn ngày đầu năm. Rượu vang, trà sen và bánh xốp Nga phủ sôcôla gửi mong ước một năm hanh thông, tài lộc.',
+    contents: 'Mứt gừng hoặc táo đỏ + trà sen sấy thăng hoa + bánh xốp Nga phủ sôcôla + kẹo dẻo trái cây + rượu vang',
     items: [
       { name: 'Mứt gừng hoặc táo đỏ', qty: '150g' },
       { name: 'Trà sen sấy thăng hoa (nguyên bông)', qty: '180g' },
-      { name: 'Bánh xốp phủ socola Nga', qty: '100g' },
+      { name: 'Bánh xốp Nga phủ sôcôla', qty: '100g' },
       { name: 'Kẹo dẻo trái cây', qty: '120g' },
       { name: 'Rượu vang', qty: '750ml' },
     ],
@@ -210,9 +210,9 @@ export const readySets: ReadySet[] = [
   {
     slug: 'xuan-phu-quy', code: 'SS03', name: 'Xuân Phú Quý', price: '1.299.000đ / set', look: 'red', photo: '/assets/set-san/xuan-phu-quy.webp',
     desc: 'Lấy cảm hứng từ mùa xuân sung túc và lời chúc phú quý. Hộp hai tầng sắc đỏ họa tiết hoa xuân, gửi lời chúc tài lộc, vạn sự viên mãn.',
-    contents: 'Socola + ô mai + trà Basilur hoặc trà Phúc Kiến + rượu vang',
+    contents: 'Sôcôla + ô mai + trà Basilur hoặc trà Phúc Kiến + rượu vang',
     items: [
-      { name: 'Socola', qty: '150g' },
+      { name: 'Sôcôla', qty: '150g' },
       { name: 'Ô mai mận dẻo hoặc ô mai sấu, khế', qty: '150g hoặc 180g' },
       { name: 'Trà Basilur hoặc trà Phúc Kiến', qty: '100g hoặc 120g' },
       { name: 'Rượu vang', qty: '750ml' },
@@ -222,10 +222,10 @@ export const readySets: ReadySet[] = [
   {
     slug: 'van-loc-vinh-hoa', code: 'SS04', name: 'Vạn Lộc Vinh Hoa', price: '2.899.000đ / set', look: 'black', photo: '/assets/set-san/gallery/van-loc-vinh-hoa-1.webp',
     desc: 'Lấy cảm hứng từ lời chúc tài lộc viên mãn, phú quý trường tồn. Hộp cánh mở có tay xách, rượu mạnh, trà Ahmad và bánh kẹo nhập khẩu, gửi lời chúc vạn sự hanh thông.',
-    contents: 'Rượu mạnh + socola Nga + bánh Nga + kẹo Đức + trà Ahmad + mứt Tết',
+    contents: 'Rượu mạnh + sôcôla Nga + bánh Nga + kẹo Đức + trà Ahmad + mứt Tết',
     items: [
       { name: 'Rượu mạnh nhãn BOND', qty: '750ml' },
-      { name: 'Socola Nga', qty: '150g' },
+      { name: 'Sôcôla Nga', qty: '150g' },
       { name: 'Bánh Nga', qty: '150g' },
       { name: 'Kẹo Đức', qty: '180g' },
       { name: 'Trà Ahmad', qty: '100g' },
@@ -255,19 +255,27 @@ const named = (...names: string[]): BespokeCollection[] => names.map((name) => (
 /** Bốn mức ngân sách Độc Bản; mỗi mức có một trang con /set-doc-ban/:slug. */
 export const bespokeTiers: BespokeTier[] = [
   {
-    slug: '499', name: 'Bộ sưu tập thiết yếu', money: '499.000đ', cover: `${b499}/tu-quy-cover.webp`, coverPos: '92% 50%', meta: '5 bộ sưu tập · 4 phối màu mỗi bộ', unit: 'Bộ sưu tập',
+    slug: '499', name: 'Bộ sưu tập thiết yếu', money: '499.000đ', cover: `${b499}/tu-quy-cover.webp`, coverPos: '92% 50%', meta: '4 bộ sưu tập · 4 phối màu mỗi bộ', unit: 'Bộ sưu tập',
     contents: '1 chai rượu vang và 3 hoặc 4 hộp quà nhỏ', box: 'Hộp âm dương 28 × 36 cm',
     collections: [
       {
         name: tuQuy,
         cover: { w: 1264, h: 848, src: `${b499}/tu-quy-cover.webp`, name: tuQuy, alt: `Bộ sưu tập ${tuQuy}: hộp quà đỏ họa tiết tùng bày trên bàn tiệc Tết`, pos: '78% 50%' },
         items: [
-          { w: 1024, h: 911, src: `${b499}/tu-quy-xuan-tung.webp`, name: 'Xuân Tùng', alt: `Mẫu Xuân Tùng, bộ sưu tập ${tuQuy}: hộp đỏ họa tiết tùng vàng` },
+          { w: 1024, h: 911, src: `${b499}/tu-quy-xuan-mai.webp`, name: 'Xuân Mai', alt: `Mẫu Xuân Mai, bộ sưu tập ${tuQuy}: hộp màu kem họa tiết mai` },
           { w: 1024, h: 911, src: `${b499}/tu-quy-ha-truc.webp`, name: 'Hạ Trúc', alt: `Mẫu Hạ Trúc, bộ sưu tập ${tuQuy}: hộp xanh navy họa tiết trúc vàng` },
           { w: 1024, h: 911, src: `${b499}/tu-quy-thu-cuc.webp`, name: 'Thu Cúc', alt: `Mẫu Thu Cúc, bộ sưu tập ${tuQuy}: hộp xanh lục họa tiết cúc vàng` },
-          { w: 1024, h: 911, src: `${b499}/tu-quy-dong-mai.webp`, name: 'Đông Mai', alt: `Mẫu Đông Mai, bộ sưu tập ${tuQuy}: hộp màu kem họa tiết mai` },
+          { w: 1024, h: 911, src: `${b499}/tu-quy-dong-tung.webp`, name: 'Đông Tùng', alt: `Mẫu Đông Tùng, bộ sưu tập ${tuQuy}: hộp đỏ họa tiết tùng vàng` },
         ],
       },
+      ...pending(3),
+    ],
+  },
+  // Sơn Dương Như Ý thuộc mức 799 (ảnh vẫn nằm trong thư mục 499).
+  {
+    slug: '799', name: 'Bộ sưu tập đặc sắc', money: '799.000đ', cover: `${b499}/son-duong-cover.webp`, meta: '4 bộ sưu tập · 4 phối màu mỗi bộ', unit: 'Bộ sưu tập',
+    contents: '1 chai rượu vang và 4 hộp quà nhỏ', box: 'Hộp âm dương 36 × 36 × 10 cm',
+    collections: [
       {
         name: sonDuong,
         cover: { src: `${b499}/son-duong-cover.webp`, name: sonDuong, alt: `Bộ sưu tập ${sonDuong}: hộp đỏ mở nắp cạnh hộp có đai vàng`, pos: '50% 50%' },
@@ -281,8 +289,6 @@ export const bespokeTiers: BespokeTier[] = [
       ...pending(3),
     ],
   },
-  // Mức 799 chưa có ảnh: tạm dùng ảnh bìa Sơn Dương Như Ý.
-  { slug: '799', name: 'Bộ sưu tập đặc sắc', money: '799.000đ', cover: `${b499}/son-duong-cover.webp`, meta: '4 bộ sưu tập · 4 phối màu mỗi bộ', unit: 'Bộ sưu tập', contents: '1 chai rượu vang và 4 hộp quà nhỏ', box: 'Hộp âm dương 36 × 36 cm', collections: pending(4) },
   {
     slug: '1299', name: 'Bộ sưu tập dấu ấn', money: '1.299.000đ', cover: '/assets/bespoke/1299/bidv-hop-hai-canh.webp', meta: '3 thiết kế · 3 phối màu mỗi thiết kế', unit: 'Thiết kế',
     contents: '1 chai rượu vang và 3 hộp quà nhỏ', box: 'Hộp 2 tầng 37,5 × 15,5 × 21,5 cm',
@@ -315,19 +321,18 @@ export const giftModels = {
   ready: {
     name: 'Sẵn Trao',
     say: 'Chọn mẫu có sẵn, thêm dấu ấn thương hiệu.',
-    specs: [['Thời gian hoàn thành', 'Khoảng 2 tuần'], ['Số lượng tối thiểu', 'Từ 10 set'], ['Mức độ tùy biến', 'In logo UV lên nắp hộp']] as [string, string][],
+    specs: [['Thời gian hoàn thành', '1-2 tuần'], ['Số lượng tối thiểu', 'Từ 10 set'], ['Mức độ tùy biến', 'In logo UV lên nắp hộp']] as [string, string][],
   },
   bespoke: {
     name: 'Độc Bản',
     say: 'Thiết kế riêng 100% theo thương hiệu của anh chị.',
-    specs: [['Thời gian hoàn thành', 'Khoảng 8 tuần'], ['Số lượng tối thiểu', 'Từ 300 set'], ['Mức độ tùy biến', 'Thiết kế toàn bộ, độc quyền']] as [string, string][],
+    specs: [['Thời gian hoàn thành', '8 tuần'], ['Số lượng tối thiểu', 'Từ 300 set'], ['Mức độ tùy biến', 'Thiết kế toàn bộ theo nhận diện riêng']] as [string, string][],
   },
 };
 
 /** Quy trình theo từng mô hình, hiển thị ngay trong khối "Hai cách để BOND làm quà" trên trang chủ. */
 export const giftProcesses: Record<'ready' | 'bespoke', { note?: string; steps: [string, string][] }> = {
   ready: {
-    note: 'Tinh gọn: bỏ khâu duyệt mẫu vật lý, nếm thử và thiết kế riêng.',
     steps: [
       ['Tiếp nhận yêu cầu', 'Dịp tặng, số lượng, ngân sách mỗi phần và thời điểm cần hàng.'],
       ['Chốt ruột quà', 'Chốt thành phần trong set; vẫn có thể đổi món theo danh sách món sẵn có.'],
