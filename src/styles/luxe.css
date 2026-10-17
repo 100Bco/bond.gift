@@ -942,3 +942,11 @@
   .lx-proc-meta { margin-top: 0; padding-bottom: 12px; }
 }
 @media (min-width: 861px) { .lx .lx-proc h2.lx-proc-name { font-size: 25px; } }
+/* So sánh: tên hai cột bấm được sang trang Sẵn Trao, Độc Bản; các dòng thông số nhạt và nhỏ hơn */
+.lx-cmpt-name-a { display: inline-flex; align-items: center; gap: 8px; color: inherit; transition: color 0.3s var(--lx-ease); }
+.lx-cmpt-name-a span { font-size: 0.7em; color: var(--lx-red); transition: transform 0.3s var(--lx-ease); }
+.lx-cmpt-name-a:hover { color: var(--lx-red); }
+.lx-cmpt-name-a:hover span { transform: translateX(3px); }
+.lx-cmpt-row .lx-cmpt-val { font-weight: 500; color: var(--lx-muted); }
+@media (min-width: 861px) { .lx-cmpt-row .lx-cmpt-val { font-size: 15px; } }
+@media (max-width: 860px) { .lx-cmpt-row .lx-cmpt-val { font-size: 14px; } }

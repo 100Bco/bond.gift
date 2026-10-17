@@ -268,7 +268,7 @@ function Models() {
         </Reveal>
         <div className="lx-cmpt" role="table" aria-label="So sánh Sẵn Trao và Độc Bản">
           <div className="lx-cmpt-head" role="row">
-            {cols.map((c) => <h3 key={c.kind} role="columnheader" className="lx-cmpt-name">{giftModels[c.kind].name}</h3>)}
+            {cols.map((c) => <h3 key={c.kind} role="columnheader" className="lx-cmpt-name"><Link href={c.kind === 'ready' ? '/set-san' : '/set-doc-ban'} className="lx-cmpt-name-a">{giftModels[c.kind].name} <span aria-hidden="true">→</span></Link></h3>)}
           </div>
           <div className="lx-cmpt-top">
             {cols.map((c) => (
