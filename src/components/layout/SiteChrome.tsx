@@ -11,8 +11,8 @@ export function Logo({ className = '' }: { className?: string }) {
 
 /* Menu theo bản thiết kế editorial: ba điểm đến trên trang chủ + tư vấn Zalo */
 const navLinks: [string, string][] = [
-  ['Set sẵn', '/set-san'],
-  ['Set độc bản', '/set-doc-ban'],
+  ['Sẵn Trao', '/set-san'],
+  ['Độc Bản', '/set-doc-ban'],
   ['Quy trình', '/quy-trinh'],
 ];
 
@@ -77,8 +77,8 @@ export function SiteFooter() {
           <div>
             <p className="lx-foot-h">Khám phá</p>
             <div className="lx-foot-l">
-              <Link href="/set-san">Set sẵn</Link>
-              <Link href="/set-doc-ban">Set độc bản</Link>
+              <Link href="/set-san">Sẵn Trao</Link>
+              <Link href="/set-doc-ban">Độc Bản</Link>
               <Link href="/ve-bond">Về BOND</Link>
               <Link href="/quy-trinh">Quy trình</Link>
               <Link href="/cau-hoi-thuong-gap">Câu hỏi thường gặp</Link>
@@ -96,7 +96,7 @@ export function SiteFooter() {
         <div className="lx-foot-bot">
           <span>© 2026 BOND. Tất cả quyền được bảo lưu.</span>
           <span className="lx-foot-legal"><Link href="/chinh-sach-bao-mat">Chính sách bảo mật</Link><Link href="/dieu-khoan">Điều khoản</Link></span>
-          <span className="lx-foot-eco">ZAD <i /> BOND <i /> <a href="https://100b.co" target="_blank" rel="noopener noreferrer">Hệ sinh thái 100B</a></span>
+          <span className="lx-foot-eco"><a href="https://www.zadagency.co/" target="_blank" rel="noopener noreferrer">ZAD</a> <i /> <Link href="/">BOND</Link> <i /> <a href="https://100b.co" target="_blank" rel="noopener noreferrer">Hệ sinh thái 100B</a></span>
         </div>
       </div>
     </footer>

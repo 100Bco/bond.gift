@@ -52,7 +52,7 @@ export function ReadySetPage() {
             <nav className="lx-sd-crumb" aria-label="Đường dẫn">
               <Link href="/">Trang chủ</Link>
               <span aria-hidden="true">/</span>
-              <Link href="/set-san">Set sẵn</Link>
+              <Link href="/set-san">Sẵn Trao</Link>
               <span aria-hidden="true">/</span>
               <span aria-current="page">{set.name}</span>
             </nav>
@@ -61,7 +61,7 @@ export function ReadySetPage() {
                 <SetGallery key={set.slug} name={set.name} images={[1, 2, 3].map((k) => `/assets/set-san/gallery/${set.slug}-${k}.webp`)} />
               </div>
               <div className="lx-sd-intro">
-                <p className="lx-eyebrow">Set sẵn · {set.code}</p>
+                <p className="lx-eyebrow">Sẵn Trao · {set.code}</p>
                 <h1 id="lx-sd-title">{set.name}</h1>
                 <p className="lx-sd-price">{set.price}</p>
                 <p className="lx-lead">{set.desc}</p>
@@ -128,7 +128,7 @@ export function ReadySetPage() {
               {others.map((o) => (
                 <Link key={o.slug} href={`/set-san/${o.slug}`} className="lx-card">
                   <div className="lx-card-img">
-                    <span className="lx-card-box"><img src={o.photo} alt={`Set sẵn ${o.name}`} width={1200} height={1500} loading="lazy" decoding="async" /></span>
+                    <span className="lx-card-box"><img src={o.photo} alt={`Sẵn Trao ${o.name}`} width={1200} height={1500} loading="lazy" decoding="async" /></span>
                     <span className="lx-peek" aria-hidden="true">→</span>
                   </div>
                   <h3 className="lx-card-name">{o.name}</h3>

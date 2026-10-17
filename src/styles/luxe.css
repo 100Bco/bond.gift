@@ -33,10 +33,6 @@
 /* Dấu chữ thập lấy từ khe chữ thập trong logo B, dùng cho mọi eyebrow */
 .lx-eyebrow::before { content: ''; flex: none; width: 11px; height: 11px; background: linear-gradient(var(--lx-red), var(--lx-red)) center / 1.5px 100% no-repeat, linear-gradient(var(--lx-red), var(--lx-red)) center / 100% 1.5px no-repeat; }
 .lx-lead { font-size: clamp(16px, 1.25vw, 19px); line-height: 1.6; color: var(--lx-muted); }
-.lx-cross { position: relative; width: 13px; height: 13px; flex: none; }
-.lx-cross::before, .lx-cross::after { content: ''; position: absolute; background: var(--lx-red); }
-.lx-cross::before { left: 6px; top: 0; width: 1px; height: 13px; }
-.lx-cross::after { top: 6px; left: 0; width: 13px; height: 1px; }
 
 /* Nút: chữ in hoa, góc vuông */
 .lx-btn {
@@ -152,14 +148,6 @@
 .lx-hands-held { z-index: 5; opacity: var(--heldOp, 0); transform: translateY(calc(var(--heldY, 0) * 1%)); }
 /* Hộp tách riêng mờ đi đúng lúc ảnh tay ôm hộp hiện lên */
 .lx-stage-box { opacity: var(--emptyOp, 1); }
-/* Khung lưới: đường kẻ ngang ngay dưới menu, hai đường dọc ở mép khung 1360px, dấu chữ thập tại điểm giao */
-.lx-frame { position: absolute; inset: 0; z-index: 0; pointer-events: none; display: none; }
-.lx-frame-rule { position: absolute; left: 0; right: 0; top: var(--lx-nav-h); height: 1px; background: var(--lx-line); }
-.lx-frame-col { position: absolute; top: var(--lx-nav-h); bottom: 0; left: 50%; width: min(1360px, calc(100% - 2 * var(--lx-pad-x))); transform: translateX(-50%); border-inline: 1px solid var(--lx-line); }
-.lx-frame-cross { position: absolute; top: -6px; }
-.lx-frame-cross-l { left: -7px; }
-.lx-frame-cross-r { right: -7px; }
-@media (min-width: 1024px) { .lx-frame { display: block; } }
 /* Khung cuối: đáy cảnh tan vào nền (chỉ hiện khi tay đã ôm hộp, nên màn đầu bộ quà vẫn hiện trọn) */
 .lx-hero-in { z-index: 1; }
 /* Trang trí Tết trong hero: nằm dưới chữ và ảnh (z-index 0), chỉ có ở hero vì nằm trong khung dính */
@@ -200,13 +188,6 @@
 /* Dải logo khách hàng */
 .lx-logos { position: relative; padding: 34px 0; overflow: hidden; background: #FFFFFF; border-block: 1px solid var(--lx-line); }
 /* Hai đường dọc của khung lưới hero chạy tiếp qua dải logo, dấu chữ thập ở bốn điểm giao */
-.lx-logos-frame { position: absolute; inset: 0; left: 50%; width: min(1360px, calc(100% - 2 * var(--lx-pad-x))); transform: translateX(-50%); border-inline: 1px solid var(--lx-line); pointer-events: none; display: none; }
-.lx-logos-frame .lx-cross { position: absolute; }
-.lx-logos-frame .lx-cross:nth-child(1) { left: -7px; top: -7px; }
-.lx-logos-frame .lx-cross:nth-child(2) { right: -7px; top: -7px; }
-.lx-logos-frame .lx-cross:nth-child(3) { left: -7px; bottom: -7px; }
-.lx-logos-frame .lx-cross:nth-child(4) { right: -7px; bottom: -7px; }
-@media (min-width: 1024px) { .lx-logos-frame { display: block; } }
 .lx-logos-in { display: flex; align-items: center; gap: 48px; max-width: 1400px; margin: 0 auto; padding: 0 var(--lx-pad-x); }
 .lx-logos-lab { flex: none; font-size: 11px; font-weight: 500; line-height: 1.4; letter-spacing: 0.18em; text-transform: uppercase; white-space: nowrap; color: var(--lx-muted); }
 .lx-logos-track { flex: 1; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
@@ -288,7 +269,7 @@
 .lx-sec-meta i { font-style: normal; color: var(--lx-red); }
 @media (max-width: 480px) { .lx-sec-meta { flex-direction: column; align-items: flex-start; gap: 2px; } .lx-sec-meta i { display: none; } }
 
-/* Set sẵn */
+/* Sẵn Trao */
 .lx-ready { background: var(--lx-card); border-top: 1px solid var(--lx-line); }
 .lx-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(20px, 2.2vw, 36px); }
 .lx-cards > * { display: flex; flex-direction: column; }
@@ -303,12 +284,11 @@
 .lx-card:hover .lx-card-more { color: var(--lx-red); }
 .lx-card:hover .lx-card-more span { transform: translateX(6px); }
 
-/* Set độc bản */
+/* Độc Bản */
 .lx-custom { background: var(--lx-paper); }
 .lx-disc { display: flex; align-items: flex-start; gap: 14px; max-width: 680px; margin-top: 24px; padding: 4px 0 4px 18px; border-left: 2px solid var(--lx-red); }
-.lx-disc .lx-cross { margin-top: 6px; }
 .lx-disc p { font-size: 15px; line-height: 1.6; color: var(--lx-muted); }
-/* Vòng tròn "Xem chi tiết" giữa ảnh khi rê chuột (thẻ Set sẵn và ô Set độc bản); điện thoại không hiện. */
+/* Vòng tròn "Xem chi tiết" giữa ảnh khi rê chuột (thẻ Sẵn Trao và ô Độc Bản); điện thoại không hiện. */
 .lx-peek { position: absolute; left: 50%; top: 50%; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 92px; height: 92px; border-radius: 50%; background: var(--lx-red); color: #fff; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0; transform: translate(-50%, -50%) scale(0.4); transition: transform 0.5s var(--lx-ease), opacity 0.4s var(--lx-ease); pointer-events: none; }
 .lx-peek i { font-style: normal; font-size: 13px; letter-spacing: 0; }
 .lx-bud-img::after, .lx-card-img::after { content: ''; position: absolute; inset: 0; z-index: 1; background: rgba(0, 0, 0, 0.16); opacity: 0; transition: opacity 0.5s var(--lx-ease); pointer-events: none; }
@@ -425,7 +405,7 @@
 .lx-sd-more { padding: clamp(56px, 7vw, 96px) 0; }
 .lx-wrap-wide { max-width: 1480px; }
 
-/* ---------- Chuyển động bám theo thanh cuộn: lưới Set sẵn và trang chi tiết ---------- */
+/* ---------- Chuyển động bám theo thanh cuộn: lưới Sẵn Trao và trang chi tiết ---------- */
 /* Bậc thang giá trị: JS đặt --lift (độ so le) và --sc (độ phóng ảnh) theo tiến độ cuộn */
 .lx-stair .lx-card { transform: translate3d(0, var(--lift, 0px), 0); transition: opacity 0.6s var(--lx-ease); }
 .lx-stair .lx-card:hover { transform: translate3d(0, var(--lift, 0px), 0); }
@@ -438,7 +418,7 @@
 /* Mở trang chi tiết: chữ cột phải trượt vào từ bên trái. Chỉ chạy một lần. Ảnh lớn đứng yên. */
 @keyframes lx-sd-slide { from { opacity: 0; transform: translateX(-28px); } }
 .lx-sd-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
-/* Bộ ảnh đầu trang Set sẵn (thứ tự: hộp mở, các món bày ra ngoài, hộp đóng): ảnh chồng lên nhau, hiện dần */
+/* Bộ ảnh đầu trang Sẵn Trao (thứ tự: hộp mở, các món bày ra ngoài, hộp đóng): ảnh chồng lên nhau, hiện dần */
 .lx-gal { position: absolute; inset: 0; }
 .lx-gal-stage { position: absolute; inset: 0; display: block; width: 100%; cursor: zoom-in; touch-action: pan-y; }
 .lx-gal-stage img { position: absolute; inset: 0; opacity: 0; transition: opacity 0.45s var(--lx-ease); user-select: none; }
@@ -485,7 +465,7 @@
 }
 
 
-/* ---------- Trang con Set độc bản (/set-doc-ban/:slug) ---------- */
+/* ---------- Trang con Độc Bản (/set-doc-ban/:slug) ---------- */
 .lx-bp { background: var(--lx-paper); }
 .lx-bp-hero { padding: calc(var(--lx-nav-h) + clamp(28px, 4vw, 56px)) 0 clamp(40px, 5vw, 72px); }
 .lx-bp-hero-in { max-width: 760px; }
@@ -625,7 +605,7 @@
   /* Điện thoại: mũi tên cuộn đè lên ảnh bộ quà nên ẩn; menu nền đặc để chữ bên dưới không lộ ra */
   .lx-scroll-cue { display: none; }
   .lx-nav.is-solid { background: var(--lx-paper); }
-  /* Set sẵn trên trang chủ: dải thẻ vuốt ngang, mỗi thẻ 76% bề ngang để tên nằm gọn một dòng */
+  /* Sẵn Trao trên trang chủ: dải thẻ vuốt ngang, mỗi thẻ 76% bề ngang để tên nằm gọn một dòng */
   .lx-stair { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 var(--lx-pad-x); margin: 0 calc(-1 * var(--lx-pad-x)); padding: 0 var(--lx-pad-x) 6px; scrollbar-width: none; }
   .lx-stair::-webkit-scrollbar { display: none; }
   .lx-stair > .lx-card { flex: 0 0 76%; scroll-snap-align: start; transform: none !important; }
@@ -692,7 +672,7 @@
 .lx-cta { padding: clamp(56px, 8vh, 96px) 0; }
 .lx-cta h2 { font-size: clamp(30px, 4vw, 54px); }
 .lx-cta .lx-btn { margin-top: 28px; }
-/* Trang riêng Set sẵn, Set độc bản, Quy trình: chừa chỗ cho menu */
+/* Trang riêng Sẵn Trao, Độc Bản, Quy trình: chừa chỗ cho menu */
 .lx-page > .lx-sec:first-child { padding-top: calc(var(--lx-nav-h) + clamp(40px, 6vh, 72px)); }
 .lx-page h1 { margin-top: 14px; font-size: clamp(36px, 4.6vw, 64px); }
 .lx-proc-hero { padding-bottom: clamp(24px, 4vh, 48px) !important; }
@@ -770,6 +750,25 @@
   .lx-cmpt-val { font-size: 15px; }
   .lx-cmpt-toggle { padding: 8px 0; font-size: 13.5px; }
 }
+/* So sánh: bỏ nhãn giữa, ảnh to hơn, các dòng thoáng hơn, vẫn vừa một màn hình; dấu + cạnh "N bước" để xổ quy trình từng bên */
+.lx-cmpt-more { display: inline-flex; align-items: center; gap: 10px; padding: 2px 4px; color: var(--lx-ink); transition: color 0.3s var(--lx-ease); }
+.lx-cmpt-more:hover { color: var(--lx-red); }
+.lx-cmpt-more:focus-visible { outline: 2px solid var(--lx-red); outline-offset: 4px; }
+.lx-cmpt-pm { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--lx-line-strong); color: var(--lx-red); font-size: 15px; line-height: 1; transition: border-color 0.3s var(--lx-ease); }
+.lx-cmpt-more:hover .lx-cmpt-pm { border-color: var(--lx-red); }
+.lx-cmpt-row { padding: 14px 0; }
+@media (min-width: 861px) {
+  .lx-cmp-head { margin-bottom: clamp(16px, 2.4vh, 28px); }
+  .lx-cmp-head h2 { margin-top: 0; font-size: clamp(22px, 2vw, 30px); }
+  .lx-cmpt { max-width: 1060px; }
+  .lx-cmpt-head { padding: 8px 0; }
+  .lx-cmpt-top { padding: clamp(14px, 2vh, 22px) 0 clamp(16px, 2.4vh, 24px); }
+  .lx-cmpt-img { height: clamp(220px, 34vh, 340px); }
+  .lx-cmpt-say { margin: clamp(8px, 1.4vh, 14px) 0 clamp(10px, 1.6vh, 16px); font-size: 14.5px; }
+  .lx-cmpt-intro .lx-btn { padding-block: 10px; font-size: 12px; }
+  .lx-cmpt-row { padding: clamp(9px, 1.5vh, 14px) 0; }
+  .lx-cmpt-val { font-size: 16px; }
+}
 
 /* Trang Quy trình: hai cột cạnh nhau, điện thoại chuyển bằng tab */
 .lx-proc-head { max-width: 900px; margin-bottom: clamp(28px, 4vh, 44px); }
@@ -826,7 +825,7 @@
 /* Vòng tròn trên ảnh thẻ: chỉ có mũi tên, 56px, đi theo con trỏ (vị trí --mx, --my do PeekFollow đặt) */
 .lx-peek { left: var(--mx, 50%); top: var(--my, 50%); width: 56px; height: 56px; gap: 0; font-size: 20px; font-weight: 400; letter-spacing: 0; transition: transform 0.4s var(--lx-ease), opacity 0.3s var(--lx-ease), left 0.18s ease-out, top 0.18s ease-out; }
 .lx-card-img, .lx-bud-img { cursor: none; }
-/* Trang chi tiết Set sẵn (máy tính): ảnh và cột thông tin gọn trong một màn hình */
+/* Trang chi tiết Sẵn Trao (máy tính): ảnh và cột thông tin gọn trong một màn hình */
 @media (min-width: 861px) {
   .lx-sd-hero { padding-top: calc(var(--lx-nav-h) + 20px); }
   .lx-sd-hero .lx-sd-crumb { margin-bottom: 18px; }
@@ -854,7 +853,7 @@
   .lx-sd-logo .lx-sd-logo-gift { margin-top: 10px; padding-top: 10px; }
   .lx-sd-intro .lx-sd-actions { margin-top: 22px; }
 }
-/* Trang Set độc bản: khung ảnh chuyển theo bộ sưu tập ở cột phải đầu trang */
+/* Trang Độc Bản: khung ảnh chuyển theo bộ sưu tập ở cột phải đầu trang */
 .lx-bp-show-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--lx-soft); }
 .lx-bp-show-media .lx-gal-stage img { width: 100%; height: 100%; object-fit: cover; }
 .lx-bp-show-cap { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 14px; margin-top: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--lx-line); }
@@ -875,3 +874,11 @@
   .lx-bp-hero-in .lx-sd-actions { margin-top: 18px; flex-direction: row; align-items: center; gap: 24px; }
 }
 .lx-bp-col-head h2 { margin-top: 0; }
+/* So sánh trên màn thấp (laptop 720 đến 780px): ảnh thấp hơn để cả khối vẫn vừa một màn hình dưới menu */
+@media (min-width: 861px) and (max-height: 800px) {
+  .lx-cmp { padding: 18px 0 20px; }
+  .lx-cmpt-img { height: 25vh; }
+  .lx-cmpt-top { padding: 10px 0 12px; }
+  .lx-cmpt-say { margin: 6px 0 8px; }
+  .lx-cmpt-row { padding: 8px 0; }
+}

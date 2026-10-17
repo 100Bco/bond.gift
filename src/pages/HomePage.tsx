@@ -8,7 +8,7 @@ import { TetPetals } from '@/components/bond/TetPetals';
 import { TET, TetCta } from '@/components/bond/TetCta';
 import { useInView, usePrefersReducedMotion } from '@/hooks/use-in-view';
 
-/* Trang chủ: hero, logo đối tác, so sánh hai mô hình, khoảnh khắc trao quà, khối Tết cuối trang. Set sẵn, Set độc bản, Quy trình là trang riêng. */
+/* Trang chủ: hero, logo đối tác, so sánh hai mô hình, khoảnh khắc trao quà, khối Tết cuối trang. Sẵn Trao, Độc Bản, Quy trình là trang riêng. */
 
 const pad = (n: number) => String(Math.max(0, n)).padStart(2, '0');
 const ArrowDown = () => <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M8 3v10M8 13l-4.5-4.5M8 13l4.5-4.5" /></svg>;
@@ -165,11 +165,6 @@ function Hero() {
   return (
     <section ref={ref} className={`lx-hero ${reduced ? 'is-static' : ''}`} aria-labelledby="lx-hero-title">
       <div className="lx-hero-sticky">
-        {/* Khung lưới lấy từ logo: đường kẻ dưới menu, hai đường dọc ở mép khung nội dung, dấu chữ thập tại điểm giao */}
-        <div className="lx-frame" aria-hidden="true">
-          <span className="lx-frame-rule" />
-          <span className="lx-frame-col"><i className="lx-cross lx-frame-cross lx-frame-cross-l" /><i className="lx-cross lx-frame-cross lx-frame-cross-r" /></span>
-        </div>
         {/* Trang trí Tết: cành mai, đào ở hai góc trên và hoa rơi chậm phía sau nội dung */}
         <TetPetals />
         {/* Mũi tên cuộn: nét 1px ở khoảng trống góc dưới bên trái, nổi trên ảnh */}
@@ -212,7 +207,6 @@ function LogoStrip() {
   const row = reduced ? clientLogos : [...clientLogos, ...clientLogos];
   return (
     <section className="lx-logos" aria-label="Khách hàng đã đồng hành">
-      <div className="lx-logos-frame" aria-hidden="true"><i className="lx-cross" /><i className="lx-cross" /><i className="lx-cross" /><i className="lx-cross" /></div>
       <div className="lx-logos-in">
         <p className="lx-logos-lab">Đã đồng hành cùng hệ sinh thái 100B</p>
         <div className="lx-logos-track">
@@ -234,7 +228,7 @@ type CmpCell = { full: string; short?: string };
 const cmpRows: [string, CmpCell, CmpCell][] = [
   ['Thời gian hoàn thành', { full: '2 tuần từ lúc chốt mẫu', short: '2 tuần' }, { full: '8 tuần từ khi nhận yêu cầu', short: '8 tuần' }],
   ['Số lượng tối thiểu', { full: '10 set' }, { full: '300 set' }],
-  ['Hạn chốt đơn', { full: 'Trước 15 tháng 1', short: 'Trước 15/1' }, { full: 'Trước 15 tháng 12', short: 'Trước 15/12' }],
+  ['Hạn chốt đơn', { full: 'Chốt trước 15 tháng 12', short: 'Trước 15/12' }, { full: 'Chốt trước 15 tháng 11', short: 'Trước 15/11' }],
 ];
 
 function CmpValue({ cell }: { cell: CmpCell }) {
@@ -245,12 +239,12 @@ function CmpValue({ cell }: { cell: CmpCell }) {
   );
 }
 
-/** Một dòng so sánh: nhãn chiếm cả hàng, hai giá trị bên dưới luôn thẳng hàng. Hiện dần một lần khi cuộn tới. */
+/** Một dòng so sánh: hai giá trị thẳng hàng, nhãn chỉ dành cho trình đọc màn hình. Hiện dần một lần khi cuộn tới. */
 function CmpRow({ label, id, children }: { label: string; id?: string; children: ReactNode }) {
   const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.2, once: true, rootMargin: '0px 0px -6% 0px' });
   return (
     <div ref={ref} id={id} role="row" className={`lx-cmpt-row${inView ? ' is-in' : ''}`}>
-      <div role="rowheader" className="lx-cmpt-label">{label}</div>
+      <div role="rowheader" className="sr-only">{label}</div>
       {children}
     </div>
   );
@@ -261,20 +255,18 @@ function CmpRow({ label, id, children }: { label: string; id?: string; children:
  * Tên hai cột dính trên đầu khi cuộn; chỗ không có ghi dấu "—".
  */
 function Models() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState({ ready: false, bespoke: false });
   const cols = [
-    { kind: 'ready' as const, img: '/assets/models/so-sanh-set-san.webp', w: 1672, h: 941, alt: 'Set sẵn Xuân Phú Quý: hộp hai tầng, hộp rượu và túi giấy họa tiết hoa' },
+    { kind: 'ready' as const, img: '/assets/models/so-sanh-set-san.webp', w: 1672, h: 941, alt: 'Sẵn Trao Xuân Phú Quý: hộp hai tầng, hộp rượu và túi giấy họa tiết hoa' },
     { kind: 'bespoke' as const, img: '/assets/models/so-sanh-set-doc-ban.webp', w: 1264, h: 848, alt: 'Hộp quà độc bản hai cánh màu xanh ngọc, huy hiệu vàng và logo BIDV' },
   ];
   return (
     <section className="lx-sec lx-cmp" id="so-sanh" aria-labelledby="lx-cmp-title">
       <div className="lx-wrap">
         <Reveal className="lx-cmp-head">
-          <p className="lx-eyebrow">Hai cách đặt quà</p>
           <h2 id="lx-cmp-title">Hai cách để BOND làm quà cho thương hiệu của anh chị</h2>
-          <p className="lx-lead">Cùng một đội ngũ, cùng một chuẩn hoàn thiện. Khác nhau ở mức độ anh chị muốn món quà mang dấu ấn riêng đến đâu.</p>
         </Reveal>
-        <div className="lx-cmpt" role="table" aria-label="So sánh Set sẵn và Set độc bản">
+        <div className="lx-cmpt" role="table" aria-label="So sánh Sẵn Trao và Độc Bản">
           <div className="lx-cmpt-head" role="row">
             {cols.map((c) => <h3 key={c.kind} role="columnheader" className="lx-cmpt-name">{giftModels[c.kind].name}</h3>)}
           </div>
@@ -283,9 +275,9 @@ function Models() {
               <div key={c.kind} className="lx-cmpt-intro">
                 <div className="lx-cmpt-img"><img src={c.img} alt={c.alt} width={c.w} height={c.h} loading="lazy" decoding="async" /></div>
                 <p className="lx-cmpt-say"><span className="lx-cmpt-lg">{giftModels[c.kind].say}</span><span className="lx-cmpt-sm">{c.kind === 'ready' ? 'Có sẵn, thêm logo.' : 'Thiết kế riêng.'}</span></p>
-                {/* Nút là tín hiệu ưu tiên duy nhất còn lại: Set độc bản dùng nút đỏ đặc, Set sẵn nút viền */}
+                {/* Nút là tín hiệu ưu tiên duy nhất còn lại: Độc Bản dùng nút đỏ đặc, Sẵn Trao nút viền */}
                 {c.kind === 'ready'
-                  ? <Link href="/set-san" className="lx-btn lx-btn-line">Xem Set sẵn</Link>
+                  ? <Link href="/set-san" className="lx-btn lx-btn-line">Xem Sẵn Trao</Link>
                   : <ZaloLink className="lx-btn lx-btn-red"><span className="lx-cmpt-lg">Nhận tư vấn thiết kế</span><span className="lx-cmpt-sm">Nhận tư vấn</span></ZaloLink>}
               </div>
             ))}
@@ -301,9 +293,14 @@ function Models() {
               const proc = giftProcesses[c.kind];
               return (
                 <div key={c.kind} role="cell" className="lx-cmpt-cell">
-                  <span className="lx-cmpt-val">{proc.steps.length} bước</span>
-                  <div className="lx-cmpt-steps" id={`lx-cmpt-steps-${c.kind}`} data-open={open}>
-                    <div className="lx-cmpt-steps-in" inert={!open || undefined}>
+                  {/* Bấm "N bước +" để xổ quy trình của riêng bên đó */}
+                  <button type="button" className="lx-cmpt-more" aria-expanded={open[c.kind]} aria-controls={`lx-cmpt-steps-${c.kind}`} onClick={() => setOpen((o) => ({ ...o, [c.kind]: !o[c.kind] }))}>
+                    <span className="lx-cmpt-val">{proc.steps.length} bước</span>
+                    <span className="lx-cmpt-pm" aria-hidden="true">{open[c.kind] ? '−' : '+'}</span>
+                    <span className="sr-only">{open[c.kind] ? 'Thu gọn quy trình' : 'Xem quy trình'} {giftModels[c.kind].name}</span>
+                  </button>
+                  <div className="lx-cmpt-steps" id={`lx-cmpt-steps-${c.kind}`} data-open={open[c.kind]}>
+                    <div className="lx-cmpt-steps-in" inert={!open[c.kind] || undefined}>
                       {proc.note && <p className="lx-cmpt-note">{proc.note}</p>}
                       <ol>
                         {proc.steps.map(([t, d], i) => (
@@ -318,9 +315,6 @@ function Models() {
                 </div>
               );
             })}
-            <button type="button" className="lx-cmpt-toggle" aria-expanded={open} aria-controls="lx-cmpt-steps-ready lx-cmpt-steps-bespoke" onClick={() => setOpen(!open)}>
-              {open ? 'Thu gọn các bước' : 'Xem các bước của cả hai quy trình'} <span aria-hidden="true">{open ? '−' : '+'}</span>
-            </button>
           </CmpRow>
         </div>
       </div>

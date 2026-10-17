@@ -4,7 +4,7 @@ import { Lightbox } from '@/components/bond/Lightbox';
 const LABELS = ['Hộp mở', 'Các món bày ra ngoài', 'Hộp đóng'];
 
 /**
- * Ảnh lớn đầu trang Set sẵn: nhiều ảnh xếp chồng, chuyển bằng mũi tên, chấm hoặc vuốt ngang; ảnh hiện dần.
+ * Ảnh lớn đầu trang Sẵn Trao: nhiều ảnh xếp chồng, chuyển bằng mũi tên, chấm hoặc vuốt ngang; ảnh hiện dần.
  * Bấm vào ảnh mở popup phóng to, trong popup vẫn chuyển ảnh được.
  */
 export function SetGallery({ name, images, labels = LABELS, positions, onChange }: { name: string; images: string[]; labels?: string[]; positions?: (string | undefined)[]; onChange?: (i: number) => void }) {

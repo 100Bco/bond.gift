@@ -4,7 +4,7 @@ import { bespokeTiers, readySets } from '@/data/content';
 import { Reveal } from '@/components/bond/Reveal';
 import { usePrefersReducedMotion } from '@/hooks/use-in-view';
 
-/* Lưới 4 set sẵn và lưới 2×2 các mức Set độc bản, dùng cho trang /set-san và /set-doc-ban. */
+/* Lưới 4 set sẵn và lưới 2×2 các mức Độc Bản, dùng cho trang /set-san và /set-doc-ban. */
 
 export function ReadySets() {
   const reduced = usePrefersReducedMotion();
@@ -58,7 +58,7 @@ export function ReadySets() {
         <Reveal className="lx-sec-head">
           <div>
             <p className="lx-eyebrow">Mô hình 01</p>
-            <h1 id="lx-ready-title">Set sẵn</h1>
+            <h1 id="lx-ready-title">Sẵn Trao</h1>
             <p className="lx-sec-meta"><span>Từ 10 set</span><i aria-hidden="true">·</i><span>Giao trong 2 tuần</span><i aria-hidden="true">·</i><span>In logo UV lên nắp hộp</span></p>
           </div>
         </Reveal>
@@ -66,7 +66,7 @@ export function ReadySets() {
           {readySets.map((set) => (
             <Link key={set.slug} href={`/set-san/${set.slug}`} className="lx-card">
               <div className="lx-card-img">
-                <span className="lx-card-box"><img src={set.photo} alt={`Set sẵn ${set.name}`} width={1200} height={1500} loading="lazy" decoding="async" /></span>
+                <span className="lx-card-box"><img src={set.photo} alt={`Sẵn Trao ${set.name}`} width={1200} height={1500} loading="lazy" decoding="async" /></span>
                 <span className="lx-peek" aria-hidden="true">→</span>
               </div>
               <h3 className="lx-card-name">{set.name}</h3>
@@ -86,10 +86,9 @@ export function Bespoke() {
         <Reveal className="lx-sec-head">
           <div>
             <p className="lx-eyebrow">Mô hình 02</p>
-            <h1 id="lx-custom-title">Set độc bản</h1>
+            <h1 id="lx-custom-title">Độc Bản</h1>
             <p className="lx-sec-meta"><span>Từ 300 set</span><i aria-hidden="true">·</i><span>Khoảng 8 tuần</span><i aria-hidden="true">·</i><span>Thiết kế riêng theo thương hiệu</span></p>
             <div className="lx-disc">
-              <span className="lx-cross" aria-hidden="true" />
               <p>Mỗi mẫu dưới đây là một hướng thiết kế để bắt đầu. BOND và ZAD sẽ phát triển kết cấu hộp và trải nghiệm mở hộp riêng cho thương hiệu của anh chị, không dùng lại cho bất kỳ doanh nghiệp nào khác.</p>
             </div>
           </div>

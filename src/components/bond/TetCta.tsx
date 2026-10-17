@@ -16,8 +16,8 @@ export function TetCta() {
         <Reveal delay={1}><p>Tết Đinh Mùi rơi vào ngày <span className="lx-nowrap">6 tháng 2 năm 2027.</span></p></Reveal>
         <Reveal delay={1}>
           <dl className="lx-cta-dl">
-            <div><dt>Set độc bản</dt><dd><span className="lx-cta-lg">Chốt đơn trước</span><span className="lx-cta-sm">Trước</span> 15 tháng 12</dd></div>
-            <div><dt>Set sẵn</dt><dd><span className="lx-cta-lg">Chốt đơn trước</span><span className="lx-cta-sm">Trước</span> 15 tháng 1</dd></div>
+            <div><dt>Sẵn Trao</dt><dd>Chốt trước 15 tháng 12</dd></div>
+            <div><dt>Độc Bản</dt><dd>Chốt trước 15 tháng 11</dd></div>
           </dl>
         </Reveal>
         <Reveal delay={2}><ZaloLink className="lx-btn lx-btn-white"><span>Tư vấn qua Zalo</span><ArrowUp /></ZaloLink></Reveal>

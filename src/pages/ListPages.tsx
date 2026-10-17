@@ -19,7 +19,7 @@ export function ReadySetsPage() {
   );
 }
 
-/** /set-doc-ban: lưới 2×2 các mức ngân sách Set độc bản. */
+/** /set-doc-ban: lưới 2×2 các mức ngân sách Độc Bản. */
 export function BespokeListPage() {
   return (
     <SiteShell>
@@ -35,8 +35,8 @@ export function BespokeListPage() {
 export function ProcessPage() {
   const [tab, setTab] = useState<'ready' | 'bespoke'>('ready');
   const cols = [
-    { kind: 'ready' as const, name: 'Set sẵn', time: 'khoảng 2 tuần' },
-    { kind: 'bespoke' as const, name: 'Set độc bản', time: 'khoảng 8 tuần' },
+    { kind: 'ready' as const, name: 'Sẵn Trao', time: 'khoảng 2 tuần' },
+    { kind: 'bespoke' as const, name: 'Độc Bản', time: 'khoảng 8 tuần' },
   ];
   return (
     <SiteShell>
@@ -60,7 +60,7 @@ export function ProcessPage() {
                   <StepList kind={c.kind} />
                   <div className="lx-proc-cta">
                     {c.kind === 'ready'
-                      ? <Link href="/set-san" className="lx-btn lx-btn-line">Xem Set sẵn</Link>
+                      ? <Link href="/set-san" className="lx-btn lx-btn-line">Xem Sẵn Trao</Link>
                       : <ZaloLink className="lx-btn lx-btn-red">Nhận tư vấn thiết kế</ZaloLink>}
                   </div>
                 </div>
