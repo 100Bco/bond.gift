@@ -235,86 +235,20 @@ export const readySets: ReadySet[] = [
   },
 ];
 
-/** Một ảnh trong trang Độc Bản. pos là object-position khi ảnh được cắt vào khung vuông. */
-export type BespokeImage = { src: string; name: string; alt: string; pos?: string; w?: number; h?: number };
 /**
- * Một bộ sưu tập (hoặc một mẫu riêng ở mức cao). Chưa có ảnh thì để trống cover và items.
- * cover luôn là ảnh thiết kế hộp; ảnh đời sống (bày trên bàn tiệc...) đặt ở scene, hiện thành dải nhỏ phía dưới.
+ * Bốn thiết kế Độc Bản (hộp BIDV) theo bốn mức giá; mỗi thiết kế có trang con /set-doc-ban/:slug trình bày như trang Sẵn Trao.
+ * cover: ảnh vuông 1:1 ở trang danh sách. gallery: ảnh 4:5 ở khung ảnh đầu trang con, không nhãn (mỗi thiết kế tối đa 4 ảnh).
+ * Thiết kế chưa có ảnh thì để trống (cover rỗng, gallery rỗng).
  */
-export type BespokeCollection = { name?: string; cover?: BespokeImage; items: BespokeImage[]; scene?: BespokeImage; colorways?: number };
-/** cover là ảnh vuông đại diện cho mức ở lưới trang chủ; coverPos là object-position khi cắt vào khung 1:1. */
-export type BespokeTier = { slug: string; name: string; money: string; meta: string; unit: string; cover: string; coverPos?: string; contents: string; box: string; collections: BespokeCollection[] };
+export type BespokeTier = { slug: string; name: string; money: string; cover: string; coverPos?: string; contents: string; box: string; gallery: string[] };
 
-const b499 = '/assets/bespoke/499';
-const tuQuy = 'Tứ Quý Cát Tường';
-const sonDuong = 'Sơn Dương Như Ý';
-const pending = (n: number): BespokeCollection[] => Array.from({ length: n }, () => ({ items: [] }));
-/** Mẫu chưa có ảnh nhưng đã có tên. */
-const named = (...names: string[]): BespokeCollection[] => names.map((name) => ({ name, items: [] }));
+const dz = '/assets/bespoke/designs';
 
-/** Bốn mức ngân sách Độc Bản; mỗi mức có một trang con /set-doc-ban/:slug. */
 export const bespokeTiers: BespokeTier[] = [
-  {
-    slug: '499', name: 'Bộ sưu tập thiết yếu', money: '499.000đ', cover: `${b499}/tu-quy-cover.webp`, coverPos: '92% 50%', meta: '4 bộ sưu tập · 4 phối màu mỗi bộ', unit: 'Bộ sưu tập',
-    contents: '1 chai rượu vang và 3 hoặc 4 hộp quà nhỏ', box: 'Hộp âm dương 28 × 36 cm',
-    collections: [
-      {
-        name: tuQuy,
-        cover: { w: 1264, h: 848, src: `${b499}/tu-quy-cover.webp`, name: tuQuy, alt: `Bộ sưu tập ${tuQuy}: hộp quà đỏ họa tiết tùng bày trên bàn tiệc Tết`, pos: '78% 50%' },
-        items: [
-          { w: 1024, h: 911, src: `${b499}/tu-quy-xuan-mai.webp`, name: 'Xuân Mai', alt: `Mẫu Xuân Mai, bộ sưu tập ${tuQuy}: hộp màu kem họa tiết mai` },
-          { w: 1024, h: 911, src: `${b499}/tu-quy-ha-truc.webp`, name: 'Hạ Trúc', alt: `Mẫu Hạ Trúc, bộ sưu tập ${tuQuy}: hộp xanh navy họa tiết trúc vàng` },
-          { w: 1024, h: 911, src: `${b499}/tu-quy-thu-cuc.webp`, name: 'Thu Cúc', alt: `Mẫu Thu Cúc, bộ sưu tập ${tuQuy}: hộp xanh lục họa tiết cúc vàng` },
-          { w: 1024, h: 911, src: `${b499}/tu-quy-dong-tung.webp`, name: 'Đông Tùng', alt: `Mẫu Đông Tùng, bộ sưu tập ${tuQuy}: hộp đỏ họa tiết tùng vàng` },
-        ],
-      },
-      ...pending(3),
-    ],
-  },
-  // Sơn Dương Như Ý thuộc mức 799 (ảnh vẫn nằm trong thư mục 499).
-  {
-    slug: '799', name: 'Bộ sưu tập đặc sắc', money: '799.000đ', cover: `${b499}/son-duong-cover.webp`, meta: '4 bộ sưu tập · 4 phối màu mỗi bộ', unit: 'Bộ sưu tập',
-    contents: '1 chai rượu vang và 4 hộp quà nhỏ', box: 'Hộp âm dương 36 × 36 × 10 cm',
-    collections: [
-      {
-        name: sonDuong,
-        cover: { src: `${b499}/son-duong-cover.webp`, name: sonDuong, alt: `Bộ sưu tập ${sonDuong}: hộp đỏ mở nắp cạnh hộp có đai vàng`, pos: '50% 50%' },
-        items: [
-          { src: `${b499}/son-duong-hoa.webp`, name: 'Hỏa Dương', alt: `Mẫu Hỏa Dương, bộ sưu tập ${sonDuong}: chồng hộp đỏ họa tiết sơn dương vàng` },
-          { src: `${b499}/son-duong-thuy.webp`, name: 'Thủy Dương', alt: `Mẫu Thủy Dương, bộ sưu tập ${sonDuong}: chồng hộp xanh navy họa tiết sơn dương vàng` },
-          { src: `${b499}/son-duong-tho.webp`, name: 'Thổ Dương', alt: `Mẫu Thổ Dương, bộ sưu tập ${sonDuong}: chồng hộp xanh lục họa tiết sơn dương vàng` },
-          { src: `${b499}/son-duong-kim.webp`, name: 'Kim Dương', alt: `Mẫu Kim Dương, bộ sưu tập ${sonDuong}: chồng hộp màu kem họa tiết sơn dương vàng` },
-        ],
-      },
-      ...pending(3),
-    ],
-  },
-  {
-    slug: '1299', name: 'Bộ sưu tập dấu ấn', money: '1.299.000đ', cover: '/assets/bespoke/1299/bidv-hop-hai-canh.webp', meta: '3 thiết kế · 3 phối màu mỗi thiết kế', unit: 'Thiết kế',
-    contents: '1 chai rượu vang và 3 hộp quà nhỏ', box: 'Hộp 2 tầng 37,5 × 15,5 × 21,5 cm',
-    collections: [
-      {
-        name: 'BIDV', colorways: 3,
-        items: [
-          { w: 1264, h: 848, src: '/assets/bespoke/1299/bidv-hop-hai-canh.webp', name: 'Xanh ngọc', alt: 'Hộp quà hai cánh màu xanh ngọc có huy hiệu vàng ở giữa và logo BIDV' },
-        ],
-      },
-      ...named('BOND', '100B'),
-    ],
-  },
-  {
-    slug: '2899', name: 'Bộ sưu tập tuyệt tác', money: '2.899.000đ', cover: '/assets/bespoke/2399/bidv-hop-da.webp', meta: '3 thiết kế · 3 phối màu mỗi thiết kế', unit: 'Thiết kế',
-    contents: '1 chai rượu mạnh nhãn BOND và 5 hộp quà nhỏ', box: 'Hộp cánh mở có tay xách 36 × 36 cm',
-    collections: [
-      {
-        name: 'BIDV', colorways: 3,
-        items: [
-          { w: 1264, h: 848, src: '/assets/bespoke/2399/bidv-hop-da.webp', name: 'Xanh ngọc', alt: 'Hộp quà bọc da màu xanh ngọc có quai xách và khóa vàng, logo BIDV trong ô hình hoa' },
-        ],
-      },
-      ...named('100B', 'BOND'),
-    ],
-  },
+  { slug: '499', name: 'Tứ Quý Cát Tường', money: '499.000đ', cover: `${dz}/hop-hoa-vuong.webp`, contents: '1 chai rượu vang và 3 hoặc 4 hộp quà nhỏ', box: 'Hộp âm dương 28 × 36 cm', gallery: [`${dz}/hop-hoa-1.webp`] },
+  { slug: '799', name: 'Sơn Dương Như Ý', money: '799.000đ', cover: `${dz}/hop-hai-canh-vuong.webp`, contents: '1 chai rượu vang và 4 hộp quà nhỏ', box: 'Hộp âm dương 36 × 36 × 10 cm', gallery: [`${dz}/hop-hai-canh-1.webp`] },
+  { slug: '1299', name: 'Xuân Khai Bảo Hạp', money: '1.299.000đ', cover: `${dz}/hop-da-vuong.webp`, contents: '1 chai rượu vang và 3 hộp quà nhỏ', box: 'Hộp 2 tầng 37,5 × 15,5 × 21,5 cm', gallery: [`${dz}/hop-da-1.webp`] },
+  { slug: '2899', name: 'Vạn Phúc Khai Hoa', money: '2.899.000đ', cover: '', contents: '1 chai rượu mạnh nhãn BOND và 5 hộp quà nhỏ', box: 'Hộp cánh mở có tay xách 36 × 36 cm', gallery: [] },
 ];
 
 export const giftModels = {
