@@ -908,3 +908,22 @@
 @media (min-width: 861px) and (max-height: 800px) {
   .lx-cmpt-img { height: max(160px, calc(100svh - 530px)); }
 }
+/* So sánh (máy tính): bỏ dòng mô tả dưới ảnh, chỉ giữ nút; khoảng cách gọn lại để ảnh to hết cột */
+@media (min-width: 861px) {
+  .lx-cmpt-intro .lx-btn { margin-top: clamp(12px, 1.8vh, 18px); align-self: center; white-space: nowrap; }
+  .lx-cmp-head { margin-bottom: clamp(10px, 1.6vh, 18px); }
+  .lx-cmpt-top { padding: clamp(10px, 1.6vh, 16px) 0 clamp(14px, 2vh, 20px); }
+  .lx-cmpt-row { padding: clamp(8px, 1.3vh, 13px) 0; }
+  .lx-cmpt-img { height: clamp(220px, calc(100svh - 520px), 640px); }
+}
+@media (min-width: 861px) and (max-height: 800px) {
+  .lx-cmpt-img { height: max(180px, calc(100svh - 455px)); }
+}
+/* So sánh (máy tính): khung ảnh co theo ảnh thật; ảnh rộng hết cột nhưng không cao quá phần màn còn lại */
+@media (min-width: 861px) {
+  .lx-cmpt-img { height: auto; }
+  .lx-cmpt-img img { width: auto; height: auto; max-width: 100%; max-height: clamp(220px, calc(100svh - 545px), 640px); }
+}
+@media (min-width: 861px) and (max-height: 800px) {
+  .lx-cmpt-img img { max-height: max(180px, calc(100svh - 482px)); }
+}

@@ -274,7 +274,6 @@ function Models() {
             {cols.map((c) => (
               <div key={c.kind} className="lx-cmpt-intro">
                 <div className="lx-cmpt-img"><img src={c.img} alt={c.alt} width={c.w} height={c.h} loading="lazy" decoding="async" /></div>
-                <p className="lx-cmpt-say"><span className="lx-cmpt-lg">{giftModels[c.kind].say}</span><span className="lx-cmpt-sm">{c.kind === 'ready' ? 'Có sẵn, thêm logo.' : 'Thiết kế riêng.'}</span></p>
                 {/* Nút là tín hiệu ưu tiên duy nhất còn lại: Độc Bản dùng nút đỏ đặc, Sẵn Trao nút viền */}
                 {c.kind === 'ready'
                   ? <Link href="/set-san" className="lx-btn lx-btn-line">Xem Sẵn Trao</Link>
