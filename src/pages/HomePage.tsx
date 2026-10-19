@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import { Link } from 'wouter';
 import { clientLogos, giftModels, giftProcesses } from '@/data/content';
 import { SiteShell } from '@/components/layout/SiteChrome';
@@ -11,6 +11,17 @@ import { useInView, usePrefersReducedMotion } from '@/hooks/use-in-view';
 /* Trang chủ: hero, logo đối tác, so sánh hai mô hình, khoảnh khắc trao quà, khối Tết cuối trang. Sẵn Trao, Độc Bản, Quy trình là trang riêng. */
 
 const pad = (n: number) => String(Math.max(0, n)).padStart(2, '0');
+/** Nút "Khám phá bộ sưu tập": cuộn tới khối so sánh, đặt khối vào giữa phần màn hình dưới thanh menu để thấy trọn một lần. */
+function toCompare(e: MouseEvent<HTMLAnchorElement>) {
+  const el = document.getElementById('so-sanh');
+  if (!el) return;
+  e.preventDefault();
+  const nav = document.querySelector<HTMLElement>('.lx-nav')?.offsetHeight ?? 0;
+  const free = window.innerHeight - nav - el.offsetHeight;
+  const top = el.getBoundingClientRect().top + window.scrollY - nav - Math.max(0, free / 2);
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' });
+}
 const ArrowDown = () => <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M8 3v10M8 13l-4.5-4.5M8 13l4.5-4.5" /></svg>;
 
 function useTetCountdown() {
@@ -176,7 +187,7 @@ function Hero() {
           </div>
 
           {/* Bộ quà BOND (ảnh tách nền): các món khác mờ dần, hộp bên phải trượt vào giữa, hai tay đưa lên đỡ */}
-          <div className="lx-stage" role="img" aria-label="Bộ quà Tết BOND: hộp, hũ hạt, rượu vang và tượng dê; một hộp quà được đôi tay nâng lên">
+          <div className="lx-stage" role="img" aria-label="Bộ quà Tết BOND: hộp, hũ hạt, đồ uống và tượng dê; một hộp quà được đôi tay nâng lên">
             <img className="lx-stage-layer lx-stage-rest" src="/assets/hero/collection-rest.webp" alt="" width={1600} height={757} fetchPriority="high" decoding="async" />
             {/* Đôi tay (ảnh tạo bằng Higgsfield từ hộp thật): tay không đưa lên đón, rồi hòa sang ảnh tay đang ôm hộp */}
             <div className="lx-stage-hands">
@@ -193,7 +204,7 @@ function Hero() {
           <div className={`lx-hero-p2 ${phase2 ? 'is-live' : ''}`}>
             <p className="lx-hero-line2">Brands, <span className="lx-serif">in hand.</span></p>
             <p className="lx-hero-line2sub">Đưa dấu ấn thương hiệu vào từng món quà trao tay.</p>
-            <Link href="/set-san" className="lx-btn lx-btn-red" tabIndex={phase2 ? undefined : -1}><span>Khám phá bộ sưu tập</span><ArrowDown /></Link>
+            <a href="#so-sanh" onClick={toCompare} className="lx-btn lx-btn-red" tabIndex={phase2 ? undefined : -1}><span>Khám phá bộ sưu tập</span><ArrowDown /></a>
           </div>
 
         </div>
@@ -264,7 +275,7 @@ function Models() {
     <section className="lx-sec lx-cmp" id="so-sanh" aria-labelledby="lx-cmp-title">
       <div className="lx-wrap">
         <Reveal className="lx-cmp-head">
-          <h2 id="lx-cmp-title">Hai cách để BOND làm quà cho thương hiệu của anh chị</h2>
+          <h2 id="lx-cmp-title">Hai giải pháp quà Tết từ BOND</h2>
         </Reveal>
         <div className="lx-cmpt" role="table" aria-label="So sánh Sẵn Trao và Độc Bản">
           <div className="lx-cmpt-head" role="row">
@@ -348,7 +359,7 @@ function Moment() {
         <div className="lx-moment-img"><div ref={ref} className="lx-moment-art">{/* Video lặp không tiếng (bản 2, làm chậm cho mượt, nối vòng bằng mờ chuyển): hai tay trao và hai tay nhận hộp quà BOND */}<video poster="/assets/moment/trao-qua-poster.jpg" width={1280} height={956} autoPlay muted loop playsInline disablePictureInPicture disableRemotePlayback preload="metadata" aria-label="Hai tay trao hộp quà BOND, hai tay khác đón nhận"><source src="/assets/moment/trao-qua.webm" type="video/webm" /><source src="/assets/moment/trao-qua.mp4" type="video/mp4" /></video></div></div>
         <Reveal className="lx-moment-txt">
           <p className="lx-eyebrow">Khoảnh khắc trao quà</p>
-          <h2 id="lx-moment-title"><span className="lx-l">Món quà Tết không được nhớ vì giá.</span> <span className="lx-l">Nó được nhớ vì người nhận</span> <em className="lx-serif lx-l">cảm thấy mình được trân quý.</em></h2>
+          <h2 id="lx-moment-title"><span className="lx-l">Món quà Tết được nhớ vì người nhận</span> <em className="lx-serif lx-l">cảm thấy được trân quý.</em></h2>
           <p>Đó là lý do BOND bắt đầu từ câu hỏi người nhận là ai, rồi mới đến chất liệu, cách hộp mở ra và những gì đặt bên trong.</p>
         </Reveal>
       </div>

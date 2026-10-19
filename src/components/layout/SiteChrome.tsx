@@ -86,9 +86,7 @@ export function SiteFooter() {
             <div className="lx-foot-l">
               <Link href="/set-san">Sẵn Trao</Link>
               <Link href="/set-doc-ban">Độc Bản</Link>
-              <Link href="/ve-bond">Về BOND</Link>
               <Link href="/quy-trinh">Quy trình</Link>
-              <Link href="/cau-hoi-thuong-gap">Câu hỏi thường gặp</Link>
             </div>
           </div>
           <div>
