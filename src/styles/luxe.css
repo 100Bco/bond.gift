@@ -31,7 +31,6 @@
 .lx-serif { font-family: var(--font-serif); font-style: italic; font-weight: 500; letter-spacing: -0.01em; }
 .lx-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.22em; color: var(--lx-muted); }
 /* Dấu chữ thập lấy từ khe chữ thập trong logo B, dùng cho mọi eyebrow */
-.lx-eyebrow::before { content: ''; flex: none; width: 11px; height: 11px; background: linear-gradient(var(--lx-red), var(--lx-red)) center / 1.5px 100% no-repeat, linear-gradient(var(--lx-red), var(--lx-red)) center / 100% 1.5px no-repeat; }
 .lx-lead { font-size: clamp(16px, 1.25vw, 19px); line-height: 1.6; color: var(--lx-muted); }
 
 /* Nút: chữ in hoa, góc vuông */
@@ -966,3 +965,5 @@
   .lx-nav-links, .lx-nav-ctas { display: none; }
   .lx-burger { display: flex; }
 }
+/* Nhãn Sẵn Trao, Độc Bản ở đầu trang con dùng chữ đỏ */
+.lx-sd-intro > .lx-eyebrow { color: var(--lx-red); }

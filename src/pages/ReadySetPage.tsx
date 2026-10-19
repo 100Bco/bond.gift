@@ -107,7 +107,7 @@ export function ReadySetPage() {
           <div className="lx-wrap lx-sd-pair">
             <div>
               <h2 className="lx-sd-h">Thông số hộp</h2>
-              <SpecList rows={[['Loại hộp', set.boxType], ['Túi', orderTerms.bag], ['Màu sắc', pendingSpec]]} />
+              <SpecList rows={[['Loại hộp', set.boxType], ['Túi', orderTerms.bag]]} />
             </div>
             <div>
               <h2 className="lx-sd-h">Thông tin đặt hàng</h2>
