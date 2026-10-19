@@ -285,7 +285,7 @@ export const giftProcesses: Record<'ready' | 'bespoke', { note?: string; steps: 
       ['Chốt ruột quà', 'Chốt thành phần trong set; vẫn có thể đổi món theo danh sách món sẵn có.'],
       ['Duyệt mẫu sản xuất', 'In logo của anh chị lên mẫu Sẵn Trao để duyệt; anh chị đồng ý mới sản xuất.'],
       ['Sản xuất & đóng gói', 'In UV logo lên hộp, đóng gói và kiểm tra chất lượng từng hộp.'],
-      ['Giao hàng', 'Giao một điểm hoặc nhiều điểm theo danh sách người nhận.'],
+      ['Giao hàng', 'Khách hàng thanh toán.'],
     ],
   },
   bespoke: {
@@ -296,7 +296,7 @@ export const giftProcesses: Record<'ready' | 'bespoke', { note?: string; steps: 
       ['Thiết kế hoàn thiện', 'Đội ngũ ZAD hoàn thiện đồ họa độc quyền, in thử màu và làm mockup.'],
       ['Duyệt mẫu sản xuất', 'Mẫu đầu chuyền được anh chị ký duyệt trước khi sản xuất hàng loạt.'],
       ['Sản xuất & đóng gói', 'Sản xuất hàng loạt, gia công thủ công chi tiết phức tạp, kiểm tra và niêm phong từng hộp.'],
-      ['Giao hàng', 'Giao một điểm hoặc nhiều điểm theo danh sách người nhận, đúng mốc đã cam kết.'],
+      ['Giao hàng', 'Khách hàng thanh toán.'],
     ],
   },
 };

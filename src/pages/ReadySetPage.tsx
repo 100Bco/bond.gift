@@ -111,7 +111,7 @@ export function ReadySetPage() {
             </div>
             <div>
               <h2 className="lx-sd-h">Thông tin đặt hàng</h2>
-              <SpecList rows={[['Giá', set.price], ['VAT và vận chuyển', orderTerms.vat], ['Thanh toán', orderTerms.pay], ['Giao hàng', 'Một điểm hoặc nhiều điểm theo danh sách người nhận']]} />
+              <SpecList rows={[['Giá', set.price], ['VAT và vận chuyển', orderTerms.vat], ['Thanh toán', orderTerms.pay], ['Giao hàng', 'Khách hàng thanh toán']]} />
             </div>
           </div>
         </section>
