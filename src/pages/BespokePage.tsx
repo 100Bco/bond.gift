@@ -30,7 +30,7 @@ export function BespokePage() {
             </nav>
             <div className="lx-sd-hero-grid">
               <div className="lx-sd-media">
-                {tier.gallery.length > 0 && <SetGallery key={tier.slug} name={tier.name} images={tier.gallery} labels={tier.gallery.map((_, i) => `Ảnh ${i + 1}`)} />}
+                {tier.gallery.length > 0 && <SetGallery key={tier.slug} name={tier.name} images={tier.gallery} labels={tier.gallery.map((_, i) => `Ảnh ${i + 1}`)} positions={tier.galleryPos} />}
               </div>
               <div className="lx-sd-intro">
                 <p className="lx-eyebrow">Độc Bản</p>
