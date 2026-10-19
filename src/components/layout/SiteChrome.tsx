@@ -16,6 +16,9 @@ const navLinks: [string, string][] = [
   ['Quy trình', '/quy-trinh'],
 ];
 
+/** Catalog quà Tết 2027 (file trên Google Drive), mở ở tab mới. */
+export const CATALOG_URL = 'https://drive.google.com/file/d/1m-LU2sjvFhX9tmnxscPuZaXaQVXLKXiL/view?usp=drive_link';
+
 const ArrowUp = () => (
   <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M4 12L12 4M12 4H5.5M12 4v6.5" /></svg>
 );
@@ -48,13 +51,17 @@ export function SiteHeader() {
           <nav className="lx-nav-links" aria-label="Điều hướng chính">
             {navLinks.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
           </nav>
-          <ZaloLink className="lx-nav-cta"><span>Tư vấn qua Zalo</span><ArrowUp /></ZaloLink>
+          <div className="lx-nav-ctas">
+            <a className="lx-nav-cta lx-nav-cat" href={CATALOG_URL} target="_blank" rel="noopener noreferrer"><span>Catalog Tết 2027</span><ArrowUp /></a>
+            <ZaloLink className="lx-nav-cta"><span>Tư vấn qua Zalo</span><ArrowUp /></ZaloLink>
+          </div>
           <button type="button" className="lx-burger" onClick={() => setMenuOpen((v) => !v)} aria-expanded={menuOpen} aria-controls="lx-mobile-nav" aria-label={menuOpen ? 'Đóng menu' : 'Mở menu'}>
             <span />
           </button>
         </div>
       </header>
       <div id="lx-mobile-nav" className={`lx-mobile ${menuOpen ? 'is-open' : ''}`} hidden={!menuOpen}>
+        <a className="lx-mobile-cat" href={CATALOG_URL} target="_blank" rel="noopener noreferrer">Catalog Tết 2027 <ArrowUp /></a>
         {navLinks.map(([label, href]) => <Link key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</Link>)}
         <ZaloLink className="lx-mobile-zalo">Tư vấn qua Zalo</ZaloLink>
       </div>

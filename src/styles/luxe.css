@@ -950,3 +950,19 @@
 .lx-cmpt-row .lx-cmpt-val { font-weight: 500; color: var(--lx-muted); }
 @media (min-width: 861px) { .lx-cmpt-row .lx-cmpt-val { font-size: 15px; } }
 @media (max-width: 860px) { .lx-cmpt-row .lx-cmpt-val { font-size: 14px; } }
+/* Menu: nút Catalog Tết 2027 màu đỏ BOND, cạnh nút Zalo; điện thoại nằm đầu menu xổ xuống */
+.lx-nav-ctas { display: flex; align-items: center; gap: 10px; }
+.lx-nav-cta.lx-nav-cat { background: var(--lx-red); }
+.lx-nav-cta.lx-nav-cat:hover { background: var(--lx-red-deep); }
+.lx-mobile a.lx-mobile-cat { display: inline-flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 8px; padding: 16px 20px; border-bottom: 0; background: var(--lx-red); color: #FFFFFF; font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase; }
+@media (max-width: 860px) { .lx-nav-ctas { display: none; } }
+/* Menu: chữ không xuống dòng; màn vừa (861 đến 1180px) thu gọn khoảng cách, hẹp hơn nữa thì dùng menu 3 gạch */
+.lx-nav-links a, .lx-nav-cta { white-space: nowrap; }
+@media (max-width: 1180px) {
+  .lx-nav-links { gap: 26px; }
+  .lx-nav-cta { padding: 12px 18px; }
+}
+@media (max-width: 1040px) {
+  .lx-nav-links, .lx-nav-ctas { display: none; }
+  .lx-burger { display: flex; }
+}
