@@ -240,7 +240,7 @@ export const readySets: ReadySet[] = [
  * cover: ảnh vuông 1:1 ở trang danh sách. gallery: ảnh 4:5 ở khung ảnh đầu trang con, không nhãn (mỗi thiết kế tối đa 4 ảnh).
  * Thiết kế chưa có ảnh thì để trống (cover rỗng, gallery rỗng).
  */
-export type BespokeTier = { slug: string; name: string; money: string; cover: string; coverPos?: string; desc?: string; contents: string; box: string; gallery: string[]; items?: BespokeItem[] };
+export type BespokeTier = { slug: string; name: string; money: string; cover: string; coverPos?: string; desc?: string; contents: string; box: string; gallery: string[]; galleryPos?: (string | undefined)[]; items?: BespokeItem[] };
 /** Một món trong hộp Độc Bản; img là ảnh tròn nhỏ (dùng lại ảnh món của Sẵn Trao khi cùng món). */
 export type BespokeItem = SetItem & { img: string };
 const it = (name: string, qty: string, img: string): BespokeItem => ({ name, qty, img: `/assets/set-san/items/${img}.webp` });
@@ -249,7 +249,7 @@ const dz = '/assets/bespoke/designs';
 
 export const bespokeTiers: BespokeTier[] = [
   { slug: '499', name: 'Kim Mai Tài Lộc', money: '499.000đ', cover: `${dz}/kim-mai-vuong.webp`,
-    desc: 'Lấy cảm hứng từ hoạ tiết cổ điển trong mỹ thuật cung đình Huế, hộp phủ giấy vàng hoa mai với lưới lục giác như song cửa cung đình, mỗi nhịp lưới điểm một bông mai ánh ngọc trai viền ép kim. Dải đai giấy nhũ vàng ôm ngang thân hộp, khoét ô tròn để lộ logo doanh nghiệp ép kim. Bên trong là chai vang đỏ cùng ba hộp quà nhỏ: mứt gừng, trà sen sấy thăng hoa và bánh quy nhập khẩu.', contents: '1 chai rượu vang và 3 hoặc 4 hộp quà nhỏ', box: 'Hộp âm dương 28 × 36 cm', gallery: [1, 2, 3, 4].map((k) => `${dz}/kim-mai-${k}.webp`),
+    desc: 'Lấy cảm hứng từ hoạ tiết cổ điển trong mỹ thuật cung đình Huế, hộp phủ giấy vàng hoa mai với lưới lục giác như song cửa cung đình, mỗi nhịp lưới điểm một bông mai ánh ngọc trai viền ép kim. Dải đai giấy nhũ vàng ôm ngang thân hộp, khoét ô tròn để lộ logo doanh nghiệp ép kim. Bên trong là chai vang đỏ cùng ba hộp quà nhỏ: mứt gừng, trà sen sấy thăng hoa và bánh quy nhập khẩu.', contents: '1 chai rượu vang và 3 hoặc 4 hộp quà nhỏ', box: 'Hộp âm dương 28 × 36 cm', gallery: [1, 2, 3, 4].map((k) => `${dz}/kim-mai-${k}.webp`), galleryPos: [undefined, undefined, undefined, 'center 85%'],
     items: [it('Mứt gừng', '150g', 'huong-sac-xuan-1'), it('Trà sen sấy thăng hoa (nguyên bông)', '180g', 'huong-sac-xuan-2'), it('Bánh quy nhập khẩu', '100g', 'huong-sac-xuan-3'), it('Rượu vang đỏ', '750ml', 'huong-sac-xuan-5')] },
   { slug: '799', name: 'Đan Môn Khải Lộc', money: '799.000đ', cover: `${dz}/dan-mon-vuong.webp`,
     desc: 'Đan Môn Khải Lộc lấy cảm hứng từ cánh cửa gỗ sơn son của những nếp nhà xưa ngày Tết. Cánh ngoài màu đỏ đô được đục 25 khe như song cửa, để lớp kim vàng phía sau ánh lên qua từng khe như nắng xuân lọt qua song gỗ. Chiếc tag tròn ép kim logo doanh nghiệp đóng vai trò then cài. Người nhận mở cánh son trước, rồi mới mở cánh vàng, chậm rãi qua từng lớp trước khi gặp món quà bên trong.',
