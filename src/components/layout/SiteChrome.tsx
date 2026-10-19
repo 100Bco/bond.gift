@@ -17,7 +17,7 @@ const navLinks: [string, string][] = [
 ];
 
 /** Catalog quà Tết 2027 (file trên Google Drive), mở ở tab mới. */
-export const CATALOG_URL = 'https://drive.google.com/file/d/1m-LU2sjvFhX9tmnxscPuZaXaQVXLKXiL/view?usp=drive_link';
+export const CATALOG_URL = 'https://drive.google.com/drive/folders/1EytNE9WJhe6KNHWa6NCeSRJrF2mxjGcf';
 
 const ArrowUp = () => (
   <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M4 12L12 4M12 4H5.5M12 4v6.5" /></svg>
