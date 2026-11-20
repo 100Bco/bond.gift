@@ -5,6 +5,7 @@ import { BondGlyph } from '@/components/bond/BondGlyph';
 import { ContactForm } from '@/components/bond/ContactForm';
 import { Accordion, Button, ButtonLink, ChapterNumber, Field, Label, SectionIntro, TextLink, TrustRow } from '@/components/bond/primitives';
 import { EditorialHero, FinalCta, Section } from '@/components/bond/sections';
+import { contactEmail, hotline } from '@/data/content';
 
 /* ---------- /lien-he ---------- */
 
@@ -213,7 +214,7 @@ export function LegalPage({ kind }: { kind: 'privacy' | 'terms' }) {
           <div className="legal-body">
             <p className="legal-lede">{config[2]}</p>
             <p>BOND tôn trọng sự riêng tư, quyền sở hữu trí tuệ và những thỏa thuận bảo mật trong quá trình làm việc. Mọi thông tin chi tiết sẽ được xác nhận trong văn bản phù hợp với từng dự án.</p>
-            <p>Để trao đổi cụ thể, anh chị có thể <TextLink href="/lien-he">liên hệ cùng BOND</TextLink>.</p>
+            <p>Để trao đổi cụ thể, anh chị có thể liên hệ BOND qua email <a href={`mailto:${contactEmail}`}>{contactEmail}</a> hoặc hotline <a href={`tel:${hotline.tel}`}>{hotline.label}</a>.</p>
           </div>
         </div>
       </article>
