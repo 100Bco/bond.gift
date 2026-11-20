@@ -304,3 +304,5 @@ export const giftProcesses: Record<'ready' | 'bespoke', { note?: string; steps: 
 export const officeLines = ['Số 15A ngõ 192 Lê Trọng Tấn, P. Phương Liệt, TP Hà Nội'];
 /** Hotline hiển thị và số gọi (tel:). */
 export const hotline = { label: '085.285.9595', tel: '+84852859595' };
+/** Email liên hệ (tạm dùng email chung của 100B). */
+export const contactEmail = 'global@100b.co';
